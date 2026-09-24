@@ -5,6 +5,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { fetchCMSFromSupabase, saveCMSToSupabase, getSupabaseClient } from './supabase';
 
 export interface HeroConfig {
   headline: string;
@@ -528,6 +529,11 @@ export function saveCMSData(data: CMSData): void {
     data.lastUpdated = new Date().toISOString();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     window.dispatchEvent(new CustomEvent('mayavi_cms_updated', { detail: data }));
+
+    // Automatically sync to Supabase cloud database if configured
+    saveCMSToSupabase(data).catch((err) => {
+      console.warn('Supabase background sync notice:', err);
+    });
   } catch (e) {
     console.error('Failed to save Mayavi CMS data to localStorage:', e);
   }
@@ -606,8 +612,39 @@ export function recordNewInquiry(inquiry: Omit<StoredInquiry, 'id' | 'date' | 's
  */
 export function useCMS() {
   const [data, setData] = useState<CMSData>(() => getCMSData());
+  const [isCloudSyncing, setIsCloudSyncing] = useState<boolean>(false);
 
   useEffect(() => {
+    let isMounted = true;
+
+    // Asynchronously hydrate from Supabase cloud database
+    const hydrateFromCloud = async () => {
+      try {
+        setIsCloudSyncing(true);
+        const cloudData = await fetchCMSFromSupabase();
+        if (!isMounted || !cloudData) {
+          setIsCloudSyncing(false);
+          return;
+        }
+
+        const localData = getCMSData();
+        const localTime = new Date(localData.lastUpdated || 0).getTime();
+        const cloudTime = new Date(cloudData.lastUpdated || 0).getTime();
+
+        // If cloud data is newer or local is uninitialized default, update local store
+        if (cloudTime >= localTime || !localStorage.getItem(STORAGE_KEY)) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData));
+          setData(cloudData);
+        }
+      } catch (err) {
+        console.warn('Initial cloud hydration note:', err);
+      } finally {
+        if (isMounted) setIsCloudSyncing(false);
+      }
+    };
+
+    hydrateFromCloud();
+
     const handleUpdate = () => {
       setData(getCMSData());
     };
@@ -615,9 +652,38 @@ export function useCMS() {
     window.addEventListener('mayavi_cms_updated', handleUpdate);
     window.addEventListener('storage', handleUpdate);
 
+    // Setup Supabase Realtime channel for instant cross-device updates
+    const client = getSupabaseClient();
+    let channel: any = null;
+
+    if (client) {
+      try {
+        channel = client
+          .channel('mayavi_cms_realtime_changes')
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'mayavi_cms', filter: 'id=eq.production' },
+            (payload: any) => {
+              if (payload.new && payload.new.data) {
+                const remoteData = payload.new.data as CMSData;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteData));
+                setData(remoteData);
+              }
+            }
+          )
+          .subscribe();
+      } catch (subErr) {
+        console.warn('Supabase Realtime subscription note:', subErr);
+      }
+    }
+
     return () => {
+      isMounted = false;
       window.removeEventListener('mayavi_cms_updated', handleUpdate);
       window.removeEventListener('storage', handleUpdate);
+      if (client && channel) {
+        client.removeChannel(channel);
+      }
     };
   }, []);
 
@@ -627,9 +693,28 @@ export function useCMS() {
     setData(next);
   };
 
+  const reloadFromCloud = async (): Promise<boolean> => {
+    try {
+      setIsCloudSyncing(true);
+      const cloudData = await fetchCMSFromSupabase();
+      if (cloudData) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData));
+        setData(cloudData);
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    } finally {
+      setIsCloudSyncing(false);
+    }
+  };
+
   return {
     cms: data,
     updateCMS: update,
+    isCloudSyncing,
+    reloadFromCloud,
     resetCMS: () => {
       const reset = resetCMSData();
       setData(reset);

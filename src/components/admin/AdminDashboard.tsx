@@ -30,7 +30,14 @@ import {
   LogOut,
   RefreshCw,
   Copy,
-  Check
+  Check,
+  Database,
+  Cloud,
+  CloudUpload,
+  CloudDownload,
+  CheckCircle2,
+  AlertCircle,
+  Code
 } from 'lucide-react';
 import {
   CMSData,
@@ -46,13 +53,20 @@ import {
   DEFAULT_CMS_DATA
 } from '../../lib/cmsStore';
 import { parseVideo, detectVideoPlatform, getVideoEmbedUrl } from '../../lib/videoUtils';
+import {
+  getSupabaseConfig,
+  setCustomSupabaseConfig,
+  testSupabaseConnection,
+  saveCMSToSupabase,
+  SUPABASE_SQL_SCHEMA
+} from '../../lib/supabase';
 
 interface AdminDashboardProps {
   onExit: () => void;
 }
 
 export default function AdminDashboard({ onExit }: AdminDashboardProps) {
-  const { cms, updateCMS, resetCMS } = useCMS();
+  const { cms, updateCMS, resetCMS, isCloudSyncing, reloadFromCloud } = useCMS();
   const [activeTab, setActiveTab] = useState<
     'overview' | 'hero-glimpses' | 'showreel' | 'portfolio' | 'services-about' | 'integrations' | 'security'
   >('overview');
@@ -86,6 +100,18 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  // Supabase Cloud State
+  const initialConfig = getSupabaseConfig();
+  const [supabaseUrl, setSupabaseUrl] = useState<string>(initialConfig.url);
+  const [supabaseAnonKey, setSupabaseAnonKey] = useState<string>(initialConfig.anonKey);
+  const [supabaseConfig, setSupabaseConfig] = useState(initialConfig);
+  const [isTestingSupabase, setIsTestingSupabase] = useState<boolean>(false);
+  const [supabaseTestResult, setSupabaseTestResult] = useState<{ success: boolean; message: string; tableReady?: boolean } | null>(null);
+  const [isPushingCloud, setIsPushingCloud] = useState<boolean>(false);
+  const [isPullingCloud, setIsPullingCloud] = useState<boolean>(false);
+  const [showSqlSchema, setShowSqlSchema] = useState<boolean>(false);
+  const [sqlCopied, setSqlCopied] = useState<boolean>(false);
 
   // Bulk Seed Helper for 50-100 Hybrid Video Links
   const handleSeedExhibitions = () => {
@@ -477,6 +503,53 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
     e.target.value = '';
   };
 
+  // Supabase Cloud Database Handlers
+  const handleSaveSupabaseConfig = async () => {
+    setCustomSupabaseConfig(supabaseUrl, supabaseAnonKey);
+    const cfg = getSupabaseConfig();
+    setSupabaseConfig(cfg);
+    setIsTestingSupabase(true);
+    setSupabaseTestResult(null);
+    const res = await testSupabaseConnection(supabaseUrl, supabaseAnonKey);
+    setIsTestingSupabase(false);
+    setSupabaseTestResult(res);
+    if (res.success) {
+      showToast(res.tableReady ? 'Supabase connected! All videos will sync across all devices.' : 'Connected to Supabase! Please run SQL schema to create table.');
+    } else {
+      showToast(`Supabase connection error: ${res.message}`);
+    }
+  };
+
+  const handlePushToCloud = async () => {
+    setIsPushingCloud(true);
+    const res = await saveCMSToSupabase(cms);
+    setIsPushingCloud(false);
+    if (res.success) {
+      showToast('✓ All current videos, showreels & content pushed to Supabase Cloud!');
+    } else {
+      showToast(`Cloud upload error: ${res.message}`);
+    }
+  };
+
+  const handlePullFromCloud = async () => {
+    if (!window.confirm('Pull and overwrite local CMS with data currently stored in Supabase Cloud?')) return;
+    setIsPullingCloud(true);
+    const success = await reloadFromCloud();
+    setIsPullingCloud(false);
+    if (success) {
+      showToast('✓ CMS successfully refreshed from Supabase Cloud!');
+    } else {
+      showToast('Could not fetch data from Supabase Cloud.');
+    }
+  };
+
+  const handleCopySql = () => {
+    navigator.clipboard.writeText(SUPABASE_SQL_SCHEMA);
+    setSqlCopied(true);
+    showToast('✓ Supabase SQL schema copied to clipboard!');
+    setTimeout(() => setSqlCopied(false), 2500);
+  };
+
   // Logout
   const handleLogout = () => {
     sessionStorage.removeItem('mayavi_admin_session_auth');
@@ -518,6 +591,28 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[8px] tracking-widest uppercase">
                 SINGLE-USER SECURE
               </span>
+              {supabaseConfig.isConfigured ? (
+                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[8px] tracking-widest uppercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>SUPABASE CLOUD LIVE</span>
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('security')}
+                  className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 font-mono text-[8px] tracking-widest uppercase hover:bg-amber-500/30 transition-all cursor-pointer"
+                  title="Click to connect Supabase Cloud Database"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                  <span>CONNECT CLOUD DB</span>
+                </button>
+              )}
+              {isCloudSyncing && (
+                <span className="flex items-center space-x-1 text-[8px] font-mono text-[#EAB308] animate-pulse">
+                  <RefreshCw size={9} className="animate-spin" />
+                  <span>SYNCING...</span>
+                </span>
+              )}
             </div>
             <p className="font-mono text-[9px] text-white/40 tracking-wider">
               PORT 3000 // ARRI CALIBRATED LIVE REPOSITORY
@@ -601,7 +696,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             { id: 'portfolio', label: 'Curated Exhibitions', icon: FolderKanban, badge: `${cms.curatedExhibitions.length}` },
             { id: 'services-about', label: 'Core Services & Story', icon: FileText },
             { id: 'integrations', label: 'Sheets & WhatsApp', icon: Sheet, badge: `${cms.inquiries.length}` },
-            { id: 'security', label: 'Security & Backup', icon: Shield }
+            { 
+              id: 'security', 
+              label: 'Cloud DB & Security', 
+              icon: Shield, 
+              badge: supabaseConfig.isConfigured ? 'Cloud Live' : 'Setup DB' 
+            }
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -2323,8 +2423,206 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   Access Control & System Backups
                 </h1>
                 <p className="text-white/50 text-xs font-sans mt-1">
-                  Update the master single-user passcode, export complete JSON database backups, or reset defaults.
+                  Connect Supabase cloud database, update the master single-user passcode, export complete JSON database backups, or reset defaults.
                 </p>
+              </div>
+
+              {/* SUPABASE CLOUD DATABASE (PERSISTENCE BRIDGE) */}
+              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+                  <div className="flex items-center space-x-3">
+                    <Database className="text-[#EAB308]" size={22} />
+                    <div>
+                      <h2 className="text-xl font-serif italic text-white flex items-center gap-2">
+                        Supabase Cloud Database
+                        <span className="text-[10px] font-mono not-italic px-2 py-0.5 rounded bg-[#EAB308]/15 border border-[#EAB308]/30 text-[#EAB308] uppercase">
+                          Multi-Device Sync
+                        </span>
+                      </h2>
+                      <p className="text-xs text-white/50 font-sans mt-0.5">
+                        Syncs all videos, showreel acts, and CMS edits to a live PostgreSQL backend so changes reflect across all phones, tablets, and visitors worldwide.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    {supabaseConfig.isConfigured ? (
+                      <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono text-[10px]">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>CONNECTED ({supabaseConfig.source === 'env' ? 'VERCEL ENV' : 'BROWSER VAULT'})</span>
+                      </span>
+                    ) : (
+                      <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono text-[10px]">
+                        <span className="w-2 h-2 rounded-full bg-amber-400" />
+                        <span>LOCALSTORAGE ONLY (OFFLINE)</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Configuration Inputs */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1.5 text-left">
+                    <label className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center justify-between">
+                      <span>Supabase Project URL</span>
+                      <span className="text-[9px] text-white/40 lowercase">e.g. https://xyz.supabase.co</span>
+                    </label>
+                    <input
+                      type="url"
+                      value={supabaseUrl}
+                      onChange={(e) => setSupabaseUrl(e.target.value)}
+                      placeholder="https://your-project.supabase.co"
+                      className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 text-left">
+                    <label className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center justify-between">
+                      <span>Supabase Public Anon Key</span>
+                      <span className="text-[9px] text-white/40 lowercase">anon / public key</span>
+                    </label>
+                    <input
+                      type="password"
+                      value={supabaseAnonKey}
+                      onChange={(e) => setSupabaseAnonKey(e.target.value)}
+                      placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                      className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={handleSaveSupabaseConfig}
+                    disabled={isTestingSupabase}
+                    className="px-5 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 disabled:opacity-50 text-black font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md"
+                  >
+                    {isTestingSupabase ? (
+                      <>
+                        <RefreshCw size={14} className="animate-spin" />
+                        <span>TESTING CONNECTION...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Check size={14} />
+                        <span>SAVE & TEST CONNECTION</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handlePushToCloud}
+                    disabled={isPushingCloud || !supabaseConfig.isConfigured}
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 border border-white/10 text-white font-mono text-xs tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all"
+                  >
+                    {isPushingCloud ? (
+                      <>
+                        <RefreshCw size={13} className="animate-spin text-[#EAB308]" />
+                        <span>PUSHING TO CLOUD...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CloudUpload size={13} className="text-[#EAB308]" />
+                        <span>PUSH CURRENT CMS TO CLOUD</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handlePullFromCloud}
+                    disabled={isPullingCloud || !supabaseConfig.isConfigured}
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 border border-white/10 text-white font-mono text-xs tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all"
+                  >
+                    {isPullingCloud ? (
+                      <>
+                        <RefreshCw size={13} className="animate-spin text-emerald-400" />
+                        <span>PULLING FROM CLOUD...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CloudDownload size={13} className="text-emerald-400" />
+                        <span>PULL LATEST FROM CLOUD</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowSqlSchema(!showSqlSchema)}
+                    className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white font-mono text-xs tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all ml-auto"
+                  >
+                    <Code size={13} className="text-amber-400" />
+                    <span>{showSqlSchema ? 'HIDE SQL SCHEMA' : 'VIEW / COPY SQL SCHEMA'}</span>
+                  </button>
+                </div>
+
+                {/* Connection Test Result Banner */}
+                {supabaseTestResult && (
+                  <div
+                    className={`p-4 rounded-2xl border text-xs font-mono flex items-start space-x-3 ${
+                      supabaseTestResult.success && supabaseTestResult.tableReady
+                        ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                        : supabaseTestResult.success && !supabaseTestResult.tableReady
+                        ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                        : 'bg-red-500/10 border-red-500/30 text-red-300'
+                    }`}
+                  >
+                    {supabaseTestResult.success && supabaseTestResult.tableReady ? (
+                      <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-emerald-400" />
+                    ) : (
+                      <AlertCircle size={16} className="shrink-0 mt-0.5 text-amber-400" />
+                    )}
+                    <div className="space-y-1">
+                      <p className="font-bold">{supabaseTestResult.message}</p>
+                      {!supabaseTestResult.tableReady && supabaseTestResult.success && (
+                        <p className="text-[11px] opacity-80 font-sans">
+                          Click <strong>VIEW / COPY SQL SCHEMA</strong> below, copy the SQL, paste it into your Supabase Dashboard SQL Editor, and click Run.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Collapsible SQL Schema Drawer */}
+                {showSqlSchema && (
+                  <div className="p-5 rounded-2xl bg-black/60 border border-amber-500/20 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2 text-[#EAB308]">
+                        <Code size={16} />
+                        <span className="font-mono text-xs font-bold uppercase tracking-wider">
+                          Supabase SQL Schema (Run in Supabase SQL Editor)
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleCopySql}
+                        className="px-3 py-1.5 rounded-lg bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-[10px] font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer transition-all"
+                      >
+                        {sqlCopied ? <Check size={12} /> : <Copy size={12} />}
+                        <span>{sqlCopied ? 'COPIED TO CLIPBOARD!' : 'COPY SQL CODE'}</span>
+                      </button>
+                    </div>
+
+                    <pre className="p-4 rounded-xl bg-neutral-950 border border-white/10 text-white/80 font-mono text-[11px] overflow-x-auto leading-relaxed select-all">
+                      {SUPABASE_SQL_SCHEMA}
+                    </pre>
+
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/5 space-y-1 text-white/60 text-xs font-sans">
+                      <p className="font-bold text-white text-[11px] font-mono uppercase tracking-wider text-[#EAB308]">
+                        ⚡ 3-Step Supabase Setup Guide:
+                      </p>
+                      <ol className="list-decimal list-inside space-y-1 text-[11px]">
+                        <li>Create a free account at <strong>supabase.com</strong> and create a new project.</li>
+                        <li>In your project sidebar, click <strong>SQL Editor</strong> &gt; <strong>New query</strong>, paste the SQL code above, and click <strong>Run</strong>.</li>
+                        <li>Go to <strong>Project Settings &gt; API</strong>, copy the <strong>Project URL</strong> and <strong>anon public API key</strong>, and paste them above.</li>
+                      </ol>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* CHANGE MASTER PASSCODE */}
