@@ -29,7 +29,8 @@ import {
   HelpCircle,
   LogOut,
   RefreshCw,
-  Copy
+  Copy,
+  Check
 } from 'lucide-react';
 import {
   CMSData,
@@ -38,6 +39,7 @@ import {
   VideoGlimpse,
   CoreService,
   useCMS,
+  saveCMSData,
   setAdminPassword,
   exportCMSData,
   importCMSData,
@@ -74,6 +76,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   // Showreel Chapter Editor Modal
   const [editingChapter, setEditingChapter] = useState<ShowreelChapter | null>(null);
   const [isNewChapter, setIsNewChapter] = useState<boolean>(false);
+
+  // Save Feedback & Dynamic UI States
+  const [savedActId, setSavedActId] = useState<string | null>(null);
+  const [globalSaved, setGlobalSaved] = useState<boolean>(false);
+  const [savedSection, setSavedSection] = useState<string | null>(null);
 
   // Password Change State
   const [newPassword, setNewPassword] = useState('');
@@ -294,6 +301,125 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
     }
   };
 
+  // Explicit Save Handler for a single showreel act
+  const handleSaveSingleAct = (id: string, idx: number, title: string) => {
+    saveCMSData(cms);
+    setSavedActId(id);
+    showToast(`Saved Act 0${idx + 1}: "${title || 'Untitled'}" live to site!`);
+    setTimeout(() => setSavedActId(null), 2500);
+  };
+
+  // Explicit Save Handler for all showreel acts
+  const handleSaveAllShowreel = () => {
+    saveCMSData(cms);
+    setSavedActId('all-showreel');
+    showToast(`Saved all ${cms.showreel.chapters.length} Showreel Acts live to site!`);
+    setTimeout(() => setSavedActId(null), 2500);
+  };
+
+  // Instant Add Act to list without modal requirement
+  const handleQuickAddChapter = () => {
+    const nextIdx = cms.showreel.chapters.length + 1;
+    const newChapter: ShowreelChapter = {
+      id: `sr-${Date.now()}`,
+      title: `Act ${nextIdx < 10 ? '0' + nextIdx : nextIdx} // Cinematic Scene`,
+      subtitle: "Dynamic Visual Production",
+      category: "Vertical Cinema",
+      camera: "ARRI Alexa Mini LF",
+      lens: "Zeiss Supreme Prime 50mm",
+      videoUrl: "",
+      posterUrl: "/showreel_act1.png",
+      duration: "0:45",
+      directorNotes: "Directorial notes on visual lighting and framing.",
+      platform: "youtube"
+    };
+    updateCMS((prev) => ({
+      ...prev,
+      showreel: {
+        ...prev.showreel,
+        chapters: [...prev.showreel.chapters, newChapter]
+      }
+    }));
+    showToast(`Added Act 0${nextIdx}! Add your video link and click "SAVE ACT".`);
+    setTimeout(() => {
+      const el = document.getElementById(`chapter-${newChapter.id}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 150);
+  };
+
+  // Open Live Site directly into Showreel Player
+  const handleViewLiveShowreel = () => {
+    saveCMSData(cms);
+    window.location.hash = '#showreel';
+    onExit();
+  };
+
+  // Global Save All CMS across all tabs
+  const handleSaveAllCMS = () => {
+    saveCMSData(cms);
+    setGlobalSaved(true);
+    showToast('Saved all CMS changes across all sections live to site!');
+    setTimeout(() => setGlobalSaved(false), 2500);
+  };
+
+  // Section Save Handlers
+  const handleSaveHero = () => {
+    saveCMSData(cms);
+    setSavedSection('hero');
+    showToast('Saved Hero Background Video & Configuration live!');
+    setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handleSaveGlimpse = (idx: number, title: string) => {
+    saveCMSData(cms);
+    setSavedSection(`glimpse-${idx}`);
+    showToast(`Saved Video Glimpse 0${idx + 1}: "${title}" live!`);
+    setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handleSaveAllGlimpses = () => {
+    saveCMSData(cms);
+    setSavedSection('all-glimpses');
+    showToast('Saved all 5 Video Glimpses live!');
+    setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handleSavePortfolio = () => {
+    saveCMSData(cms);
+    setSavedSection('portfolio');
+    showToast(`Saved all ${cms.curatedExhibitions.length} Curated Exhibitions live!`);
+    setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handleSaveServicesAbout = () => {
+    saveCMSData(cms);
+    setSavedSection('services-about');
+    showToast('Saved Core Services & Company Story live!');
+    setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handleSaveIntegrations = () => {
+    saveCMSData(cms);
+    setSavedSection('integrations');
+    showToast('Saved Google Sheets & WhatsApp integrations live!');
+    setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handlePosterFileUpload = (file: File, callback: (dataUrl: string) => void) => {
+    if (file.size > 2.5 * 1024 * 1024) {
+      alert('Please choose an image file under 2.5MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target?.result) {
+        callback(e.target.result as string);
+        showToast('Poster image updated from file!');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   // Change Admin Password
   const handleChangePassword = (e: React.FormEvent) => {
     e.preventDefault();
@@ -401,6 +527,28 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
         {/* Global Action Controls */}
         <div className="flex items-center flex-wrap gap-2.5">
+          <button
+            type="button"
+            onClick={handleSaveAllCMS}
+            className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all cursor-pointer shadow-md ${
+              globalSaved
+                ? 'bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]'
+                : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.25)]'
+            }`}
+          >
+            {globalSaved ? (
+              <>
+                <Check size={14} />
+                <span>SAVED TO SITE ✓</span>
+              </>
+            ) : (
+              <>
+                <Save size={14} />
+                <span>SAVE ALL CHANGES</span>
+              </>
+            )}
+          </button>
+
           <button
             onClick={onExit}
             className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white text-xs font-mono tracking-wider transition-all cursor-pointer"
@@ -844,6 +992,26 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     />
                   </div>
                 </div>
+
+                {/* HERO SAVE BUTTON */}
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-[10px] font-mono text-white/50">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Mode: <strong className="text-white">{cms.hero.useVideoBackground ? 'Video Loop' : 'Lens Scroll'}</strong></span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSaveHero}
+                    className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                      savedSection === 'hero'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                        : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                    }`}
+                  >
+                    {savedSection === 'hero' ? <Check size={14} /> : <Save size={14} />}
+                    <span>{savedSection === 'hero' ? 'HERO CONFIG SAVED ✓' : 'SAVE HERO CONFIGURATION'}</span>
+                  </button>
+                </div>
               </div>
 
               {/* 5 VIDEO GLIMPSES CONFIG */}
@@ -856,6 +1024,15 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <p className="text-xs text-white/40 font-mono">Deliverable #2 // Max 30s 1080p loops with lazy loading</p>
                     </div>
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={handleSaveAllGlimpses}
+                    className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#EAB308] hover:text-black text-white font-mono text-xs font-bold flex items-center space-x-1.5 cursor-pointer transition-all"
+                  >
+                    <Save size={13} />
+                    <span>SAVE ALL GLIMPSES</span>
+                  </button>
                 </div>
 
                 <div className="space-y-4">
@@ -892,7 +1069,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.videoGlimpses];
-                                next[index].title = val;
+                                next[index] = { ...next[index], title: val };
                                 return { ...prev, videoGlimpses: next };
                               });
                             }}
@@ -909,7 +1086,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.videoGlimpses];
-                                next[index].category = val;
+                                next[index] = { ...next[index], category: val };
                                 return { ...prev, videoGlimpses: next };
                               });
                             }}
@@ -926,7 +1103,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.videoGlimpses];
-                                next[index].duration = val;
+                                next[index] = { ...next[index], duration: val };
                                 return { ...prev, videoGlimpses: next };
                               });
                             }}
@@ -943,7 +1120,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.videoGlimpses];
-                                next[index].videoUrl = val;
+                                next[index] = { ...next[index], videoUrl: val };
                                 return { ...prev, videoGlimpses: next };
                               });
                             }}
@@ -961,7 +1138,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.videoGlimpses];
-                                next[index].thumbnailUrl = val;
+                                next[index] = { ...next[index], thumbnailUrl: val };
                                 return { ...prev, videoGlimpses: next };
                               });
                             }}
@@ -978,7 +1155,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.videoGlimpses];
-                                next[index].caption = val;
+                                next[index] = { ...next[index], caption: val };
                                 return { ...prev, videoGlimpses: next };
                               });
                             }}
@@ -986,8 +1163,41 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           />
                         </div>
                       </div>
+
+                      {/* INDIVIDUAL GLIMPSE SAVE BUTTON */}
+                      <div className="pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span className="font-mono text-[9px] text-white/40">1080p Cine Loop // 30s Max</span>
+                        <button
+                          type="button"
+                          onClick={() => handleSaveGlimpse(index, glimpse.title)}
+                          className={`px-4 py-1.5 rounded-lg font-mono text-[10px] font-bold uppercase flex items-center space-x-1 cursor-pointer transition-all ${
+                            savedSection === `glimpse-${index}`
+                              ? 'bg-emerald-500 text-black'
+                              : 'bg-white/10 hover:bg-[#EAB308] hover:text-black text-white'
+                          }`}
+                        >
+                          {savedSection === `glimpse-${index}` ? <Check size={11} /> : <Save size={11} />}
+                          <span>{savedSection === `glimpse-${index}` ? 'SAVED ✓' : `SAVE GLIMPSE 0${index + 1}`}</span>
+                        </button>
+                      </div>
                     </div>
                   ))}
+                </div>
+
+                {/* BOTTOM ALL GLIMPSES SAVE BAR */}
+                <div className="pt-4 border-t border-white/10 flex items-center justify-end">
+                  <button
+                    type="button"
+                    onClick={handleSaveAllGlimpses}
+                    className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                      savedSection === 'all-glimpses'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                        : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                    }`}
+                  >
+                    {savedSection === 'all-glimpses' ? <Check size={14} /> : <Save size={14} />}
+                    <span>SAVE ALL 5 GLIMPSES</span>
+                  </button>
                 </div>
               </div>
 
@@ -1010,47 +1220,87 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={handleOpenAddChapter}
-                  className="px-4 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider flex items-center space-x-1.5 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.2)]"
-                >
-                  <Plus size={14} />
-                  <span>ADD SHOWREEL CHAPTER</span>
-                </button>
+                <div className="flex items-center flex-wrap gap-2.5">
+                  <button
+                    type="button"
+                    onClick={handleQuickAddChapter}
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-mono text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all"
+                  >
+                    <Plus size={14} className="text-[#EAB308]" />
+                    <span>+ Quick Add Act</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleOpenAddChapter}
+                    className="px-4 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider flex items-center space-x-1.5 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.2)]"
+                  >
+                    <Plus size={14} />
+                    <span>ADD ACT (MODAL)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSaveAllShowreel}
+                    className={`px-4 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer transition-all shadow-md ${
+                      savedActId === 'all-showreel'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]'
+                        : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.25)]'
+                    }`}
+                  >
+                    {savedActId === 'all-showreel' ? <Check size={14} /> : <Save size={14} />}
+                    <span>SAVE ALL ACTS</span>
+                  </button>
+                </div>
               </div>
 
               {/* Showreel Header Config */}
-              <div className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-1 text-left">
-                  <label className="text-[9px] font-mono text-white/50 uppercase">Showreel Title</label>
-                  <input
-                    type="text"
-                    value={cms.showreel.title}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      updateCMS((prev) => ({
-                        ...prev,
-                        showreel: { ...prev.showreel, title: val }
-                      }));
-                    }}
-                    className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                  />
+              <div className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1 text-left">
+                    <label className="text-[9px] font-mono text-white/50 uppercase">Showreel Title</label>
+                    <input
+                      type="text"
+                      value={cms.showreel.title}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          showreel: { ...prev.showreel, title: val }
+                        }));
+                      }}
+                      className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                  <div className="space-y-1 text-left">
+                    <label className="text-[9px] font-mono text-white/50 uppercase">Showreel Tagline</label>
+                    <input
+                      type="text"
+                      value={cms.showreel.tagline}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          showreel: { ...prev.showreel, tagline: val }
+                        }));
+                      }}
+                      className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
                 </div>
-                <div className="space-y-1 text-left">
-                  <label className="text-[9px] font-mono text-white/50 uppercase">Showreel Tagline</label>
-                  <input
-                    type="text"
-                    value={cms.showreel.tagline}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      updateCMS((prev) => ({
-                        ...prev,
-                        showreel: { ...prev.showreel, tagline: val }
-                      }));
+
+                <div className="flex items-center justify-end pt-2 border-t border-white/5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      saveCMSData(cms);
+                      showToast('Saved Showreel Header configuration live!');
                     }}
-                    className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                  />
+                    className="px-4 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white font-mono text-[10px] flex items-center space-x-1.5 cursor-pointer"
+                  >
+                    <Save size={12} className="text-[#EAB308]" />
+                    <span>SAVE HEADER</span>
+                  </button>
                 </div>
               </div>
 
@@ -1074,32 +1324,33 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   ))}
                   <button
                     type="button"
-                    onClick={handleOpenAddChapter}
+                    onClick={handleQuickAddChapter}
                     className="px-3 py-1.5 rounded-lg bg-[#EAB308]/15 hover:bg-[#EAB308]/30 border border-[#EAB308]/40 text-[#EAB308] font-mono text-[9px] font-bold uppercase flex items-center space-x-1 cursor-pointer whitespace-nowrap"
+                    title="Quickly add new chapter card to bottom of list"
                   >
                     <Plus size={10} />
-                    <span>Add Act</span>
+                    <span>+ Quick Add</span>
                   </button>
                 </div>
               </div>
 
               {/* Chapters List */}
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {cms.showreel.chapters.map((chapter, idx) => {
                   const detected = detectVideoPlatform(chapter.videoUrl);
                   return (
                     <div
                       key={chapter.id}
                       id={`chapter-${chapter.id}`}
-                      className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4 hover:border-white/20 transition-all scroll-mt-6"
+                      className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4 hover:border-white/20 transition-all scroll-mt-6 shadow-md"
                     >
                       <div className="flex items-center justify-between border-b border-white/10 pb-3">
                         <div className="flex items-center space-x-3">
                           <span className="font-mono text-xs text-[#EAB308] font-bold">
                             ACT 0{idx + 1}
                           </span>
-                          <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[8px] text-white/60 uppercase">
-                            Platform: {detected.toUpperCase()}
+                          <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[8px] text-white/70 uppercase">
+                            Platform: <strong className="text-[#EAB308]">{detected.toUpperCase()}</strong>
                           </span>
                         </div>
 
@@ -1146,7 +1397,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.showreel.chapters];
-                                next[idx].title = val;
+                                next[idx] = { ...next[idx], title: val };
                                 return { ...prev, showreel: { ...prev.showreel, chapters: next } };
                               });
                             }}
@@ -1163,7 +1414,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.showreel.chapters];
-                                next[idx].subtitle = val;
+                                next[idx] = { ...next[idx], subtitle: val };
                                 return { ...prev, showreel: { ...prev.showreel, chapters: next } };
                               });
                             }}
@@ -1180,7 +1431,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.showreel.chapters];
-                                next[idx].camera = val;
+                                next[idx] = { ...next[idx], camera: val };
                                 return { ...prev, showreel: { ...prev.showreel, chapters: next } };
                               });
                             }}
@@ -1189,8 +1440,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="md:col-span-2 space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">
-                            Video Link (YouTube, Instagram Reel, LinkedIn, Vimeo, Drive, or MP4)
+                          <label className="text-[9px] font-mono text-white/50 uppercase flex items-center justify-between">
+                            <span>Video Link (YouTube, Instagram Reel, LinkedIn, Vimeo, Drive, or MP4)</span>
+                            {chapter.videoUrl && (
+                              <span className="text-[#EAB308] lowercase text-[8px]">
+                                detected: {detected}
+                              </span>
+                            )}
                           </label>
                           <input
                             type="text"
@@ -1200,8 +1456,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const plat = detectVideoPlatform(val);
                               updateCMS((prev) => {
                                 const next = [...prev.showreel.chapters];
-                                next[idx].videoUrl = val;
-                                next[idx].platform = plat as any;
+                                next[idx] = { ...next[idx], videoUrl: val, platform: plat as any };
                                 return { ...prev, showreel: { ...prev.showreel, chapters: next } };
                               });
                             }}
@@ -1211,7 +1466,30 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Poster Image Frame</label>
+                          <div className="flex items-center justify-between">
+                            <label className="text-[9px] font-mono text-white/50 uppercase">Poster Image Frame</label>
+                            <label className="text-[8px] font-mono text-[#EAB308] hover:text-amber-300 cursor-pointer flex items-center space-x-1">
+                              <Upload size={9} />
+                              <span>Upload File</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    handlePosterFileUpload(file, (dataUrl) => {
+                                      updateCMS((prev) => {
+                                        const next = [...prev.showreel.chapters];
+                                        next[idx] = { ...next[idx], posterUrl: dataUrl };
+                                        return { ...prev, showreel: { ...prev.showreel, chapters: next } };
+                                      });
+                                    });
+                                  }
+                                }}
+                              />
+                            </label>
+                          </div>
                           <input
                             type="text"
                             value={chapter.posterUrl}
@@ -1219,7 +1497,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.showreel.chapters];
-                                next[idx].posterUrl = val;
+                                next[idx] = { ...next[idx], posterUrl: val };
                                 return { ...prev, showreel: { ...prev.showreel, chapters: next } };
                               });
                             }}
@@ -1236,7 +1514,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               const val = e.target.value;
                               updateCMS((prev) => {
                                 const next = [...prev.showreel.chapters];
-                                next[idx].directorNotes = val;
+                                next[idx] = { ...next[idx], directorNotes: val };
                                 return { ...prev, showreel: { ...prev.showreel, chapters: next } };
                               });
                             }}
@@ -1244,9 +1522,113 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           />
                         </div>
                       </div>
+
+                      {/* PHYSICAL CARD SAVE BUTTON & STATUS BAR */}
+                      <div className="pt-4 mt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 bg-neutral-950/40 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                        <div className="flex items-center space-x-2 text-[10px] font-mono text-white/60">
+                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                          <span>Status: <strong className="text-white">Active in Showreel</strong></span>
+                          <span className="text-white/20">|</span>
+                          <span className="text-white/40">Platform: <span className="text-[#EAB308] uppercase font-bold">{detected}</span></span>
+                        </div>
+
+                        <div className="flex items-center space-x-2.5">
+                          {chapter.videoUrl && (
+                            <button
+                              type="button"
+                              onClick={() => setPreviewVideoUrl(chapter.videoUrl)}
+                              className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer transition-all"
+                            >
+                              <Play size={12} className="text-[#EAB308]" />
+                              <span>Test Play</span>
+                            </button>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => handleSaveSingleAct(chapter.id, idx, chapter.title)}
+                            className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                              savedActId === chapter.id
+                                ? 'bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]'
+                                : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.3)]'
+                            }`}
+                          >
+                            {savedActId === chapter.id ? (
+                              <>
+                                <Check size={14} />
+                                <span>SAVED & LIVE!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Save size={14} />
+                                <span>SAVE ACT 0{idx + 1}</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
+              </div>
+
+              {/* STICKY BOTTOM CONTROLS FOR SHOWREEL */}
+              <div className="sticky bottom-4 z-20 p-4 rounded-2xl bg-[#090712]/95 backdrop-blur-xl border border-[#EAB308]/30 shadow-[0_10px_35px_rgba(0,0,0,0.8)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-9 h-9 rounded-xl bg-[#EAB308]/20 flex items-center justify-center text-[#EAB308]">
+                    <Film size={18} />
+                  </div>
+                  <div>
+                    <p className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+                      Showreel Acts: {cms.showreel.chapters.length} Loaded
+                    </p>
+                    <p className="text-[10px] text-white/50 font-sans">
+                      All video changes save directly to site storage & auto-play in vertical mobile frame.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center flex-wrap gap-2.5">
+                  <button
+                    type="button"
+                    onClick={handleQuickAddChapter}
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-mono text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all"
+                  >
+                    <Plus size={14} className="text-[#EAB308]" />
+                    <span>+ Quick Add Act</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleViewLiveShowreel}
+                    className="px-4 py-2.5 rounded-xl bg-purple-900/40 hover:bg-purple-900/60 border border-purple-500/30 text-purple-200 font-mono text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all"
+                  >
+                    <ExternalLink size={14} className="text-purple-300" />
+                    <span>Preview Live Showreel</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSaveAllShowreel}
+                    className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-lg ${
+                      savedActId === 'all-showreel'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]'
+                        : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_20px_rgba(234,179,8,0.3)]'
+                    }`}
+                  >
+                    {savedActId === 'all-showreel' ? (
+                      <>
+                        <Check size={16} />
+                        <span>ALL ACTS SAVED & LIVE!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Save size={16} />
+                        <span>SAVE ALL SHOWREEL ACTS</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -1427,6 +1809,36 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </div>
                   );
                 })}
+              </div>
+
+              {/* STICKY BOTTOM ACTION BAR FOR EXHIBITIONS */}
+              <div className="sticky bottom-4 z-20 p-4 rounded-2xl bg-[#090712]/95 backdrop-blur-xl border border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.8)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-9 h-9 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
+                    <FolderKanban size={18} />
+                  </div>
+                  <div>
+                    <p className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+                      Curated Exhibitions: {cms.curatedExhibitions.length} Available
+                    </p>
+                    <p className="text-[10px] text-white/50 font-sans">
+                      All hybrid video links and stories are live on the site.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleSavePortfolio}
+                  className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                    savedSection === 'portfolio'
+                      ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                      : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                  }`}
+                >
+                  {savedSection === 'portfolio' ? <Check size={14} /> : <Save size={14} />}
+                  <span>{savedSection === 'portfolio' ? 'EXHIBITIONS SAVED ✓' : 'SAVE ALL EXHIBITIONS'}</span>
+                </button>
               </div>
 
             </div>
@@ -1673,6 +2085,21 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </div>
                   </div>
                 </div>
+
+                <div className="pt-4 border-t border-white/10 flex items-center justify-end">
+                  <button
+                    type="button"
+                    onClick={handleSaveServicesAbout}
+                    className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                      savedSection === 'services-about'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                        : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                    }`}
+                  >
+                    {savedSection === 'services-about' ? <Check size={14} /> : <Save size={14} />}
+                    <span>{savedSection === 'services-about' ? 'SERVICES SAVED ✓' : 'SAVE SERVICES & COMPANY STORY'}</span>
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -1807,6 +2234,21 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-sans outline-none focus:border-[#EAB308]"
                     />
                   </div>
+                </div>
+
+                <div className="pt-4 border-t border-white/10 flex items-center justify-end">
+                  <button
+                    type="button"
+                    onClick={handleSaveIntegrations}
+                    className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                      savedSection === 'integrations'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                        : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                    }`}
+                  >
+                    {savedSection === 'integrations' ? <Check size={14} /> : <Save size={14} />}
+                    <span>{savedSection === 'integrations' ? 'INTEGRATIONS SAVED ✓' : 'SAVE INTEGRATIONS & WHATSAPP'}</span>
+                  </button>
                 </div>
               </div>
 

@@ -610,7 +610,12 @@ export default function App() {
 
   const [activeProject, setActiveProject] = useState<CinematicProject | null>(null);
   const [soundEnabled, setSoundEnabled] = useState<boolean>(false);
-  const [showreelOpen, setShowreelOpen] = useState<boolean>(false);
+  const [showreelOpen, setShowreelOpen] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.location.hash === '#showreel';
+    }
+    return false;
+  });
   const [showreelScene, setShowreelScene] = useState<number>(0);
   const [showreelAutoPlay, setShowreelAutoPlay] = useState<boolean>(false);
   const [contactOpen, setContactOpen] = useState<boolean>(false);
@@ -648,6 +653,8 @@ export default function App() {
       setIsAdminRoute(onAdmin);
       if (onAdmin) {
         setIsAdminAuthenticated(sessionStorage.getItem('mayavi_admin_session_auth') === 'true');
+      } else if (hash === '#showreel') {
+        setShowreelOpen(true);
       }
     };
 
@@ -2773,7 +2780,12 @@ export default function App() {
 
               <button
                 id="close-showreel-btn"
-                onClick={() => setShowreelOpen(false)}
+                onClick={() => {
+                  setShowreelOpen(false);
+                  if (typeof window !== 'undefined' && window.location.hash === '#showreel') {
+                    window.history.replaceState(null, '', window.location.pathname);
+                  }
+                }}
                 className="p-2 sm:p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/15 hover:border-white/30 transition-all text-white flex items-center justify-center cursor-pointer"
               >
                 <X size={16} className="sm:w-[18px] sm:h-[18px]" />
