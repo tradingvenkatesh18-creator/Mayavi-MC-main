@@ -1138,11 +1138,11 @@ export default function App() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-3 inset-x-0 mx-auto max-w-5xl z-50 px-4"
+              className="fixed top-3 inset-x-0 mx-auto max-w-6xl z-50 px-3 sm:px-4"
             >
-              <div className={`w-full rounded-full border transition-all duration-500 ease-in-out px-5 py-2 flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${isScrolled
+              <div className={`w-full rounded-full border transition-all duration-500 ease-in-out px-4 sm:px-5 py-2 flex items-center justify-between gap-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${isScrolled
                 ? 'bg-[#090717]/95 backdrop-blur-xl border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.9)]'
-                : 'bg-[#090717]/80 backdrop-blur-md border-white/10'
+                : 'bg-[#090717]/85 backdrop-blur-md border-white/10'
                 }`}>
                 {/* Brand Logo */}
                 <motion.div
@@ -1151,13 +1151,13 @@ export default function App() {
                     setActiveSection('home');
                     setMobileMenuOpen(false);
                   }}
-                  className="relative cursor-pointer transition-all duration-300 hover:brightness-110 active:scale-98"
+                  className="relative cursor-pointer transition-all duration-300 hover:brightness-110 active:scale-98 shrink-0 flex items-center"
                 >
                   <Logo layout="horizontal" iconSize="sm" theme="dark" useOfficial={false} showText={true} />
                 </motion.div>
 
                 {/* Centered Navigation */}
-                <nav className="hidden lg:flex items-center space-x-1">
+                <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink-0">
                   {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'CONTACT'].map((item) => {
                     const itemLower = item.toLowerCase();
                     const isActive = activeSection === itemLower;
@@ -1187,9 +1187,9 @@ export default function App() {
                             setActiveSection(itemLower);
                           }
                         }}
-                        className={`relative text-[9.5px] font-mono tracking-[0.2em] transition-all duration-300 py-1 px-3.5 rounded-full uppercase select-none ${isActive
+                        className={`relative text-[8.5px] xl:text-[9.5px] font-mono tracking-[0.12em] xl:tracking-[0.16em] transition-all duration-300 py-1 px-2.5 xl:px-3 rounded-full uppercase select-none whitespace-nowrap shrink-0 ${isActive
                           ? 'text-white font-semibold'
-                          : 'text-white/50 hover:text-white'
+                          : 'text-white/60 hover:text-white'
                           }`}
                       >
                         <span className="relative z-10">{item}</span>
@@ -1206,11 +1206,11 @@ export default function App() {
                 </nav>
 
                 {/* Right Action: AUDITION TEST & START A PROJECT */}
-                <div className="hidden lg:flex items-center space-x-2">
+                <div className="hidden lg:flex items-center space-x-2 shrink-0">
                   <button
                     id="top-cta-talent-assessment"
                     onClick={() => setAssessmentOpen(true)}
-                    className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-mono tracking-[0.18em] border border-[#EAB308]/60 bg-[#EAB308]/10 hover:bg-[#EAB308]/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
+                    className="hidden xl:flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-[8.5px] font-mono tracking-[0.15em] border border-[#EAB308]/60 bg-[#EAB308]/10 hover:bg-[#EAB308]/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#EAB308] animate-pulse"></span>
                     <span>AUDITION TEST</span>
@@ -1218,7 +1218,7 @@ export default function App() {
                   <button
                     id="top-cta-start-project"
                     onClick={() => setContactOpen(true)}
-                    className="flex items-center space-x-1.5 px-4 py-1.5 rounded-full text-[9px] font-mono tracking-[0.18em] bg-[#EAB308] hover:bg-amber-400 text-black font-bold transition-all duration-300 shadow-[0_3px_15px_rgba(234,179,8,0.25)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
+                    className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-[8.5px] xl:text-[9px] font-mono tracking-[0.15em] bg-[#EAB308] hover:bg-amber-400 text-black font-bold transition-all duration-300 shadow-[0_3px_15px_rgba(234,179,8,0.25)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
                   >
                     <span>START A PROJECT</span>
                     <ArrowUpRight size={11} className="text-black" />
@@ -1226,7 +1226,7 @@ export default function App() {
                 </div>
 
                 {/* Mobile Hamburger */}
-                <div className="flex lg:hidden items-center">
+                <div className="flex lg:hidden items-center shrink-0">
                   <button
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle Navigation Menu"
