@@ -1026,6 +1026,40 @@ export default function App() {
     e.preventDefault();
     setEnrollLoading(true);
 
+    // Record inquiry locally into CMS store & Supabase
+    recordNewInquiry({
+      name: enrollName,
+      email: enrollEmail,
+      phone: 'World Modal Lead',
+      category: activeWorld?.title || 'World Inquiry',
+      budget: enrollTier,
+      message: `Focus: ${enrollOption || 'Standard'} | Suite: ${enrollTier} | Brief: ${enrollMessage}`
+    });
+
+    // Optional Google Sheets webhook dispatch
+    if (cms.integrations.googleSheetsWebhookUrl && !cms.integrations.googleSheetsWebhookUrl.includes('SAMPLE')) {
+      try {
+        fetch(cms.integrations.googleSheetsWebhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            name: enrollName,
+            email: enrollEmail,
+            phone: 'World Modal Lead',
+            company: activeWorld?.title || 'World Lead',
+            category: activeWorld?.title,
+            format: enrollOption,
+            budget: enrollTier,
+            brief: enrollMessage
+          })
+        }).catch(err => console.log('Sheets dispatch note:', err));
+      } catch (err) {
+        console.error('Sheets webhook dispatch error:', err);
+      }
+    }
+
     setTimeout(() => {
       const randHex = Math.random().toString(16).substring(2, 7).toUpperCase();
       const code = `MAYAVI-${activeWorld?.number || '00'}-${randHex}`;
@@ -2415,7 +2449,7 @@ export default function App() {
 
             {/* DEDICATED SERVICE WORLD / PILLAR OVERLAY & ENROLLMENT SYSTEM */}
             <AnimatePresence>
-              {false && activeWorld && (
+              {activeWorld && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

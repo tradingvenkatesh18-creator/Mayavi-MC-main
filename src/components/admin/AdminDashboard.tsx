@@ -37,7 +37,9 @@ import {
   CloudDownload,
   CheckCircle2,
   AlertCircle,
-  Code
+  Code,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 import {
   CMSData,
@@ -550,6 +552,93 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
     setTimeout(() => setSqlCopied(false), 2500);
   };
 
+  // Reorder Showreel Chapters (Move Up / Down)
+  const handleMoveChapter = (idx: number, direction: 'up' | 'down') => {
+    const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+    if (targetIdx < 0 || targetIdx >= cms.showreel.chapters.length) return;
+    const chapters = [...cms.showreel.chapters];
+    const temp = chapters[idx];
+    chapters[idx] = chapters[targetIdx];
+    chapters[targetIdx] = temp;
+    updateCMS((prev) => ({
+      ...prev,
+      showreel: { ...prev.showreel, chapters }
+    }));
+    showToast(`Reordered Showreel: Moved Act to position 0${targetIdx + 1}`);
+  };
+
+  // Duplicate Showreel Chapter
+  const handleDuplicateChapter = (chapter: ShowreelChapter) => {
+    const nextIdx = cms.showreel.chapters.length + 1;
+    const duplicate: ShowreelChapter = {
+      ...chapter,
+      id: `act-${Date.now()}`,
+      title: `${chapter.title} (Copy)`
+    };
+    updateCMS((prev) => ({
+      ...prev,
+      showreel: {
+        ...prev.showreel,
+        chapters: [...prev.showreel.chapters, duplicate]
+      }
+    }));
+    showToast(`Duplicated chapter as Act 0${nextIdx}!`);
+  };
+
+  // Toggle Inquiry Status
+  const handleToggleInquiryStatus = (id: string) => {
+    updateCMS((prev) => {
+      const nextInquiries = prev.inquiries.map((inq) => {
+        if (inq.id === id) {
+          const nextStatus = inq.status === 'new' ? 'contacted' : inq.status === 'contacted' ? 'archived' : 'new';
+          return { ...inq, status: nextStatus as any };
+        }
+        return inq;
+      });
+      return { ...prev, inquiries: nextInquiries };
+    });
+    showToast('Updated client lead status!');
+  };
+
+  // Delete Individual Inquiry
+  const handleDeleteInquiry = (id: string) => {
+    if (!window.confirm('Delete this client inquiry record?')) return;
+    updateCMS((prev) => ({
+      ...prev,
+      inquiries: prev.inquiries.filter((inq) => inq.id !== id)
+    }));
+    showToast('Inquiry record deleted.');
+  };
+
+  // Export Inquiries as CSV
+  const handleExportInquiriesCSV = () => {
+    if (cms.inquiries.length === 0) {
+      showToast('No inquiries to export.');
+      return;
+    }
+    const headers = ['ID', 'Date', 'Name', 'Email', 'Phone', 'Category', 'Budget', 'Status', 'Message'];
+    const rows = cms.inquiries.map((inq) => [
+      inq.id,
+      `"${inq.date}"`,
+      `"${inq.name}"`,
+      `"${inq.email}"`,
+      `"${inq.phone}"`,
+      `"${inq.category}"`,
+      `"${inq.budget}"`,
+      `"${inq.status}"`,
+      `"${(inq.message || '').replace(/"/g, '""')}"`
+    ]);
+    const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mayavi-client-leads-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Downloaded client inquiries CSV!');
+  };
+
   // Logout
   const handleLogout = () => {
     sessionStorage.removeItem('mayavi_admin_session_auth');
@@ -762,59 +851,75 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </p>
               </div>
 
-              {/* Status Metric Cards */}
+              {/* Status Metric Cards (Clickable Direct Navigation) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 space-y-2">
-                  <div className="flex items-center justify-between text-white/40">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('hero-glimpses')}
+                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-[#EAB308]/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                >
+                  <div className="flex items-center justify-between text-white/40 group-hover:text-[#EAB308] transition-colors">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Hero Background</span>
                     <Video size={16} className="text-[#EAB308]" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors">
                     {cms.hero.useVideoBackground ? 'Video Loop Active' : 'Lens Sequence'}
                   </p>
-                  <p className="text-[10px] font-mono text-white/40 truncate">
-                    {cms.hero.backgroundVideoUrl}
+                  <p className="text-[10px] font-mono text-white/50 group-hover:text-[#EAB308] transition-colors">
+                    Click to configure loop →
                   </p>
-                </div>
+                </button>
 
-                <div className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 space-y-2">
-                  <div className="flex items-center justify-between text-white/40">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('hero-glimpses')}
+                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-amber-400/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                >
+                  <div className="flex items-center justify-between text-white/40 group-hover:text-amber-400 transition-colors">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Video Glimpses</span>
                     <Film size={16} className="text-amber-400" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors">
                     {cms.videoGlimpses.length} Loops Configured
                   </p>
                   <p className="text-[10px] font-mono text-emerald-400">
-                    ● Deliverable #2 Active (1080p)
+                    ● Click to edit 5 loops →
                   </p>
-                </div>
+                </button>
 
-                <div className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 space-y-2">
-                  <div className="flex items-center justify-between text-white/40">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('portfolio')}
+                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-purple-400/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                >
+                  <div className="flex items-center justify-between text-white/40 group-hover:text-purple-400 transition-colors">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Curated Exhibitions</span>
                     <FolderKanban size={16} className="text-purple-400" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-purple-200 transition-colors">
                     {cms.curatedExhibitions.length} Hybrid Links
                   </p>
                   <p className="text-[10px] font-mono text-purple-400">
-                    Supports 50-100 Video Embeds
+                    Click to manage portfolio →
                   </p>
-                </div>
+                </button>
 
-                <div className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 space-y-2">
-                  <div className="flex items-center justify-between text-white/40">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('integrations')}
+                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-emerald-400/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                >
+                  <div className="flex items-center justify-between text-white/40 group-hover:text-emerald-400 transition-colors">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Client Inquiries</span>
                     <Sheet size={16} className="text-emerald-400" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-emerald-200 transition-colors">
                     {cms.inquiries.length} Recorded
                   </p>
                   <p className="text-[10px] font-mono text-emerald-400">
-                    Google Sheets & WhatsApp Ready
+                    Click to view leads & sheets →
                   </p>
-                </div>
+                </button>
               </div>
 
               {/* Quick Actions Panel */}
@@ -822,8 +927,24 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <span className="font-mono text-[9px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                   DIRECTOR QUICK ACTIONS
                 </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   <button
+                    type="button"
+                    onClick={() => {
+                      handleQuickAddChapter();
+                      setActiveTab('showreel');
+                    }}
+                    className="p-4 rounded-xl bg-white/5 hover:bg-[#EAB308]/10 border border-white/10 hover:border-[#EAB308]/40 text-left space-y-1 transition-all cursor-pointer group"
+                  >
+                    <div className="flex items-center space-x-2 text-[#EAB308]">
+                      <Plus size={16} />
+                      <span className="font-mono text-xs font-bold uppercase">Add Showreel Act</span>
+                    </div>
+                    <p className="text-[11px] text-white/50">Add a new 9:16 vertical cinema act with live video embed.</p>
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={() => {
                       setIsNewProject(true);
                       setEditingProject({
@@ -844,35 +965,38 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       });
                       setActiveTab('portfolio');
                     }}
-                    className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left space-y-1 transition-all cursor-pointer group"
+                    className="p-4 rounded-xl bg-white/5 hover:bg-purple-500/10 border border-white/10 hover:border-purple-500/40 text-left space-y-1 transition-all cursor-pointer group"
                   >
-                    <div className="flex items-center space-x-2 text-[#EAB308]">
-                      <Plus size={16} />
-                      <span className="font-mono text-xs font-bold uppercase">Add New Exhibition</span>
+                    <div className="flex items-center space-x-2 text-purple-400">
+                      <FolderKanban size={16} />
+                      <span className="font-mono text-xs font-bold uppercase">Add Exhibition</span>
                     </div>
                     <p className="text-[11px] text-white/50">Add a new YouTube, Vimeo, Instagram, or Drive video link.</p>
                   </button>
 
                   <button
-                    onClick={handleSeedExhibitions}
-                    className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left space-y-1 transition-all cursor-pointer group"
-                  >
-                    <div className="flex items-center space-x-2 text-purple-400">
-                      <Sparkles size={16} />
-                      <span className="font-mono text-xs font-bold uppercase">Seed 50-100 Demo Links</span>
-                    </div>
-                    <p className="text-[11px] text-white/50">Instantly populate multi-platform video links for client testing.</p>
-                  </button>
-
-                  <button
+                    type="button"
                     onClick={() => setActiveTab('hero-glimpses')}
-                    className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left space-y-1 transition-all cursor-pointer group"
+                    className="p-4 rounded-xl bg-white/5 hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-left space-y-1 transition-all cursor-pointer group"
                   >
                     <div className="flex items-center space-x-2 text-amber-400">
                       <Video size={16} />
-                      <span className="font-mono text-xs font-bold uppercase">Configure Hero Video</span>
+                      <span className="font-mono text-xs font-bold uppercase">Configure Hero</span>
                     </div>
                     <p className="text-[11px] text-white/50">Update 30s 1080p background loop and headline copy.</p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handlePushToCloud}
+                    disabled={isPushingCloud}
+                    className="p-4 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/40 text-left space-y-1 transition-all cursor-pointer group"
+                  >
+                    <div className="flex items-center space-x-2 text-emerald-400">
+                      <CloudUpload size={16} className={isPushingCloud ? "animate-spin" : ""} />
+                      <span className="font-mono text-xs font-bold uppercase">Push to Cloud DB</span>
+                    </div>
+                    <p className="text-[11px] text-white/50">Sync all videos and showreels globally to Supabase.</p>
                   </button>
                 </div>
               </div>
@@ -884,6 +1008,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     RECENT INQUIRIES & AUDITIONS
                   </span>
                   <button
+                    type="button"
                     onClick={() => setActiveTab('integrations')}
                     className="text-[10px] font-mono text-amber-400 hover:underline cursor-pointer"
                   >
@@ -904,7 +1029,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </thead>
                     <tbody className="divide-y divide-white/5">
                       {cms.inquiries.slice(0, 3).map((inq) => (
-                        <tr key={inq.id} className="hover:bg-white/[0.02]">
+                        <tr 
+                          key={inq.id} 
+                          onClick={() => setActiveTab('integrations')}
+                          className="hover:bg-white/[0.04] cursor-pointer transition-colors"
+                          title="Click to view full inquiry details"
+                        >
                           <td className="py-3 text-white/40">{inq.date}</td>
                           <td className="py-3 text-white font-sans font-medium">{inq.name}</td>
                           <td className="py-3 text-[#EAB308]">{inq.category}</td>
@@ -1454,7 +1584,37 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           </span>
                         </div>
 
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-1.5">
+                          <button
+                            type="button"
+                            onClick={() => handleMoveChapter(idx, 'up')}
+                            disabled={idx === 0}
+                            className={`p-1.5 rounded-lg border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all ${
+                              idx === 0 ? 'opacity-25 cursor-not-allowed' : 'cursor-pointer'
+                            }`}
+                            title="Move Chapter Up"
+                          >
+                            <ArrowUp size={12} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleMoveChapter(idx, 'down')}
+                            disabled={idx === cms.showreel.chapters.length - 1}
+                            className={`p-1.5 rounded-lg border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all ${
+                              idx === cms.showreel.chapters.length - 1 ? 'opacity-25 cursor-not-allowed' : 'cursor-pointer'
+                            }`}
+                            title="Move Chapter Down"
+                          >
+                            <ArrowDown size={12} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDuplicateChapter(idx)}
+                            className="p-1.5 rounded-lg border border-white/10 text-white/60 hover:text-[#EAB308] hover:bg-white/10 transition-all cursor-pointer"
+                            title="Duplicate Act"
+                          >
+                            <Copy size={12} />
+                          </button>
                           <button
                             type="button"
                             onClick={() => {
@@ -1753,11 +1913,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
-                    onClick={handleSeedExhibitions}
-                    className="px-3.5 py-2.5 rounded-xl bg-purple-900/40 hover:bg-purple-900/60 border border-purple-500/30 text-purple-200 font-mono text-xs flex items-center space-x-1.5 cursor-pointer"
+                    onClick={handleExportJSON}
+                    className="px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer transition-all"
+                    title="Export portfolio as portable JSON"
                   >
-                    <Sparkles size={13} />
-                    <span>Seed Demo Links</span>
+                    <Download size={13} className="text-[#EAB308]" />
+                    <span>Export JSON</span>
                   </button>
 
                   <button
@@ -2354,22 +2515,34 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
               {/* INQUIRIES LOG VIEWER */}
               <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="font-mono text-[9px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                     INQUIRIES STORED IN BROWSER DATABASE ({cms.inquiries.length})
                   </span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (window.confirm('Clear all stored inquiries?')) {
-                        updateCMS((prev) => ({ ...prev, inquiries: [] }));
-                        showToast('Inquiries cleared.');
-                      }
-                    }}
-                    className="text-[10px] font-mono text-white/30 hover:text-red-400 cursor-pointer"
-                  >
-                    Clear Log
-                  </button>
+                  <div className="flex items-center space-x-3">
+                    <button
+                      type="button"
+                      onClick={handleExportInquiriesCSV}
+                      disabled={cms.inquiries.length === 0}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#EAB308] font-mono text-[10px] flex items-center space-x-1.5 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                      title="Download complete leads list as CSV"
+                    >
+                      <Download size={11} />
+                      <span>Export CSV</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm('Clear all stored inquiries?')) {
+                          updateCMS((prev) => ({ ...prev, inquiries: [] }));
+                          showToast('Inquiries cleared.');
+                        }
+                      }}
+                      className="text-[10px] font-mono text-white/30 hover:text-red-400 cursor-pointer"
+                    >
+                      Clear Log
+                    </button>
+                  </div>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -2383,27 +2556,72 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         <th className="py-2.5">Budget</th>
                         <th className="py-2.5">Message Brief</th>
                         <th className="py-2.5">Status</th>
+                        <th className="py-2.5 text-right">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                      {cms.inquiries.map((inq) => (
-                        <tr key={inq.id} className="hover:bg-white/[0.02]">
-                          <td className="py-3 text-white/40 whitespace-nowrap">{inq.date}</td>
-                          <td className="py-3 text-white font-sans font-medium whitespace-nowrap">{inq.name}</td>
-                          <td className="py-3 text-white/70 text-[11px]">
-                            <div>{inq.email}</div>
-                            <div className="text-white/40">{inq.phone}</div>
-                          </td>
-                          <td className="py-3 text-[#EAB308] whitespace-nowrap">{inq.category}</td>
-                          <td className="py-3 text-white/70 whitespace-nowrap">{inq.budget}</td>
-                          <td className="py-3 text-white/60 font-sans text-xs max-w-xs truncate">{inq.message}</td>
-                          <td className="py-3 whitespace-nowrap">
-                            <span className="px-2 py-0.5 rounded text-[8px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 uppercase font-bold">
-                              {inq.status}
-                            </span>
+                      {cms.inquiries.length === 0 ? (
+                        <tr>
+                          <td colSpan={8} className="py-8 text-center text-white/30 font-sans text-xs">
+                            No inquiries recorded yet. Submissions from the public website contact and world modals will appear here.
                           </td>
                         </tr>
-                      ))}
+                      ) : (
+                        cms.inquiries.map((inq) => {
+                          const cleanPhone = inq.phone.replace(/[^0-9]/g, '');
+                          const waUrl = cleanPhone ? `https://wa.me/${cleanPhone}?text=Hello%20${encodeURIComponent(inq.name)}!%20Thank%20you%20for%20contacting%20Mayavi%20Media%20Creations.` : null;
+                          return (
+                            <tr key={inq.id} className="hover:bg-white/[0.02]">
+                              <td className="py-3 text-white/40 whitespace-nowrap">{inq.date}</td>
+                              <td className="py-3 text-white font-sans font-medium whitespace-nowrap">{inq.name}</td>
+                              <td className="py-3 text-white/70 text-[11px]">
+                                <div>{inq.email}</div>
+                                <div className="text-white/40">{inq.phone}</div>
+                              </td>
+                              <td className="py-3 text-[#EAB308] whitespace-nowrap">{inq.category}</td>
+                              <td className="py-3 text-white/70 whitespace-nowrap">{inq.budget}</td>
+                              <td className="py-3 text-white/60 font-sans text-xs max-w-xs truncate" title={inq.message}>{inq.message}</td>
+                              <td className="py-3 whitespace-nowrap">
+                                <button
+                                  type="button"
+                                  onClick={() => handleToggleInquiryStatus(inq.id)}
+                                  className={`px-2 py-0.5 rounded text-[8px] uppercase font-bold border transition-all cursor-pointer ${
+                                    inq.status === 'contacted'
+                                      ? 'bg-blue-500/10 border-blue-500/30 text-blue-400 hover:bg-blue-500/20'
+                                      : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'
+                                  }`}
+                                  title="Click to toggle status (new <-> contacted)"
+                                >
+                                  {inq.status} ↺
+                                </button>
+                              </td>
+                              <td className="py-3 whitespace-nowrap text-right">
+                                <div className="flex items-center justify-end space-x-2">
+                                  {waUrl && (
+                                    <a
+                                      href={waUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="p-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 transition-all inline-flex items-center"
+                                      title="Chat on WhatsApp"
+                                    >
+                                      <MessageSquare size={12} />
+                                    </a>
+                                  )}
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDeleteInquiry(inq.id)}
+                                    className="p-1.5 rounded-lg hover:bg-red-950/50 text-white/30 hover:text-red-400 transition-colors cursor-pointer"
+                                    title="Delete inquiry"
+                                  >
+                                    <Trash2 size={13} />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
                     </tbody>
                   </table>
                 </div>
