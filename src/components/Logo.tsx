@@ -15,9 +15,9 @@ export default function Logo({
 }: LogoProps) {
   // Height sizing mapping for maximum visibility across headers and footers
   const heightMap = {
-    xs: 'h-6 md:h-7',
-    sm: 'h-7 md:h-8',
-    md: 'h-12 md:h-14',
+    xs: 'h-7 md:h-8',
+    sm: 'h-9 md:h-11',
+    md: 'h-14 md:h-16',
     lg: 'h-20 md:h-24',
     xl: 'h-32 md:h-36'
   };

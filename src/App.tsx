@@ -1140,7 +1140,7 @@ export default function App() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="fixed top-3 inset-x-0 mx-auto max-w-6xl z-50 px-3 sm:px-4"
             >
-              <div className={`w-full rounded-full border transition-all duration-500 ease-in-out px-4 sm:px-5 py-2 flex items-center justify-between gap-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${isScrolled
+              <div className={`w-full rounded-full border transition-all duration-500 ease-in-out px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between gap-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${isScrolled
                 ? 'bg-[#090717]/95 backdrop-blur-xl border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.9)]'
                 : 'bg-[#090717]/85 backdrop-blur-md border-white/10'
                 }`}>
