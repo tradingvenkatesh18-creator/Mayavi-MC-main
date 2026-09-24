@@ -4,7 +4,11 @@ import { CMSData } from './cmsStore';
 const STORAGE_URL_KEY = 'mayavi_supabase_url';
 const STORAGE_KEY_KEY = 'mayavi_supabase_anon_key';
 
-export function getSupabaseConfig(): { url: string; anonKey: string; isConfigured: boolean; source: 'env' | 'storage' | 'none' } {
+// Preconfigured Supabase Cloud credentials for Mayavi Media Creations
+const BUILTIN_SUPABASE_URL = 'https://bneurvtcpzknkagihzlj.supabase.co';
+const BUILTIN_SUPABASE_ANON_KEY = 'sb_publishable_-wRIUJ-TZHIxHZ7GrD8rrg_UZVJ8j7d';
+
+export function getSupabaseConfig(): { url: string; anonKey: string; isConfigured: boolean; source: 'env' | 'storage' | 'builtin' | 'none' } {
   const envUrl = (import.meta as any).env?.VITE_SUPABASE_URL?.trim() || '';
   const envKey = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY?.trim() || '';
 
@@ -18,6 +22,10 @@ export function getSupabaseConfig(): { url: string; anonKey: string; isConfigure
     if (localUrl && localKey) {
       return { url: localUrl, anonKey: localKey, isConfigured: true, source: 'storage' };
     }
+  }
+
+  if (BUILTIN_SUPABASE_URL && BUILTIN_SUPABASE_ANON_KEY) {
+    return { url: BUILTIN_SUPABASE_URL, anonKey: BUILTIN_SUPABASE_ANON_KEY, isConfigured: true, source: 'builtin' };
   }
 
   return { url: '', anonKey: '', isConfigured: false, source: 'none' };
@@ -87,7 +95,12 @@ export async function testSupabaseConnection(customUrl?: string, customKey?: str
       .limit(1);
 
     if (error) {
-      if (error.code === '42P01' || error.message.includes('relation "mayavi_cms" does not exist')) {
+      if (
+        error.code === '42P01' ||
+        error.code === 'PGRST205' ||
+        error.message.includes('relation "mayavi_cms" does not exist') ||
+        error.message.includes('schema cache')
+      ) {
         return {
           success: true,
           tableReady: false,
