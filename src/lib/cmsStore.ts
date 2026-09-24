@@ -132,7 +132,7 @@ export interface CMSData {
   lastUpdated: string;
 }
 
-const STORAGE_KEY = 'mayavi_cms_store_v1';
+const STORAGE_KEY = 'mayavi_cms_store_v2';
 const AUTH_PASSWORD_KEY = 'mayavi_admin_password_hash';
 const DEFAULT_PASSWORD = 'mayavi2026';
 
@@ -202,16 +202,16 @@ export const DEFAULT_CMS_DATA: CMSData = {
     chapters: [
       {
         id: "sr-1",
-        title: "Act I // Pure Optics & High Contrast",
-        subtitle: "The Opening Statement",
+        title: "Act I // Headless Cinema & Dynamic CMS",
+        subtitle: "Automating Visual Marketing & Production",
         category: "Brand Films",
         camera: "ARRI Alexa Mini LF",
         lens: "Zeiss Supreme Prime 50mm T1.5",
-        videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview",
-        posterUrl: "/showreel_act1.png",
+        videoUrl: "https://www.youtube.com/watch?v=RBxwGsCN2Vc",
+        posterUrl: "https://i.ytimg.com/vi/RBxwGsCN2Vc/hqdefault.jpg",
         duration: "0:45",
-        directorNotes: "Capturing absolute darkness and pure light balance without digital post-bloat.",
-        platform: "drive"
+        directorNotes: "Capturing dynamic visual production and scalable video engineering.",
+        platform: "youtube"
       },
       {
         id: "sr-2",
@@ -220,8 +220,8 @@ export const DEFAULT_CMS_DATA: CMSData = {
         category: "Vertical Fiction",
         camera: "Sony Venice 2 8K",
         lens: "Cooke Anamorphic 35mm",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        posterUrl: "/showreel_act2.png",
+        videoUrl: "https://www.youtube.com/watch?v=RBxwGsCN2Vc",
+        posterUrl: "https://i.ytimg.com/vi/RBxwGsCN2Vc/hqdefault.jpg",
         duration: "0:38",
         directorNotes: "Fluid Steadicam tracking shots framing actors through classical geometry.",
         platform: "youtube"
