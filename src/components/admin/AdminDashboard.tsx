@@ -71,6 +71,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   const [portfolioSearch, setPortfolioSearch] = useState<string>('');
   const [portfolioCategoryFilter, setPortfolioCategoryFilter] = useState<string>('ALL');
 
+  // Showreel Chapter Editor Modal
+  const [editingChapter, setEditingChapter] = useState<ShowreelChapter | null>(null);
+  const [isNewChapter, setIsNewChapter] = useState<boolean>(false);
+
   // Password Change State
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -224,6 +228,69 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
         curatedExhibitions: prev.curatedExhibitions.filter((p) => p.id !== id)
       }));
       showToast(`Deleted "${title}"`);
+    }
+  };
+
+  // Open Add Chapter Modal
+  const handleOpenAddChapter = () => {
+    setIsNewChapter(true);
+    const nextIdx = cms.showreel.chapters.length + 1;
+    setEditingChapter({
+      id: `sr-${Date.now()}`,
+      title: `Act ${nextIdx < 10 ? '0' + nextIdx : nextIdx} // Cinematic Scene`,
+      subtitle: "The Opening Statement",
+      category: "Brand Films",
+      camera: "ARRI Alexa Mini LF",
+      lens: "Zeiss Supreme Prime 50mm",
+      videoUrl: "",
+      posterUrl: "/showreel_act1.png",
+      duration: "0:30",
+      directorNotes: "Directorial notes on visual lighting and framing.",
+      platform: "youtube"
+    });
+  };
+
+  // Save Chapter from Modal
+  const handleSaveChapter = () => {
+    if (!editingChapter) return;
+    if (!editingChapter.title.trim()) {
+      alert('Please provide a chapter title.');
+      return;
+    }
+    const detected = detectVideoPlatform(editingChapter.videoUrl || '');
+    const chapterToSave: ShowreelChapter = { ...editingChapter, platform: detected as any };
+
+    updateCMS((prev) => {
+      let updated: ShowreelChapter[];
+      if (isNewChapter) {
+        updated = [...prev.showreel.chapters, chapterToSave];
+      } else {
+        updated = prev.showreel.chapters.map((c) => (c.id === chapterToSave.id ? chapterToSave : c));
+      }
+      return {
+        ...prev,
+        showreel: {
+          ...prev.showreel,
+          chapters: updated
+        }
+      };
+    });
+
+    showToast(`Saved showreel chapter: "${editingChapter.title}"`);
+    setEditingChapter(null);
+  };
+
+  // Delete Chapter
+  const handleDeleteChapter = (id: string, title: string) => {
+    if (window.confirm(`Are you sure you want to delete chapter "${title}"?`)) {
+      updateCMS((prev) => ({
+        ...prev,
+        showreel: {
+          ...prev.showreel,
+          chapters: prev.showreel.chapters.filter((c) => c.id !== id)
+        }
+      }));
+      showToast(`Deleted chapter "${title}"`);
     }
   };
 
@@ -945,29 +1012,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 <button
                   type="button"
-                  onClick={() => {
-                    const newChapter: ShowreelChapter = {
-                      id: `sr-${Date.now()}`,
-                      title: `Act ${cms.showreel.chapters.length + 1} // New Scene`,
-                      subtitle: "Cinematic Sequence",
-                      category: "Brand Films",
-                      camera: "ARRI Alexa Mini LF",
-                      lens: "Zeiss Supreme 50mm",
-                      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                      posterUrl: "/showreel_act1.png",
-                      duration: "0:30",
-                      directorNotes: "Directorial notes for this sequence.",
-                      platform: "youtube"
-                    };
-                    updateCMS((prev) => ({
-                      ...prev,
-                      showreel: {
-                        ...prev.showreel,
-                        chapters: [...prev.showreel.chapters, newChapter]
-                      }
-                    }));
-                    showToast('Added new showreel chapter.');
-                  }}
+                  onClick={handleOpenAddChapter}
                   className="px-4 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider flex items-center space-x-1.5 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.2)]"
                 >
                   <Plus size={14} />
@@ -1009,6 +1054,35 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </div>
               </div>
 
+              {/* Chapter Navigation & Quick Jump Strip */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-[#0D091B] border border-white/10">
+                <div className="flex items-center space-x-2">
+                  <Film size={14} className="text-[#EAB308]" />
+                  <span className="font-mono text-[10px] text-white/70 uppercase tracking-widest font-bold">
+                    Chapters ({cms.showreel.chapters.length})
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
+                  {cms.showreel.chapters.map((ch, idx) => (
+                    <a
+                      key={ch.id}
+                      href={`#chapter-${ch.id}`}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#EAB308]/20 border border-white/10 hover:border-[#EAB308]/40 text-white/80 font-mono text-[9px] font-bold uppercase transition-all whitespace-nowrap"
+                    >
+                      Act 0{idx + 1}
+                    </a>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={handleOpenAddChapter}
+                    className="px-3 py-1.5 rounded-lg bg-[#EAB308]/15 hover:bg-[#EAB308]/30 border border-[#EAB308]/40 text-[#EAB308] font-mono text-[9px] font-bold uppercase flex items-center space-x-1 cursor-pointer whitespace-nowrap"
+                  >
+                    <Plus size={10} />
+                    <span>Add Act</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Chapters List */}
               <div className="space-y-4">
                 {cms.showreel.chapters.map((chapter, idx) => {
@@ -1016,7 +1090,8 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   return (
                     <div
                       key={chapter.id}
-                      className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4 hover:border-white/20 transition-all"
+                      id={`chapter-${chapter.id}`}
+                      className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4 hover:border-white/20 transition-all scroll-mt-6"
                     >
                       <div className="flex items-center justify-between border-b border-white/10 pb-3">
                         <div className="flex items-center space-x-3">
@@ -1029,6 +1104,17 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="flex items-center space-x-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsNewChapter(false);
+                              setEditingChapter({ ...chapter });
+                            }}
+                            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-mono text-[10px] flex items-center space-x-1.5 cursor-pointer"
+                          >
+                            <Edit3 size={11} className="text-[#EAB308]" />
+                            <span>Edit in Modal</span>
+                          </button>
                           {chapter.videoUrl && (
                             <button
                               type="button"
@@ -1041,19 +1127,9 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           )}
                           <button
                             type="button"
-                            onClick={() => {
-                              if (window.confirm(`Delete chapter "${chapter.title}"?`)) {
-                                updateCMS((prev) => ({
-                                  ...prev,
-                                  showreel: {
-                                    ...prev.showreel,
-                                    chapters: prev.showreel.chapters.filter((c) => c.id !== chapter.id)
-                                  }
-                                }));
-                                showToast(`Deleted chapter "${chapter.title}"`);
-                              }
-                            }}
+                            onClick={() => handleDeleteChapter(chapter.id, chapter.title)}
                             className="p-1.5 rounded-lg hover:bg-red-950/50 text-white/40 hover:text-red-400 transition-colors cursor-pointer"
+                            title="Delete chapter"
                           >
                             <Trash2 size={14} />
                           </button>
@@ -2091,6 +2167,139 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               >
                 <Save size={14} />
                 <span>Save Exhibition</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* EDIT / CREATE SHOWREEL CHAPTER MODAL */}
+      {editingChapter && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#0E0A1D] border border-white/15 rounded-3xl p-6 md:p-8 max-w-2xl w-full my-8 space-y-6 shadow-2xl text-left">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center space-x-3">
+                <Film className="text-[#EAB308]" size={20} />
+                <div>
+                  <h2 className="text-2xl font-serif italic text-white">
+                    {isNewChapter ? 'Add Showreel Chapter' : 'Edit Showreel Chapter'}
+                  </h2>
+                  <p className="text-[11px] font-mono text-white/50">
+                    Configure vertical cinematic scene & streaming URL.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingChapter(null)}
+                className="p-2 rounded-full hover:bg-white/10 text-white/50 hover:text-white cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase">Chapter Title</label>
+                <input
+                  type="text"
+                  value={editingChapter.title}
+                  onChange={(e) => setEditingChapter({ ...editingChapter, title: e.target.value })}
+                  placeholder="e.g. Act 05 // Cinematic Scene"
+                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase">Subtitle</label>
+                <input
+                  type="text"
+                  value={editingChapter.subtitle}
+                  onChange={(e) => setEditingChapter({ ...editingChapter, subtitle: e.target.value })}
+                  placeholder="e.g. The Opening Statement"
+                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                />
+              </div>
+
+              <div className="md:col-span-2 space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase flex items-center justify-between">
+                  <span>Video Link (YouTube, Vimeo, Google Drive, Instagram Reel, or MP4)</span>
+                  {editingChapter.videoUrl && (
+                    <span className="text-[#EAB308] lowercase">
+                      detected: {detectVideoPlatform(editingChapter.videoUrl)}
+                    </span>
+                  )}
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={editingChapter.videoUrl}
+                    onChange={(e) => setEditingChapter({ ...editingChapter, videoUrl: e.target.value })}
+                    placeholder="https://www.youtube.com/watch?v=... or https://drive.google.com/..."
+                    className="flex-1 px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                  />
+                  {editingChapter.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setPreviewVideoUrl(editingChapter.videoUrl)}
+                      className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-mono flex items-center space-x-1 cursor-pointer"
+                    >
+                      <Play size={12} className="text-[#EAB308]" />
+                      <span>Test</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase">Camera & Optics</label>
+                <input
+                  type="text"
+                  value={editingChapter.camera}
+                  onChange={(e) => setEditingChapter({ ...editingChapter, camera: e.target.value })}
+                  placeholder="e.g. ARRI Alexa Mini LF"
+                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase">Poster Image Frame URL</label>
+                <input
+                  type="text"
+                  value={editingChapter.posterUrl}
+                  onChange={(e) => setEditingChapter({ ...editingChapter, posterUrl: e.target.value })}
+                  placeholder="/showreel_act1.png"
+                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                />
+              </div>
+
+              <div className="md:col-span-2 space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase">Directorial Notes</label>
+                <textarea
+                  rows={2}
+                  value={editingChapter.directorNotes}
+                  onChange={(e) => setEditingChapter({ ...editingChapter, directorNotes: e.target.value })}
+                  placeholder="Directorial notes on visual lighting, mood, and optics..."
+                  className="w-full px-3.5 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end space-x-3 pt-4 border-t border-white/10">
+              <button
+                type="button"
+                onClick={() => setEditingChapter(null)}
+                className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 font-mono text-xs tracking-wider cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveChapter}
+                className="px-6 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.3)]"
+              >
+                <Save size={14} />
+                <span>Save Chapter</span>
               </button>
             </div>
           </div>

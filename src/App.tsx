@@ -887,15 +887,16 @@ export default function App() {
   // Dynamic automatic scene swapper for vertical showreel device
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (showreelOpen) {
+    const totalChapters = cms.showreel?.chapters?.length || 4;
+    if (showreelOpen && totalChapters > 0) {
       interval = setInterval(() => {
-        setShowreelScene(prev => (prev + 1) % 4);
+        setShowreelScene(prev => (prev + 1) % totalChapters);
       }, 4000);
     } else {
       setShowreelScene(0);
     }
     return () => clearInterval(interval);
-  }, [showreelOpen]);
+  }, [showreelOpen, cms.showreel?.chapters?.length]);
 
   // Clean up soundscapes
   useEffect(() => {
@@ -2902,7 +2903,7 @@ export default function App() {
                   Select Cinematic Scene
                 </span>
 
-                <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
+                <div className="grid grid-cols-2 lg:grid-cols-1 gap-2 max-h-[380px] overflow-y-auto pr-1">
                   {cms.showreel.chapters.map((scene, idx) => (
                     <button
                       key={scene.id}
