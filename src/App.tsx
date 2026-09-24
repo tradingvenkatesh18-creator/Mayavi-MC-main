@@ -38,7 +38,8 @@ import {
   Instagram,
   Youtube,
   Linkedin,
-  Menu
+  Menu,
+  Lock
 } from 'lucide-react';
 
 import Logo from './components/Logo';

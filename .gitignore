@@ -7,3 +7,5 @@ coverage/
 .env*
 !.env.example
 temp_drive_eval.js
+scratch/
+
