@@ -612,6 +612,7 @@ export default function App() {
   const [soundEnabled, setSoundEnabled] = useState<boolean>(false);
   const [showreelOpen, setShowreelOpen] = useState<boolean>(false);
   const [showreelScene, setShowreelScene] = useState<number>(0);
+  const [showreelAutoPlay, setShowreelAutoPlay] = useState<boolean>(false);
   const [contactOpen, setContactOpen] = useState<boolean>(false);
   const [assessmentOpen, setAssessmentOpen] = useState<boolean>(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -888,15 +889,13 @@ export default function App() {
   useEffect(() => {
     let interval: NodeJS.Timeout;
     const totalChapters = cms.showreel?.chapters?.length || 4;
-    if (showreelOpen && totalChapters > 0) {
+    if (showreelOpen && showreelAutoPlay && totalChapters > 0) {
       interval = setInterval(() => {
         setShowreelScene(prev => (prev + 1) % totalChapters);
-      }, 4000);
-    } else {
-      setShowreelScene(0);
+      }, 9000);
     }
     return () => clearInterval(interval);
-  }, [showreelOpen, cms.showreel?.chapters?.length]);
+  }, [showreelOpen, showreelAutoPlay, cms.showreel?.chapters?.length]);
 
   // Clean up soundscapes
   useEffect(() => {
@@ -2848,11 +2847,21 @@ export default function App() {
                                 className="w-full h-full object-cover"
                               />
                             ) : (
-                              <iframe
-                                src={getVideoEmbedUrl(activeChapter.videoUrl)}
-                                className="w-full h-full border-0 pointer-events-auto"
-                                allow="autoplay; encrypted-media"
-                              />
+                              <div className="relative w-full h-full bg-black">
+                                {activeChapter.posterUrl && (
+                                  <img
+                                    src={activeChapter.posterUrl}
+                                    alt=""
+                                    className="absolute inset-0 w-full h-full object-cover brightness-60 pointer-events-none"
+                                  />
+                                )}
+                                <iframe
+                                  src={getVideoEmbedUrl(activeChapter.videoUrl)}
+                                  className="relative z-10 w-full h-full border-0 pointer-events-auto"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                                  allowFullScreen
+                                />
+                              </div>
                             )
                           ) : (
                             <img
@@ -2883,16 +2892,49 @@ export default function App() {
                     ● ACTIVE STREAM
                   </div>
 
-                  {/* Scrubber progress bar */}
-                  <div className="absolute bottom-4 sm:bottom-6 inset-x-3 sm:inset-x-4 z-20 h-[2px] sm:h-[2.5px] bg-white/20 rounded-full overflow-hidden">
-                    <motion.div
-                      key={showreelScene}
-                      className="h-full bg-amber-500"
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 4.0, ease: "linear" }}
-                    />
-                  </div>
+                  {/* Fullscreen Button */}
+                  {(() => {
+                    const chapters = cms.showreel?.chapters && cms.showreel.chapters.length > 0 ? cms.showreel.chapters : [];
+                    const cur = chapters[showreelScene % (chapters.length || 1)];
+                    if (!cur?.videoUrl) return null;
+                    return (
+                      <button
+                        type="button"
+                        onClick={() => setActiveProject({
+                          id: cur.id,
+                          title: cur.title,
+                          category: cur.category || 'Vertical Cinema',
+                          duration: cur.duration || '0:45',
+                          imageUrl: cur.posterUrl || '/showreel_act1.png',
+                          camera: cur.camera || 'ARRI Alexa Mini LF',
+                          lens: cur.lens || 'Zeiss Supreme Prime',
+                          location: 'Mayavi Studio Stage A',
+                          storyBrief: cur.subtitle,
+                          editorialSentence: cur.directorNotes || cur.subtitle,
+                          videoUrl: cur.videoUrl,
+                          scenes: ['/hero_stage_a.png']
+                        })}
+                        className="absolute bottom-14 right-3 z-30 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white text-[8px] font-mono flex items-center space-x-1 hover:border-[#EAB308] hover:text-[#EAB308] transition-all cursor-pointer shadow-lg"
+                        title="Watch in Expanded Lightbox"
+                      >
+                        <Play size={9} className="text-[#EAB308]" />
+                        <span>EXPAND</span>
+                      </button>
+                    );
+                  })()}
+
+                  {/* Scrubber progress bar (only active if auto-playing) */}
+                  {showreelAutoPlay && (
+                    <div className="absolute bottom-4 sm:bottom-6 inset-x-3 sm:inset-x-4 z-20 h-[2px] sm:h-[2.5px] bg-white/20 rounded-full overflow-hidden">
+                      <motion.div
+                        key={showreelScene}
+                        className="h-full bg-amber-500"
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 9.0, ease: "linear" }}
+                      />
+                    </div>
+                  )}
                 </div>
 
               </div>
@@ -2907,7 +2949,10 @@ export default function App() {
                   {cms.showreel.chapters.map((scene, idx) => (
                     <button
                       key={scene.id}
-                      onClick={() => setShowreelScene(idx)}
+                      onClick={() => {
+                        setShowreelScene(idx);
+                        setShowreelAutoPlay(false);
+                      }}
                       className={`w-full text-left p-3 sm:p-4 rounded-xl border transition-all duration-300 cursor-pointer ${showreelScene === idx ? 'border-amber-500 bg-white/5 shadow-[0_0_15px_rgba(234,179,8,0.1)]' : 'border-white/5 hover:border-white/10 bg-transparent'}`}
                     >
                       <div className="flex items-center justify-between">
@@ -2922,7 +2967,16 @@ export default function App() {
                 </div>
 
                 <div className="pt-2 sm:pt-4 flex justify-between items-center text-[9px] sm:text-[10px] text-white/40 font-mono">
-                  <span>TAP SCENE TO SWAP</span>
+                  <button
+                    type="button"
+                    onClick={() => setShowreelAutoPlay(!showreelAutoPlay)}
+                    className={`px-2.5 py-1 rounded-lg border text-[9px] font-mono flex items-center space-x-1.5 transition-all cursor-pointer ${
+                      showreelAutoPlay ? 'bg-amber-400/20 border-amber-400 text-amber-300' : 'bg-white/5 border-white/10 text-white/60 hover:text-white'
+                    }`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${showreelAutoPlay ? 'bg-amber-400 animate-pulse' : 'bg-white/30'}`} />
+                    <span>{showreelAutoPlay ? 'Auto-Cycle: Active (9s)' : 'Auto-Cycle: Paused'}</span>
+                  </button>
                   <span>ESC TO DISMISS</span>
                 </div>
               </div>
