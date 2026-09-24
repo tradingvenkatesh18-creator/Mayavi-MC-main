@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mayavi Media Creations — Cinematic Talent Screen Test</title>
+
+  <!-- Google Fonts: Cormorant Garamond, Syne, Outfit, Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN for instant modern utility classes -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#07060B',
+              dark: '#0B0914',
+              surface: 'rgba(16, 13, 28, 0.65)',
+              border: 'rgba(255, 255, 255, 0.08)',
+              gold: '#EAB308',
+              goldLight: '#FDE047',
+              purple: '#6D28D9',
+              violet: '#2E1065'
+            }
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['Outfit', 'sans-serif'],
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            mono: ['Space Grotesk', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Luxury Styling & Micro-interactions */
+    body {
+      background-color: #07060B;
+      color: #FFFFFF;
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Cinematic Film Grain */
+    .film-grain {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.038'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* Ambient Lighting Glow Spheres */
+    .glow-orb-1 {
+      position: fixed;
+      top: -10%;
+      left: 15%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(234, 179, 8, 0.12) 0%, rgba(234, 179, 8, 0) 70%);
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      animation: float-glow-1 18s ease-in-out infinite alternate;
+    }
+
+    .glow-orb-2 {
+      position: fixed;
+      bottom: -15%;
+      right: 10%;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109, 40, 217, 0.18) 0%, rgba(46, 16, 101, 0) 70%);
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+      animation: float-glow-2 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes float-glow-1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(60px, 40px) scale(1.15); }
+    }
+    @keyframes float-glow-2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-50px, -30px) scale(1.1); }
+    }
+
+    /* Glass Card with Luxury Dual Border */
+    .luxury-card {
+      background: rgba(14, 11, 24, 0.72);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 100px -20px rgba(0, 0, 0, 0.8),
+                  0 0 0 1px rgba(255, 255, 255, 0.03),
+                  inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    /* Gold Card Edge Highlight */
+    .luxury-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.35), transparent 40%, rgba(109, 40, 217, 0.2));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Option Button with Tactile Gold Light Sweep */
+    .option-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .option-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.08), transparent);
+      transition: left 0.6s ease;
+      pointer-events: none;
+    }
+
+    .option-card:hover {
+      background: rgba(234, 179, 8, 0.04);
+      border-color: rgba(234, 179, 8, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7),
+                  0 0 20px -5px rgba(234, 179, 8, 0.15);
+    }
+
+    .option-card:hover::after {
+      left: 100%;
+    }
+
+    .option-card:active {
+      transform: scale(0.99);
+    }
+
+    /* Audio wave simulation */
+    .wave-bar {
+      width: 2px;
+      border-radius: 1px;
+      background: #EAB308;
+      animation: wave 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes wave {
+      0% { height: 4px; opacity: 0.4; }
+      100% { height: 16px; opacity: 1; }
+    }
+
+    /* Gold Shimmer Button */
+    .gold-shimmer-btn {
+      background: linear-gradient(135deg, #EAB308 0%, #F59E0B 50%, #D97706 100%);
+      color: #07060B;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(234, 179, 8, 0.35),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gold-shimmer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(234, 179, 8, 0.55),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      background: linear-gradient(135deg, #FACC15 0%, #EAB308 50%, #D97706 100%);
+    }
+
+    /* Optical Corner Markings */
+    .optical-mark {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: rgba(234, 179, 8, 0.3);
+      pointer-events: none;
+    }
+
+    /* Slide transition */
+    .fade-enter {
+      animation: fadeInSlide 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeInSlide {
+      0% { opacity: 0; transform: translateY(18px) scale(0.99); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+  </style>
+</head>
+<body class="relative flex flex-col justify-between selection:bg-amber-500/30 selection:text-white">
+
+  <!-- Ambient Cinematic Elements -->
+  <div class="film-grain"></div>
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <!-- Real Camera Viewfinder HUD Overlay (Fixed) -->
+  <div class="fixed inset-4 md:inset-8 pointer-events-none z-40 border border-white/[0.04]">
+    <!-- Corners -->
+    <div class="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-amber-400/40"></div>
+    <div class="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-amber-400/40"></div>
+    <div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-amber-400/40"></div>
+    <div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-amber-400/40"></div>
+    
+    <!-- Lens Telemetry HUD -->
+    <div class="absolute top-2 left-4 font-mono text-[9px] tracking-[0.25em] text-white/30 uppercase hidden sm:block">
+      ARRI ALEXA MINI LF // LOG-C 800 ISO // T1.5
+    </div>
+    <div class="absolute top-2 right-4 font-mono text-[9px] tracking-[0.25em] text-white/30 uppercase hidden sm:block">
+      FPS 24.00 // 180.0° // 5600K
+    </div>
+    <div class="absolute bottom-2 left-4 font-mono text-[9px] tracking-[0.25em] text-amber-400/50 uppercase hidden sm:block">
+      [ SENSOR: FULL-FRAME 9:16 VERTICAL ]
+    </div>
+    <div class="absolute bottom-2 right-4 font-mono text-[9px] tracking-[0.25em] text-white/30 uppercase hidden sm:block">
+      MAYAVI ACADEMY LAB // V2.4
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-30 px-6 md:px-12 py-5 border-b border-white/[0.06] bg-[#07060B]/70 backdrop-blur-xl flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3.5 group">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-display font-extrabold text-black text-lg shadow-[0_0_25px_rgba(234,179,8,0.4)] group-hover:scale-105 transition-transform">
+        M
+      </div>
+      <div>
+        <div class="font-display font-bold text-sm tracking-[0.15em] text-white uppercase group-hover:text-amber-400 transition-colors">
+          Mayavi Media Creations
+        </div>
+        <div class="font-mono text-[9px] tracking-[0.25em] text-amber-400/80 uppercase">
+          Actor Screen Test & Talent Lab
+        </div>
+      </div>
+    </a>
+
+    <!-- Right Telemetry Badges -->
+    <div class="flex items-center gap-4">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 font-mono text-[10px] tracking-wider text-red-400">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+        <span>REC LIVE</span>
+      </div>
+
+      <!-- Simulated Audio Spectrum Wave -->
+      <div class="hidden md:flex items-center gap-[3px] px-2.5 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.06] h-7">
+        <div class="wave-bar" style="animation-delay: 0s;"></div>
+        <div class="wave-bar" style="animation-delay: 0.2s;"></div>
+        <div class="wave-bar" style="animation-delay: 0.4s;"></div>
+        <div class="wave-bar" style="animation-delay: 0.1s;"></div>
+        <div class="wave-bar" style="animation-delay: 0.3s;"></div>
+      </div>
+
+      <div class="font-mono text-xs text-white/50 tracking-widest" id="timecode-display">
+        00:00:00:00
+      </div>
+
+      <button id="sound-toggle-btn" class="w-8 h-8 rounded-full border border-white/10 hover:border-amber-400 flex items-center justify-center text-white/60 hover:text-amber-400 transition-colors">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Canvas Frame -->
+  <main class="relative z-20 flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 max-w-4xl mx-auto w-full" id="main-content">
+    <!-- Injected dynamically by JS -->
+  </main>
+
+  <!-- Footer Status Bar -->
+  <footer class="relative z-20 px-6 py-4 border-t border-white/[0.05] bg-[#07060B]/80 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">
+    <div>MAYAVI TALENT ARCHITECTURE // EVALUATION SUITE 2026</div>
+    <div class="flex items-center gap-4 text-white/30">
+      <span>LATENCY: 0.4MS</span>
+      <span>•</span>
+      <span>COLOR: LOG-C 3D LUT</span>
+      <span>•</span>
+      <span class="text-amber-400/80">CONFIDENTIAL AUDITION</span>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT APP LOGIC -->
+  <script>
+    // --- SYNTHESIZER AUDIO ENGINE ---
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) audioCtx = new AudioClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSlateClick() {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(140, audioCtx.currentTime + 0.07);
+
+      gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.07);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.07);
+    }
+
+    function playSuccessChord() {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      [261.63, 329.63, 392.00, 523.25, 659.25].forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + (idx * 0.08));
+
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime + (idx * 0.08));
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.8);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + (idx * 0.08));
+        osc.stop(audioCtx.currentTime + 1.8);
+      });
+    }
+
+    document.getElementById('sound-toggle-btn').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('sound-toggle-btn').style.opacity = soundEnabled ? '1' : '0.35';
+      if (soundEnabled) playSlateClick();
+    });
+
+    // Timecode simulation
+    let frames = 0;
+    setInterval(() => {
+      frames++;
+      const f = String(frames % 24).padStart(2, '0');
+      const totalSec = Math.floor(frames / 24);
+      const s = String(totalSec % 60).padStart(2, '0');
+      const m = String(Math.floor(totalSec / 60) % 60).padStart(2, '0');
+      const h = String(Math.floor(totalSec / 3600)).padStart(2, '0');
+      document.getElementById('timecode-display').textContent = `${h}:${m}:${s}:${f}`;
+    }, 1000 / 24);
+
+    // --- CURATED 5-ACT QUESTION SYSTEM ---
+    const QUESTIONS = [
+      // SECTION 1: PERSONALITY DISCOVERY
+      {
+        act: "ACT I // SCENE 1",
+        category: "PERSONALITY DISCOVERY",
+        eyebrow: "SPONTANEITY UNDER PRESSURE",
+        title: "A director suddenly changes your scene seconds before rolling.",
+        leadText: "You are standing on mark under full studio lighting. The director walks up and alters your entire character intention. Your immediate instinct is to...",
+        tags: ["Spontaneity", "Director Dynamic", "Impulse"],
+        options: [
+          { letter: "A", headline: "Improvise confidently with immediate impulse", sub: "You embrace the chaos and trust your instincts in the frame.", scores: { improv: 25, camera: 15, emotion: 15, imag: 15 } },
+          { letter: "B", headline: "Ask for clarifying notes on motivation and rhythm", sub: "You calibrate beats and intention before committing to camera.", scores: { improv: 10, camera: 15, emotion: 20, imag: 15 } },
+          { letter: "C", headline: "Observe fellow cast members to synchronize", sub: "You gauge the room's energy and find harmonic support.", scores: { improv: 15, camera: 15, emotion: 15, imag: 20 } },
+          { letter: "D", headline: "Acknowledge the adrenaline and ground your breath", sub: "You channel nervous tension into raw internal truth.", scores: { improv: 10, camera: 10, emotion: 25, imag: 10 } }
+        ]
+      },
+      {
+        act: "ACT I // SCENE 2",
+        category: "PERSONALITY DISCOVERY",
+        eyebrow: "SOCIAL GRAVITATIONAL ENERGY",
+        title: "At a cast gathering or wrap party, your natural state is...",
+        leadText: "The room is alive with music, industry directors, and producers. Where do you find your equilibrium?",
+        tags: ["Social Gravity", "Character Study", "Presence"],
+        options: [
+          { letter: "A", headline: "Commanding the center as the natural entertainer", sub: "You project charisma and hold the room effortlessly.", scores: { improv: 25, camera: 25, emotion: 10, imag: 15 } },
+          { letter: "B", headline: "Observing body language and micro-expressions", sub: "Quietly studying behavioral nuances for future roles.", scores: { improv: 10, camera: 15, emotion: 20, imag: 25 } },
+          { letter: "C", headline: "Locked into deep, intimate one-on-one dialogue", sub: "You trade shallow banter for emotional substance.", scores: { improv: 15, camera: 15, emotion: 25, imag: 15 } },
+          { letter: "D", headline: "Resting calmly in stillness on the perimeter", sub: "Preserving your artistic reservoir and enigmatic aura.", scores: { improv: 10, camera: 10, emotion: 20, imag: 20 } }
+        ]
+      },
+      {
+        act: "ACT I // SCENE 3",
+        category: "PERSONALITY DISCOVERY",
+        eyebrow: "CORE ARTISTIC FUEL",
+        title: "Your single biggest driver as a cinematic performer is...",
+        leadText: "When the lights shut off and the applause dies down, what truly keeps your fire burning?",
+        tags: ["Purpose", "Legacy", "Artistic Voice"],
+        options: [
+          { letter: "A", headline: "Fame & a worldwide cultural footprint", sub: "You desire to be an iconic, unforgettable household figure.", scores: { improv: 20, camera: 25, emotion: 10, imag: 10 } },
+          { letter: "B", headline: "Storytelling that transforms human hearts", sub: "You want your performance to act as truth and catharsis.", scores: { improv: 15, camera: 15, emotion: 25, imag: 25 } },
+          { letter: "C", headline: "Financial freedom & generational independence", sub: "You approach acting with pragmatic, high-value strategy.", scores: { improv: 15, camera: 15, emotion: 10, imag: 15 } },
+          { letter: "D", headline: "Peer respect & cinematic mastercraft mastery", sub: "You want the highest directors and auteurs to seek your craft.", scores: { improv: 15, camera: 20, emotion: 20, imag: 20 } }
+        ]
+      },
+      {
+        act: "ACT I // SCENE 4",
+        category: "PERSONALITY DISCOVERY",
+        eyebrow: "GENRE RESONANCE",
+        title: "Which cinematic genre electrifies your creative frequency most?",
+        leadText: "Every actor's nervous system resonates to a specific storytelling rhythm:",
+        tags: ["Genre Affinity", "Tone", "Frequency"],
+        options: [
+          { letter: "A", headline: "Comedy — timing, wit, subversion", sub: "Precision tempo, punchy delivery, and crowd delight.", scores: { improv: 25, camera: 20, emotion: 15, imag: 15 } },
+          { letter: "B", headline: "Drama — psychological depth, grief, quietude", sub: "Deep internal stakes, moral ambiguity, and raw tears.", scores: { improv: 10, camera: 15, emotion: 25, imag: 20 } },
+          { letter: "C", headline: "Action — kinetic velocity, stunts, adrenaline", sub: "Physical discipline, explosive presence, and warrior grit.", scores: { improv: 20, camera: 25, emotion: 10, imag: 15 } },
+          { letter: "D", headline: "Romance — chemistry, longing, vulnerability", sub: "The silent charge between two souls across a room.", scores: { improv: 15, camera: 15, emotion: 25, imag: 20 } }
+        ]
+      },
+
+      // SECTION 2: EMOTIONAL INTELLIGENCE
+      {
+        act: "ACT II // ENSEMBLE CRISIS",
+        category: "EMOTIONAL INTELLIGENCE",
+        eyebrow: "SCREEN EMPATHY UNDER ROLLING CAMERA",
+        title: "A fellow actor blanks on their line during a continuous long-take.",
+        leadText: "The Steadicam is circling you both in minute 3 of a dramatic master shot. Dead silence falls. What do you do?",
+        tags: ["Ensemble Agility", "Generosity", "Crisis Reflex"],
+        options: [
+          { letter: "A", headline: "Feed them a natural prompt while staying 100% in character", sub: "Elite ensemble anchor: you rescue the take without breaking reality.", scores: { improv: 25, camera: 20, emotion: 25, imag: 20 } },
+          { letter: "B", headline: "Hold your pause with intense, intentional eye contact", sub: "You let the silence fester into dramatic gold, giving them time.", scores: { improv: 15, camera: 25, emotion: 20, imag: 20 } },
+          { letter: "C", headline: "Freeze and look off-camera for the director's cut", sub: "You respect script boundaries and await technical resets.", scores: { improv: 5, camera: 10, emotion: 10, imag: 10 } },
+          { letter: "D", headline: "Step out of scene to whisper their cue", sub: "Practical troubleshooter, sacrificing scene fiction for mechanics.", scores: { improv: 10, camera: 10, emotion: 10, imag: 15 } }
+        ]
+      },
+
+      // SECTION 3: ACTING SCENARIOS
+      {
+        act: "ACT III // SCENARIO 1",
+        category: "ACTING SCENARIOS",
+        eyebrow: "THE BETRAYAL CONFRONTATION",
+        title: "You discover your closest friend has sold you out.",
+        leadText: "You hold the signed documents in your hands. The door opens behind you. Choose your character's involuntary physical reflex:",
+        tags: ["Emotional Control", "Subtext", "Status"],
+        options: [
+          { letter: "A", headline: "Detonate with immediate, table-shattering fury", sub: "High kinetic fireworks: voice cracking, papers flying.", scores: { improv: 20, camera: 20, emotion: 15, imag: 15 } },
+          { letter: "B", headline: "Descend into absolute, terrifying stillness", sub: "Not a muscle twitches. Your gaze burns straight through their spine.", scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } },
+          { letter: "C", headline: "Burst into dry, cynical, heartbroken laughter", sub: "The absurdity of pain manifested through mocking irony.", scores: { improv: 20, camera: 20, emotion: 20, imag: 25 } },
+          { letter: "D", headline: "Tuck the papers into your coat and walk out without a word", sub: "Total status dominance. The ultimate weapon of abandonment.", scores: { improv: 15, camera: 25, emotion: 20, imag: 20 } }
+        ]
+      },
+      {
+        act: "ACT III // SCENARIO 2",
+        category: "ACTING SCENARIOS",
+        eyebrow: "THE VISCERAL TRAGEDY",
+        title: "Your character receives confirmation that their child is gone.",
+        leadText: "The doctor steps out into the rain-streaked waiting room and bows their head. The camera pushes into an extreme close-up. What emotion breaks through first?",
+        tags: ["Grief Anatomy", "Micro-Expression", "Authenticity"],
+        options: [
+          { letter: "A", headline: "Fierce denial — a desperate, smiling disbelief", sub: "“You’re mistaken. Go check room four again.”", scores: { improv: 15, camera: 20, emotion: 25, imag: 20 } },
+          { letter: "B", headline: "Explosive rage directed at the doctor's collar", sub: "Lashing out at reality itself through physical revolt.", scores: { improv: 20, camera: 20, emotion: 15, imag: 15 } },
+          { letter: "C", headline: "A silent, hollow numbness — senses shutting off", sub: "All sound drops to zero. Your jaw unlocks in petrified shock.", scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } },
+          { letter: "D", headline: "Immediate knee-buckling collapse and tears", sub: "Pure raw surrender to the tidal wave of bereavement.", scores: { improv: 15, camera: 15, emotion: 25, imag: 15 } }
+        ]
+      },
+      {
+        act: "ACT III // SCENARIO 3",
+        category: "ACTING SCENARIOS",
+        eyebrow: "PUBLIC STATUS COMBAT",
+        title: "A political rival insults your honor before a hostile press corps.",
+        leadText: "Fifty camera flashes go off. Microphones are shoved in your face. The room holds its breath. Your response?",
+        tags: ["Composure", "Status Battle", "Vocal Control"],
+        options: [
+          { letter: "A", headline: "Retaliate with vicious, laser-targeted verbal venom", sub: "You crush their argument publicly with ruthless eloquence.", scores: { improv: 25, camera: 20, emotion: 15, imag: 15 } },
+          { letter: "B", headline: "Look through them as if they are thin air", sub: "Total royal disregard. You make them feel completely irrelevant.", scores: { improv: 15, camera: 25, emotion: 20, imag: 15 } },
+          { letter: "C", headline: "Disarm the entire gallery with a sharp, charming joke", sub: "The crowd laughs with you; your opponent looks foolish.", scores: { improv: 25, camera: 25, emotion: 15, imag: 20 } },
+          { letter: "D", headline: "Hold dead eye-contact in silence until they fidget", sub: "Unshakable psychological gravity that forces them to apologize.", scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } }
+        ]
+      },
+
+      // SECTION 4: CAMERA CONFIDENCE
+      {
+        act: "ACT IV // CAMERA CONFIDENCE",
+        category: "CAMERA CONFIDENCE",
+        eyebrow: "MEDIUM INTENSITY",
+        title: "Where is your raw performance soul most energized?",
+        leadText: "Are you built for the sweeping acoustic projection of physical theatre, or the intimate macro retina of 8K sensors?",
+        tags: ["Theatre vs Film", "Projection", "Micro-Focus"],
+        options: [
+          { letter: "A", headline: "Performing live on stage for a breathing, reacting audience", sub: "You feed on collective room voltage, loud acoustics, and physical space.", scores: { improv: 25, camera: 10, emotion: 20, imag: 20 } },
+          { letter: "B", headline: "Acting inches away from a 50mm Prime cinema lens", sub: "You love whispering through pupil dilations, stillness, and micro-nuance.", scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } }
+        ]
+      },
+      {
+        act: "ACT IV // CAMERA CONFIDENCE",
+        eyebrow: "ENVIRONMENTAL COMFORT",
+        title: "Which environment unlocks your bravest vulnerability?",
+        leadText: "Every great actor has an arena where their barriers completely dissolve:",
+        tags: ["Arena Comfort", "Vulnerability", "Focus"],
+        options: [
+          { letter: "A", headline: "A packed auditorium gasping at your monologue", sub: "The live feedback loop turns your fear into transcendent electricity.", scores: { improv: 25, camera: 10, emotion: 20, imag: 20 } },
+          { letter: "B", headline: "A whisper-quiet soundstage with only camera operators", sub: "Surgical, sacred focus where no outsider eyes disturb your character.", scores: { improv: 15, camera: 25, emotion: 25, imag: 20 } }
+        ]
+      },
+      {
+        act: "ACT IV // CAMERA CONFIDENCE",
+        eyebrow: "ARTISTIC VULNERABILITY",
+        title: "Which creative challenge stirs the deepest tremble inside you?",
+        leadText: "Acknowledging your artistic vulnerability is the first prerequisite to conquering it:",
+        tags: ["Growth Vector", "Self-Awareness", "Fear Matrix"],
+        options: [
+          { letter: "A", headline: "Forgetting lines mid-sentence during a major scene", sub: "The nightmare of memory lapse before your peers.", scores: { improv: 15, camera: 15, emotion: 15, imag: 15 } },
+          { letter: "B", headline: "The cold, invasive eye of the lens staring into your flaws", sub: "The fear of being exposed under razor-sharp 8K resolution.", scores: { improv: 20, camera: 10, emotion: 20, imag: 20 } },
+          { letter: "C", headline: "A silent, judgmental audience withholding their applause", sub: "The terror of cold indifference from live spectators.", scores: { improv: 15, camera: 20, emotion: 15, imag: 20 } },
+          { letter: "D", headline: "Public criticism attacking your authentic personal voice", sub: "Having your genuine emotional vulnerability mocked or rejected.", scores: { improv: 15, camera: 15, emotion: 25, imag: 15 } }
+        ]
+      },
+
+      // SECTION 5: CREATIVE THINKING
+      {
+        act: "ACT V // CREATIVE THINKING",
+        category: "CREATIVE THINKING",
+        eyebrow: "THE DETECTIVE SCENARIO",
+        title: "A midnight platform. Steam hissing. A stranger drops a heavy wooden box.",
+        leadText: "Imagine you are an undercover detective in 1948 London. The stranger melts into the pea-soup fog. The antique box sits on the wet cobblestones, bound in tarnished brass. What happens next?",
+        tags: ["Worldbuilding", "Subtext", "Dramatic Imagination"],
+        options: [
+          { letter: "A", headline: "Glove your fingers and inspect the cryptic Nordic runes carved into the latch before daring to touch it", sub: "Analytical, methodical realism: building suspense through meticulous observation.", scores: { improv: 10, camera: 20, emotion: 20, imag: 25 } },
+          { letter: "B", headline: "Sprint through the fog after the trenchcoat stranger before they vanish into the subway tunnel", sub: "Visceral action instinct: character acts on adrenaline and physical momentum.", scores: { improv: 25, camera: 25, emotion: 10, imag: 20 } },
+          { letter: "C", headline: "Slowly unlatch the lid — finding an antique watch ticking rhythmically in reverse", sub: "Poetic, psychological surrealism: transforming mystery into existential wonder.", scores: { improv: 15, camera: 20, emotion: 25, imag: 25 } },
+          { letter: "D", headline: "Signal your undercover partner across the tracks while keeping your revolver drawn inside your coat", sub: "High-stakes tactical discipline: playing the ensemble geometry and tactical tension.", scores: { improv: 20, camera: 20, emotion: 15, imag: 20 } }
+        ]
+      }
+    ];
+
+    // --- APP STATE ---
+    let currentStep = -1; // -1 = Intro, 0..N = Questions, N+1 = Results
+    let userScores = { improv: 0, camera: 0, emotion: 0, imag: 0 };
+    const container = document.getElementById('main-content');
+
+    // --- RENDER WELCOME SLATE ---
+    function renderWelcome() {
+      container.innerHTML = `
+        <div class="luxury-card rounded-3xl p-8 md:p-14 w-full text-center relative overflow-hidden fade-enter">
+          <!-- Ambient Card Halo -->
+          <div class="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-purple-600/15 blur-3xl pointer-events-none"></div>
+
+          <!-- Eyebrow Badge -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 font-mono text-[11px] tracking-[0.25em] uppercase mb-8">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+            MAYAVI AUDITION ENGINE // 2026 COHORT
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="font-serif italic font-light text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6 text-white/95">
+            Discover Your <span class="font-display not-italic font-bold bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">Cinematic DNA</span>
+          </h1>
+
+          <!-- Subtitle / Manifesto -->
+          <p class="font-body font-light text-white/70 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+            A director’s room evaluation testing your emotional agility, camera magnetism, stage reflexes, and narrative worldbuilding across 5 cinematic acts.
+          </p>
+
+          <!-- 3 Technical Pillars -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 max-w-2xl mx-auto mb-12 text-left">
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-md">
+              <div class="font-mono text-[9px] tracking-[0.2em] text-amber-400 uppercase mb-1">EVALUATION</div>
+              <div class="font-display font-semibold text-sm text-white">5 Curated Acts</div>
+              <div class="font-body text-xs text-white/40 mt-0.5">Scenarios & Camera Tests</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-md">
+              <div class="font-mono text-[9px] tracking-[0.2em] text-amber-400 uppercase mb-1">METHODOLOGY</div>
+              <div class="font-display font-semibold text-sm text-white">Director's Slate</div>
+              <div class="font-body text-xs text-white/40 mt-0.5">Real-time instinct scoring</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-md">
+              <div class="font-mono text-[9px] tracking-[0.2em] text-amber-400 uppercase mb-1">DURATION</div>
+              <div class="font-display font-semibold text-sm text-white">~2 Minutes</div>
+              <div class="font-body text-xs text-white/40 mt-0.5">Instant Talent Archetype</div>
+            </div>
+          </div>
+
+          <!-- Primary CTA Button -->
+          <div class="flex justify-center">
+            <button id="begin-test-btn" class="gold-shimmer-btn px-10 py-4 rounded-full font-mono text-xs tracking-[0.25em] uppercase flex items-center gap-3 cursor-pointer group">
+              <span>ENTER DIRECTORS ROOM</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('begin-test-btn').addEventListener('click', () => {
+        playSlateClick();
+        currentStep = 0;
+        renderQuestion();
+      });
+    }
+
+    // --- RENDER QUESTION CARD ---
+    function renderQuestion() {
+      const q = QUESTIONS[currentStep];
+      const progress = Math.round(((currentStep + 1) / QUESTIONS.length) * 100);
+
+      container.innerHTML = `
+        <div class="w-full mb-6">
+          <!-- Step Telemetry & Progress Bar -->
+          <div class="flex items-center justify-between mb-3 font-mono text-[11px] tracking-[0.2em] text-white/50">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span class="text-amber-400 font-medium">${q.act}</span>
+              <span class="text-white/30">•</span>
+              <span class="text-white/60 uppercase">${q.category}</span>
+            </div>
+            <div>
+              TAKE <span class="text-white font-bold">${String(currentStep + 1).padStart(2, '0')}</span> / ${String(QUESTIONS.length).padStart(2, '0')} 
+              <span class="text-amber-400/80 ml-1.5">[${progress}%]</span>
+            </div>
+          </div>
+
+          <!-- Progress Bar Track -->
+          <div class="w-full h-1 bg-white/[0.08] rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-500 shadow-[0_0_12px_rgba(234,179,8,0.5)]" style="width: ${progress}%;"></div>
+          </div>
+        </div>
+
+        <!-- Question Luxury Card -->
+        <div class="luxury-card rounded-3xl p-6 sm:p-10 md:p-12 w-full fade-enter relative">
+          <!-- Corner Optical Markers -->
+          <div class="optical-mark top-3 left-3 border-t border-l"></div>
+          <div class="optical-mark top-3 right-3 border-t border-r"></div>
+          <div class="optical-mark bottom-3 left-3 border-b border-l"></div>
+          <div class="optical-mark bottom-3 right-3 border-b border-r"></div>
+
+          <!-- Eyebrow -->
+          <div class="font-mono text-[10px] tracking-[0.3em] text-amber-400 uppercase mb-3">
+            // ${q.eyebrow}
+          </div>
+
+          <!-- Question Headline -->
+          <h2 class="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-white tracking-tight leading-snug mb-3">
+            ${q.title}
+          </h2>
+
+          <!-- Descriptive Lead-in / Script context -->
+          <p class="font-serif italic text-lg sm:text-xl text-white/80 leading-relaxed mb-6 border-l-2 border-amber-400/60 pl-4 py-0.5">
+            “${q.leadText}”
+          </p>
+
+          <!-- Traits Evaluated Tags -->
+          <div class="flex flex-wrap gap-2 mb-8">
+            ${q.tags.map(tag => `
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] font-mono text-[9px] tracking-wider text-white/60 uppercase">
+                ${tag}
+              </span>
+            `).join('')}
+          </div>
+
+          <!-- Options Grid -->
+          <div class="flex flex-col gap-3.5">
+            ${q.options.map((opt, idx) => `
+              <button class="option-card rounded-2xl p-4 sm:p-5 text-left flex items-start gap-4 cursor-pointer group" data-index="${idx}">
+                <!-- Option Letter Slate -->
+                <div class="w-8 h-8 rounded-xl bg-white/[0.06] border border-white/10 group-hover:border-amber-400 group-hover:bg-amber-400 group-hover:text-black transition-all flex items-center justify-center font-mono font-bold text-xs text-amber-400 shrink-0 mt-0.5 shadow-sm">
+                  ${opt.letter}
+                </div>
+
+                <!-- Text Content -->
+                <div class="flex-1">
+                  <div class="font-display font-semibold text-base sm:text-lg text-white/95 group-hover:text-amber-200 transition-colors leading-snug">
+                    ${opt.headline}
+                  </div>
+                  <div class="font-body text-xs sm:text-sm text-white/50 mt-1 leading-relaxed">
+                    ${opt.sub}
+                  </div>
+                </div>
+
+                <!-- Arrow indicator -->
+                <div class="text-white/20 group-hover:text-amber-400 group-hover:translate-x-1 transition-all shrink-0 mt-1">
+                  →
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      // Attach click events
+      document.querySelectorAll('.option-card').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-index'));
+          const selected = q.options[idx];
+
+          playSlateClick();
+
+          // Aggregate Trait Scores
+          Object.keys(selected.scores).forEach(k => {
+            userScores[k] += selected.scores[k];
+          });
+
+          // Next Question or Result
+          currentStep++;
+          if (currentStep < QUESTIONS.length) {
+            renderQuestion();
+          } else {
+            playSuccessChord();
+            renderResults();
+          }
+        });
+      });
+    }
+
+    // --- ARCHETYPE ENGINE ---
+    function calculateArchetype() {
+      const { improv, camera, emotion, imag } = userScores;
+      const maxScore = Math.max(improv, camera, emotion, imag);
+
+      if (maxScore === improv) {
+        return {
+          title: "The Intuitive Improviser",
+          badge: "PRIME TALENT ARCHETYPE // TIER 1",
+          tagline: "“You don't follow the scene — the scene breathes according to your electric impulse.”",
+          description: "You possess high-voltage stage agility and instant creative reflex. When scripts falter or directors challenge the space, you transform mistakes into pure cinematic lightning. You thrive in the unpredictable.",
+          track: "Mayavi Advanced Improv & Dynamic Screen Acting Lab",
+          sealText: "CERTIFIED: HIGH SPONTANEITY",
+          directorNote: "Recommended for high-concept fiction, fast-paced dialogue comedies, dynamic camera blocking, and roles requiring raw unpredictability."
+        };
+      } else if (maxScore === emotion) {
+        return {
+          title: "The Method Storyteller",
+          badge: "PRIME TALENT ARCHETYPE // TIER 1",
+          tagline: "“Silence is your loudest dialogue. You feel what ordinary actors merely recite.”",
+          description: "Your superpower is psychological gravity and profound subtext. You communicate through micro-tensions, quiet breath, and emotional authenticity that lingers with an audience long after the credits roll.",
+          track: "Mayavi Character Pre-Visualization & Dramatic Monologue Lab",
+          sealText: "CERTIFIED: PSYCHOLOGICAL DEPTH",
+          directorNote: "Prime candidate for prestige festival cinema, high-stakes dramas, intense one-on-one psychological confrontations, and lead character journeys."
+        };
+      } else if (maxScore === camera) {
+        return {
+          title: "The Enigmatic Screen Presence",
+          badge: "PRIME TALENT ARCHETYPE // TIER 1",
+          tagline: "“The camera lens does not just capture you — it gravitates toward your stillness.”",
+          description: "You have effortless cinematic charisma. Your acute spatial discipline allows you to master 50mm primes and macro lenses without ever appearing theatrical or forced. You command status without raising your voice.",
+          track: "Mayavi Anamorphic Screen Acting & High-End Commercial Masterclass",
+          sealText: "CERTIFIED: OPTICAL MAGNETISM",
+          directorNote: "Naturally suited for luxury brand films, high-end editorial portraits, cinematic television leads, and atmospheric noir cinema."
+        };
+      } else {
+        return {
+          title: "The Visionary Narrative Architect",
+          badge: "PRIME TALENT ARCHETYPE // TIER 1",
+          tagline: "“You see entire worlds and thematic geometries behind a single line of script.”",
+          description: "Your imagination is boundless. You approach performance not just as an actor, but as a co-creator who understands story arc rhythm, character arcs, and cinematic atmosphere.",
+          track: "Mayavi Directing, Theatre & Pre-Visualization Cohort",
+          sealText: "CERTIFIED: NARRATIVE VISION",
+          directorNote: "Exceptional candidate for indie auteur collaborations, worldbuilding genre epics, period pieces, and actor-director hyphenates."
+        };
+      }
+    }
+
+    // --- RENDER RESULTS SLATE ---
+    function renderResults() {
+      const archetype = calculateArchetype();
+
+      // Normalize scores to clean 68-96% ranges
+      const maxPossible = 270;
+      const calcPct = (v) => Math.min(97, Math.max(68, Math.round((v / maxPossible) * 100 + 44)));
+
+      const pEmotion = calcPct(userScores.emotion);
+      const pCamera = calcPct(userScores.camera);
+      const pImprov = calcPct(userScores.improv);
+      const pImag = calcPct(userScores.imag);
+
+      container.innerHTML = `
+        <div class="luxury-card rounded-3xl p-6 sm:p-10 md:p-14 w-full relative fade-enter overflow-hidden">
+          <!-- Holographic Decorative Corner Marks -->
+          <div class="optical-mark top-3 left-3 border-t-2 border-l-2 border-amber-400"></div>
+          <div class="optical-mark top-3 right-3 border-t-2 border-r-2 border-amber-400"></div>
+          <div class="optical-mark bottom-3 left-3 border-b-2 border-l-2 border-amber-400"></div>
+          <div class="optical-mark bottom-3 right-3 border-b-2 border-r-2 border-amber-400"></div>
+
+          <!-- Top Slate Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-8 border-b border-white/[0.08]">
+            <div class="flex items-center gap-3">
+              <div class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_#EAB308]"></div>
+              <span class="font-mono text-[10px] tracking-[0.25em] text-amber-400 uppercase">${archetype.badge}</span>
+            </div>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">
+              DOSSIER NO: MMC-2026-${Math.floor(1000 + Math.random() * 9000)}
+            </div>
+          </div>
+
+          <!-- Archetype Header -->
+          <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="font-mono text-xs tracking-[0.3em] text-amber-400/80 uppercase mb-2">YOUR OFFICIAL TALENT CLASSIFICATION</div>
+            <h1 class="font-serif italic text-4xl sm:text-6xl text-white font-light mb-4 leading-tight">
+              ${archetype.title}
+            </h1>
+            <p class="font-serif italic text-lg sm:text-xl text-amber-200/80 leading-relaxed">
+              ${archetype.tagline}
+            </p>
+          </div>
+
+          <!-- Trait Progress Metrics (2x2 Grid) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+              <div class="flex justify-between items-center mb-2 font-mono text-xs">
+                <span class="text-white/80 tracking-wider uppercase">Emotional Depth & Agility</span>
+                <span class="text-amber-400 font-bold text-sm">${pEmotion}%</span>
+              </div>
+              <div class="w-full h-2 bg-white/[0.06] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full" style="width: ${pEmotion}%;"></div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+              <div class="flex justify-between items-center mb-2 font-mono text-xs">
+                <span class="text-white/80 tracking-wider uppercase">Camera Lens Magnetism</span>
+                <span class="text-amber-400 font-bold text-sm">${pCamera}%</span>
+              </div>
+              <div class="w-full h-2 bg-white/[0.06] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full" style="width: ${pCamera}%;"></div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+              <div class="flex justify-between items-center mb-2 font-mono text-xs">
+                <span class="text-white/80 tracking-wider uppercase">Improvisation & Reflex</span>
+                <span class="text-amber-400 font-bold text-sm">${pImprov}%</span>
+              </div>
+              <div class="w-full h-2 bg-white/[0.06] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full" style="width: ${pImprov}%;"></div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+              <div class="flex justify-between items-center mb-2 font-mono text-xs">
+                <span class="text-white/80 tracking-wider uppercase">Narrative Worldbuilding</span>
+                <span class="text-amber-400 font-bold text-sm">${pImag}%</span>
+              </div>
+              <div class="w-full h-2 bg-white/[0.06] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full" style="width: ${pImag}%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Director's Evaluation Dossier Box -->
+          <div class="p-6 rounded-2xl bg-amber-500/[0.04] border border-amber-400/20 mb-10">
+            <div class="font-mono text-[10px] tracking-[0.25em] text-amber-400 uppercase mb-2">
+              DIRECTOR'S EVALUATION NOTES
+            </div>
+            <p class="font-body text-sm sm:text-base text-white/80 leading-relaxed mb-4">
+              ${archetype.description}
+            </p>
+            <div class="pt-4 border-t border-amber-400/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <span class="font-mono text-[10px] tracking-widest text-amber-400 uppercase">RECOMMENDED ACADEMY TRACK:</span>
+              <span class="font-display font-semibold text-sm text-white">${archetype.track}</span>
+            </div>
+          </div>
+
+          <!-- Call to Action Buttons -->
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a id="whatsapp-submit-btn" href="#" target="_blank" class="gold-shimmer-btn px-8 py-4 rounded-full font-mono text-xs tracking-[0.2em] uppercase flex items-center gap-2.5 cursor-pointer">
+              <span>SUBMIT AUDITION TO CASTING VIA WHATSAPP</span>
+              <span>→</span>
+            </a>
+
+            <button id="print-slate-btn" class="px-6 py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 font-mono text-xs tracking-[0.15em] text-white/80 hover:text-white uppercase transition-colors cursor-pointer flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>PRINT AUDITION DOSSIER</span>
+            </button>
+
+            <button id="restart-btn" class="px-6 py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 font-mono text-xs tracking-[0.15em] text-white/80 hover:text-white uppercase transition-colors cursor-pointer flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
+              <span>RETAKE TEST</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // WhatsApp URL with encoded results
+      const msg = encodeURIComponent(
+        `Hello Mayavi Casting Team,\n\nI just finished the Mayavi Talent Screen Test:\n\n` +
+        `🎭 My Archetype: ${archetype.title}\n` +
+        `📊 Scores:\n` +
+        `• Emotional Depth: ${pEmotion}%\n` +
+        `• Camera Magnetism: ${pCamera}%\n` +
+        `• Improvisation: ${pImprov}%\n` +
+        `• Narrative Imagination: ${pImag}%\n\n` +
+        `🎓 Recommended Track: ${archetype.track}\n\n` +
+        `I would love to audition for upcoming Mayavi films and academy cohorts.`
+      );
+      document.getElementById('whatsapp-submit-btn').href = `https://wa.me/919999999999?text=${msg}`;
+
+      document.getElementById('print-slate-btn').addEventListener('click', () => {
+        window.print();
+      });
+
+      document.getElementById('restart-btn').addEventListener('click', () => {
+        playSlateClick();
+        currentStep = -1;
+        userScores = { improv: 0, camera: 0, emotion: 0, imag: 0 };
+        renderWelcome();
+      });
+    }
+
+    // Launch
+    renderWelcome();
+  </script>
+</body>
+</html>
