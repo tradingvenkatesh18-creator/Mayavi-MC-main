@@ -884,11 +884,11 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
               <div className="flex flex-col gap-2.5 mb-6">
                 {[
-                  { act: 1, img: "/talent_development.png", title: "Act 1" },
-                  { act: 2, img: "/founder_portrait.png", title: "Act 2" },
-                  { act: 3, img: "/testimonial_executive.png", title: "Act 3" },
-                  { act: 4, img: "/academy_mentorship.png", title: "Act 4" },
-                  { act: 5, img: "/showreel_act1.png", title: "Act 5" },
+                  { act: 1, img: "/posters/theatre-modelling-workshop.png", title: "Act 1" },
+                  { act: 2, img: "/posters/media-2.png", title: "Act 2" },
+                  { act: 3, img: "/posters/theatre-modelling-recap.png", title: "Act 3" },
+                  { act: 4, img: "/posters/casting-call-prince-princess.png", title: "Act 4" },
+                  { act: 5, img: "/images/talent-creators-audition.jpg", title: "Act 5" },
                 ].map(item => (
                   <div
                     key={item.act}

@@ -1127,6 +1127,28 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </button>
                       )}
                     </div>
+
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateCMS((prev) => ({
+                            ...prev,
+                            hero: {
+                              ...prev.hero,
+                              backgroundVideoUrl: '/videos/mayavi-hero.mp4',
+                              posterUrl: '/official-mayavi-logo.png'
+                            }
+                          }));
+                          showToast('Loaded Official Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)');
+                        }}
+                        className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                      >
+                        <Sparkles size={10} />
+                        <span>Use Official Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)</span>
+                      </button>
+                    </div>
+
                     <p className="text-[10px] text-white/40">
                       Supports direct .mp4 video files, Google Drive links, Vimeo, and YouTube embeds.
                     </p>

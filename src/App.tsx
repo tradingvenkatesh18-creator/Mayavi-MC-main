@@ -79,56 +79,57 @@ export interface CinematicProject {
 const FEATURED_PROJECTS: CinematicProject[] = [
   {
     id: "01",
-    title: "The Weight of Silence",
-    category: "Vertical Fiction",
-    duration: "04:12",
-    imageUrl: "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&q=80&w=1200",
+    title: "Creative Ecosystem: Voice & Clarity",
+    category: "Brand Films",
+    duration: "03:45",
+    imageUrl: "/posters/media-1.png",
     camera: "ARRI ALEXA MINI LF",
     lens: "ZEISS SUPREME PRIME 50MM T1.5",
-    location: "HAMPI ARCHAEOLOGICAL SITE",
-    storyBrief: "A poetic vertical cinema piece framing the quiet, spatial geometry of ancestral ruins.",
-    editorialSentence: "A vertical frame containing the entire gravity of an ancestral lineage.",
-    detailedStory: "Shot entirely in 9:16 ARRI RAW, this film is an exercise in restraint. Every composition was treated as a permanent editorial painting, letting shadows crawl across five-hundred-year-old temple stones. No camera motion was permitted; the visual story is narrated purely through the passing of natural light and dust particles illuminated in air.",
-    behindTheScenes: "We waited forty-eight hours on-site in Hampi for the exact overcast diffusion to align with the temple corridors, bypassing artificial lights to respect natural geometry.",
+    location: "STUDIO STAGE A // HYDERABAD",
+    storyBrief: "A creative ecosystem built to help people, brands, and talent discover their voice and present it with clarity.",
+    editorialSentence: "We are not just a media agency — we build presence that people remember long after they scroll past.",
+    detailedStory: "Mayavi Media Creations was forged around a singular conviction: genuine storytelling demands architectural restraint and authentic voice. Integrating Media, Personal Branding, and Events, this comprehensive portfolio outlines how our Hyderabad studio elevates creators, artists, founders, and actors to national recognition.",
+    behindTheScenes: "Created in Hyderabad combining custom watercolor floral textures with high-contrast luxury serif editorial typography.",
     productionProcess: [
-      { step: "01", title: "Atmospheric Mapping", desc: "Studying historical light angles and celestial patterns over the ruins to compose natural shadows." },
-      { step: "02", title: "Vertical Framing Prep", desc: "Calibrating the ARRI LF sensor rotation and viewport overlays to compose inside the 9:16 aspect constraint." },
-      { step: "03", title: "Chrono-Capture", desc: "4K RAW high-dynamic capture on location during exactly forty minutes of golden dusk." },
-      { step: "04", title: "Spectral Grading", desc: "Softening contrast curve transitions in the post color lab to mimic classic Kodak editorial prints." }
+      { step: "01", title: "Brand Discovery & Voice Calibration", desc: "Uncovering core artistic identity and designing a bespoke visual language." },
+      { step: "02", title: "Typography & Architectural Composition", desc: "Setting bold editorial type with handcrafted floral organic accents." },
+      { step: "03", title: "Omnichannel Deployment Strategy", desc: "Calibrating presence across high-end cinema, mobile streams, and print exhibition." },
+      { step: "04", title: "Long-Term Cultural Resonance", desc: "Structuring campaigns to build indelible brand equity rather than ephemeral clicks." }
     ],
-    results: "Awarded Best Vertical Cinematography at the Curators Pavilion and featured on the front cover of Cinematic Geometrics Monthly.",
+    results: "Core brand philosophy recognized by industry leaders across South India's premier creative circles.",
     scenes: [
-      "/desert_monolith.png",
-      "/hero_stage_a.png",
-      "/volumetric_soundstage.png"
+      "/posters/media-1.png",
+      "/posters/media-2.png",
+      "/posters/media-3.png"
     ],
-    videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview"
+    videoUrl: "/videos/mayavi-hero.mp4"
   },
   {
     id: "02",
-    title: "Heritage & Horology",
-    category: "Brand Films",
-    duration: "02:18",
-    imageUrl: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&q=80&w=1200",
-    camera: "RED V-RAPTOR 8K S35",
-    lens: "LEICA NOCTILUX 50MM F/0.95",
-    location: "COCHIN HERITAGE SUITE",
-    storyBrief: "Capturing the intricate ticking mechanics of family watchmakers against dramatic sunset hues.",
-    editorialSentence: "Ticking mechanics captured between silence and golden hour shadowlines.",
-    detailedStory: "A high-end commercial piece detailing the dedication of multi-generational timepiece craftsman. Using specialized macro probes and ultra-shallow depth of field, we highlighted the microscopic tooth wheels and escape mechanisms, creating a rhythmic visual symphony set to slow acoustic reverberations.",
-    behindTheScenes: "To preserve the micro textures of brass gears, we used custom optical macro-tubes designed specifically for the Leica Noctilux’s extreme f/0.95 aperture.",
+    title: "Theatre & Modelling: The Hyderabad Masterclass",
+    category: "Campaigns",
+    duration: "04:20",
+    imageUrl: "/posters/theatre-modelling-workshop.png",
+    camera: "SONY VENICE 2 8K",
+    lens: "ZEISS SUPREME 35MM T1.5",
+    location: "MAYAVI REHEARSAL STUDIOS // HYDERABAD",
+    storyBrief: "Live acting exercises, improv games, and modeling posture training for kids, youth, and adults.",
+    editorialSentence: "Building people before brands — unlocking inner confidence through theatre and movement.",
+    detailedStory: "A transformative session documented live in Hyderabad. Under the mantra 'Building people before brands,' the workshop merged classical theatre exercises, improvisational games, modeling confidence, and posture training. Participants of all age groups engaged in collaborative stage work to conquer camera anxiety and cultivate magnetic stage command.",
+    behindTheScenes: "Captured on-location with natural ambient workshop lighting and candid documentary coverage capturing genuine moments of breakthrough.",
     productionProcess: [
-      { step: "01", title: "Macro Prep & Testing", desc: "Calibrating macro focus pullers to track distances shorter than 2mm with millimeter-level precision." },
-      { step: "02", title: "Gilding the Shadows", desc: "Setting up golden optical reflectors to light gear edges without causing lens flare or hot spots." },
-      { step: "03", title: "Chrono-Sync", desc: "Matching the cinematic framerate (48fps) to the natural mechanical heartbeat of the clock's escapement wheel." },
-      { step: "04", title: "Warm Ivory Grading", desc: "Softening whites to warm ivory tones, reflecting the antique brand heritage of the heritage house." }
+      { step: "01", title: "Improv & Spatial Reflex Training", desc: "Breaking performance anxiety through collaborative group theatre exercises." },
+      { step: "02", title: "Camera & Posture Calibration", desc: "Teaching angles, runway confidence, and natural posture under cinema key lights." },
+      { step: "03", title: "Cross-Generational Group Dynamic", desc: "Uniting kids and adult learners in shared theatrical creative modules." },
+      { step: "04", title: "Direct Audition Pathways", desc: "Guiding standout talent directly into Mayavi casting calls and film projects." }
     ],
-    results: "Winner of the Prestige Creative Commercial Award for outstanding macro composition and brand storytelling.",
+    results: "Over 40 aspiring actors, models, and creators successfully completed the immersion workshop with direct representation opportunities.",
     scenes: [
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=600"
-    ]
+      "/posters/theatre-modelling-workshop.png",
+      "/posters/theatre-modelling-recap.png",
+      "/images/talent-creators-audition.jpg"
+    ],
+    videoUrl: "/videos/mayavi-hero.mp4"
   }
 ];
 
@@ -160,7 +161,7 @@ export const CREATIVE_WORLDS: CreativeWorld[] = [
     mood: "Cinema, Direction, Storytelling, Premium Film Production",
     description: "We formulate and direct high-value brand films, commercials, and visual systems that transcend corporate standards. Leveraging state-of-the-art camera systems, we translate raw human concepts into grand visual legacies.",
     detailedStory: "In the era of hyper-saturated feeds, high-fidelity storytelling is the only true differentiator. Our production unit handles complete end-to-end cinematography: starting from intensive scriptboarding and narrative pre-visualization to state-of-the-art camera operations (ARRI, RED, Sony Venice) and high-end cinematic color grading in REC2020/LOG-C. We build visual assets designed to stand out on mobile displays and cinema screens alike.",
-    imageUrl: "/hero_stage_a.png",
+    imageUrl: "/posters/media-1.png",
     specs: [
       { label: "CAMERA PACKS", value: "ARRI Alexa Mini LF // RED V-Raptor" },
       { label: "LENS SUITE", value: "Zeiss Supreme Primes // Cooke Anamorphic" },
@@ -185,7 +186,7 @@ export const CREATIVE_WORLDS: CreativeWorld[] = [
     mood: "Luxury Portraiture, Executive Identity, Personal Legacy, Fashion Editorial",
     description: "Whether you're a founder, creator, artist, model, or actor — you deserve a presence that people remember long after they scroll past. We help you become impossible to ignore.",
     detailedStory: "True leadership cannot be artificial. We build premium personal branding frameworks by pairing intimate, documentary-style cinematography with clean, Swiss-minimalist website designs. We help you articulate your philosophy, share your insights on professional platforms like LinkedIn, and host an impressive digital portfolio that commands respect from global investor networks.",
-    imageUrl: "/personal_branding.png?v=2",
+    imageUrl: "/posters/media-2.png",
     specs: [
       { label: "PORTRAIT STYLE", value: "Classic Editorial // Cinematic Monochrome" },
       { label: "NARRATIVE INTERVIEW", value: "Multi-Camera Documentary Setups" },
@@ -211,7 +212,7 @@ export const CREATIVE_WORLDS: CreativeWorld[] = [
     mood: "Mentorship, Learning, Camera Training, Workshops, Masterclasses",
     description: "Sharing our advanced methodologies through hands-on camera workshops, spatial sound training, and design masterclasses. Equipping the next cohort of creative leaders with raw vision.",
     detailedStory: "Through the Mayavi Academy, we provide highly intensive, hands-on masterclasses for aspiring directors, videographers, and visual storytellers. From understanding advanced lens characteristics and optical dynamics to direct on-set production training with real actors, our academy bridges the gap between raw talent and high-end professional commercial careers.",
-    imageUrl: "/talent_development.png?v=2",
+    imageUrl: "/posters/theatre-modelling-workshop.png",
     specs: [
       { label: "INSTRUCTION", value: "Direct Mentorship by Principal Directors" },
       { label: "HANDS-ON EQUIPMENT", value: "Industry-standard cinema cameras & lighting" },
@@ -237,7 +238,7 @@ export const CREATIVE_WORLDS: CreativeWorld[] = [
     mood: "Large-scale Productions, Luxury Corporate Events, Projection Mapping",
     description: "Architecting full-scale sensory environments, luxury corporate reveals, and high-intensity stage productions. We synthesize volumetric lighting, live routing, and high-density projection mapping to leave an indelible mark.",
     detailedStory: "We don't organize events; we design visual masterpieces. By integrating real-time laser systems, customized spatial acoustics, and high-density video projections that warp around physical architecture (projection mapping), we transform standard keynotes, product launches, and concerts into grand sensory chapters that leave audiences speechless.",
-    imageUrl: "/events_experience.png?v=2",
+    imageUrl: "/posters/casting-call-prince-princess.png",
     specs: [
       { label: "STAGE ARCHITECTURE", value: "Geometric Custom Frames" },
       { label: "VISUAL SYSTEMS", value: "3D Projection Mapping // Laser Grids" },

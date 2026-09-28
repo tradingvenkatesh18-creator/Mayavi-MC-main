@@ -133,7 +133,7 @@ export interface CMSData {
   lastUpdated: string;
 }
 
-const STORAGE_KEY = 'mayavi_cms_store_v2';
+const STORAGE_KEY = 'mayavi_cms_store_v3';
 const AUTH_PASSWORD_KEY = 'mayavi_admin_password_hash';
 const DEFAULT_PASSWORD = 'mayavi2026';
 
@@ -142,9 +142,9 @@ export const DEFAULT_CMS_DATA: CMSData = {
     headline: "CINEMA STARTS LONG BEFORE THE CAMERA ROLLS",
     subheadline: "Architectural storytelling, bespoke optical precision, and cinematic legacies crafted in Hyderabad for visionary global brands.",
     quote: "We don't simply record light. We calibrate time, tension, and human emotion into permanent moving art.",
-    backgroundVideoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    backgroundVideoUrl: "/videos/mayavi-hero.mp4",
     useVideoBackground: false, // Default to interactive lens scroll, toggleable to video loop
-    posterUrl: "/hero_stage_a.png",
+    posterUrl: "/official-mayavi-logo.png",
     locationTag: "STUDIO STAGE A // HYDERABAD",
     cameraTag: "ARRI ALEXA LF // ZEISS SUPREME 35MM",
     ctaPrimaryText: "START A COMMISSION",
@@ -153,48 +153,48 @@ export const DEFAULT_CMS_DATA: CMSData = {
   videoGlimpses: [
     {
       id: "glimpse-1",
-      title: "Chiaroscuro Silhouette",
-      category: "Vertical Fiction",
-      videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview",
-      thumbnailUrl: "/hero_stage_a.png",
-      duration: "0:24",
-      caption: "High-contrast rim lighting capturing stillness before action."
+      title: "3D Kinetic Motion Reveal",
+      category: "Cinematic Identity",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      thumbnailUrl: "/official-mayavi-logo.png",
+      duration: "0:08",
+      caption: "3D Infinity solar crown and celestial stardust revealing Mayavi Media Creations."
     },
     {
       id: "glimpse-2",
-      title: "Executive Intimacy",
-      category: "Personal Branding",
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      thumbnailUrl: "/personal_branding.png?v=2",
-      duration: "0:18",
-      caption: "Documentary-grade 85mm portraiture of industry leaders."
+      title: "Theatre & Modelling Masterclass",
+      category: "Talent Development",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      thumbnailUrl: "/posters/theatre-modelling-workshop.png",
+      duration: "0:24",
+      caption: "Live acting improv, stage presence, and confidence workshop in Hyderabad."
     },
     {
       id: "glimpse-3",
-      title: "Kinetic Stage Energy",
-      category: "Luxury Events",
-      videoUrl: "https://vimeo.com/76979871",
-      thumbnailUrl: "/volumetric_soundstage.png",
+      title: "Creative Ecosystem Architecture",
+      category: "Brand Positioning",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      thumbnailUrl: "/posters/media-1.png",
       duration: "0:30",
-      caption: "Multi-camera spatial sync across 40,000 attendee summits."
+      caption: "Helping people, brands, and talent discover their voice and present it with clarity."
     },
     {
       id: "glimpse-4",
-      title: "Method Screen Test",
-      category: "Talent Development",
-      videoUrl: "/studio_soundstage_bg.jpg",
-      thumbnailUrl: "/studio_soundstage_bg.jpg",
-      duration: "0:22",
-      caption: "Audition screen test calibration on 50mm Anamorphic primes."
+      title: "Casting Discovery: Prince & Princess",
+      category: "Talent & Pageants",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      thumbnailUrl: "/posters/casting-call-prince-princess.png",
+      duration: "0:18",
+      caption: "Exclusive casting pipeline for South India Season 2 film & media talent."
     },
     {
       id: "glimpse-5",
-      title: "Macro Timepiece Escapement",
-      category: "Brand Films",
-      videoUrl: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&q=80&w=1200",
-      thumbnailUrl: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&q=80&w=1200",
+      title: "Content Creator Auditions",
+      category: "Media Production",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      thumbnailUrl: "/images/talent-creators-audition.jpg",
       duration: "0:15",
-      caption: "Micro-tooth horology precision lit with warm gold diffusion."
+      caption: "On-camera charisma coaching and digital media production in Hyderabad."
     }
   ],
   showreel: {
@@ -203,169 +203,165 @@ export const DEFAULT_CMS_DATA: CMSData = {
     chapters: [
       {
         id: "sr-1",
-        title: "Act I // Headless Cinema & Dynamic CMS",
-        subtitle: "Automating Visual Marketing & Production",
+        title: "Act I // 3D Cinematic Identity & Stardust Reveal",
+        subtitle: "Stories That Inspire. Visuals That Stay.",
         category: "Brand Films",
-        camera: "ARRI Alexa Mini LF",
+        camera: "ARRI Alexa Mini LF // 3D Render",
         lens: "Zeiss Supreme Prime 50mm T1.5",
-        videoUrl: "https://www.youtube.com/watch?v=RBxwGsCN2Vc",
-        posterUrl: "https://i.ytimg.com/vi/RBxwGsCN2Vc/hqdefault.jpg",
-        duration: "0:45",
-        directorNotes: "Capturing dynamic visual production and scalable video engineering.",
-        platform: "youtube"
+        videoUrl: "/videos/mayavi-hero.mp4",
+        posterUrl: "/official-mayavi-logo.png",
+        duration: "0:08",
+        directorNotes: "Bespoke 3D CGI solar crown and infinity loop particle simulation crafted for Mayavi Media Creations.",
+        platform: "direct"
       },
       {
         id: "sr-2",
-        title: "Act II // Spatial Choreography",
-        subtitle: "Movement & Tension",
+        title: "Act II // Spatial Direction & Creative Ecosystem",
+        subtitle: "Beyond Traditional Media",
         category: "Vertical Fiction",
         camera: "Sony Venice 2 8K",
         lens: "Cooke Anamorphic 35mm",
-        videoUrl: "https://www.youtube.com/watch?v=RBxwGsCN2Vc",
-        posterUrl: "https://i.ytimg.com/vi/RBxwGsCN2Vc/hqdefault.jpg",
+        videoUrl: "/videos/mayavi-hero.mp4",
+        posterUrl: "/posters/media-2.png",
         duration: "0:38",
-        directorNotes: "Fluid Steadicam tracking shots framing actors through classical geometry.",
-        platform: "youtube"
+        directorNotes: "Fluid Steadicam tracking shots framing human vulnerability through classical geometry.",
+        platform: "direct"
       },
       {
         id: "sr-3",
-        title: "Act III // Volumetric Immersion",
-        subtitle: "Stage & Spectacle",
-        category: "Luxury Events",
+        title: "Act III // Stage Energy & Live Talent Direction",
+        subtitle: "Theatre, Voice & Presence",
+        category: "Talent Development",
         camera: "RED V-Raptor 8K VV",
         lens: "Leica Noctilux 50mm",
-        videoUrl: "https://vimeo.com/76979871",
-        posterUrl: "/showreel_act3.png",
-        duration: "0:52",
-        directorNotes: "360-degree LED stage environments synchronized to 24fps shutter angles.",
-        platform: "vimeo"
+        videoUrl: "/videos/mayavi-hero.mp4",
+        posterUrl: "/posters/theatre-modelling-recap.png",
+        duration: "0:45",
+        directorNotes: "Capturing authentic human emotion during live stage improv and physical presence coaching.",
+        platform: "direct"
       },
       {
         id: "sr-4",
-        title: "Act IV // Human Vulnerability",
-        subtitle: "The Unspoken Climax",
+        title: "Act IV // Emerging Talent Showcase",
+        subtitle: "Front-of-Camera Charisma",
         category: "Personal Branding",
         camera: "Hasselblad H6D-100c",
         lens: "HC 80mm f/2.8",
-        videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview",
-        posterUrl: "/showreel_act4.png",
+        videoUrl: "/videos/mayavi-hero.mp4",
+        posterUrl: "/images/talent-creators-audition.jpg",
         duration: "0:30",
-        directorNotes: "Intimate medium-format closeups that reveal authentic leadership conviction.",
-        platform: "drive"
+        directorNotes: "Intimate medium-format closeups that reveal authentic leadership conviction and camera presence.",
+        platform: "direct"
       }
     ]
   },
   curatedExhibitions: [
     {
       id: "01",
-      title: "The Weight of Silence",
-      category: "Vertical Fiction",
-      duration: "04:12",
-      videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview",
-      imageUrl: "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&q=80&w=1200",
+      title: "Creative Ecosystem: Voice & Clarity",
+      category: "Brand Films",
+      duration: "03:45",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      imageUrl: "/posters/media-1.png",
       camera: "ARRI ALEXA MINI LF",
       lens: "ZEISS SUPREME PRIME 50MM T1.5",
-      location: "HAMPI ARCHAEOLOGICAL SITE",
-      storyBrief: "A poetic vertical cinema piece framing the quiet, spatial geometry of ancestral ruins.",
-      editorialSentence: "A vertical frame containing the entire gravity of an ancestral lineage.",
-      detailedStory: "Shot entirely in 9:16 ARRI RAW, this film is an exercise in restraint. Every composition was treated as a permanent editorial painting, letting shadows crawl across five-hundred-year-old temple stones. No camera motion was permitted; the visual story is narrated purely through the passing of natural light and dust particles illuminated in air.",
-      behindTheScenes: "We waited forty-eight hours on-site in Hampi for the exact overcast diffusion to align with the temple corridors, bypassing artificial lights to respect natural geometry.",
-      results: "Awarded Best Vertical Cinematography at the Curators Pavilion and featured on the front cover of Cinematic Geometrics Monthly.",
-      scenes: ["/desert_monolith.png", "/hero_stage_a.png", "/volumetric_soundstage.png"],
+      location: "STUDIO STAGE A // HYDERABAD",
+      storyBrief: "A creative ecosystem built to help people, brands, and talent discover their voice and present it with clarity.",
+      editorialSentence: "We are not just a media agency — we build presence that people remember long after they scroll past.",
+      detailedStory: "Mayavi Media Creations was forged around a singular conviction: genuine storytelling demands architectural restraint and authentic voice. Integrating Media, Personal Branding, and Events, this comprehensive portfolio outlines how our Hyderabad studio elevates creators, artists, founders, and actors to national recognition.",
+      behindTheScenes: "Created in Hyderabad combining custom watercolor floral textures with high-contrast luxury serif editorial typography.",
+      results: "Core brand philosophy recognized by industry leaders across South India's premier creative circles.",
+      scenes: ["/posters/media-1.png", "/posters/media-2.png", "/posters/media-3.png"],
       featured: true
     },
     {
       id: "02",
-      title: "Heritage & Horology",
-      category: "Brand Films",
-      duration: "02:18",
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      imageUrl: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&q=80&w=1200",
-      camera: "RED V-RAPTOR 8K S35",
-      lens: "LEICA NOCTILUX 50MM F/0.95",
-      location: "COCHIN HERITAGE SUITE",
-      storyBrief: "Capturing the intricate ticking mechanics of family watchmakers against dramatic sunset hues.",
-      editorialSentence: "Ticking mechanics captured between silence and golden hour shadowlines.",
-      detailedStory: "A high-end commercial piece detailing the dedication of multi-generational timepiece craftsman. Using specialized macro probes and ultra-shallow depth of field, we highlighted the microscopic tooth wheels and escape mechanisms, creating a rhythmic visual symphony set to slow acoustic reverberations.",
-      behindTheScenes: "To preserve the micro textures of brass gears, we used custom optical macro-tubes designed specifically for the Leica Noctilux’s extreme f/0.95 aperture.",
-      results: "Winner of the Prestige Creative Commercial Award for outstanding macro composition and brand storytelling.",
-      scenes: [
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=600"
-      ],
+      title: "Theatre & Modelling: The Hyderabad Masterclass",
+      category: "Campaigns",
+      duration: "04:20",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      imageUrl: "/posters/theatre-modelling-workshop.png",
+      camera: "SONY VENICE 2 8K",
+      lens: "ZEISS SUPREME 35MM T1.5",
+      location: "MAYAVI REHEARSAL STUDIOS // HYDERABAD",
+      storyBrief: "Live acting exercises, improv games, and modeling posture training for kids, youth, and adults.",
+      editorialSentence: "Building people before brands — unlocking inner confidence through theatre and movement.",
+      detailedStory: "A transformative session documented live in Hyderabad. Under the mantra 'Building people before brands,' the workshop merged classical theatre exercises, improvisational games, modeling confidence, and posture training. Participants of all age groups engaged in collaborative stage work to conquer camera anxiety and cultivate magnetic stage command.",
+      behindTheScenes: "Captured on-location with natural ambient workshop lighting and candid documentary coverage capturing genuine moments of breakthrough.",
+      results: "Over 40 aspiring actors, models, and creators successfully completed the immersion workshop with direct representation opportunities.",
+      scenes: ["/posters/theatre-modelling-workshop.png", "/posters/theatre-modelling-recap.png", "/images/talent-creators-audition.jpg"],
       featured: true
     },
     {
       id: "03",
-      title: "Architectural Noir",
-      category: "Personal Branding",
-      duration: "03:45",
-      videoUrl: "https://vimeo.com/76979871",
-      imageUrl: "/personal_branding.png?v=2",
-      camera: "HASSELBLAD H6D-100C",
-      lens: "HC 80MM F/2.8 REFERENCE",
-      location: "FINANCIAL DISTRICT // HYDERABAD",
-      storyBrief: "A monochrome study of an executive architect defining skyline proportions.",
-      editorialSentence: "Brutalist concrete softened by the subtle vulnerability of personal conviction.",
-      detailedStory: "We captured the architect moving through their finished high-rises at 5:00 AM before city commotion began. High-contrast chiaroscuro lighting sculpted their features, highlighting the link between physical space and philosophical intent.",
-      behindTheScenes: "All setups utilized single 2.5K HMI lights bounced off untreated matte limestone to produce velvety dark shadows.",
-      results: "Selected by Architectural Digest as Top 10 Executive Portraits of the Year.",
-      scenes: ["/personal_branding.png?v=2", "/hero_stage_a.png"],
+      title: "Prince & Princess of South India (Season 2)",
+      category: "Luxury Events",
+      duration: "02:30",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      imageUrl: "/posters/casting-call-prince-princess.png",
+      camera: "RED V-RAPTOR 8K VV",
+      lens: "LEICA NOCTILUX 50MM F/0.95",
+      location: "ANDHRA PRADESH & TELANGANA",
+      storyBrief: "Premier casting and talent scouting platform for emerging models, actors, and media personalities.",
+      editorialSentence: "Stepping into the spotlight — unlimited applications and priority industry selection.",
+      detailedStory: "Official casting announcement and scouting campaign for Season 2 of Prince & Princess of South India across Andhra Pradesh and Telangana. Designed to discover raw, high-potential screen talent and connect them directly with mainstream film, TV, and luxury brand commercial directors.",
+      behindTheScenes: "Coordinated across Hyderabad with multi-stage audition screen tests and direct WhatsApp audition hotline (+91 63017 61783).",
+      results: "Ranked as one of the most anticipated regional pageant and screen discovery platforms in South India for 2026.",
+      scenes: ["/posters/casting-call-prince-princess.png", "/images/talent-creators-audition.jpg", "/images/hiring-content-creators-yellow.jpg"],
       featured: true
     },
     {
       id: "04",
-      title: "Solitude in Crimson",
-      category: "Vertical Fiction",
-      duration: "01:50",
-      videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview",
-      imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1200",
-      camera: "SONY VENICE 2 8K",
-      lens: "ANAMORPHIC COOKE 40MM",
-      location: "OLD CITY COURTYARD // HYDERABAD",
-      storyBrief: "A high-intensity emotional monologue delivered through continuous 9:16 rotation.",
-      editorialSentence: "A solitary monologue where shadow and crimson velvet merge.",
-      detailedStory: "A masterclass in single-take directing. The camera performs a 720-degree orbital rotation around the protagonist as neon crimson gels transition into cold 5600K daylight.",
-      behindTheScenes: "The rotation rig was mechanically counterweighted to eliminate all motor noise and keep the lavalier microphone clean.",
-      results: "Over 2.4M organic views across Instagram Reels & YouTube Shorts.",
-      scenes: ["/desert_monolith.png", "/showreel_act1.png"],
+      title: "Young Creators Audition // Front of Camera",
+      category: "Personal Branding",
+      duration: "02:15",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      imageUrl: "/images/talent-creators-audition.jpg",
+      camera: "ARRI ALEXA LF",
+      lens: "HASSELBLAD HC 80MM",
+      location: "STAGE B SOUNDSTAGE // HYDERABAD",
+      storyBrief: "Scouting young, energetic, and charismatic male & female talent for digital media production.",
+      editorialSentence: "Have a natural flair for hosting? We provide the production muscle and global audience.",
+      detailedStory: "Direct talent recruitment initiative launched by Mayavi Media Creations. Seeking passionate 18-28 creators for long-form narrative series, tech reviews, lifestyle docuseries, and brand ambassadorships. Selected creators undergo full camera grooming, vocal coaching, and content strategy incubation.",
+      behindTheScenes: "Auditions evaluated with 4K multi-cam teleprompter tests and cold-reading improv challenges.",
+      results: "Dozens of high-engagement video series launched with over 10M combined impressions.",
+      scenes: ["/images/talent-creators-audition.jpg", "/images/hiring-content-creators-yellow.jpg", "/posters/media-3.png"],
       featured: true
     },
     {
       id: "05",
-      title: "Symphony of Sparks",
-      category: "Commercials",
-      duration: "01:30",
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      imageUrl: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1200",
-      camera: "PHANTOM FLEX 4K",
-      lens: "ARRI MACRO 100MM",
-      location: "INDUSTRIAL GUILD // CHENNAI",
-      storyBrief: "Ultra-high-speed 1000 FPS macro capture of bespoke metal fabrication.",
-      editorialSentence: "Industrial metalwork captured at 1000 frames per second like molten starlight.",
-      detailedStory: "Transforming heavy industrial craftsmanship into high art. By filming molten welding sparks at one thousand frames per second, each individual spark arcs through the dark frame like a falling meteor.",
-      behindTheScenes: "Custom heat-resistant quartz optical filters were mounted in front of the front lens element to shield from molten spatter.",
-      results: "Recognized with Silver at the National Industrial Visual Guild.",
-      scenes: ["/volumetric_soundstage.png", "/showreel_act3.png"],
+      title: "3D Brand Identity & Celestial Motion",
+      category: "Vertical Fiction",
+      duration: "00:08",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      imageUrl: "/official-mayavi-logo.png",
+      camera: "OCTANE 3D CINEMA ENGINE",
+      lens: "BESPOKE VIRTUAL ANAMORPHIC",
+      location: "VFX & COLOR SUITE // HYDERABAD",
+      storyBrief: "Golden stardust and violet light trails coalescing into the iconic Mayavi infinity emblem.",
+      editorialSentence: "Stories that inspire. Visuals that stay.",
+      detailedStory: "The definitive motion brand statement for Mayavi Media Creations. Built with volumetric stardust physics, celestial purple atmospheric nebulae, and warm 24K gold ray reflections. Symbolizes the infinite potential of human storytelling paired with the illuminating power of the sun.",
+      behindTheScenes: "Rendered at 60 FPS uncompressed with bespoke optical chromatic dispersion and anamorphic streak filters.",
+      results: "The signature studio ident opening every major Mayavi production.",
+      scenes: ["/official-mayavi-logo.png", "/logos/mayavi-mandala.png", "/logos/mayavi-infinity-sun.png"],
       featured: false
     },
     {
       id: "06",
-      title: "Luminescence // Zenith 2026",
-      category: "Luxury Events",
-      duration: "03:15",
-      videoUrl: "https://vimeo.com/76979871",
-      imageUrl: "/volumetric_soundstage.png",
-      camera: "SONY FX9 MULTI-CAM",
-      lens: "FUJINON PREMISTA CINE ZOOMS",
-      location: "HITEX CONVENTION // HYDERABAD",
-      storyBrief: "Experiential stage design featuring synchronized 360-degree laser mapping.",
-      editorialSentence: "A thousand beams synchronized to a singular acoustic pulse.",
-      detailedStory: "Covering an arena-scale gathering with zero frame lag. We integrated 6 cinema camera feeds into a live uncompressed color pipeline, broadcasting 4K master feeds simultaneously to live LED walls and global satellite downlinks.",
-      behindTheScenes: "Fiber optic transceivers delivered latency under 8 milliseconds from stage center to the main director gallery.",
-      results: "Official visual design showcase for international tech summits.",
-      scenes: ["/volumetric_soundstage.png", "/hero_stage_a.png"],
+      title: "Becoming Impossible to Ignore",
+      category: "Commercials",
+      duration: "03:10",
+      videoUrl: "/videos/mayavi-hero.mp4",
+      imageUrl: "/posters/media-3.png",
+      camera: "SONY FX9 CINEMA",
+      lens: "COOKE 40MM ANAMORPHIC",
+      location: "CREATIVE STRATEGY LAB // HYDERABAD",
+      storyBrief: "Personal branding, content strategy, talent grooming, and luxury event production.",
+      editorialSentence: "Whether you're a founder, artist, model, or actor — you deserve an indelible presence.",
+      detailedStory: "A comprehensive roadmap outlining how Mayavi engineers executive and artistic influence. From scripting executive monologues to orchestrating private runway presentations, we sculpt public perception with cinematic precision.",
+      behindTheScenes: "Created in collaboration with prominent South Indian creative directors and brand strategists.",
+      results: "Guided over 50 prominent figures into sustained, high-credibility media prominence.",
+      scenes: ["/posters/media-3.png", "/posters/media-2.png", "/posters/media-1.png"],
       featured: false
     }
   ],
@@ -452,14 +448,14 @@ export const DEFAULT_CMS_DATA: CMSData = {
   },
   integrations: {
     googleSheetsWebhookUrl: "https://script.google.com/macros/s/AKfycbz_SAMPLE_MAYAVI_APP_SCRIPT_URL/exec",
-    whatsappNumber: "919999999999",
+    whatsappNumber: "916301761783",
     whatsappMessageTemplate: "Hello Mayavi Media! I would like to inquire about a cinematic production for {category}. Name: {name}, Phone: {phone}.",
-    contactEmail: "production@mayavicreations.com",
-    contactPhone: "+91 99999 99999",
+    contactEmail: "mayavistudios25@gmail.com",
+    contactPhone: "+91 63017 61783",
     studioAddress: "Soundstage 4, Film Nagar, Jubilee Hills, Hyderabad, Telangana 500096",
-    socialInstagram: "https://instagram.com/mayavicreations",
-    socialYoutube: "https://youtube.com/@mayavicreations",
-    socialLinkedin: "https://linkedin.com/company/mayavicreations"
+    socialInstagram: "https://www.instagram.com/mayavi_mediacreations/",
+    socialYoutube: "https://youtube.com/@mayavi_mediacreations",
+    socialLinkedin: "https://linkedin.com/company/mayavi-media-creations"
   },
   inquiries: [
     {
@@ -505,6 +501,18 @@ export function getCMSData(): CMSData {
       return fallback;
     }
     const parsed = JSON.parse(raw);
+    
+    // Auto-heal legacy placeholder video and contact numbers if found in cache
+    if (parsed.hero?.backgroundVideoUrl?.includes('BigBuckBunny')) {
+      parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
+    }
+    if (parsed.integrations?.whatsappNumber === '919999999999') {
+      parsed.integrations.whatsappNumber = fallback.integrations.whatsappNumber;
+      parsed.integrations.contactPhone = fallback.integrations.contactPhone;
+      parsed.integrations.contactEmail = fallback.integrations.contactEmail;
+      parsed.integrations.socialInstagram = fallback.integrations.socialInstagram;
+    }
+
     // Ensure all critical top-level properties exist
     return {
       ...fallback,
