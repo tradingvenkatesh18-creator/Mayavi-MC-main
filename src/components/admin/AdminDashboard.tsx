@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import {
   LayoutDashboard,
   Video,
@@ -658,8 +659,34 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   });
 
   return (
-    <div className="min-h-screen bg-[#07050C] text-white flex flex-col font-sans selection:bg-[#EAB308] selection:text-black">
+    <div className="min-h-screen bg-[#07050C] text-white flex flex-col font-sans selection:bg-[#EAB308] selection:text-black relative">
       
+      {/* #16 Surreal Cosmic Atmosphere & Sacred Mandalas */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Imperial Violet Celestial Nebula */}
+        <div className="absolute -top-[10%] left-[25%] w-[850px] h-[550px] rounded-full bg-[#410682]/20 blur-[150px]" />
+        {/* Solar Gold Ambient Glow */}
+        <div className="absolute -bottom-[15%] right-[20%] w-[700px] h-[500px] rounded-full bg-[#EAB308]/08 blur-[160px]" />
+
+        {/* Sacred Geometry Mandala 1 - Slow Majestic Celestial Rotation */}
+        <motion.img 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 200, repeat: Infinity, ease: "linear" }}
+          src="/patterns/pattern-2.svg" 
+          alt="Mayavi Sacred Geometry"
+          className="absolute -top-32 -right-32 w-[650px] h-[650px] opacity-[0.045] invert pointer-events-none select-none drop-shadow-[0_0_50px_rgba(234,179,8,0.2)]"
+        />
+
+        {/* Sacred Geometry Mandala 2 - Counter-Rotation */}
+        <motion.img 
+          animate={{ rotate: -360 }}
+          transition={{ duration: 240, repeat: Infinity, ease: "linear" }}
+          src="/patterns/pattern-5.svg" 
+          alt="Mayavi Sacred Lattice"
+          className="absolute -bottom-48 -left-48 w-[600px] h-[600px] opacity-[0.035] invert pointer-events-none select-none drop-shadow-[0_0_50px_rgba(65,6,130,0.3)]"
+        />
+      </div>
+
       {/* TOAST BANNER */}
       {toastMessage && (
         <div className="fixed top-6 right-6 z-50 flex items-center space-x-2 px-5 py-3 rounded-2xl bg-amber-400 text-black font-mono text-xs font-bold shadow-[0_10px_35px_rgba(234,179,8,0.4)] animate-bounce">
@@ -668,20 +695,20 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
         </div>
       )}
 
-      {/* TOP DIRECTORIAL HEADER */}
-      <header className="sticky top-0 z-40 bg-[#0B0814]/90 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      {/* TOP DIRECTORIAL HEADER - #22 Liquid Glass */}
+      <header className="sticky top-0 z-40 bg-[#0B0814]/85 backdrop-blur-2xl border-b border-amber-400/25 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-[0_4px_30px_rgba(0,0,0,0.7)] relative">
         <div className="flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-xl bg-[#EAB308]/15 border border-[#EAB308]/30 flex items-center justify-center text-[#EAB308] shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EAB308]/25 to-amber-600/10 border border-amber-400/40 flex items-center justify-center text-[#EAB308] shadow-[0_0_20px_rgba(234,179,8,0.25)]">
             <LayoutDashboard size={20} />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="font-serif italic text-lg text-white font-normal">Mayavi Executive CMS</span>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[8px] tracking-widest uppercase">
-                SINGLE-USER SECURE
+              <span className="font-serif italic text-lg text-white font-normal">Mayavi Master Deck</span>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-400 font-mono text-[8px] tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                DIRECTOR CONTROL
               </span>
               {supabaseConfig.isConfigured ? (
-                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[8px] tracking-widest uppercase">
+                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[8px] tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>SUPABASE CLOUD LIVE</span>
                 </span>
@@ -703,8 +730,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </span>
               )}
             </div>
-            <p className="font-mono text-[9px] text-white/40 tracking-wider">
-              PORT 3000 // ARRI CALIBRATED LIVE REPOSITORY
+            <p className="font-mono text-[9px] text-white/40 tracking-wider flex items-center gap-2 mt-0.5">
+              <span>ARRI CALIBRATED REPOSITORY</span>
+              <span className="text-white/20">|</span>
+              <span className="text-amber-400/70">24 FPS // LOG-C</span>
             </p>
           </div>
         </div>
@@ -714,10 +743,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           <button
             type="button"
             onClick={handleSaveAllCMS}
-            className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all cursor-pointer shadow-md ${
+            className={`flex items-center space-x-1.5 px-5 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all cursor-pointer shadow-lg ${
               globalSaved
-                ? 'bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]'
-                : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.25)]'
+                ? 'bg-emerald-500 text-black shadow-[0_0_25px_rgba(16,185,129,0.6)]'
+                : 'bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black shadow-[0_0_25px_rgba(234,179,8,0.4)] hover:shadow-[0_0_35px_rgba(234,179,8,0.6)] hover:scale-105'
             }`}
           >
             {globalSaved ? (
@@ -735,7 +764,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
           <button
             onClick={onExit}
-            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white text-xs font-mono tracking-wider transition-all cursor-pointer"
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/15 hover:border-amber-400/40 text-white/80 hover:text-white text-xs font-mono tracking-wider transition-all cursor-pointer shadow-sm"
           >
             <ExternalLink size={13} />
             <span>View Live Site</span>
@@ -744,7 +773,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           <button
             onClick={handleExportJSON}
             title="Download JSON Backup"
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-[#EAB308] text-xs font-mono tracking-wider transition-all cursor-pointer"
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/15 hover:border-amber-400/40 text-white/70 hover:text-[#EAB308] text-xs font-mono tracking-wider transition-all cursor-pointer shadow-sm"
           >
             <Download size={13} />
             <span className="hidden sm:inline">Export Backup</span>
@@ -752,7 +781,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
           <label
             title="Restore from JSON"
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white text-xs font-mono tracking-wider transition-all cursor-pointer"
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/15 hover:border-amber-400/40 text-white/70 hover:text-white text-xs font-mono tracking-wider transition-all cursor-pointer shadow-sm"
           >
             <Upload size={13} />
             <span className="hidden sm:inline">Import JSON</span>
@@ -761,7 +790,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
           <button
             onClick={handleLogout}
-            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-red-950/30 hover:bg-red-900/50 border border-red-500/30 text-red-300 text-xs font-mono tracking-wider transition-all cursor-pointer"
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-red-950/30 hover:bg-red-900/50 backdrop-blur-md border border-red-500/30 text-red-300 text-xs font-mono tracking-wider transition-all cursor-pointer shadow-sm"
           >
             <LogOut size={13} />
             <span>Lock</span>
@@ -770,11 +799,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
       </header>
 
       {/* DASHBOARD BODY CONTAINER */}
-      <div className="flex-1 flex flex-col md:flex-row">
+      <div className="flex-1 flex flex-col md:flex-row relative z-10">
         
-        {/* LEFT TABBED NAVIGATION */}
-        <aside className="w-full md:w-64 bg-[#090712] border-r border-white/5 p-4 flex md:flex-col gap-1.5 overflow-x-auto md:overflow-visible shrink-0">
-          <div className="hidden md:block px-3 py-2 font-mono text-[8px] text-white/30 tracking-[0.25em] uppercase">
+        {/* LEFT TABBED NAVIGATION - #22 Liquid Glass Rail */}
+        <aside className="w-full md:w-64 bg-[#090712]/80 backdrop-blur-2xl border-r border-amber-400/15 p-4 flex md:flex-col gap-1.5 overflow-x-auto md:overflow-visible shrink-0 shadow-[4px_0_30px_rgba(0,0,0,0.5)]">
+          <div className="hidden md:block px-3 py-2 font-mono text-[8px] text-amber-400/60 tracking-[0.25em] uppercase">
             DIRECTORIAL SECTIONS
           </div>
 
@@ -798,20 +827,20 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-left text-xs font-mono tracking-wider transition-all cursor-pointer whitespace-nowrap md:whitespace-normal ${
+                className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-left text-xs font-mono tracking-wider transition-all cursor-pointer whitespace-nowrap md:whitespace-normal group ${
                   isActive
-                    ? 'bg-[#EAB308]/15 text-[#EAB308] border border-[#EAB308]/40 font-bold shadow-[0_0_15px_rgba(234,179,8,0.1)]'
-                    : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'
+                    ? 'bg-gradient-to-r from-amber-400/20 via-amber-500/10 to-transparent text-[#EAB308] border border-amber-400/40 font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] ring-1 ring-amber-400/30'
+                    : 'text-white/60 hover:text-white hover:bg-white/[0.04] border border-transparent hover:border-white/10'
                 }`}
               >
                 <div className="flex items-center space-x-2.5">
-                  <Icon size={15} />
+                  <Icon size={15} className={isActive ? 'text-[#EAB308]' : 'text-white/40 group-hover:text-amber-400/80 transition-colors'} />
                   <span>{tab.label}</span>
                 </div>
                 {tab.badge && (
                   <span
                     className={`ml-2 px-1.5 py-0.5 rounded text-[8px] font-bold ${
-                      isActive ? 'bg-[#EAB308] text-black' : 'bg-white/10 text-white/50'
+                      isActive ? 'bg-[#EAB308] text-black shadow-[0_0_8px_#EAB308]' : 'bg-white/10 text-white/50'
                     }`}
                   >
                     {tab.badge}
@@ -822,12 +851,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           })}
 
           <div className="mt-auto hidden md:block pt-6 border-t border-white/5 px-2">
-            <div className="p-3 rounded-xl bg-amber-400/5 border border-amber-400/10 space-y-1">
+            <div className="p-3.5 rounded-xl bg-amber-400/[0.04] border border-amber-400/15 space-y-1 backdrop-blur-md">
               <span className="font-mono text-[8px] text-[#EAB308] font-bold tracking-widest uppercase block">
-                NO CODING REQUIRED
+                DIRECTOR CONTROL // 8K
               </span>
               <p className="text-[10px] text-white/40 leading-relaxed font-sans">
-                All changes save directly to the browser and update the live site instantly without rebuild.
+                Changes save instantly to browser and propagate directly to live visitors.
               </p>
             </div>
           </div>
@@ -840,10 +869,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           {activeTab === 'overview' && (
             <div className="space-y-8">
               <div>
-                <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
-                  DASHBOARD OVERVIEW
+                <span className="font-mono text-[9px] tracking-[0.35em] text-[#EAB308] uppercase font-bold flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                  DASHBOARD OVERVIEW // MMXXVI
                 </span>
-                <h1 className="text-3xl font-light font-serif italic text-white mt-1">
+                <h1 className="text-3xl sm:text-4xl font-light font-serif italic text-white mt-1.5 tracking-tight">
                   Control Room & Media Telemetry
                 </h1>
                 <p className="text-white/50 text-xs font-sans mt-1">
@@ -851,21 +881,22 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </p>
               </div>
 
-              {/* Status Metric Cards (Clickable Direct Navigation) */}
+              {/* Status Metric Cards - #22 Liquid Glass Pods */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <button
                   type="button"
                   onClick={() => setActiveTab('hero-glimpses')}
-                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-[#EAB308]/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                  className="relative overflow-hidden p-5 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/[0.05] via-[#0F0B1E]/80 to-[#07050C]/90 border border-white/15 hover:border-[#EAB308]/60 text-left space-y-2.5 transition-all duration-300 cursor-pointer group shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_rgba(234,179,8,0.15)] hover:scale-[1.02]"
                 >
-                  <div className="flex items-center justify-between text-white/40 group-hover:text-[#EAB308] transition-colors">
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
+                  <div className="flex items-center justify-between text-white/50 group-hover:text-[#EAB308] transition-colors relative z-10">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Hero Background</span>
                     <Video size={16} className="text-[#EAB308]" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors relative z-10">
                     {cms.hero.useVideoBackground ? 'Video Loop Active' : 'Lens Sequence'}
                   </p>
-                  <p className="text-[10px] font-mono text-white/50 group-hover:text-[#EAB308] transition-colors">
+                  <p className="text-[10px] font-mono text-white/50 group-hover:text-[#EAB308] transition-colors relative z-10">
                     Click to configure loop →
                   </p>
                 </button>
@@ -873,16 +904,17 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <button
                   type="button"
                   onClick={() => setActiveTab('hero-glimpses')}
-                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-amber-400/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                  className="relative overflow-hidden p-5 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/[0.05] via-[#0F0B1E]/80 to-[#07050C]/90 border border-white/15 hover:border-amber-400/60 text-left space-y-2.5 transition-all duration-300 cursor-pointer group shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_rgba(234,179,8,0.15)] hover:scale-[1.02]"
                 >
-                  <div className="flex items-center justify-between text-white/40 group-hover:text-amber-400 transition-colors">
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
+                  <div className="flex items-center justify-between text-white/50 group-hover:text-amber-400 transition-colors relative z-10">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Video Glimpses</span>
                     <Film size={16} className="text-amber-400" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors relative z-10">
                     {cms.videoGlimpses.length} Loops Configured
                   </p>
-                  <p className="text-[10px] font-mono text-emerald-400">
+                  <p className="text-[10px] font-mono text-emerald-400 relative z-10">
                     ● Click to edit 5 loops →
                   </p>
                 </button>
@@ -890,16 +922,17 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <button
                   type="button"
                   onClick={() => setActiveTab('portfolio')}
-                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-purple-400/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                  className="relative overflow-hidden p-5 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/[0.05] via-[#0F0B1E]/80 to-[#07050C]/90 border border-white/15 hover:border-purple-400/60 text-left space-y-2.5 transition-all duration-300 cursor-pointer group shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_rgba(168,85,247,0.15)] hover:scale-[1.02]"
                 >
-                  <div className="flex items-center justify-between text-white/40 group-hover:text-purple-400 transition-colors">
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
+                  <div className="flex items-center justify-between text-white/50 group-hover:text-purple-400 transition-colors relative z-10">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Curated Exhibitions</span>
                     <FolderKanban size={16} className="text-purple-400" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-purple-200 transition-colors">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-purple-200 transition-colors relative z-10">
                     {cms.curatedExhibitions.length} Hybrid Links
                   </p>
-                  <p className="text-[10px] font-mono text-purple-400">
+                  <p className="text-[10px] font-mono text-purple-400 relative z-10">
                     Click to manage portfolio →
                   </p>
                 </button>
@@ -907,16 +940,17 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <button
                   type="button"
                   onClick={() => setActiveTab('integrations')}
-                  className="p-5 rounded-2xl bg-[#0F0B1E] border border-white/10 hover:border-emerald-400/50 hover:bg-[#140F28] text-left space-y-2 transition-all cursor-pointer group shadow-sm"
+                  className="relative overflow-hidden p-5 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/[0.05] via-[#0F0B1E]/80 to-[#07050C]/90 border border-white/15 hover:border-emerald-400/60 text-left space-y-2.5 transition-all duration-300 cursor-pointer group shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:scale-[1.02]"
                 >
-                  <div className="flex items-center justify-between text-white/40 group-hover:text-emerald-400 transition-colors">
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
+                  <div className="flex items-center justify-between text-white/50 group-hover:text-emerald-400 transition-colors relative z-10">
                     <span className="font-mono text-[9px] tracking-widest uppercase">Client Inquiries</span>
                     <Sheet size={16} className="text-emerald-400" />
                   </div>
-                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-emerald-200 transition-colors">
+                  <p className="text-2xl font-serif italic text-white font-light group-hover:text-emerald-200 transition-colors relative z-10">
                     {cms.inquiries.length} Recorded
                   </p>
-                  <p className="text-[10px] font-mono text-emerald-400">
+                  <p className="text-[10px] font-mono text-emerald-400 relative z-10">
                     Click to view leads & sheets →
                   </p>
                 </button>
