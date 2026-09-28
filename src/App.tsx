@@ -107,7 +107,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
   {
     id: "02",
     title: "Theatre & Modelling: The Hyderabad Masterclass",
-    category: "Campaigns",
+    category: "Creative Campaigns",
     duration: "04:20",
     imageUrl: "/posters/theatre-modelling-workshop.png",
     camera: "SONY VENICE 2 8K",
@@ -128,6 +128,110 @@ const FEATURED_PROJECTS: CinematicProject[] = [
       "/posters/theatre-modelling-workshop.png",
       "/posters/theatre-modelling-recap.png",
       "/images/talent-creators-audition.jpg"
+    ],
+    videoUrl: "/videos/mayavi-hero.mp4"
+  },
+  {
+    id: "03",
+    title: "Prince & Princess of South India (Season 2)",
+    category: "Luxury Events",
+    duration: "02:30",
+    imageUrl: "/posters/casting-call-prince-princess.png",
+    camera: "RED V-RAPTOR 8K VV",
+    lens: "LEICA NOCTILUX 50MM F/0.95",
+    location: "ANDHRA PRADESH & TELANGANA",
+    storyBrief: "Premier casting and talent scouting platform for emerging models, actors, and media personalities.",
+    editorialSentence: "Stepping into the spotlight — unlimited applications and priority industry selection.",
+    detailedStory: "Official casting announcement and scouting campaign for Season 2 of Prince & Princess of South India across Andhra Pradesh and Telangana. Designed to discover raw, high-potential screen talent and connect them directly with mainstream film, TV, and luxury brand commercial directors.",
+    behindTheScenes: "Coordinated across Hyderabad with multi-stage audition screen tests and direct WhatsApp audition hotline (+91 63017 61783).",
+    productionProcess: [
+      { step: "01", title: "Regional Scouting Call", desc: "Deploying targeted casting invitations across AP and Telangana creative networks." },
+      { step: "02", title: "Runway & Screen Test", desc: "Evaluating photogenic presence, movement geometry, and camera confidence under cinema lights." },
+      { step: "03", title: "Director Curation", desc: "Selecting finalists for prime-time showcase and brand ambassadorships." }
+    ],
+    results: "Ranked as one of the most anticipated regional pageant and screen discovery platforms in South India for 2026.",
+    scenes: [
+      "/posters/casting-call-prince-princess.png",
+      "/images/talent-creators-audition.jpg",
+      "/images/hiring-content-creators-yellow.jpg"
+    ],
+    videoUrl: "/videos/mayavi-hero.mp4"
+  },
+  {
+    id: "04",
+    title: "Young Creators Audition // Front of Camera",
+    category: "Personal Branding",
+    duration: "02:15",
+    imageUrl: "/images/talent-creators-audition.jpg",
+    camera: "ARRI ALEXA LF",
+    lens: "HASSELBLAD HC 80MM",
+    location: "STAGE B SOUNDSTAGE // HYDERABAD",
+    storyBrief: "Scouting young, energetic, and charismatic male & female talent for digital media production.",
+    editorialSentence: "Have a natural flair for hosting? We provide the production muscle and global audience.",
+    detailedStory: "Direct talent recruitment initiative launched by Mayavi Media Creations. Seeking passionate 18-28 creators for long-form narrative series, tech reviews, lifestyle docuseries, and brand ambassadorships. Selected creators undergo full camera grooming, vocal coaching, and content strategy incubation.",
+    behindTheScenes: "Auditions evaluated with 4K multi-cam teleprompter tests and cold-reading improv challenges.",
+    productionProcess: [
+      { step: "01", title: "Screen Presence Assessment", desc: "Evaluating delivery speed, ocular confidence, and vocal pitch control." },
+      { step: "02", title: "Improv Scenario Test", desc: "Testing unscripted reactions and high-speed commercial hosting acumen." },
+      { step: "03", title: "Content Incubator Onboarding", desc: "Deploying selected candidates into commercial client shoots and original productions." }
+    ],
+    results: "Dozens of high-engagement video series launched with over 10M combined impressions.",
+    scenes: [
+      "/images/talent-creators-audition.jpg",
+      "/images/hiring-content-creators-yellow.jpg",
+      "/posters/media-3.png"
+    ],
+    videoUrl: "/videos/mayavi-hero.mp4"
+  },
+  {
+    id: "05",
+    title: "3D Brand Identity & Celestial Motion",
+    category: "Vertical Fiction",
+    duration: "00:08",
+    imageUrl: "/official-mayavi-logo.png",
+    camera: "OCTANE 3D CINEMA ENGINE",
+    lens: "BESPOKE VIRTUAL ANAMORPHIC",
+    location: "VFX & COLOR SUITE // HYDERABAD",
+    storyBrief: "Golden stardust and violet light trails coalescing into the iconic Mayavi infinity emblem.",
+    editorialSentence: "Stories that inspire. Visuals that stay.",
+    detailedStory: "The definitive motion brand statement for Mayavi Media Creations. Built with volumetric stardust physics, celestial purple atmospheric nebulae, and warm 24K gold ray reflections. Symbolizes the infinite potential of human storytelling paired with the illuminating power of the sun.",
+    behindTheScenes: "Rendered at 60 FPS uncompressed with bespoke optical chromatic dispersion and anamorphic streak filters.",
+    productionProcess: [
+      { step: "01", title: "Geometric Topology Modeling", desc: "Constructing the twin-loop infinity topology in mathematical spline space." },
+      { step: "02", title: "Stardust Particle Simulation", desc: "Driving 250,000 volumetric emitter particles through gravitational turbulence." },
+      { step: "03", title: "Solar Crown Lighting & Grading", desc: "Casting 5600K solar corona highlights over deep imperial violet space." }
+    ],
+    results: "The signature studio ident opening every major Mayavi production.",
+    scenes: [
+      "/official-mayavi-logo.png",
+      "/logos/mayavi-mandala.png",
+      "/logos/mayavi-infinity-sun.png"
+    ],
+    videoUrl: "/videos/mayavi-hero.mp4"
+  },
+  {
+    id: "06",
+    title: "Becoming Impossible to Ignore",
+    category: "Commercial Productions",
+    duration: "03:10",
+    imageUrl: "/posters/media-3.png",
+    camera: "SONY FX9 CINEMA",
+    lens: "COOKE 40MM ANAMORPHIC",
+    location: "CREATIVE STRATEGY LAB // HYDERABAD",
+    storyBrief: "Personal branding, content strategy, talent grooming, and luxury event production.",
+    editorialSentence: "Whether you're a founder, artist, model, or actor — you deserve an indelible presence.",
+    detailedStory: "A high-retention commercial campaign demonstrating how Mayavi constructs 360° identity ecosystems. From high-fashion portraiture to scripted keynote reels, we transform industry professionals into undeniable authorities in their respective domains.",
+    behindTheScenes: "Shot across high-contrast architectural interiors with dual-tone rim lighting and subtle atmospheric haze.",
+    productionProcess: [
+      { step: "01", title: "Executive Positioning Audit", desc: "Identifying unique market positioning and core narrative hooks." },
+      { step: "02", title: "Signature Visual Architecture", desc: "Formulating lighting styles, typography standards, and color profiles." },
+      { step: "03", title: "Cross-Platform Asset Production", desc: "Directing and cutting 16:9 keynote streams and 9:16 vertical cinema assets." }
+    ],
+    results: "Established as the benchmark portfolio format for high-growth enterprise founders across South India.",
+    scenes: [
+      "/posters/media-3.png",
+      "/posters/media-2.png",
+      "/posters/media-1.png"
     ],
     videoUrl: "/videos/mayavi-hero.mp4"
   }
@@ -1787,76 +1891,109 @@ export default function App() {
             />
 
             {/* SELECTED WORK / FEATURED EXHIBITION */}
-            <section id="portfolio" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 border-t border-white/5 overflow-visible">
+            <section id="portfolio" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-36 border-t border-white/5 overflow-visible">
 
-              {/* Ambient Pattern Watermarks (pattern-6 & pattern-11) */}
-              <div
-                className="absolute -top-10 -right-20 w-[500px] h-[600px] opacity-[0.08] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-float"
-                style={{ backgroundImage: "url('/patterns/pattern-6.svg')" }}
-              />
-              <div
-                className="absolute bottom-10 -left-20 w-[450px] h-[550px] opacity-[0.07] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-wave"
-                style={{ backgroundImage: "url('/patterns/pattern-11.svg')" }}
-              />
+              {/* Ambient Caustics & Sacred Vector Watermarks (#16 Surreal Design + #21 Abstract 3D) */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden select-none -z-10">
+                {/* Upper Imperial Violet Nebula Glow */}
+                <div className="absolute -top-20 right-1/4 w-[600px] h-[600px] bg-[#410682]/15 rounded-full blur-[160px]" />
+                
+                {/* Lower Solar Gold Nebula Glow */}
+                <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px]" />
 
-              {/* Section Heading & Tagline */}
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20">
+                {/* Rotating Sacred Mandala (pattern-6) - Top Right */}
+                <div
+                  className="absolute -top-16 -right-24 w-[550px] h-[650px] opacity-[0.09] mix-blend-screen bg-no-repeat bg-contain animate-[spin_180s_linear_infinite]"
+                  style={{ backgroundImage: "url('/patterns/pattern-6.svg')" }}
+                />
+
+                {/* Counter-Rotating Sacred Pattern (pattern-11) - Bottom Left */}
+                <div
+                  className="absolute bottom-20 -left-28 w-[500px] h-[600px] opacity-[0.08] mix-blend-screen bg-no-repeat bg-contain animate-[spin_240s_linear_infinite_reverse]"
+                  style={{ backgroundImage: "url('/patterns/pattern-11.svg')" }}
+                />
+
+                {/* Concentric Optical Viewfinder Reticles */}
+                <svg className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] opacity-[0.035] stroke-amber-400 stroke-[0.6]" fill="none">
+                  <circle cx="425" cy="425" r="140" strokeDasharray="6 8" />
+                  <circle cx="425" cy="425" r="280" />
+                  <circle cx="425" cy="425" r="410" strokeDasharray="24 12" />
+                  <line x1="425" y1="15" x2="425" y2="835" strokeDasharray="4 8" />
+                  <line x1="15" y1="425" x2="835" y2="425" strokeDasharray="4 8" />
+                </svg>
+              </div>
+
+              {/* Section Heading & Tagline (#13 Editorial & #3 Futuristic HUD) */}
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20 relative z-10">
                 <div className="space-y-4 max-w-2xl text-left">
-                  <div className="flex items-center space-x-3">
-                    <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
-                      — ANTHOLOGY —
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 backdrop-blur-md">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                      <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                        ANTHOLOGY // MMXXVI
+                      </span>
+                    </div>
+                    <span className="hidden sm:inline-block w-6 h-[1px] bg-white/20" />
+                    <span className="font-mono text-[8.5px] text-white/50 tracking-[0.25em] uppercase">
+                      [ ARRI LF // ZEISS SUPREME OPTICS ]
                     </span>
-                    <span className="w-8 h-[1px] bg-[#EAB308]/30" />
-                    <span className="font-mono text-[8px] text-white/40 tracking-[0.2em] uppercase">SELECTED WORKS</span>
                   </div>
-                  <h2 className="text-4xl md:text-6xl font-light font-serif text-white tracking-wide leading-tight">
-                    Curated <span className="italic font-normal text-amber-100/90">Exhibitions</span>
+
+                  <h2 className="text-4xl sm:text-5xl md:text-7xl font-light font-serif text-white tracking-wide leading-[1.08]">
+                    Curated <span className="italic font-normal text-amber-300 drop-shadow-[0_0_35px_rgba(234,179,8,0.35)]">Exhibitions</span>
                   </h2>
-                  <p className="text-white/60 font-sans text-xs md:text-sm leading-relaxed tracking-wide font-light">
-                    A handpicked selection of our deepest creative directions. Each narrative is built on architectural rigor, cinema-grade optics, and a relentless commitment to visual storytelling that endures.
+
+                  <p className="text-white/70 font-sans text-xs sm:text-sm leading-relaxed tracking-wide font-light max-w-xl">
+                    A handpicked anthology of our deepest creative directions. Each narrative is built on architectural rigor, cinema-grade optics, and a relentless commitment to visual storytelling that endures.
                   </p>
                 </div>
 
+                {/* Header CTA Button - #22 Liquid Glass */}
                 <button
-                  onClick={() => {
-                    setContactOpen(true);
-                  }}
-                  className="inline-flex items-center space-x-2 text-[10px] font-mono tracking-[0.25em] text-[#EAB308] hover:text-amber-400 transition-colors group py-2"
+                  onClick={() => setContactOpen(true)}
+                  className="group relative inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-full backdrop-blur-xl bg-gradient-to-r from-white/[0.08] via-white/[0.03] to-white/[0.08] hover:bg-white/[0.14] border border-white/20 hover:border-amber-400/60 text-white font-mono text-[10px] tracking-[0.25em] uppercase transition-all duration-500 shadow-[0_4px_25px_rgba(0,0,0,0.5)] hover:shadow-[0_0_30px_rgba(234,179,8,0.3)] hover:scale-105 active:scale-98 cursor-pointer overflow-hidden self-start md:self-auto"
                 >
-                  <span>DISCUSS A PRODUCTION</span>
-                  <ArrowRight size={12} className="transform transition-transform duration-300 group-hover:translate-x-1" />
+                  {/* Subtle specular glint */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.15] to-transparent pointer-events-none" />
+                  <span className="text-amber-300 font-bold">DISCUSS A PRODUCTION</span>
+                  <ArrowRight size={13} className="text-[#EAB308] transform transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </div>
 
-              {/* Categories filter bar - Elegant Editorial Pill Style */}
-              <div className="flex items-center justify-start gap-3 mb-16 border-b border-white/5 pb-8 overflow-x-auto no-scrollbar max-w-full">
+              {/* Categories filter rail - #22 Liquid Glass Floating Pill Rail */}
+              <div className="flex items-center justify-start gap-2.5 mb-16 pb-6 overflow-x-auto no-scrollbar max-w-full relative z-10 border-b border-white/5">
                 {[
                   { id: null, label: 'ALL ARCHIVES' },
-                  { id: 'Vertical Fiction', label: 'VERTICAL FICTION' },
                   { id: 'Brand Films', label: 'BRAND FILMS' },
-                  { id: 'Personal Branding', label: 'PERSONAL BRANDING' },
+                  { id: 'Creative Campaigns', label: 'CAMPAIGNS' },
                   { id: 'Luxury Events', label: 'LUXURY EVENTS' },
-                  { id: 'Commercial Productions', label: 'COMMERCIALS' },
-                  { id: 'Creative Campaigns', label: 'CAMPAIGNS' }
+                  { id: 'Personal Branding', label: 'PERSONAL BRANDING' },
+                  { id: 'Vertical Fiction', label: 'VERTICAL FICTION' },
+                  { id: 'Commercial Productions', label: 'COMMERCIALS' }
                 ].map((cat) => {
                   const isSelected = selectedBrandFilter === cat.id;
                   return (
                     <button
                       key={cat.label}
                       onClick={() => setSelectedBrandFilter(cat.id)}
-                      className={`px-5 py-2.5 rounded-full font-mono text-[9px] tracking-widest transition-all duration-500 border ${isSelected
-                        ? 'bg-amber-400/10 text-amber-400 border-amber-400/40 shadow-sm shadow-amber-400/5'
-                        : 'bg-white/[0.02] text-white/50 hover:text-white hover:bg-white/5 border-white/5'
-                        }`}
+                      className={`relative px-5 py-2.5 rounded-full font-mono text-[9px] tracking-widest uppercase transition-all duration-500 border cursor-pointer whitespace-nowrap overflow-hidden group ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-black font-extrabold border-amber-400 shadow-[0_0_25px_rgba(234,179,8,0.45)] scale-105'
+                          : 'backdrop-blur-md bg-white/[0.03] text-white/60 hover:text-white hover:bg-white/[0.08] border-white/10 hover:border-white/20'
+                      }`}
                     >
-                      {cat.label}
+                      {/* Button hover glint */}
+                      {!isSelected && (
+                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/[0.1] to-transparent pointer-events-none" />
+                      )}
+                      <span>{cat.label}</span>
                     </button>
                   );
                 })}
               </div>
 
-              {/* Featured Editorial Asymmetrical Grid (12-column bento style) */}
-              <div className="grid grid-cols-12 gap-y-12 lg:gap-x-12 lg:gap-y-20">
+              {/* Featured Exhibition Grid — 12-Column Responsive Layout (#22 Liquid Glass + #13 Editorial + #3 Futuristic HUD) */}
+              <div className="grid grid-cols-12 gap-y-12 lg:gap-x-10 lg:gap-y-16 relative z-10">
                 {(() => {
                   const currentExhibitions = cms.curatedExhibitions && cms.curatedExhibitions.length > 0 
                     ? cms.curatedExhibitions 
@@ -1864,84 +2001,122 @@ export default function App() {
                   return (selectedBrandFilter
                     ? currentExhibitions.filter(p => p.category.toLowerCase() === selectedBrandFilter.toLowerCase())
                     : currentExhibitions).map((project, index) => {
-                    // Balanced grid configuration - uniform 16:9 columns to ensure straight row alignments
                     const layoutClass = "col-span-12 lg:col-span-6";
                     const aspectClass = "aspect-[16/9]";
 
                     return (
                       <motion.div
                         key={project.id}
-                        onClick={() => {
-                          setActiveProject(project);
-                        }}
-                        initial={{ opacity: 0, y: 30 }}
+                        onClick={() => setActiveProject(project)}
+                        initial={{ opacity: 0, y: 35 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 1.2, delay: (index % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 1.1, delay: (index % 2) * 0.12, ease: [0.16, 1, 0.3, 1] }}
                         className={`${layoutClass} flex flex-col group cursor-pointer text-left`}
                       >
-                        {/* Cinematic Cover Frame */}
-                        <div className={`relative ${aspectClass} rounded-2xl overflow-hidden bg-neutral-950/60 border border-white/5 shadow-2xl mb-6`}>
+                        {/* Liquid Glass Card Enclosure */}
+                        <div className="relative rounded-3xl p-3.5 sm:p-4 bg-gradient-to-b from-white/[0.07] via-[#100A24]/40 to-transparent backdrop-blur-2xl border border-white/[0.12] group-hover:border-amber-400/60 transition-all duration-700 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)] group-hover:shadow-[0_25px_70px_-15px_rgba(65,6,130,0.5),0_0_35px_rgba(234,179,8,0.22)] group-hover:-translate-y-2 overflow-hidden flex flex-col h-full">
 
-                          {/* Grayscale slow reveal color transition with 1.03 zoom */}
-                          <img
-                            src={project.imageUrl}
-                            alt={project.title}
-                            referrerPolicy="no-referrer"
-                            className="w-full h-full object-cover grayscale brightness-[0.7] group-hover:grayscale-0 group-hover:brightness-[0.95] group-hover:scale-103 transition-all duration-[1500ms] ease-[0.16, 1, 0.3, 1]"
-                          />
+                          {/* Hover Specular Light Sweep */}
+                          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.12] to-transparent pointer-events-none z-30" />
 
-                          {/* Gradient Shutter Vignette */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none opacity-90 transition-opacity duration-500 group-hover:opacity-70" />
+                          {/* Ambient Caustic Backlight on Hover */}
+                          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-[#410682]/40 via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 pointer-events-none -z-10" />
 
-                          {/* Centered Cinematic Play Icon Reveal */}
-                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="w-12 h-12 rounded-full bg-amber-400/10 border border-[#EAB308]/40 flex items-center justify-center backdrop-blur-md text-[#EAB308] shadow-[0_0_20px_rgba(234,179,8,0.15)]">
-                              <Play size={16} fill="currentColor" className="translate-x-[1px]" />
+                          {/* Top Prismatic Light Rim */}
+                          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/30 group-hover:via-amber-300/70 to-transparent pointer-events-none transition-all duration-700" />
+
+                          {/* Cinematic Cover Frame */}
+                          <div className={`relative ${aspectClass} rounded-2xl overflow-hidden bg-neutral-950/80 border border-white/10 mb-5 relative group/frame`}>
+
+                            {/* Viewfinder Corner Reticle Brackets (#3 Futuristic HUD) */}
+                            <div className="absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-amber-400/80 z-20 pointer-events-none opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
+                            <div className="absolute top-3 right-3 w-3 h-3 border-t-2 border-r-2 border-amber-400/80 z-20 pointer-events-none opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
+                            <div className="absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-amber-400/80 z-20 pointer-events-none opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
+                            <div className="absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-amber-400/80 z-20 pointer-events-none opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
+
+                            {/* Image with subtle zoom & grayscale to saturated reveal */}
+                            <img
+                              src={project.imageUrl}
+                              alt={project.title}
+                              referrerPolicy="no-referrer"
+                              className="w-full h-full object-cover grayscale-[25%] brightness-[0.78] group-hover:grayscale-0 group-hover:brightness-[1.0] group-hover:scale-104 transition-all duration-[1400ms] ease-[0.16, 1, 0.3, 1]"
+                            />
+
+                            {/* Gradient Shutter Vignette */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30 pointer-events-none opacity-90 transition-opacity duration-500 group-hover:opacity-60" />
+
+                            {/* Centered Glowing Gold Play Lens Trigger */}
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
+                              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 via-amber-300 to-amber-500 text-black flex items-center justify-center backdrop-blur-md shadow-[0_0_35px_rgba(234,179,8,0.65)]">
+                                <Play size={18} fill="currentColor" className="translate-x-[1.5px]" />
+                              </div>
+                            </div>
+
+                            {/* Top HUD Telemetry Chip */}
+                            <div className="absolute top-4 left-4 z-20 flex items-center space-x-2 px-3 py-1 bg-black/75 backdrop-blur-md rounded-md border border-white/10 font-mono text-[8px] text-white/70 tracking-wider">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                              <span className="text-amber-300 font-bold">REC 24 FPS</span>
+                              <span className="text-white/30">|</span>
+                              <span>{project.duration}</span>
+                            </div>
+
+                            {/* Top-Right Museum Exhibition Catalog Code */}
+                            <div className="absolute top-4 right-4 z-20 px-2.5 py-1 bg-black/75 backdrop-blur-md rounded-md border border-white/10 font-mono text-[8px] text-[#EAB308] tracking-widest uppercase font-bold">
+                              EXHIBITION // 0{project.id}
+                            </div>
+
+                            {/* Bottom Optical Rig Telemetry Strip */}
+                            <div className="absolute bottom-3 inset-x-3 z-20 flex items-center justify-between px-3 py-1.5 bg-black/70 backdrop-blur-md rounded-lg border border-white/5 font-mono text-[7.5px] text-white/50 tracking-wider">
+                              <span className="text-amber-200/90 truncate max-w-[60%]">
+                                {project.camera || 'ARRI ALEXA LF'}
+                              </span>
+                              <span className="text-white/40 truncate max-w-[38%] text-right uppercase">
+                                {project.lens || 'ZEISS SUPREME'}
+                              </span>
                             </div>
                           </div>
 
-                          {/* Minimalist HUD detail inside the image frame */}
-                          <div className="absolute top-4 left-4 z-20 flex items-center space-x-1.5 px-3 py-1 bg-black/60 backdrop-blur-md rounded-md border border-white/5 font-mono text-[8px] text-white/50 tracking-wider">
-                            <span className="w-1 h-1 rounded-full bg-amber-400 animate-pulse" />
-                            <span>{project.duration}</span>
+                          {/* Project Editorial Meta Details (#13 Editorial) */}
+                          <div className="space-y-3 px-1 flex-1 flex flex-col justify-between">
+                            <div className="space-y-2.5">
+                              {/* Category & Location Badges */}
+                              <div className="flex items-center justify-between text-left">
+                                <div className="flex items-center space-x-2">
+                                  <span className="text-amber-400 text-[10px]">✦</span>
+                                  <span className="font-mono text-[9px] tracking-widest text-[#EAB308] uppercase font-bold">
+                                    {project.category}
+                                  </span>
+                                </div>
+                                <span className="font-mono text-[8px] text-white/40 tracking-widest uppercase">
+                                  [ {project.location || 'HYDERABAD STUDIO'} ]
+                                </span>
+                              </div>
+
+                              {/* Title with Gold Reveal Underline */}
+                              <h3 className="text-xl sm:text-2xl font-light font-serif text-white tracking-wide relative inline-block group-hover:text-amber-100 transition-colors leading-snug">
+                                {project.title}
+                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-amber-400 to-amber-200 transition-all duration-700 group-hover:w-full" />
+                              </h3>
+
+                              {/* Editorial Excerpt */}
+                              <p className="text-white/70 font-sans text-xs sm:text-sm leading-relaxed tracking-wide font-light">
+                                {project.editorialSentence}
+                              </p>
+                            </div>
+
+                            {/* Bottom Action Rail */}
+                            <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-3">
+                              <span className="inline-flex items-center space-x-2 text-[9px] font-mono tracking-[0.25em] text-[#EAB308] group-hover:text-amber-300 transition-colors font-bold uppercase">
+                                <span>WATCH EXHIBITION FILM</span>
+                                <span className="transform transition-transform duration-500 group-hover:translate-x-1.5">→</span>
+                              </span>
+                              <span className="font-mono text-[8px] text-white/30 tracking-widest uppercase hidden sm:inline-block">
+                                DIRECTOR ARCHIVE // MMXXVI
+                              </span>
+                            </div>
                           </div>
 
-                          <div className="absolute bottom-4 right-4 z-20 font-mono text-[8px] text-white/30 tracking-widest uppercase">
-                            ID // 0{project.id}
-                          </div>
-                        </div>
-
-                        {/* Project Meta Details (Editorial layout) with subtle lift translate */}
-                        <div className="space-y-3 px-1 transition-transform duration-300 group-hover:-translate-y-1">
-                          <div className="flex items-center space-x-2">
-                            <span className="font-mono text-[9px] tracking-widest text-[#EAB308] uppercase font-bold">
-                              {project.category}
-                            </span>
-                            <span className="w-1.5 h-[1px] bg-white/20" />
-                            <span className="font-mono text-[8px] text-white/40 tracking-widest uppercase">
-                              {project.location || 'PRODUCTION'}
-                            </span>
-                          </div>
-
-                          <h3 className="text-xl md:text-2xl font-light font-serif text-white tracking-wide relative inline-block">
-                            {project.title}
-                            {/* Soft Golden Underline Hover Reveal */}
-                            <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#EAB308]/50 transition-all duration-700 group-hover:w-full" />
-                          </h3>
-
-                          {/* One Editorial Sentence - Clean, non-marketing */}
-                          <p className="text-white/60 font-sans text-xs md:text-sm leading-relaxed tracking-wide font-light max-w-xl">
-                            {project.editorialSentence}
-                          </p>
-
-                          {/* Elegant Editorial CTA */}
-                          <div className="pt-2">
-                            <span className="inline-flex items-center space-x-2 text-[9px] font-mono tracking-[0.25em] text-[#EAB308] group-hover:text-amber-300 transition-colors">
-                              <span>WATCH FILM</span>
-                              <span className="transform transition-transform duration-500 group-hover:translate-x-1.5">→</span>
-                            </span>
-                          </div>
                         </div>
                       </motion.div>
                     );
@@ -1949,21 +2124,34 @@ export default function App() {
                 })()}
               </div>
 
-              {/* Elegant Breathing Space and Closing Premium CTA */}
-              <div className="mt-32 md:mt-48 relative rounded-3xl overflow-hidden border border-white/15 bg-gradient-to-b from-[#0e0a25] to-[#04020a] p-12 md:p-24 text-center space-y-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)]">
-                {/* Subtle gold dusty radial backdrop blur */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(234,179,8,0.03)_0%,transparent_70%)] pointer-events-none" />
+              {/* Creative Horizons Closing Banner — #22 Liquid Glass Sanctuary & #16 Surreal Sacred Halo */}
+              <div className="mt-32 md:mt-48 relative rounded-3xl overflow-hidden border border-white/15 bg-gradient-to-b from-[#130B24]/90 via-[#0A0718]/90 to-[#05040B]/95 p-10 sm:p-14 md:p-24 text-center space-y-8 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.9)] backdrop-blur-3xl">
+
+                {/* Top Prismatic Light Rim */}
+                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
+
+                {/* Sacred Rotating Mandala Halo in Background (#16 Surreal Design) */}
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] opacity-[0.08] mix-blend-screen bg-no-repeat bg-center bg-contain pointer-events-none animate-[spin_160s_linear_infinite]"
+                  style={{ backgroundImage: "url('/patterns/pattern-2.svg')" }}
+                />
+
+                {/* Solar Gold Radial Ambient Glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(234,179,8,0.06)_0%,transparent_70%)] pointer-events-none" />
 
                 <div className="max-w-2xl mx-auto space-y-6 relative z-10">
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-[#EAB308] uppercase font-bold block">
-                    — CREATIVE HORIZONS —
-                  </span>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 backdrop-blur-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                    <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                      CREATIVE HORIZONS // COMMISSION
+                    </span>
+                  </div>
 
-                  <h3 className="text-3xl md:text-5xl font-light font-serif text-white leading-tight">
-                    Every story begins <br />with a <span className="italic font-normal text-amber-100/90">conversation.</span>
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-light font-serif text-white leading-tight">
+                    Every story begins <br />with a <span className="italic font-normal text-amber-300 drop-shadow-[0_0_30px_rgba(234,179,8,0.35)]">conversation.</span>
                   </h3>
 
-                  <p className="text-white/60 font-sans text-xs md:text-sm leading-relaxed tracking-wide font-light">
+                  <p className="text-white/70 font-sans text-xs sm:text-sm leading-relaxed tracking-wide font-light">
                     We do not believe in standard forms or typical commissions. We architect customized legacies. Allow us to hear your vision and translate it into a masterfully directed visual experience.
                   </p>
 
@@ -1972,7 +2160,7 @@ export default function App() {
                       onClick={() => {
                         window.open("https://wa.me/916301761783?text=Hello%20Mayavi!%20I'm%20interested%20in%20starting%20a%20project%20and%20would%20love%20to%20initiate%20a%20creative%20inquiry%20regarding%20your%20production%20services.", '_blank');
                       }}
-                      className="w-full sm:w-auto px-8 py-4 rounded-full text-[10px] font-mono tracking-[0.2em] bg-white text-black font-bold hover:bg-[#EAB308] hover:text-black transition-all duration-500 shadow-xl cursor-pointer uppercase"
+                      className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.2em] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-500 shadow-[0_0_30px_rgba(234,179,8,0.45)] hover:shadow-[0_0_45px_rgba(234,179,8,0.7)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
                     >
                       Initiate Creative Inquiry
                     </button>
@@ -1980,7 +2168,7 @@ export default function App() {
                       onClick={() => {
                         document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
                       }}
-                      className="w-full sm:w-auto px-8 py-4 rounded-full text-[10px] font-mono tracking-[0.2em] bg-white/5 hover:bg-white/10 text-white/80 hover:text-white transition-all duration-500 border border-white/10 cursor-pointer uppercase"
+                      className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.2em] backdrop-blur-xl bg-white/[0.06] hover:bg-white/[0.12] text-white hover:text-amber-200 transition-all duration-500 border border-white/15 hover:border-amber-400/50 cursor-pointer uppercase shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:scale-105 active:scale-98"
                     >
                       Explore Creative Worlds
                     </button>
@@ -3123,64 +3311,81 @@ export default function App() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative w-full max-w-5xl bg-[#090616] border border-white/10 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+              className="relative w-full max-w-5xl bg-gradient-to-b from-[#110B24]/98 via-[#090616]/98 to-[#04020A]/98 border border-white/20 rounded-3xl overflow-hidden shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),0_0_45px_rgba(65,6,130,0.45)] flex flex-col backdrop-blur-2xl"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Top Prismatic Light Rim */}
+              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none z-30" />
+
               {/* Aspect Ratio Video Container */}
-              <div className="relative aspect-[16/9] w-full bg-black">
+              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center overflow-hidden">
                 {activeProject.videoUrl ? (
-                  <iframe
-                    src={activeProject.videoUrl}
-                    className="w-full h-full border-0"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                  />
+                  activeProject.videoUrl.endsWith('.mp4') || activeProject.videoUrl.includes('/videos/') ? (
+                    <video
+                      src={activeProject.videoUrl}
+                      poster={activeProject.imageUrl}
+                      controls
+                      autoPlay
+                      playsInline
+                      className="w-full h-full object-contain bg-black"
+                    />
+                  ) : (
+                    <iframe
+                      src={activeProject.videoUrl}
+                      className="w-full h-full border-0"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                    />
+                  )
                 ) : (
                   <img src={activeProject.imageUrl} alt={activeProject.title} className="w-full h-full object-cover" />
                 )}
               </div>
 
-              {/* Detail Info Bar below Video */}
-              <div className="p-6 md:p-8 space-y-4 text-left">
+              {/* Detail Info Bar below Video — #13 Editorial & #3 Futuristic HUD */}
+              <div className="p-6 md:p-8 space-y-4 text-left relative z-10">
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase font-bold block mb-1">
-                      {activeProject.category} // {activeProject.duration}
-                    </span>
-                    <h3 className="text-xl md:text-3xl font-serif font-light text-white leading-tight">
+                  <div className="space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                      <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase font-bold">
+                        {activeProject.category} // {activeProject.duration}
+                      </span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-white leading-tight">
                       {activeProject.title}
                     </h3>
                   </div>
 
                   <button
                     onClick={() => setActiveProject(null)}
-                    className="px-6 py-2.5 rounded-full border border-white/10 hover:border-red-500/35 bg-white/5 hover:bg-red-500/5 text-white/80 hover:text-red-400 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 active:scale-98 cursor-pointer"
+                    className="px-6 py-2.5 rounded-full border border-white/20 hover:border-amber-400/60 bg-white/[0.06] hover:bg-amber-400/10 text-white hover:text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 active:scale-98 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.4)]"
                   >
-                    CLOSE VIDEO
+                    CLOSE CINEMA
                   </button>
                 </div>
 
-                <p className="text-white/60 font-sans text-xs md:text-sm font-light leading-relaxed max-w-3xl">
+                <p className="text-white/70 font-sans text-xs md:text-sm font-light leading-relaxed max-w-3xl">
                   {activeProject.storyBrief || activeProject.editorialSentence}
                 </p>
 
                 {/* Technical stats footer inside Lightbox */}
-                <div className="pt-4 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-4 text-left font-mono text-[9px] text-white/40 tracking-wider">
+                <div className="pt-4 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-left font-mono text-[9px] text-white/50 tracking-wider">
                   <div>
-                    <span className="block text-white/20 text-[7px] uppercase mb-0.5">CAMERA Rig</span>
-                    <span className="text-white/80">{activeProject.camera}</span>
+                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">CAMERA RIG</span>
+                    <span className="text-amber-200/90 font-medium">{activeProject.camera || 'ARRI ALEXA LF'}</span>
                   </div>
                   <div>
-                    <span className="block text-white/20 text-[7px] uppercase mb-0.5">LENS Pairing</span>
-                    <span className="text-white/80">{activeProject.lens}</span>
+                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">OPTICS / LENS</span>
+                    <span className="text-white/80 font-medium">{activeProject.lens || 'ZEISS SUPREME'}</span>
                   </div>
                   <div>
-                    <span className="block text-white/20 text-[7px] uppercase mb-0.5">LOCATION Site</span>
-                    <span className="text-white/80">{activeProject.location}</span>
+                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">LOCATION SITE</span>
+                    <span className="text-white/80 font-medium">{activeProject.location || 'HYDERABAD'}</span>
                   </div>
                   <div>
-                    <span className="block text-white/20 text-[7px] uppercase mb-0.5">STATUS</span>
-                    <span className="text-emerald-400 font-bold">RELEASED</span>
+                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">DIRECTOR STATUS</span>
+                    <span className="text-emerald-400 font-bold">MASTER ARCHIVE</span>
                   </div>
                 </div>
               </div>
