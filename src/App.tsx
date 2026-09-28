@@ -40,7 +40,8 @@ import {
   Linkedin,
   Menu,
   Lock,
-  Eye
+  Eye,
+  ExternalLink
 } from 'lucide-react';
 
 import Logo from './components/Logo';
@@ -734,12 +735,13 @@ export default function App() {
   // Dynamic Central CMS Store
   const { cms } = useCMS();
 
-  // Admin Portal & Authentication States (/admin single-user dashboard)
+  // Admin Portal & Authentication States (/admin single-user dashboard or ?admin=true)
   const [isAdminRoute, setIsAdminRoute] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
       const hash = window.location.hash;
-      return path === '/admin' || hash === '#/admin' || hash === '#admin';
+      const search = window.location.search;
+      return path === '/admin' || hash === '#/admin' || hash === '#admin' || search.includes('admin');
     }
     return false;
   });
@@ -755,7 +757,8 @@ export default function App() {
     const handleLocationChange = () => {
       const path = window.location.pathname;
       const hash = window.location.hash;
-      const onAdmin = path === '/admin' || hash === '#/admin' || hash === '#admin';
+      const search = window.location.search;
+      const onAdmin = path === '/admin' || hash === '#/admin' || hash === '#admin' || search.includes('admin');
       setIsAdminRoute(onAdmin);
       if (onAdmin) {
         setIsAdminAuthenticated(sessionStorage.getItem('mayavi_admin_session_auth') === 'true');
