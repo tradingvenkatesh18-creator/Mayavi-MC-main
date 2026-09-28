@@ -804,7 +804,8 @@ export default function App() {
     setIsAdminRoute(false);
   };
 
-  // Interactive Testimonial Exhibition & BTS States
+  // Interactive Video Glimpses & Testimonial Exhibition States
+  const [glimpseFilter, setGlimpseFilter] = useState<string>('ALL');
   const [testimonialCategory, setTestimonialCategory] = useState<string>('ALL');
   const [activeBtsId, setActiveBtsId] = useState<string | null>(null);
 
@@ -1606,6 +1607,231 @@ export default function App() {
                 />
               )}
             </div>
+
+            {/* DELIVERABLE #2: HIGH-FIDELITY VIDEO GLIMPSES (Cinematic Loops & Aspect Frames) */}
+            <section id="glimpses" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-16 lg:py-24 border-t border-white/5 overflow-visible">
+              {/* Prismatic atmospheric glow */}
+              <div className="absolute top-1/2 left-1/3 w-[600px] h-[600px] bg-gradient-to-tr from-[#410682]/15 via-purple-900/10 to-[#EAB308]/10 rounded-full blur-[140px] pointer-events-none" />
+
+              {/* Ambient Pattern */}
+              <div
+                className="absolute -top-12 -right-16 w-[450px] h-[450px] opacity-[0.10] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-rotate"
+                style={{ backgroundImage: "url('/patterns/pattern-2.svg')" }}
+              />
+
+              {/* Section Header with Editorial + Futuristic HUD */}
+              <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 backdrop-blur-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                    <span className="font-mono text-[9px] text-amber-300 tracking-[0.25em] uppercase font-bold">
+                      DELIVERABLE #2 // 1080P CINEMATIC LOOPS
+                    </span>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light text-white leading-tight">
+                    High-Fidelity <span className="italic font-normal text-amber-300 drop-shadow-[0_0_25px_rgba(234,179,8,0.25)]">Video Glimpses.</span>
+                  </h2>
+                  <p className="text-white/60 font-sans text-xs md:text-sm font-light max-w-xl leading-relaxed">
+                    Ultra high-definition 30-second directorial cuts and multi-aspect cinema frames calibrated for vertical fiction, talent showcases, and architectural brand films.
+                  </p>
+                </div>
+
+                {/* Direct Action for Admin or Showreel */}
+                <div className="flex items-center gap-3 shrink-0">
+                  <button
+                    onClick={() => setShowreelOpen(true)}
+                    className="px-5 py-2.5 rounded-full backdrop-blur-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/15 hover:border-amber-400/50 text-white font-mono text-[10px] tracking-widest uppercase transition-all flex items-center space-x-2 cursor-pointer shadow-md"
+                  >
+                    <Film size={12} className="text-amber-400" />
+                    <span>FULL SHOWREEL</span>
+                  </button>
+                  <button
+                    onClick={navigateToAdmin}
+                    className="px-5 py-2.5 rounded-full bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/40 text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all flex items-center space-x-1.5 cursor-pointer shadow-[0_0_15px_rgba(234,179,8,0.2)]"
+                  >
+                    <Sliders size={12} />
+                    <span>MANAGE IN DECK</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Category Filter Tabs & Glimpse Shelf */}
+              {(() => {
+                const glimpses = cms.videoGlimpses || [];
+                const categories = ['ALL', ...Array.from(new Set(glimpses.map(g => g.category).filter(Boolean)))];
+                const displayedGlimpses = glimpseFilter === 'ALL'
+                  ? glimpses
+                  : glimpses.filter(g => g.category === glimpseFilter);
+
+                return (
+                  <div className="space-y-8 relative z-10">
+                    {/* Category Filter Pills */}
+                    {categories.length > 2 && (
+                      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+                        {categories.map((cat) => (
+                          <button
+                            key={cat}
+                            onClick={() => setGlimpseFilter(cat)}
+                            className={`px-4 py-1.5 rounded-full font-mono text-[9px] uppercase tracking-widest transition-all whitespace-nowrap cursor-pointer ${
+                              glimpseFilter === cat
+                                ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-black font-extrabold shadow-[0_0_15px_rgba(234,179,8,0.35)]'
+                                : 'bg-white/[0.04] hover:bg-white/[0.08] text-white/60 hover:text-white border border-white/10'
+                            }`}
+                          >
+                            {cat}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Glimpses Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                      {displayedGlimpses.map((glimpse, idx) => {
+                        const hasVideo = Boolean(glimpse.videoUrl && glimpse.videoUrl.trim());
+                        const platform = detectVideoPlatform(glimpse.videoUrl);
+                        const aspectClass = glimpse.aspectRatio === '9:16'
+                          ? 'aspect-[9/16] max-w-xs mx-auto'
+                          : glimpse.aspectRatio === '1:1'
+                          ? 'aspect-square max-w-sm mx-auto'
+                          : 'aspect-[16/9]';
+
+                        return (
+                          <motion.div
+                            key={glimpse.id || idx}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.6, delay: (idx % 3) * 0.1 }}
+                            className="group relative rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/10 hover:border-amber-400/40 p-4 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(234,179,8,0.15)] flex flex-col justify-between overflow-hidden"
+                          >
+                            {/* Inner video frame container */}
+                            <div
+                              className={`relative w-full ${aspectClass} rounded-2xl overflow-hidden bg-black flex items-center justify-center cursor-pointer`}
+                              onClick={() => {
+                                setActiveProject({
+                                  id: glimpse.id,
+                                  title: glimpse.title,
+                                  category: glimpse.category || 'Cinematic Loop',
+                                  duration: glimpse.duration || '0:30',
+                                  imageUrl: glimpse.thumbnailUrl || '/official-mayavi-logo.png',
+                                  videoUrl: glimpse.videoUrl || '',
+                                  camera: 'ARRI ALEXA LF // 1080P LOOP',
+                                  lens: 'ZEISS SUPREME 35MM',
+                                  location: 'STUDIO STAGE A // HYDERABAD',
+                                  storyBrief: glimpse.caption || 'High-fidelity cinematic loop crafted for Mayavi Media Creations.',
+                                  editorialSentence: glimpse.caption || 'Stories that inspire. Visuals that stay.',
+                                  scenes: [glimpse.thumbnailUrl || '/official-mayavi-logo.png']
+                                });
+                              }}
+                            >
+                              <img
+                                src={glimpse.thumbnailUrl || '/official-mayavi-logo.png'}
+                                alt={glimpse.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[0.8] group-hover:brightness-95"
+                              />
+
+                              {/* Gradient overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
+
+                              {/* Aspect badge & duration */}
+                              <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                                <span className="px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/15 font-mono text-[8px] text-white/70 tracking-widest uppercase">
+                                  {glimpse.aspectRatio || '16:9'}
+                                </span>
+                                <span className="px-2.5 py-0.5 rounded-full bg-amber-400/90 text-black font-mono text-[8px] font-bold tracking-widest uppercase shadow-sm">
+                                  {glimpse.duration || '0:30'}
+                                </span>
+                              </div>
+
+                              {/* Center Play Indicator */}
+                              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                {hasVideo ? (
+                                  <div className="w-12 h-12 rounded-full bg-amber-400/90 text-black flex items-center justify-center shadow-[0_0_25px_rgba(234,179,8,0.6)] group-hover:scale-115 transition-transform duration-300">
+                                    <Play size={18} className="fill-black ml-0.5" />
+                                  </div>
+                                ) : (
+                                  <div className="px-3 py-1.5 rounded-full bg-black/80 border border-amber-400/40 backdrop-blur-md text-amber-300 font-mono text-[8px] tracking-widest uppercase flex items-center gap-1.5 shadow-lg">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                                    <span>CUT PENDING</span>
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Platform badge if video is set */}
+                              {hasVideo && platform !== 'unknown' && (
+                                <div className="absolute bottom-3 right-3 pointer-events-none">
+                                  <span className="px-2 py-0.5 rounded-md bg-black/80 border border-white/20 font-mono text-[7.5px] text-amber-300 uppercase tracking-widest">
+                                    {platform}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Card Content & Details */}
+                            <div className="pt-4 px-1 space-y-2 text-left">
+                              <div className="flex items-center justify-between">
+                                <span className="font-mono text-[8.5px] text-amber-400/90 tracking-widest uppercase font-bold">
+                                  {glimpse.category}
+                                </span>
+                                <span className="font-mono text-[8px] text-white/30 tracking-widest">
+                                  GLIMPSE 0{idx + 1}
+                                </span>
+                              </div>
+                              <h3 className="text-base sm:text-lg font-serif font-light text-white group-hover:text-amber-300 transition-colors line-clamp-1">
+                                {glimpse.title}
+                              </h3>
+                              <p className="text-white/60 font-sans text-xs font-light line-clamp-2 leading-relaxed">
+                                {glimpse.caption}
+                              </p>
+
+                              {/* Bottom interactive action button */}
+                              <div className="pt-2 flex items-center justify-between border-t border-white/5 text-[9px] font-mono">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setActiveProject({
+                                      id: glimpse.id,
+                                      title: glimpse.title,
+                                      category: glimpse.category || 'Cinematic Loop',
+                                      duration: glimpse.duration || '0:30',
+                                      imageUrl: glimpse.thumbnailUrl || '/official-mayavi-logo.png',
+                                      videoUrl: glimpse.videoUrl || '',
+                                      camera: 'ARRI ALEXA LF // 1080P LOOP',
+                                      lens: 'ZEISS SUPREME 35MM',
+                                      location: 'STUDIO STAGE A // HYDERABAD',
+                                      storyBrief: glimpse.caption || 'High-fidelity cinematic loop crafted for Mayavi Media Creations.',
+                                      editorialSentence: glimpse.caption || 'Stories that inspire. Visuals that stay.',
+                                      scenes: [glimpse.thumbnailUrl || '/official-mayavi-logo.png']
+                                    });
+                                  }}
+                                  className="text-amber-400 hover:text-amber-300 flex items-center space-x-1.5 transition-colors cursor-pointer tracking-widest uppercase font-semibold"
+                                >
+                                  <Play size={10} className="fill-amber-400" />
+                                  <span>{hasVideo ? 'SCREEN 1080P LOOP' : 'VIEW ARCHIVE FRAME'}</span>
+                                </button>
+
+                                {hasVideo && (
+                                  <a
+                                    href={glimpse.videoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-white/40 hover:text-white flex items-center space-x-1 transition-colors"
+                                  >
+                                    <span>OPEN</span>
+                                    <ExternalLink size={9} />
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
+            </section>
 
             {/* ABOUT US SECTION */}
             <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pt-10 pb-8 lg:pt-16 lg:pb-12 border-t border-white/5 overflow-visible">

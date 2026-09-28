@@ -142,7 +142,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
     headline: "CINEMA STARTS LONG BEFORE THE CAMERA ROLLS",
     subheadline: "Architectural storytelling, bespoke optical precision, and cinematic legacies crafted in Hyderabad for visionary global brands.",
     quote: "We don't simply record light. We calibrate time, tension, and human emotion into permanent moving art.",
-    backgroundVideoUrl: "/videos/mayavi-hero.mp4",
+    backgroundVideoUrl: "", // Client adds via Admin Deck
     useVideoBackground: false, // Default to interactive lens scroll, toggleable to video loop
     posterUrl: "/official-mayavi-logo.png",
     locationTag: "STUDIO STAGE A // HYDERABAD",
@@ -155,46 +155,51 @@ export const DEFAULT_CMS_DATA: CMSData = {
       id: "glimpse-1",
       title: "3D Kinetic Motion Reveal",
       category: "Cinematic Identity",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "", // Empty until client adds link via Admin Deck
       thumbnailUrl: "/official-mayavi-logo.png",
       duration: "0:08",
-      caption: "3D Infinity solar crown and celestial stardust revealing Mayavi Media Creations."
+      caption: "3D Infinity solar crown and celestial stardust revealing Mayavi Media Creations.",
+      aspectRatio: '16:9'
     },
     {
       id: "glimpse-2",
       title: "Theatre & Modelling Masterclass",
       category: "Talent Development",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "", // Empty until client adds link via Admin Deck
       thumbnailUrl: "/posters/theatre-modelling-workshop.png",
       duration: "0:24",
-      caption: "Live acting improv, stage presence, and confidence workshop in Hyderabad."
+      caption: "Live acting improv, stage presence, and confidence workshop in Hyderabad.",
+      aspectRatio: '9:16'
     },
     {
       id: "glimpse-3",
       title: "Creative Ecosystem Architecture",
       category: "Brand Positioning",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "", // Empty until client adds link via Admin Deck
       thumbnailUrl: "/posters/media-1.png",
       duration: "0:30",
-      caption: "Helping people, brands, and talent discover their voice and present it with clarity."
+      caption: "Helping people, brands, and talent discover their voice and present it with clarity.",
+      aspectRatio: '16:9'
     },
     {
       id: "glimpse-4",
       title: "Casting Discovery: Prince & Princess",
       category: "Talent & Pageants",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "", // Empty until client adds link via Admin Deck
       thumbnailUrl: "/posters/casting-call-prince-princess.png",
       duration: "0:18",
-      caption: "Exclusive casting pipeline for South India Season 2 film & media talent."
+      caption: "Exclusive casting pipeline for South India Season 2 film & media talent.",
+      aspectRatio: '9:16'
     },
     {
       id: "glimpse-5",
       title: "Content Creator Auditions",
       category: "Media Production",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "", // Empty until client adds link via Admin Deck
       thumbnailUrl: "/images/talent-creators-audition.jpg",
       duration: "0:15",
-      caption: "On-camera charisma coaching and digital media production in Hyderabad."
+      caption: "On-camera charisma coaching and digital media production in Hyderabad.",
+      aspectRatio: '1:1'
     }
   ],
   showreel: {
@@ -208,7 +213,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
         category: "Brand Films",
         camera: "ARRI Alexa Mini LF // 3D Render",
         lens: "Zeiss Supreme Prime 50mm T1.5",
-        videoUrl: "/videos/mayavi-hero.mp4",
+        videoUrl: "", // Empty until client adds link via Admin Deck
         posterUrl: "/official-mayavi-logo.png",
         duration: "0:08",
         directorNotes: "Bespoke 3D CGI solar crown and infinity loop particle simulation crafted for Mayavi Media Creations.",
@@ -221,7 +226,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
         category: "Vertical Fiction",
         camera: "Sony Venice 2 8K",
         lens: "Cooke Anamorphic 35mm",
-        videoUrl: "/videos/mayavi-hero.mp4",
+        videoUrl: "", // Empty until client adds link via Admin Deck
         posterUrl: "/posters/media-2.png",
         duration: "0:38",
         directorNotes: "Fluid Steadicam tracking shots framing human vulnerability through classical geometry.",
@@ -234,7 +239,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
         category: "Talent Development",
         camera: "RED V-Raptor 8K VV",
         lens: "Leica Noctilux 50mm",
-        videoUrl: "/videos/mayavi-hero.mp4",
+        videoUrl: "", // Empty until client adds link via Admin Deck
         posterUrl: "/posters/theatre-modelling-recap.png",
         duration: "0:45",
         directorNotes: "Capturing authentic human emotion during live stage improv and physical presence coaching.",
@@ -247,7 +252,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
         category: "Personal Branding",
         camera: "Hasselblad H6D-100c",
         lens: "HC 80mm f/2.8",
-        videoUrl: "/videos/mayavi-hero.mp4",
+        videoUrl: "", // Empty until client adds link via Admin Deck
         posterUrl: "/images/talent-creators-audition.jpg",
         duration: "0:30",
         directorNotes: "Intimate medium-format closeups that reveal authentic leadership conviction and camera presence.",
@@ -520,6 +525,26 @@ export function getCMSData(): CMSData {
           return { ...proj, videoUrl: '' };
         }
         return proj;
+      });
+    }
+
+    // Auto-heal video glimpses to clear accidental hero video loops
+    if (parsed.videoGlimpses && Array.isArray(parsed.videoGlimpses)) {
+      parsed.videoGlimpses = parsed.videoGlimpses.map((glimpse: any) => {
+        if (glimpse.videoUrl === '/videos/mayavi-hero.mp4') {
+          return { ...glimpse, videoUrl: '' };
+        }
+        return glimpse;
+      });
+    }
+
+    // Auto-heal showreel chapters to clear accidental hero video loops
+    if (parsed.showreel?.chapters && Array.isArray(parsed.showreel.chapters)) {
+      parsed.showreel.chapters = parsed.showreel.chapters.map((ch: any) => {
+        if (ch.videoUrl === '/videos/mayavi-hero.mp4') {
+          return { ...ch, videoUrl: '' };
+        }
+        return ch;
       });
     }
 
