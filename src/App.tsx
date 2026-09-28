@@ -3325,7 +3325,7 @@ export default function App() {
               {/* Aspect Ratio Video Container */}
               <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center overflow-hidden">
                 {activeProject.videoUrl ? (
-                  activeProject.videoUrl.endsWith('.mp4') || activeProject.videoUrl.includes('/videos/') ? (
+                  detectVideoPlatform(activeProject.videoUrl) === 'direct' ? (
                     <video
                       src={activeProject.videoUrl}
                       poster={activeProject.imageUrl}
@@ -3336,9 +3336,9 @@ export default function App() {
                     />
                   ) : (
                     <iframe
-                      src={activeProject.videoUrl}
+                      src={getVideoEmbedUrl(activeProject.videoUrl)}
                       className="w-full h-full border-0"
-                      allow="autoplay; encrypted-media"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     />
                   )
@@ -3376,12 +3376,25 @@ export default function App() {
                     </h3>
                   </div>
 
-                  <button
-                    onClick={() => setActiveProject(null)}
-                    className="px-6 py-2.5 rounded-full border border-white/20 hover:border-amber-400/60 bg-white/[0.06] hover:bg-amber-400/10 text-white hover:text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 active:scale-98 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.4)]"
-                  >
-                    CLOSE CINEMA
-                  </button>
+                  <div className="flex items-center gap-2">
+                    {activeProject.videoUrl && detectVideoPlatform(activeProject.videoUrl) !== 'direct' && (
+                      <a
+                        href={activeProject.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2.5 rounded-full border border-amber-400/30 hover:border-amber-400/70 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 active:scale-98 flex items-center space-x-1.5"
+                      >
+                        <ExternalLink size={12} />
+                        <span>Open on {detectVideoPlatform(activeProject.videoUrl).toUpperCase()}</span>
+                      </a>
+                    )}
+                    <button
+                      onClick={() => setActiveProject(null)}
+                      className="px-6 py-2.5 rounded-full border border-white/20 hover:border-amber-400/60 bg-white/[0.06] hover:bg-amber-400/10 text-white hover:text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 active:scale-98 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.4)]"
+                    >
+                      CLOSE CINEMA
+                    </button>
+                  </div>
                 </div>
 
                 <p className="text-white/70 font-sans text-xs md:text-sm font-light leading-relaxed max-w-3xl">
