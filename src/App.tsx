@@ -1179,10 +1179,17 @@ export default function App() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="fixed top-3 inset-x-0 mx-auto max-w-6xl z-50 px-3 sm:px-4"
             >
-              <div className={`w-full rounded-full border transition-all duration-500 ease-in-out px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between gap-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${isScrolled
-                ? 'bg-[#090717]/95 backdrop-blur-xl border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.9)]'
-                : 'bg-[#090717]/85 backdrop-blur-md border-white/10'
-                }`}>
+              {/* #22 Liquid Glass Floating Pill Navbar */}
+              <div className={`relative overflow-hidden w-full rounded-full border transition-all duration-500 ease-in-out px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between gap-3 ${
+                isScrolled
+                  ? 'backdrop-blur-2xl bg-gradient-to-r from-[#090717]/95 via-[#130B24]/90 to-[#090717]/95 border-amber-400/35 shadow-[0_15px_45px_rgba(0,0,0,0.9),0_0_25px_rgba(234,179,8,0.15),inset_0_1px_1px_rgba(255,255,255,0.2)]'
+                  : 'backdrop-blur-xl bg-gradient-to-r from-[#090717]/85 via-[#140B28]/80 to-[#090717]/85 border-amber-400/25 shadow-[0_10px_35px_rgba(0,0,0,0.65),0_0_20px_rgba(65,6,130,0.25),inset_0_1px_1px_rgba(255,255,255,0.15)]'
+              }`}>
+                {/* Caustic Top-Edge Specular Light Glint */}
+                <div className="absolute top-0 inset-x-12 h-[1px] bg-gradient-to-r from-transparent via-amber-300/40 to-transparent pointer-events-none" />
+                {/* Caustic Bottom Prismatic Rim Line */}
+                <div className="absolute bottom-0 inset-x-20 h-[1px] bg-gradient-to-r from-transparent via-purple-400/25 to-transparent pointer-events-none" />
+
                 {/* Brand Logo */}
                 <motion.div
                   onClick={() => {
@@ -1190,13 +1197,13 @@ export default function App() {
                     setActiveSection('home');
                     setMobileMenuOpen(false);
                   }}
-                  className="relative cursor-pointer transition-all duration-300 hover:brightness-110 active:scale-98 shrink-0 flex items-center"
+                  className="relative cursor-pointer transition-all duration-300 hover:brightness-110 active:scale-98 shrink-0 flex items-center z-10"
                 >
                   <Logo layout="horizontal" iconSize="sm" theme="dark" useOfficial={false} showText={true} />
                 </motion.div>
 
                 {/* Centered Navigation */}
-                <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink-0">
+                <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink-0 z-10">
                   {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'CONTACT'].map((item) => {
                     const itemLower = item.toLowerCase();
                     const isActive = activeSection === itemLower;
@@ -1226,16 +1233,16 @@ export default function App() {
                             setActiveSection(itemLower);
                           }
                         }}
-                        className={`relative text-[8.5px] xl:text-[9.5px] font-mono tracking-[0.12em] xl:tracking-[0.16em] transition-all duration-300 py-1 px-2.5 xl:px-3 rounded-full uppercase select-none whitespace-nowrap shrink-0 ${isActive
-                          ? 'text-white font-semibold'
-                          : 'text-white/60 hover:text-white'
+                        className={`relative text-[8.5px] xl:text-[9.5px] font-mono tracking-[0.14em] xl:tracking-[0.18em] transition-all duration-300 py-1.5 px-2.5 xl:px-3 rounded-full uppercase select-none whitespace-nowrap shrink-0 ${isActive
+                          ? 'text-amber-300 font-bold'
+                          : 'text-white/60 hover:text-white hover:text-amber-200'
                           }`}
                       >
                         <span className="relative z-10">{item}</span>
                         {isActive && (
                           <motion.div
                             layoutId="activeNavPill"
-                            className="absolute inset-0 border border-[#EAB308]/40 bg-[#EAB308]/[0.08] rounded-full -z-0"
+                            className="absolute inset-0 border border-amber-400/50 bg-gradient-to-r from-amber-400/15 via-amber-500/10 to-amber-400/15 rounded-full shadow-[0_0_15px_rgba(234,179,8,0.25),inset_0_1px_4px_rgba(255,255,255,0.2)] backdrop-blur-md -z-0"
                             transition={{ type: "spring", stiffness: 350, damping: 32 }}
                           />
                         )}
@@ -1245,27 +1252,27 @@ export default function App() {
                 </nav>
 
                 {/* Right Action: AUDITION TEST & START A PROJECT */}
-                <div className="hidden lg:flex items-center space-x-2 shrink-0">
+                <div className="hidden lg:flex items-center space-x-2 shrink-0 z-10">
                   <button
                     id="top-cta-talent-assessment"
                     onClick={() => setAssessmentOpen(true)}
-                    className="hidden xl:flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-[8.5px] font-mono tracking-[0.15em] border border-[#EAB308]/60 bg-[#EAB308]/10 hover:bg-[#EAB308]/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
+                    className="hidden xl:flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-[8.5px] font-mono tracking-[0.16em] border border-amber-400/60 bg-amber-400/10 hover:bg-amber-400/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap backdrop-blur-md"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#EAB308] animate-pulse"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#EAB308] animate-pulse shadow-[0_0_6px_#EAB308]"></span>
                     <span>AUDITION TEST</span>
                   </button>
                   <button
                     id="top-cta-start-project"
                     onClick={() => setContactOpen(true)}
-                    className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-[8.5px] xl:text-[9px] font-mono tracking-[0.15em] bg-[#EAB308] hover:bg-amber-400 text-black font-bold transition-all duration-300 shadow-[0_3px_15px_rgba(234,179,8,0.25)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
+                    className="flex items-center space-x-1.5 px-4 py-1.5 rounded-full text-[8.5px] xl:text-[9.5px] font-mono tracking-[0.16em] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.35)] hover:shadow-[0_0_30px_rgba(234,179,8,0.6)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
                   >
                     <span>START A PROJECT</span>
-                    <ArrowUpRight size={11} className="text-black" />
+                    <ArrowUpRight size={12} className="text-black" />
                   </button>
                 </div>
 
                 {/* Mobile Hamburger */}
-                <div className="flex lg:hidden items-center shrink-0">
+                <div className="flex lg:hidden items-center shrink-0 z-10">
                   <button
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle Navigation Menu"
@@ -1360,7 +1367,7 @@ export default function App() {
             {/* CORE HERO BANNER - LENS SCROLL OR 30-SEC 1080P VIDEO LOOP (Deliverable #1) */}
             <div id="home" className="relative">
               {cms.hero.useVideoBackground ? (
-                <div className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-black py-20 px-6">
+                <div className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden bg-black py-20 px-6">
                   {/* 30-Second 1080p Video Loop (Deliverable #1) */}
                   <div className="absolute inset-0 z-0">
                     {detectVideoPlatform(cms.hero.backgroundVideoUrl) === 'direct' ? (
@@ -1380,55 +1387,104 @@ export default function App() {
                         allow="autoplay; encrypted-media"
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#07050C] via-black/40 to-black/60 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#07050C] via-black/45 to-black/60 pointer-events-none" />
                   </div>
+
+                  {/* #16 Surreal Design: Slow-Rotating Sacred Halo Framing 3D Solar Infinity Video */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1] overflow-hidden">
+                    {/* Atmospheric Cosmic Nebula Bloom */}
+                    <div className="w-[750px] md:w-[950px] h-[750px] md:h-[950px] rounded-full bg-gradient-to-tr from-[#410682]/25 via-purple-900/15 to-[#EAB308]/15 blur-[130px] pointer-events-none" />
+
+                    {/* Outer Rotating Sacred Mandala Halo - Pattern 2 */}
+                    <motion.img 
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
+                      src="/patterns/pattern-2.svg" 
+                      alt="Mayavi Sacred Solar Halo"
+                      className="absolute w-[700px] sm:w-[850px] md:w-[1050px] h-[700px] sm:h-[850px] md:h-[1050px] opacity-[0.14] invert select-none pointer-events-none drop-shadow-[0_0_60px_rgba(234,179,8,0.4)]"
+                    />
+
+                    {/* Concentric Counter-Rotating Sacred Lattice - Pattern 5 */}
+                    <motion.img 
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 220, repeat: Infinity, ease: "linear" }}
+                      src="/patterns/pattern-5.svg" 
+                      alt="Mayavi Concentric Lattice"
+                      className="absolute w-[500px] sm:w-[650px] md:w-[800px] h-[500px] sm:h-[650px] md:h-[800px] opacity-[0.10] invert select-none pointer-events-none drop-shadow-[0_0_40px_rgba(65,6,130,0.35)]"
+                    />
+
+                    {/* Caustic Lens Horizon Ring */}
+                    <div className="absolute w-[420px] sm:w-[550px] md:w-[680px] h-[420px] sm:h-[550px] md:h-[680px] rounded-full border border-amber-400/25 shadow-[0_0_60px_rgba(234,179,8,0.12),inset_0_0_60px_rgba(65,6,130,0.25)] pointer-events-none" />
+                  </div>
+
+                  {/* Optical Viewfinder Corner Framing Brackets */}
+                  <div className="absolute top-20 left-6 sm:left-10 w-5 h-5 border-t-2 border-l-2 border-amber-400/50 pointer-events-none z-10" />
+                  <div className="absolute top-20 right-6 sm:right-10 w-5 h-5 border-t-2 border-r-2 border-amber-400/50 pointer-events-none z-10" />
+                  <div className="absolute bottom-16 left-6 sm:left-10 w-5 h-5 border-b-2 border-l-2 border-amber-400/50 pointer-events-none z-10" />
+                  <div className="absolute bottom-16 right-6 sm:right-10 w-5 h-5 border-b-2 border-r-2 border-amber-400/50 pointer-events-none z-10" />
 
                   {/* Top Viewfinder HUD */}
                   <div className="absolute top-24 left-8 right-8 flex items-center justify-between font-mono text-[9px] text-white/50 tracking-widest pointer-events-none z-10">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
                       <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                      <span className="text-white font-bold tracking-widest">1080P REC // 24 FPS</span>
+                      <span className="text-white font-bold tracking-widest text-[8.5px]">1080P REC // 24 FPS</span>
                     </div>
-                    <div className="text-amber-400 font-bold">{cms.hero.cameraTag}</div>
-                    <div className="hidden sm:block">{cms.hero.locationTag}</div>
+                    <div className="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-amber-400/20 text-amber-300 font-bold">
+                      <span>ARRI ALEXA LF</span>
+                      <span className="text-white/20">|</span>
+                      <span>SENSOR 36.70 x 25.54MM</span>
+                    </div>
+                    <div className="hidden sm:flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/70">
+                      <span>{cms.hero.locationTag}</span>
+                    </div>
                   </div>
 
-                  {/* Hero Copy */}
-                  <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6 pt-12">
-                    <span className="inline-block px-3 py-1 rounded-full bg-amber-400/10 border border-[#EAB308]/40 text-[#EAB308] font-mono text-[9px] tracking-[0.3em] uppercase font-bold">
-                      CINEMATIC BACKGROUND LOOP
-                    </span>
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif font-light italic text-white leading-tight">
-                      {cms.hero.headline}
+                  {/* Hero Copy - #13 Editorial */}
+                  <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6 pt-16">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/35 backdrop-blur-md text-[#EAB308] font-mono text-[9px] tracking-[0.3em] uppercase font-bold shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                      <span>9:16 VERTICAL CINEMA ARCHITECTURE // MMXXVI</span>
+                    </div>
+
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-light text-white leading-[1.08] tracking-tight">
+                      Stories that <span className="italic font-normal text-amber-300 drop-shadow-[0_0_30px_rgba(234,179,8,0.3)]">inspire.</span>
+                      <br />
+                      Visuals that <span className="italic font-normal text-white">stay.</span>
                     </h1>
+
                     <p className="text-white/80 font-sans text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed">
                       {cms.hero.subheadline}
                     </p>
 
+                    {/* CTA Buttons - #22 Liquid Glass */}
                     <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                       <button
                         onClick={() => {
                           const el = document.getElementById('portfolio');
                           if (el) el.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="px-7 py-3.5 rounded-full bg-[#EAB308] hover:bg-amber-400 text-black font-mono font-bold text-xs tracking-widest uppercase transition-all shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:scale-105 cursor-pointer"
+                        className="px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-mono font-bold text-xs tracking-[0.2em] uppercase transition-all shadow-[0_0_30px_rgba(234,179,8,0.45)] hover:shadow-[0_0_45px_rgba(234,179,8,0.7)] hover:scale-105 active:scale-98 cursor-pointer"
                       >
                         {cms.hero.ctaPrimaryText}
                       </button>
+
                       <button
                         onClick={() => setShowreelOpen(true)}
-                        className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs tracking-widest uppercase transition-all flex items-center space-x-2 cursor-pointer"
+                        className="px-8 py-4 rounded-full backdrop-blur-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/20 hover:border-amber-400/60 text-white font-mono text-xs tracking-[0.2em] uppercase transition-all flex items-center space-x-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_0_25px_rgba(234,179,8,0.2)] hover:scale-105 active:scale-98 cursor-pointer"
                       >
-                        <Play size={12} className="text-[#EAB308]" />
+                        <Play size={13} className="text-[#EAB308] fill-amber-400" />
                         <span>{cms.hero.ctaSecondaryText}</span>
                       </button>
                     </div>
                   </div>
 
                   {/* Bottom Viewfinder Info */}
-                  <div className="absolute bottom-6 inset-x-8 flex justify-between items-center font-mono text-[8px] text-white/30 tracking-[0.2em] pointer-events-none z-10">
-                    <span>SHUTTER: 180° // ISO 800</span>
-                    <span>MAYAVI DIRECTOR ENGINE</span>
+                  <div className="absolute bottom-6 inset-x-8 flex justify-between items-center font-mono text-[8.5px] text-white/40 tracking-[0.25em] pointer-events-none z-10">
+                    <span className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400/60" />
+                      <span>SHUTTER: 180.0° // ISO 800 // 5600K</span>
+                    </span>
+                    <span className="text-amber-400/80">MAYAVI DIRECTOR ENGINE // HYDERABAD</span>
                   </div>
                 </div>
               ) : (
