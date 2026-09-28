@@ -154,6 +154,81 @@ html, body {
   animation: pattern-wave 20s ease-in-out infinite;
 }
 
+/* ========================================================================== */
+/* PRINT DOSSIER OPTIMIZATIONS (FIXES 18-PAGE OVERFLOW & WASHED-OUT CONTRAST) */
+/* ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
 
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 
+  /* Completely eliminate background website and non-print elements */
+  #site-main-content,
+  .site-main-content,
+  .no-print,
+  .print-hide,
+  .print\:hidden,
+  [data-no-print="true"],
+  button,
+  header:not(.print-header),
+  footer:not(.print-footer),
+  nav,
+  .custom-cursor {
+    display: none !important;
+  }
 
+  /* Reset modal containers so they don't fix or scroll in print */
+  #talent-assessment-modal-root,
+  .talent-assessment-modal-root {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure the printable dossier displays as a clean block */
+  #printable-dossier,
+  .printable-dossier,
+  .print\:block {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  /* Page break utilities */
+  .print-page-break {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}

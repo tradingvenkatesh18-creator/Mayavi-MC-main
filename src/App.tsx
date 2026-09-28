@@ -1085,9 +1085,13 @@ export default function App() {
   return (
     <>
       {/* High-End Interactive Custom Cursor */}
-      <CustomCursor />
+      <div className="print:hidden">
+        <CustomCursor />
+      </div>
 
-      <AnimatePresence
+      {/* Main Website Content (Hidden in print to eliminate 18-page overflow) */}
+      <div id="site-main-content" className="site-main-content print:hidden">
+        <AnimatePresence
         mode="wait"
         onExitComplete={() => {
           if (shouldRestoreScroll) {
@@ -3608,6 +3612,7 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
 
       {/* Talent Assessment Audition Modal */}
       <AnimatePresence>
