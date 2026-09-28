@@ -624,7 +624,7 @@ export default function App() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [budgetRange, setBudgetRange] = useState<number>(15000);
   const [selectedBrandFilter, setSelectedBrandFilter] = useState<string | null>(null);
-  const [activePatternUrl, setActivePatternUrl] = useState<string | null>("https://lh3.googleusercontent.com/d/1vm51BflgcA-fWtEKA9SlP67C_osJEkw8");
+  const [activePatternUrl, setActivePatternUrl] = useState<string | null>("/patterns/pattern-2.svg");
 
   // Dynamic Central CMS Store
   const { cms } = useCMS();
