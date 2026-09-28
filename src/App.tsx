@@ -39,7 +39,8 @@ import {
   Youtube,
   Linkedin,
   Menu,
-  Lock
+  Lock,
+  Eye
 } from 'lucide-react';
 
 import Logo from './components/Logo';
@@ -102,7 +103,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
       "/posters/media-2.png",
       "/posters/media-3.png"
     ],
-    videoUrl: "/videos/mayavi-hero.mp4"
+    videoUrl: ""
   },
   {
     id: "02",
@@ -129,7 +130,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
       "/posters/theatre-modelling-recap.png",
       "/images/talent-creators-audition.jpg"
     ],
-    videoUrl: "/videos/mayavi-hero.mp4"
+    videoUrl: ""
   },
   {
     id: "03",
@@ -155,7 +156,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
       "/images/talent-creators-audition.jpg",
       "/images/hiring-content-creators-yellow.jpg"
     ],
-    videoUrl: "/videos/mayavi-hero.mp4"
+    videoUrl: ""
   },
   {
     id: "04",
@@ -181,7 +182,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
       "/images/hiring-content-creators-yellow.jpg",
       "/posters/media-3.png"
     ],
-    videoUrl: "/videos/mayavi-hero.mp4"
+    videoUrl: ""
   },
   {
     id: "05",
@@ -207,7 +208,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
       "/logos/mayavi-mandala.png",
       "/logos/mayavi-infinity-sun.png"
     ],
-    videoUrl: "/videos/mayavi-hero.mp4"
+    videoUrl: ""
   },
   {
     id: "06",
@@ -233,7 +234,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
       "/posters/media-2.png",
       "/posters/media-1.png"
     ],
-    videoUrl: "/videos/mayavi-hero.mp4"
+    videoUrl: ""
   }
 ];
 
@@ -2046,17 +2047,21 @@ export default function App() {
                             {/* Gradient Shutter Vignette */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30 pointer-events-none opacity-90 transition-opacity duration-500 group-hover:opacity-60" />
 
-                            {/* Centered Glowing Gold Play Lens Trigger */}
+                            {/* Centered Glowing Gold Play / View Lens Trigger */}
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
                               <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 via-amber-300 to-amber-500 text-black flex items-center justify-center backdrop-blur-md shadow-[0_0_35px_rgba(234,179,8,0.65)]">
-                                <Play size={18} fill="currentColor" className="translate-x-[1.5px]" />
+                                {project.videoUrl ? (
+                                  <Play size={18} fill="currentColor" className="translate-x-[1.5px]" />
+                                ) : (
+                                  <Eye size={20} className="text-black" />
+                                )}
                               </div>
                             </div>
 
                             {/* Top HUD Telemetry Chip */}
                             <div className="absolute top-4 left-4 z-20 flex items-center space-x-2 px-3 py-1 bg-black/75 backdrop-blur-md rounded-md border border-white/10 font-mono text-[8px] text-white/70 tracking-wider">
-                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
-                              <span className="text-amber-300 font-bold">REC 24 FPS</span>
+                              <span className={`w-1.5 h-1.5 rounded-full ${project.videoUrl ? 'bg-emerald-400 animate-pulse shadow-[0_0_6px_#10B981]' : 'bg-amber-400'}`} />
+                              <span className="text-amber-300 font-bold">{project.videoUrl ? 'STREAM READY' : 'ARCHIVE STILL'}</span>
                               <span className="text-white/30">|</span>
                               <span>{project.duration}</span>
                             </div>
@@ -2108,7 +2113,7 @@ export default function App() {
                             {/* Bottom Action Rail */}
                             <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-3">
                               <span className="inline-flex items-center space-x-2 text-[9px] font-mono tracking-[0.25em] text-[#EAB308] group-hover:text-amber-300 transition-colors font-bold uppercase">
-                                <span>WATCH EXHIBITION FILM</span>
+                                <span>{project.videoUrl ? 'WATCH EXHIBITION FILM' : 'VIEW EXHIBITION ARCHIVE'}</span>
                                 <span className="transform transition-transform duration-500 group-hover:translate-x-1.5">→</span>
                               </span>
                               <span className="font-mono text-[8px] text-white/30 tracking-widest uppercase hidden sm:inline-block">
@@ -3338,7 +3343,21 @@ export default function App() {
                     />
                   )
                 ) : (
-                  <img src={activeProject.imageUrl} alt={activeProject.title} className="w-full h-full object-cover" />
+                  <div className="relative w-full h-full flex items-center justify-center bg-black">
+                    <img src={activeProject.imageUrl} alt={activeProject.title} className="w-full h-full object-contain" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30 pointer-events-none" />
+                    <div className="absolute bottom-5 left-6 right-6 flex items-center justify-between z-20 pointer-events-none">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/85 border border-amber-400/40 backdrop-blur-md">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                        <span className="font-mono text-[9px] text-amber-300 tracking-widest uppercase font-bold">
+                          PRODUCTION ARCHIVE // SCREENING CUT PENDING
+                        </span>
+                      </div>
+                      <span className="font-mono text-[8px] text-white/50 tracking-widest uppercase hidden sm:inline-block">
+                        CAN BE ADDED VIA ADMIN CONTROL DECK
+                      </span>
+                    </div>
+                  </div>
                 )}
               </div>
 

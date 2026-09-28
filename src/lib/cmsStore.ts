@@ -261,7 +261,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       title: "Creative Ecosystem: Voice & Clarity",
       category: "Brand Films",
       duration: "03:45",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "",
       imageUrl: "/posters/media-1.png",
       camera: "ARRI ALEXA MINI LF",
       lens: "ZEISS SUPREME PRIME 50MM T1.5",
@@ -279,7 +279,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       title: "Theatre & Modelling: The Hyderabad Masterclass",
       category: "Campaigns",
       duration: "04:20",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "",
       imageUrl: "/posters/theatre-modelling-workshop.png",
       camera: "SONY VENICE 2 8K",
       lens: "ZEISS SUPREME 35MM T1.5",
@@ -297,7 +297,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       title: "Prince & Princess of South India (Season 2)",
       category: "Luxury Events",
       duration: "02:30",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "",
       imageUrl: "/posters/casting-call-prince-princess.png",
       camera: "RED V-RAPTOR 8K VV",
       lens: "LEICA NOCTILUX 50MM F/0.95",
@@ -315,7 +315,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       title: "Young Creators Audition // Front of Camera",
       category: "Personal Branding",
       duration: "02:15",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "",
       imageUrl: "/images/talent-creators-audition.jpg",
       camera: "ARRI ALEXA LF",
       lens: "HASSELBLAD HC 80MM",
@@ -333,7 +333,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       title: "3D Brand Identity & Celestial Motion",
       category: "Vertical Fiction",
       duration: "00:08",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "",
       imageUrl: "/official-mayavi-logo.png",
       camera: "OCTANE 3D CINEMA ENGINE",
       lens: "BESPOKE VIRTUAL ANAMORPHIC",
@@ -351,7 +351,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       title: "Becoming Impossible to Ignore",
       category: "Commercials",
       duration: "03:10",
-      videoUrl: "/videos/mayavi-hero.mp4",
+      videoUrl: "",
       imageUrl: "/posters/media-3.png",
       camera: "SONY FX9 CINEMA",
       lens: "COOKE 40MM ANAMORPHIC",
@@ -511,6 +511,16 @@ export function getCMSData(): CMSData {
       parsed.integrations.contactPhone = fallback.integrations.contactPhone;
       parsed.integrations.contactEmail = fallback.integrations.contactEmail;
       parsed.integrations.socialInstagram = fallback.integrations.socialInstagram;
+    }
+
+    // Auto-heal curated exhibitions to remove accidental hero video loops
+    if (parsed.curatedExhibitions && Array.isArray(parsed.curatedExhibitions)) {
+      parsed.curatedExhibitions = parsed.curatedExhibitions.map((proj: any) => {
+        if (proj.videoUrl === '/videos/mayavi-hero.mp4') {
+          return { ...proj, videoUrl: '' };
+        }
+        return proj;
+      });
     }
 
     // Ensure all critical top-level properties exist
