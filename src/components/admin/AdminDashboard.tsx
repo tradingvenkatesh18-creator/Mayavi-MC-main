@@ -94,6 +94,32 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   const [editingChapter, setEditingChapter] = useState<ShowreelChapter | null>(null);
   const [isNewChapter, setIsNewChapter] = useState<boolean>(false);
 
+  // Video Glimpse Editor Modal & Interactive Filter States
+  const [editingGlimpse, setEditingGlimpse] = useState<VideoGlimpse | null>(null);
+  const [isNewGlimpse, setIsNewGlimpse] = useState<boolean>(false);
+  const [glimpseSearch, setGlimpseSearch] = useState<string>('');
+  const [glimpseCategoryFilter, setGlimpseCategoryFilter] = useState<string>('ALL');
+  const [savedGlimpseId, setSavedGlimpseId] = useState<string | null>(null);
+
+  // Filtered Glimpses for Hero Video & Glimpses Tab
+  const allGlimpseCategories = Array.from(
+    new Set(cms.videoGlimpses.map((g) => g.category).filter(Boolean))
+  );
+
+  const filteredGlimpses = cms.videoGlimpses.filter((g) => {
+    const query = glimpseSearch.trim().toLowerCase();
+    const matchesSearch =
+      query === '' ||
+      g.title.toLowerCase().includes(query) ||
+      g.category.toLowerCase().includes(query) ||
+      (g.caption && g.caption.toLowerCase().includes(query)) ||
+      (g.videoUrl && g.videoUrl.toLowerCase().includes(query));
+    const matchesCat =
+      glimpseCategoryFilter === 'ALL' ||
+      g.category.toLowerCase() === glimpseCategoryFilter.toLowerCase();
+    return matchesSearch && matchesCat;
+  });
+
   // Save Feedback & Dynamic UI States
   const [savedActId, setSavedActId] = useState<string | null>(null);
   const [globalSaved, setGlobalSaved] = useState<boolean>(false);
@@ -402,15 +428,138 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   const handleSaveGlimpse = (idx: number, title: string) => {
     saveCMSData(cms);
     setSavedSection(`glimpse-${idx}`);
-    showToast(`Saved Video Glimpse 0${idx + 1}: "${title}" live!`);
-    setTimeout(() => setSavedSection(null), 2500);
+    setSavedGlimpseId(cms.videoGlimpses[idx]?.id || null);
+    showToast(`Saved Video Glimpse 0${idx + 1}: "${title || 'Untitled'}" live!`);
+    setTimeout(() => {
+      setSavedSection(null);
+      setSavedGlimpseId(null);
+    }, 2500);
   };
 
   const handleSaveAllGlimpses = () => {
     saveCMSData(cms);
     setSavedSection('all-glimpses');
-    showToast('Saved all 5 Video Glimpses live!');
+    showToast(`Saved all ${cms.videoGlimpses.length} Video Glimpses live to site!`);
     setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handleQuickAddGlimpse = () => {
+    const newIndex = cms.videoGlimpses.length + 1;
+    const newGlimpse: VideoGlimpse = {
+      id: `glimpse-${Date.now()}`,
+      title: `Cinematic Loop 0${newIndex}`,
+      category: 'Media Production',
+      videoUrl: '/videos/mayavi-hero.mp4',
+      thumbnailUrl: '/official-mayavi-logo.png',
+      duration: '0:15',
+      caption: 'Director calibration for visual aesthetics, camera movement, and high-fidelity lighting.',
+      aspectRatio: '16:9'
+    };
+    updateCMS((prev) => {
+      const nextCMS = { ...prev, videoGlimpses: [newGlimpse, ...prev.videoGlimpses] };
+      saveCMSData(nextCMS);
+      return nextCMS;
+    });
+    showToast(`Created new Glimpse: "${newGlimpse.title}"!`);
+  };
+
+  const handleOpenAddGlimpseModal = () => {
+    const newIndex = cms.videoGlimpses.length + 1;
+    setEditingGlimpse({
+      id: `glimpse-${Date.now()}`,
+      title: `Cinematic Scene 0${newIndex}`,
+      category: 'Cinematic Identity',
+      videoUrl: '/videos/mayavi-hero.mp4',
+      thumbnailUrl: '/official-mayavi-logo.png',
+      duration: '0:15',
+      caption: '',
+      aspectRatio: '16:9'
+    });
+    setIsNewGlimpse(true);
+  };
+
+  const handleOpenEditGlimpseModal = (glimpse: VideoGlimpse) => {
+    setEditingGlimpse({ ...glimpse });
+    setIsNewGlimpse(false);
+  };
+
+  const handleSaveGlimpseModal = () => {
+    if (!editingGlimpse) return;
+    if (!editingGlimpse.title.trim()) {
+      alert('Please enter a title for the video glimpse.');
+      return;
+    }
+
+    updateCMS((prev) => {
+      const existsIndex = prev.videoGlimpses.findIndex((g) => g.id === editingGlimpse.id);
+      let updated: VideoGlimpse[];
+      if (existsIndex >= 0) {
+        updated = [...prev.videoGlimpses];
+        updated[existsIndex] = editingGlimpse;
+      } else {
+        updated = [editingGlimpse, ...prev.videoGlimpses];
+      }
+      const nextCMS = { ...prev, videoGlimpses: updated };
+      saveCMSData(nextCMS);
+      return nextCMS;
+    });
+
+    showToast(isNewGlimpse ? `Added "${editingGlimpse.title}" to video glimpses!` : `Updated "${editingGlimpse.title}"!`);
+    setEditingGlimpse(null);
+  };
+
+  const handleDeleteGlimpse = (id: string, title: string) => {
+    if (!window.confirm(`Are you sure you want to delete glimpse "${title || 'this glimpse'}"?`)) return;
+    updateCMS((prev) => {
+      const updated = prev.videoGlimpses.filter((g) => g.id !== id);
+      const nextCMS = { ...prev, videoGlimpses: updated };
+      saveCMSData(nextCMS);
+      return nextCMS;
+    });
+    showToast(`Deleted glimpse "${title}".`);
+  };
+
+  const handleDuplicateGlimpse = (index: number) => {
+    const source = cms.videoGlimpses[index];
+    if (!source) return;
+    const clone: VideoGlimpse = {
+      ...source,
+      id: `glimpse-${Date.now()}`,
+      title: `${source.title} (Copy)`
+    };
+    updateCMS((prev) => {
+      const updated = [...prev.videoGlimpses];
+      updated.splice(index + 1, 0, clone);
+      const nextCMS = { ...prev, videoGlimpses: updated };
+      saveCMSData(nextCMS);
+      return nextCMS;
+    });
+    showToast(`Duplicated "${source.title}"!`);
+  };
+
+  const handleMoveGlimpse = (index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= cms.videoGlimpses.length) return;
+    updateCMS((prev) => {
+      const updated = [...prev.videoGlimpses];
+      const temp = updated[index];
+      updated[index] = updated[targetIndex];
+      updated[targetIndex] = temp;
+      const nextCMS = { ...prev, videoGlimpses: updated };
+      saveCMSData(nextCMS);
+      return nextCMS;
+    });
+    showToast(`Moved glimpse ${direction === 'up' ? 'upward' : 'downward'}.`);
+  };
+
+  const handleResetGlimpsesToDefault = () => {
+    if (!window.confirm('Reset all Video Glimpses to Mayavi Official Default 5 loops?')) return;
+    updateCMS((prev) => {
+      const nextCMS = { ...prev, videoGlimpses: DEFAULT_CMS_DATA.videoGlimpses };
+      saveCMSData(nextCMS);
+      return nextCMS;
+    });
+    showToast('Restored Mayavi Official 5 Glimpses!');
   };
 
   const handleSavePortfolio = () => {
@@ -815,7 +964,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
           {[
             { id: 'overview', label: 'Overview & Telemetry', icon: LayoutDashboard },
-            { id: 'hero-glimpses', label: 'Hero Video & Glimpses', icon: Video, badge: '5 Loops' },
+            { id: 'hero-glimpses', label: 'Hero Video & Glimpses', icon: Video, badge: `${cms.videoGlimpses.length} Loops` },
             { id: 'showreel', label: 'Showreel Player', icon: Film, badge: `${cms.showreel.chapters.length}` },
             { id: 'portfolio', label: 'Curated Exhibitions', icon: FolderKanban, badge: `${cms.curatedExhibitions.length}` },
             { id: 'services-about', label: 'Core Services & Story', icon: FileText },
@@ -1124,51 +1273,117 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           {/* TAB 2: HERO BACKGROUND VIDEO & GLIMPSES */}
           {activeTab === 'hero-glimpses' && (
             <div className="space-y-10">
-              <div>
-                <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
-                  DELIVERABLES #1 & #2
-                </span>
-                <h1 className="text-3xl font-light font-serif italic text-white mt-1">
-                  Hero Background Video & Video Glimpses
-                </h1>
-                <p className="text-white/50 text-xs font-sans mt-1">
-                  Configure the 30-second 1080p hero loop, headlines, and the 5 embedded video glimpses.
-                </p>
+              {/* SECTION HEADER WITH TELEMETRY */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                      DELIVERABLES #1 & #2
+                    </span>
+                    <span className="font-mono text-[8px] px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold uppercase">
+                      {cms.videoGlimpses.length} LOOPS CONFIGURED
+                    </span>
+                  </div>
+                  <h1 className="text-3xl font-light font-serif italic text-white mt-1">
+                    Hero Video & Glimpses Architecture
+                  </h1>
+                  <p className="text-white/50 text-xs font-sans mt-1">
+                    Configure the 30-second 1080p hero loop, headlines, optical metadata, and high-fidelity video glimpses.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleQuickAddGlimpse}
+                    className="px-4 py-2 rounded-xl bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 font-mono text-xs font-bold flex items-center space-x-1.5 transition-all cursor-pointer shadow-sm"
+                  >
+                    <Plus size={13} />
+                    <span>+ Quick Add Loop</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleOpenAddGlimpseModal}
+                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 transition-all cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.3)]"
+                  >
+                    <Plus size={13} />
+                    <span>+ Add Loop (Modal)</span>
+                  </button>
+                </div>
               </div>
 
               {/* HERO SECTION CONFIG */}
-              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-6">
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-6 shadow-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
                   <div className="flex items-center space-x-3">
-                    <Video className="text-[#EAB308]" size={20} />
-                    <h2 className="text-xl font-serif italic text-white">Hero Background Video</h2>
+                    <div className="p-2.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300">
+                      <Video size={20} />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-serif italic text-white flex items-center gap-2">
+                        <span>Hero Stage Presentation</span>
+                        <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
+                          DELIVERABLE #1
+                        </span>
+                      </h2>
+                      <p className="text-xs text-white/40 font-mono">Calibrate hero presentation mode, optical metadata, and high-definition video loop</p>
+                    </div>
                   </div>
-                  
-                  {/* Video Background Toggle */}
-                  <label className="flex items-center space-x-3 cursor-pointer">
-                    <span className="font-mono text-xs text-white/70">
-                      {cms.hero.useVideoBackground ? 'Video Loop Mode' : 'Lens Sequence Mode'}
-                    </span>
-                    <input
-                      type="checkbox"
-                      checked={cms.hero.useVideoBackground}
-                      onChange={(e) => {
+
+                  {/* Segmented Mode Switch */}
+                  <div className="inline-flex p-1.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-xl shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => {
                         updateCMS((prev) => ({
                           ...prev,
-                          hero: { ...prev.hero, useVideoBackground: e.target.checked }
+                          hero: { ...prev.hero, useVideoBackground: false }
                         }));
-                        showToast(`Hero display switched to ${e.target.checked ? 'Video Loop' : 'Lens Sequence'}`);
+                        showToast('Hero display set to: Lens Sequence Scroll (80 Frames)');
                       }}
-                      className="w-5 h-5 accent-[#EAB308] cursor-pointer"
-                    />
-                  </label>
+                      className={`px-3.5 py-1.5 rounded-xl font-mono text-[10px] font-bold tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer ${
+                        !cms.hero.useVideoBackground
+                          ? 'bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.4)]'
+                          : 'text-white/60 hover:text-white'
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full ${!cms.hero.useVideoBackground ? 'bg-black' : 'bg-white/30'}`} />
+                      <span>LENS SEQUENCE SCROLL</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        updateCMS((prev) => ({
+                          ...prev,
+                          hero: { ...prev.hero, useVideoBackground: true }
+                        }));
+                        showToast('Hero display set to: 30s 1080p Video Loop');
+                      }}
+                      className={`px-3.5 py-1.5 rounded-xl font-mono text-[10px] font-bold tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer ${
+                        cms.hero.useVideoBackground
+                          ? 'bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.4)]'
+                          : 'text-white/60 hover:text-white'
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full ${cms.hero.useVideoBackground ? 'bg-black animate-pulse' : 'bg-white/30'}`} />
+                      <span>30S VIDEO LOOP</span>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* HERO VIDEO URL */}
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/60 uppercase">
-                      Hero Video URL (30s 1080p Loop, Compressed/Uncompressed, MP4, WebM, Drive, or YouTube)
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                        Hero Video URL (30s 1080p Loop)
+                      </label>
+                      {cms.hero.backgroundVideoUrl && (
+                        <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-md bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold">
+                          {detectVideoPlatform(cms.hero.backgroundVideoUrl)} STREAM
+                        </span>
+                      )}
+                    </div>
                     <div className="flex gap-2">
                       <input
                         type="text"
@@ -1180,22 +1395,22 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             hero: { ...prev.hero, backgroundVideoUrl: val }
                           }));
                         }}
-                        placeholder="https://.../video.mp4 or YouTube / Vimeo"
+                        placeholder="https://.../video.mp4 or YouTube / Vimeo / Drive"
                         className="flex-1 px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                       />
                       {cms.hero.backgroundVideoUrl && (
                         <button
                           type="button"
                           onClick={() => setPreviewVideoUrl(cms.hero.backgroundVideoUrl)}
-                          className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-mono flex items-center space-x-1 cursor-pointer"
+                          className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-mono flex items-center space-x-1.5 cursor-pointer transition-all border border-white/10"
                         >
-                          <Play size={12} />
-                          <span>Preview</span>
+                          <Play size={12} className="text-amber-400" />
+                          <span>Test</span>
                         </button>
                       )}
                     </div>
 
-                    <div className="flex flex-wrap gap-2 pt-1">
+                    <div className="flex flex-wrap items-center gap-2 pt-1">
                       <button
                         type="button"
                         onClick={() => {
@@ -1212,37 +1427,110 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
                       >
                         <Sparkles size={10} />
-                        <span>Use Official Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)</span>
+                        <span>⚡ Use Official Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)</span>
                       </button>
+                      {cms.hero.backgroundVideoUrl && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            updateCMS((prev) => ({
+                              ...prev,
+                              hero: { ...prev.hero, backgroundVideoUrl: '' }
+                            }));
+                            showToast('Cleared hero background video URL');
+                          }}
+                          className="px-2 py-1 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300 font-mono text-[9px] hover:bg-red-500/20 transition-all flex items-center gap-1 cursor-pointer"
+                        >
+                          <X size={10} />
+                          <span>Clear</span>
+                        </button>
+                      )}
                     </div>
-
-                    <p className="text-[10px] text-white/40">
-                      Supports direct .mp4 video files, Google Drive links, Vimeo, and YouTube embeds.
+                    <p className="text-[10px] text-white/40 font-mono">
+                      Supports direct .mp4 files, YouTube watch/embed links, Vimeo streams, and Google Drive video previews.
                     </p>
                   </div>
 
+                  {/* POSTER IMAGE FALLBACK & FILE UPLOAD */}
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/60 uppercase">
-                      Poster Image Fallback URL
-                    </label>
-                    <input
-                      type="text"
-                      value={cms.hero.posterUrl}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        updateCMS((prev) => ({
-                          ...prev,
-                          hero: { ...prev.hero, posterUrl: val }
-                        }));
-                      }}
-                      className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                    />
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                        Poster Image Fallback Frame
+                      </label>
+                      <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                        <Upload size={10} />
+                        <span>Upload Poster File</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              handlePosterFileUpload(file, (dataUrl) => {
+                                updateCMS((prev) => ({
+                                  ...prev,
+                                  hero: { ...prev.hero, posterUrl: dataUrl }
+                                }));
+                              });
+                            }
+                          }}
+                        />
+                      </label>
+                    </div>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={cms.hero.posterUrl}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            hero: { ...prev.hero, posterUrl: val }
+                          }));
+                        }}
+                        placeholder="/official-mayavi-logo.png or image URL"
+                        className="flex-1 px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                      {cms.hero.posterUrl && (
+                        <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/20 shrink-0 bg-black/60 flex items-center justify-center">
+                          <img src={cms.hero.posterUrl} alt="Poster" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                      <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                      {[
+                        { label: 'Official Logo', url: '/official-mayavi-logo.png' },
+                        { label: 'Stage A', url: '/hero_stage_a.png' },
+                        { label: 'Monolith', url: '/desert_monolith.png' }
+                      ].map((preset) => (
+                        <button
+                          key={preset.label}
+                          type="button"
+                          onClick={() => {
+                            updateCMS((prev) => ({
+                              ...prev,
+                              hero: { ...prev.hero, posterUrl: preset.url }
+                            }));
+                            showToast(`Poster set to ${preset.label}`);
+                          }}
+                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white font-mono text-[9px] transition-all cursor-pointer"
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
+                  {/* HERO PRIMARY HEADLINE */}
                   <div className="md:col-span-2 space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/60 uppercase">
-                      Hero Primary Headline
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                        Hero Primary Headline
+                      </label>
+                      <span className="font-mono text-[9px] text-white/40">{cms.hero.headline.length} chars</span>
+                    </div>
                     <input
                       type="text"
                       value={cms.hero.headline}
@@ -1257,10 +1545,14 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     />
                   </div>
 
+                  {/* HERO SUBHEADLINE / PHILOSOPHY */}
                   <div className="md:col-span-2 space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/60 uppercase">
-                      Hero Subheadline / Architectural Philosophy
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                        Hero Subheadline / Architectural Philosophy
+                      </label>
+                      <span className="font-mono text-[9px] text-white/40">{cms.hero.subheadline.length} chars</span>
+                    </div>
                     <textarea
                       rows={2}
                       value={cms.hero.subheadline}
@@ -1275,8 +1567,32 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     />
                   </div>
 
+                  {/* HERO DIRECTORIAL QUOTE */}
+                  <div className="md:col-span-2 space-y-2 text-left">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                        Hero Directorial Quote
+                      </label>
+                      <span className="font-mono text-[9px] text-white/40">{cms.hero.quote?.length || 0} chars</span>
+                    </div>
+                    <textarea
+                      rows={2}
+                      value={cms.hero.quote || ''}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          hero: { ...prev.hero, quote: val }
+                        }));
+                      }}
+                      placeholder="We don't simply record light. We calibrate time, tension, and human emotion into permanent moving art."
+                      className="w-full px-4 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-serif italic outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+
+                  {/* CAMERA TELEMETRY BADGE */}
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/60 uppercase">
+                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
                       Camera Telemetry Badge
                     </label>
                     <input
@@ -1291,10 +1607,34 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       }}
                       className="w-full px-4 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                     />
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {[
+                        'ARRI ALEXA LF // ZEISS SUPREME 35MM',
+                        'SONY VENICE 2 // COOKIE ANAMORPHIC',
+                        'RED V-RAPTOR XL // LEICA SUMMILUX-C',
+                        'HASSELBLAD H6D-100C // 50MM F/2.2'
+                      ].map((preset) => (
+                        <button
+                          key={preset}
+                          type="button"
+                          onClick={() => {
+                            updateCMS((prev) => ({
+                              ...prev,
+                              hero: { ...prev.hero, cameraTag: preset }
+                            }));
+                            showToast(`Camera tag: ${preset}`);
+                          }}
+                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 hover:text-amber-300 border border-white/10 text-white/60 font-mono text-[8.5px] transition-all cursor-pointer"
+                        >
+                          {preset}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
+                  {/* LOCATION TAG */}
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/60 uppercase">
+                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
                       Location Tag
                     </label>
                     <input
@@ -1309,6 +1649,66 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       }}
                       className="w-full px-4 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                     />
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {[
+                        'STUDIO STAGE A // HYDERABAD',
+                        'SOUNDSTAGE 4 // JUBILEE HILLS',
+                        'FINANCIAL DISTRICT // RAJENDRA NAGAR',
+                        'ARCHITECTURAL MONOLITH // GACHIBOWLI'
+                      ].map((preset) => (
+                        <button
+                          key={preset}
+                          type="button"
+                          onClick={() => {
+                            updateCMS((prev) => ({
+                              ...prev,
+                              hero: { ...prev.hero, locationTag: preset }
+                            }));
+                            showToast(`Location tag: ${preset}`);
+                          }}
+                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 hover:text-amber-300 border border-white/10 text-white/60 font-mono text-[8.5px] transition-all cursor-pointer"
+                        >
+                          {preset}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* CTA BUTTON LABELS */}
+                  <div className="space-y-2 text-left">
+                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                      Primary CTA Button Text
+                    </label>
+                    <input
+                      type="text"
+                      value={cms.hero.ctaPrimaryText}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          hero: { ...prev.hero, ctaPrimaryText: val }
+                        }));
+                      }}
+                      className="w-full px-4 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+
+                  <div className="space-y-2 text-left">
+                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                      Secondary CTA Button Text
+                    </label>
+                    <input
+                      type="text"
+                      value={cms.hero.ctaSecondaryText}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          hero: { ...prev.hero, ctaSecondaryText: val }
+                        }));
+                      }}
+                      className="w-full px-4 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
                   </div>
                 </div>
 
@@ -1316,7 +1716,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                   <div className="flex items-center space-x-2 text-[10px] font-mono text-white/50">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Mode: <strong className="text-white">{cms.hero.useVideoBackground ? 'Video Loop' : 'Lens Scroll'}</strong></span>
+                    <span>Mode: <strong className="text-white">{cms.hero.useVideoBackground ? 'Video Loop' : 'Lens Sequence Scroll'}</strong></span>
                   </div>
                   <button
                     type="button"
@@ -1333,190 +1733,567 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </div>
               </div>
 
-              {/* 5 VIDEO GLIMPSES CONFIG */}
-              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-6">
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              {/* VIDEO GLIMPSES MANAGEMENT MODULE */}
+              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-6 shadow-2xl">
+                {/* GLIMPSES HEADER */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5">
                   <div className="flex items-center space-x-3">
-                    <Film className="text-[#EAB308]" size={20} />
+                    <div className="p-2.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300">
+                      <Film size={20} />
+                    </div>
                     <div>
-                      <h2 className="text-xl font-serif italic text-white">5 High-Fidelity Video Glimpses</h2>
-                      <p className="text-xs text-white/40 font-mono">Deliverable #2 // Max 30s 1080p loops with lazy loading</p>
+                      <h2 className="text-xl font-serif italic text-white flex items-center gap-2">
+                        <span>High-Fidelity Video Glimpses</span>
+                        <span className="font-mono text-[9px] px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
+                          {cms.videoGlimpses.length} LOOPS LOADED
+                        </span>
+                      </h2>
+                      <p className="text-xs text-white/40 font-mono">
+                        Deliverable #2 // Max 30s 1080p loops with multi-aspect cinema frames and lazy streaming
+                      </p>
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={handleSaveAllGlimpses}
-                    className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#EAB308] hover:text-black text-white font-mono text-xs font-bold flex items-center space-x-1.5 cursor-pointer transition-all"
-                  >
-                    <Save size={13} />
-                    <span>SAVE ALL GLIMPSES</span>
-                  </button>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleResetGlimpsesToDefault}
+                      className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10 font-mono text-xs flex items-center space-x-1.5 transition-all cursor-pointer"
+                      title="Reset all glimpses back to Mayavi's 5 official production defaults"
+                    >
+                      <RotateCcw size={12} />
+                      <span className="hidden sm:inline">Official 5 Defaults</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleQuickAddGlimpse}
+                      className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold flex items-center space-x-1.5 transition-all cursor-pointer border border-white/15"
+                    >
+                      <Plus size={13} className="text-amber-400" />
+                      <span>Quick Add</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleOpenAddGlimpseModal}
+                      className="px-4 py-2 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold flex items-center space-x-1.5 transition-all cursor-pointer shadow-[0_0_15px_rgba(234,179,8,0.25)]"
+                    >
+                      <Plus size={13} />
+                      <span>Add in Modal</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSaveAllGlimpses}
+                      className={`px-4 py-2 rounded-xl font-mono text-xs font-bold flex items-center space-x-1.5 cursor-pointer transition-all ${
+                        savedSection === 'all-glimpses'
+                          ? 'bg-emerald-500 text-black'
+                          : 'bg-white/10 hover:bg-white/20 text-white border border-white/15'
+                      }`}
+                    >
+                      {savedSection === 'all-glimpses' ? <Check size={13} /> : <Save size={13} />}
+                      <span>{savedSection === 'all-glimpses' ? 'SAVED ✓' : 'SAVE ALL'}</span>
+                    </button>
+                  </div>
                 </div>
 
-                <div className="space-y-4">
-                  {cms.videoGlimpses.map((glimpse, index) => (
-                    <div
-                      key={glimpse.id}
-                      className="p-5 rounded-2xl bg-neutral-900/60 border border-white/5 space-y-4 hover:border-white/15 transition-all"
+                {/* SEARCH & CATEGORY FILTER TOOLBAR */}
+                <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-4 rounded-2xl bg-black/40 border border-white/5">
+                  {/* Search Bar */}
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40" size={14} />
+                    <input
+                      type="text"
+                      value={glimpseSearch}
+                      onChange={(e) => setGlimpseSearch(e.target.value)}
+                      placeholder="Search glimpses by title, category, caption, or video link..."
+                      className="w-full pl-9 pr-8 py-2 bg-neutral-900/90 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                    {glimpseSearch && (
+                      <button
+                        onClick={() => setGlimpseSearch('')}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white p-0.5"
+                      >
+                        <X size={12} />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Category Filter Pills */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setGlimpseCategoryFilter('ALL')}
+                      className={`px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                        glimpseCategoryFilter === 'ALL'
+                          ? 'bg-[#EAB308] text-black shadow-[0_0_12px_rgba(234,179,8,0.3)]'
+                          : 'bg-white/5 hover:bg-white/10 text-white/60 hover:text-white border border-white/10'
+                      }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs text-[#EAB308] font-bold">
-                          GLIMPSE 0{index + 1}
-                        </span>
-                        <div className="flex items-center space-x-2">
-                          {glimpse.videoUrl && (
-                            <button
-                              type="button"
-                              onClick={() => setPreviewVideoUrl(glimpse.videoUrl)}
-                              className="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 text-white/70 hover:text-white font-mono text-[9px] flex items-center space-x-1 cursor-pointer"
-                            >
-                              <Play size={10} />
-                              <span>Test Loop</span>
-                            </button>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Title</label>
-                          <input
-                            type="text"
-                            value={glimpse.title}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              updateCMS((prev) => {
-                                const next = [...prev.videoGlimpses];
-                                next[index] = { ...next[index], title: val };
-                                return { ...prev, videoGlimpses: next };
-                              });
-                            }}
-                            className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
-                          />
-                        </div>
-
-                        <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Category</label>
-                          <input
-                            type="text"
-                            value={glimpse.category}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              updateCMS((prev) => {
-                                const next = [...prev.videoGlimpses];
-                                next[index] = { ...next[index], category: val };
-                                return { ...prev, videoGlimpses: next };
-                              });
-                            }}
-                            className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                          />
-                        </div>
-
-                        <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Duration Tag</label>
-                          <input
-                            type="text"
-                            value={glimpse.duration}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              updateCMS((prev) => {
-                                const next = [...prev.videoGlimpses];
-                                next[index] = { ...next[index], duration: val };
-                                return { ...prev, videoGlimpses: next };
-                              });
-                            }}
-                            className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                          />
-                        </div>
-
-                        <div className="md:col-span-2 space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Video URL (1080p Loop Link)</label>
-                          <input
-                            type="text"
-                            value={glimpse.videoUrl}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              updateCMS((prev) => {
-                                const next = [...prev.videoGlimpses];
-                                next[index] = { ...next[index], videoUrl: val };
-                                return { ...prev, videoGlimpses: next };
-                              });
-                            }}
-                            placeholder="Direct MP4, Drive preview, YouTube, or Vimeo..."
-                            className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                          />
-                        </div>
-
-                        <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Thumbnail Poster URL</label>
-                          <input
-                            type="text"
-                            value={glimpse.thumbnailUrl}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              updateCMS((prev) => {
-                                const next = [...prev.videoGlimpses];
-                                next[index] = { ...next[index], thumbnailUrl: val };
-                                return { ...prev, videoGlimpses: next };
-                              });
-                            }}
-                            className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                          />
-                        </div>
-
-                        <div className="md:col-span-3 space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Director Caption</label>
-                          <input
-                            type="text"
-                            value={glimpse.caption}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              updateCMS((prev) => {
-                                const next = [...prev.videoGlimpses];
-                                next[index] = { ...next[index], caption: val };
-                                return { ...prev, videoGlimpses: next };
-                              });
-                            }}
-                            className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
-                          />
-                        </div>
-                      </div>
-
-                      {/* INDIVIDUAL GLIMPSE SAVE BUTTON */}
-                      <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-                        <span className="font-mono text-[9px] text-white/40">1080p Cine Loop // 30s Max</span>
+                      ALL ({cms.videoGlimpses.length})
+                    </button>
+                    {allGlimpseCategories.map((cat) => {
+                      const count = cms.videoGlimpses.filter((g) => g.category === cat).length;
+                      return (
                         <button
+                          key={cat}
                           type="button"
-                          onClick={() => handleSaveGlimpse(index, glimpse.title)}
-                          className={`px-4 py-1.5 rounded-lg font-mono text-[10px] font-bold uppercase flex items-center space-x-1 cursor-pointer transition-all ${
-                            savedSection === `glimpse-${index}`
-                              ? 'bg-emerald-500 text-black'
-                              : 'bg-white/10 hover:bg-[#EAB308] hover:text-black text-white'
+                          onClick={() => setGlimpseCategoryFilter(cat)}
+                          className={`px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                            glimpseCategoryFilter === cat
+                              ? 'bg-[#EAB308] text-black shadow-[0_0_12px_rgba(234,179,8,0.3)]'
+                              : 'bg-white/5 hover:bg-white/10 text-white/60 hover:text-white border border-white/10'
                           }`}
                         >
-                          {savedSection === `glimpse-${index}` ? <Check size={11} /> : <Save size={11} />}
-                          <span>{savedSection === `glimpse-${index}` ? 'SAVED ✓' : `SAVE GLIMPSE 0${index + 1}`}</span>
+                          {cat} ({count})
                         </button>
-                      </div>
-                    </div>
-                  ))}
+                      );
+                    })}
+                  </div>
                 </div>
 
-                {/* BOTTOM ALL GLIMPSES SAVE BAR */}
-                <div className="pt-4 border-t border-white/10 flex items-center justify-end">
-                  <button
-                    type="button"
-                    onClick={handleSaveAllGlimpses}
-                    className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
-                      savedSection === 'all-glimpses'
-                        ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
-                        : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
-                    }`}
-                  >
-                    {savedSection === 'all-glimpses' ? <Check size={14} /> : <Save size={14} />}
-                    <span>SAVE ALL 5 GLIMPSES</span>
-                  </button>
+                {/* GLIMPSES CARDS LIST */}
+                <div className="space-y-4">
+                  {filteredGlimpses.length === 0 ? (
+                    <div className="p-12 text-center rounded-2xl bg-black/40 border border-white/5 space-y-4">
+                      <Film className="mx-auto text-white/20" size={40} />
+                      <div>
+                        <h3 className="text-white text-base font-serif italic">
+                          {cms.videoGlimpses.length === 0
+                            ? 'No Video Glimpses Configured'
+                            : `No video glimpses match "${glimpseSearch}"`}
+                        </h3>
+                        <p className="text-white/40 text-xs font-mono mt-1">
+                          {cms.videoGlimpses.length === 0
+                            ? 'Add your first high-definition cinematic loop or restore Mayavi official production defaults.'
+                            : 'Try adjusting your search query or switching categories.'}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-center gap-3 pt-2">
+                        {cms.videoGlimpses.length === 0 ? (
+                          <>
+                            <button
+                              type="button"
+                              onClick={handleQuickAddGlimpse}
+                              className="px-4 py-2 rounded-xl bg-[#EAB308] text-black font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 cursor-pointer shadow-md"
+                            >
+                              <Plus size={13} />
+                              <span>+ Add First Loop</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleResetGlimpsesToDefault}
+                              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer"
+                            >
+                              <RotateCcw size={12} />
+                              <span>Restore 5 Official Loops</span>
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setGlimpseSearch('');
+                              setGlimpseCategoryFilter('ALL');
+                            }}
+                            className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer"
+                          >
+                            <RotateCcw size={12} />
+                            <span>Reset Filters</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    filteredGlimpses.map((glimpse) => {
+                      const trueIndex = cms.videoGlimpses.findIndex((g) => g.id === glimpse.id);
+                      const isSaved = savedGlimpseId === glimpse.id || savedSection === `glimpse-${trueIndex}`;
+                      const platform = detectVideoPlatform(glimpse.videoUrl);
+
+                      return (
+                        <div
+                          key={glimpse.id}
+                          className="p-5 md:p-6 rounded-2xl bg-neutral-900/60 border border-white/5 space-y-4 hover:border-amber-400/30 transition-all shadow-lg"
+                        >
+                          {/* CARD HEADER & DIRECTORIAL CONTROLS */}
+                          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3">
+                            <div className="flex items-center space-x-2">
+                              {/* Reorder Up / Down */}
+                              <div className="flex items-center space-x-1 pr-2 border-r border-white/10">
+                                <button
+                                  type="button"
+                                  disabled={trueIndex === 0}
+                                  onClick={() => handleMoveGlimpse(trueIndex, 'up')}
+                                  className="p-1 rounded-md bg-white/5 hover:bg-white/15 text-white/60 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer"
+                                  title="Move Loop Up"
+                                >
+                                  <ArrowUp size={12} />
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={trueIndex === cms.videoGlimpses.length - 1}
+                                  onClick={() => handleMoveGlimpse(trueIndex, 'down')}
+                                  className="p-1 rounded-md bg-white/5 hover:bg-white/15 text-white/60 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer"
+                                  title="Move Loop Down"
+                                >
+                                  <ArrowDown size={12} />
+                                </button>
+                              </div>
+
+                              <span className="font-mono text-xs text-[#EAB308] font-bold">
+                                GLIMPSE 0{trueIndex + 1}
+                              </span>
+
+                              <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/60">
+                                {platform}
+                              </span>
+
+                              {glimpse.aspectRatio && (
+                                <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300">
+                                  {glimpse.aspectRatio}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex items-center space-x-1.5">
+                              {glimpse.videoUrl && (
+                                <button
+                                  type="button"
+                                  onClick={() => setPreviewVideoUrl(glimpse.videoUrl)}
+                                  className="px-2.5 py-1 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 font-mono text-[10px] flex items-center space-x-1 cursor-pointer transition-all border border-amber-400/20"
+                                >
+                                  <Play size={10} />
+                                  <span>Test Play</span>
+                                </button>
+                              )}
+
+                              <button
+                                type="button"
+                                onClick={() => handleOpenEditGlimpseModal(glimpse)}
+                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition-all cursor-pointer border border-white/10"
+                                title="Open Detailed Modal Editor"
+                              >
+                                <Edit3 size={13} />
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => handleDuplicateGlimpse(trueIndex)}
+                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition-all cursor-pointer border border-white/10"
+                                title="Duplicate this Loop"
+                              >
+                                <Copy size={13} />
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteGlimpse(glimpse.id, glimpse.title)}
+                                className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-300 transition-all cursor-pointer border border-red-500/20"
+                                title="Delete Loop"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* INLINE FORM CONTROLS */}
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                            {/* Left Column: Thumbnail Preview & File Upload (4 cols) */}
+                            <div className="md:col-span-4 space-y-3 text-left">
+                              <div className="flex items-center justify-between">
+                                <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">
+                                  Poster Thumbnail Frame
+                                </label>
+                                <label className="cursor-pointer px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                                  <Upload size={9} />
+                                  <span>Upload File</span>
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file) {
+                                        handlePosterFileUpload(file, (dataUrl) => {
+                                          updateCMS((prev) => {
+                                            const next = [...prev.videoGlimpses];
+                                            next[trueIndex] = { ...next[trueIndex], thumbnailUrl: dataUrl };
+                                            return { ...prev, videoGlimpses: next };
+                                          });
+                                        });
+                                      }
+                                    }}
+                                  />
+                                </label>
+                              </div>
+
+                              <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/80 flex items-center justify-center group">
+                                {glimpse.thumbnailUrl ? (
+                                  <img
+                                    src={glimpse.thumbnailUrl}
+                                    alt={glimpse.title}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                                  />
+                                ) : (
+                                  <div className="text-center p-3 text-white/30 font-mono text-[10px]">
+                                    No poster frame specified
+                                  </div>
+                                )}
+                                {glimpse.videoUrl && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setPreviewVideoUrl(glimpse.videoUrl)}
+                                    className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all cursor-pointer"
+                                  >
+                                    <div className="w-10 h-10 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-lg">
+                                      <Play size={16} />
+                                    </div>
+                                  </button>
+                                )}
+                              </div>
+
+                              <input
+                                type="text"
+                                value={glimpse.thumbnailUrl}
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  updateCMS((prev) => {
+                                    const next = [...prev.videoGlimpses];
+                                    next[trueIndex] = { ...next[trueIndex], thumbnailUrl: val };
+                                    return { ...prev, videoGlimpses: next };
+                                  });
+                                }}
+                                placeholder="/official-mayavi-logo.png or image URL"
+                                className="w-full px-3 py-1.5 bg-black/50 border border-white/10 rounded-lg text-white text-[11px] font-mono outline-none focus:border-[#EAB308]"
+                              />
+
+                              {/* Aspect Ratio Selector Chips */}
+                              <div className="flex items-center space-x-1.5 pt-1">
+                                <span className="text-[9px] font-mono text-white/40 uppercase">Ratio:</span>
+                                {(['16:9', '9:16', '1:1'] as const).map((ratio) => (
+                                  <button
+                                    key={ratio}
+                                    type="button"
+                                    onClick={() => {
+                                      updateCMS((prev) => {
+                                        const next = [...prev.videoGlimpses];
+                                        next[trueIndex] = { ...next[trueIndex], aspectRatio: ratio };
+                                        return { ...prev, videoGlimpses: next };
+                                      });
+                                    }}
+                                    className={`px-2 py-0.5 rounded text-[9px] font-mono uppercase transition-all cursor-pointer ${
+                                      (glimpse.aspectRatio || '16:9') === ratio
+                                        ? 'bg-amber-400 text-black font-bold'
+                                        : 'bg-white/5 hover:bg-white/10 text-white/60'
+                                    }`}
+                                  >
+                                    {ratio}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Right Column: Title, Category, URL, Caption (8 cols) */}
+                            <div className="md:col-span-8 space-y-3 text-left">
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div className="sm:col-span-2 space-y-1">
+                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Title</label>
+                                  <input
+                                    type="text"
+                                    value={glimpse.title}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      updateCMS((prev) => {
+                                        const next = [...prev.videoGlimpses];
+                                        next[trueIndex] = { ...next[trueIndex], title: val };
+                                        return { ...prev, videoGlimpses: next };
+                                      });
+                                    }}
+                                    placeholder="Scene or project title..."
+                                    className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-serif outline-none focus:border-[#EAB308]"
+                                  />
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Duration</label>
+                                  <input
+                                    type="text"
+                                    value={glimpse.duration}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      updateCMS((prev) => {
+                                        const next = [...prev.videoGlimpses];
+                                        next[trueIndex] = { ...next[trueIndex], duration: val };
+                                        return { ...prev, videoGlimpses: next };
+                                      });
+                                    }}
+                                    placeholder="0:15"
+                                    className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="space-y-1">
+                                <div className="flex items-center justify-between">
+                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Category</label>
+                                  <div className="flex items-center space-x-1">
+                                    {['Cinematic Identity', 'Media Production', 'Talent Development'].map((cat) => (
+                                      <button
+                                        key={cat}
+                                        type="button"
+                                        onClick={() => {
+                                          updateCMS((prev) => {
+                                            const next = [...prev.videoGlimpses];
+                                            next[trueIndex] = { ...next[trueIndex], category: cat };
+                                            return { ...prev, videoGlimpses: next };
+                                          });
+                                        }}
+                                        className="text-[8px] font-mono text-amber-300/80 hover:text-amber-300 underline cursor-pointer"
+                                      >
+                                        +{cat.split(' ')[0]}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                                <input
+                                  type="text"
+                                  value={glimpse.category}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    updateCMS((prev) => {
+                                      const next = [...prev.videoGlimpses];
+                                      next[trueIndex] = { ...next[trueIndex], category: val };
+                                      return { ...prev, videoGlimpses: next };
+                                    });
+                                  }}
+                                  placeholder="e.g. Media Production, Cinematic Identity..."
+                                  className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                                />
+                              </div>
+
+                              <div className="space-y-1">
+                                <div className="flex items-center justify-between">
+                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">
+                                    Video URL (1080p Cine Loop)
+                                  </label>
+                                  {glimpse.videoUrl && (
+                                    <span className="text-[9px] font-mono text-amber-400">
+                                      {platform} detected
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="flex gap-2">
+                                  <input
+                                    type="text"
+                                    value={glimpse.videoUrl}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      updateCMS((prev) => {
+                                        const next = [...prev.videoGlimpses];
+                                        next[trueIndex] = { ...next[trueIndex], videoUrl: val };
+                                        return { ...prev, videoGlimpses: next };
+                                      });
+                                    }}
+                                    placeholder="Direct MP4, YouTube, Vimeo, Drive, Instagram Reel..."
+                                    className="flex-1 px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      updateCMS((prev) => {
+                                        const next = [...prev.videoGlimpses];
+                                        next[trueIndex] = {
+                                          ...next[trueIndex],
+                                          videoUrl: '/videos/mayavi-hero.mp4',
+                                          thumbnailUrl: '/official-mayavi-logo.png'
+                                        };
+                                        return { ...prev, videoGlimpses: next };
+                                      });
+                                      showToast('Filled with official motion reel');
+                                    }}
+                                    className="px-2 py-1 bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 rounded-lg font-mono text-[9px] transition-all cursor-pointer whitespace-nowrap"
+                                    title="Quick fill with official Mayavi reel"
+                                  >
+                                    Reel
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div className="space-y-1">
+                                <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">
+                                  Director Caption
+                                </label>
+                                <textarea
+                                  rows={2}
+                                  value={glimpse.caption}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    updateCMS((prev) => {
+                                      const next = [...prev.videoGlimpses];
+                                      next[trueIndex] = { ...next[trueIndex], caption: val };
+                                      return { ...prev, videoGlimpses: next };
+                                    });
+                                  }}
+                                  placeholder="Curatorial notes on visual tone, camera motion, and cinematic composition..."
+                                  className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* INDIVIDUAL GLIMPSE SAVE BUTTON */}
+                          <div className="pt-3 border-t border-white/5 flex items-center justify-between">
+                            <span className="font-mono text-[9px] text-white/40">
+                              1080p Cine Loop // Deliverable #2 // ID: {glimpse.id}
+                            </span>
+                            <div className="flex items-center space-x-2">
+                              <button
+                                type="button"
+                                onClick={() => handleSaveGlimpse(trueIndex, glimpse.title)}
+                                className={`px-4 py-1.5 rounded-lg font-mono text-[10px] font-bold uppercase flex items-center space-x-1.5 cursor-pointer transition-all ${
+                                  isSaved
+                                    ? 'bg-emerald-500 text-black shadow-[0_0_12px_rgba(16,185,129,0.4)]'
+                                    : 'bg-white/10 hover:bg-[#EAB308] hover:text-black text-white'
+                                }`}
+                              >
+                                {isSaved ? <Check size={11} /> : <Save size={11} />}
+                                <span>{isSaved ? 'SAVED ✓' : `SAVE GLIMPSE 0${trueIndex + 1}`}</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+
+                {/* BOTTOM ALL GLIMPSES SAVE & QUICK ACTION BAR */}
+                <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="text-[10px] font-mono text-white/50 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-400" />
+                    <span>{cms.videoGlimpses.length} total loops live on site</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleQuickAddGlimpse}
+                      className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-bold flex items-center space-x-1.5 cursor-pointer transition-all"
+                    >
+                      <Plus size={13} className="text-amber-400" />
+                      <span>Quick Add Loop</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSaveAllGlimpses}
+                      className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                        savedSection === 'all-glimpses'
+                          ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                          : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                      }`}
+                    >
+                      {savedSection === 'all-glimpses' ? <Check size={14} /> : <Save size={14} />}
+                      <span>SAVE ALL {cms.videoGlimpses.length} GLIMPSES</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -3347,6 +4124,277 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               >
                 <Save size={14} />
                 <span>Save Chapter</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* EDIT / CREATE VIDEO GLIMPSE MODAL */}
+      {editingGlimpse && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#0E0A1D] border border-white/15 rounded-3xl p-6 md:p-8 max-w-3xl w-full my-8 space-y-6 shadow-2xl text-left">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center space-x-3">
+                <div className="p-2.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300">
+                  <Film size={20} />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-serif italic text-white flex items-center gap-2">
+                    <span>{isNewGlimpse ? 'Add High-Fidelity Video Glimpse' : 'Edit Video Glimpse'}</span>
+                    <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
+                      DELIVERABLE #2
+                    </span>
+                  </h2>
+                  <p className="text-[11px] font-mono text-white/50">
+                    Configure 30s 1080p high-definition loop, poster frame, ratio, and directorial caption.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingGlimpse(null)}
+                className="p-2 rounded-full hover:bg-white/10 text-white/50 hover:text-white cursor-pointer transition-all"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Title */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Title</label>
+                <input
+                  type="text"
+                  value={editingGlimpse.title}
+                  onChange={(e) => setEditingGlimpse({ ...editingGlimpse, title: e.target.value })}
+                  placeholder="e.g. 3D Kinetic Motion Reveal"
+                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-serif outline-none focus:border-[#EAB308]"
+                />
+              </div>
+
+              {/* Category */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Category</label>
+                  <span className="text-[9px] font-mono text-white/40">Editorial Tag</span>
+                </div>
+                <input
+                  type="text"
+                  value={editingGlimpse.category}
+                  onChange={(e) => setEditingGlimpse({ ...editingGlimpse, category: e.target.value })}
+                  placeholder="e.g. Cinematic Identity, Media Production"
+                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                />
+                <div className="flex flex-wrap gap-1 pt-1">
+                  {['Cinematic Identity', 'Media Production', 'Talent Development', 'Personal Branding', 'Luxury Events'].map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setEditingGlimpse({ ...editingGlimpse, category: cat })}
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-[8px] transition-all cursor-pointer"
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Duration Tag */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Duration Tag</label>
+                <input
+                  type="text"
+                  value={editingGlimpse.duration}
+                  onChange={(e) => setEditingGlimpse({ ...editingGlimpse, duration: e.target.value })}
+                  placeholder="e.g. 0:15, 0:30 (Max 30s)"
+                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                />
+              </div>
+
+              {/* Aspect Ratio */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Aspect Ratio Frame</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(['16:9', '9:16', '1:1'] as const).map((ratio) => (
+                    <button
+                      key={ratio}
+                      type="button"
+                      onClick={() => setEditingGlimpse({ ...editingGlimpse, aspectRatio: ratio })}
+                      className={`py-2 px-2 rounded-xl font-mono text-xs font-bold uppercase transition-all cursor-pointer border ${
+                        (editingGlimpse.aspectRatio || '16:9') === ratio
+                          ? 'bg-amber-400 text-black border-amber-400 shadow-[0_0_12px_rgba(234,179,8,0.3)]'
+                          : 'bg-neutral-900 text-white/60 border-white/10 hover:border-white/20'
+                      }`}
+                    >
+                      {ratio} {ratio === '16:9' ? 'Land' : ratio === '9:16' ? 'Vert' : 'Sqr'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Video URL */}
+              <div className="md:col-span-2 space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase flex items-center justify-between font-semibold">
+                  <span>Video Link (YouTube, Vimeo, Google Drive, Instagram Reel, or Direct MP4)</span>
+                  {editingGlimpse.videoUrl && (
+                    <span className="text-[#EAB308] lowercase font-mono">
+                      detected: {detectVideoPlatform(editingGlimpse.videoUrl)}
+                    </span>
+                  )}
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={editingGlimpse.videoUrl}
+                    onChange={(e) => setEditingGlimpse({ ...editingGlimpse, videoUrl: e.target.value })}
+                    placeholder="https://.../video.mp4 or YouTube / Vimeo / Drive"
+                    className="flex-1 px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                  />
+                  {editingGlimpse.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setPreviewVideoUrl(editingGlimpse.videoUrl)}
+                      className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-mono flex items-center space-x-1 cursor-pointer transition-all border border-white/10"
+                    >
+                      <Play size={12} className="text-[#EAB308]" />
+                      <span>Test</span>
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setEditingGlimpse({
+                      ...editingGlimpse,
+                      videoUrl: '/videos/mayavi-hero.mp4',
+                      thumbnailUrl: editingGlimpse.thumbnailUrl || '/official-mayavi-logo.png'
+                    })}
+                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                  >
+                    <Sparkles size={10} />
+                    <span>⚡ Use Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Poster Image Frame URL & File Upload */}
+              <div className="md:col-span-2 space-y-1">
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">
+                    Poster Thumbnail Frame (Image URL or File Upload)
+                  </label>
+                  <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                    <Upload size={10} />
+                    <span>Browse Local Image (&lt; 2.5MB)</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          handlePosterFileUpload(file, (dataUrl) => {
+                            setEditingGlimpse({ ...editingGlimpse, thumbnailUrl: dataUrl });
+                          });
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={editingGlimpse.thumbnailUrl}
+                    onChange={(e) => setEditingGlimpse({ ...editingGlimpse, thumbnailUrl: e.target.value })}
+                    placeholder="/official-mayavi-logo.png or https://..."
+                    className="flex-1 px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                  />
+                  {editingGlimpse.thumbnailUrl && (
+                    <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/20 shrink-0 bg-black/60 flex items-center justify-center">
+                      <img src={editingGlimpse.thumbnailUrl} alt="Thumbnail preview" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                  {[
+                    { label: 'Official Logo', url: '/official-mayavi-logo.png' },
+                    { label: 'Workshop Poster', url: '/posters/theatre-modelling-workshop.png' },
+                    { label: 'Casting Call', url: '/posters/casting-call-prince-princess.png' },
+                    { label: 'Stage A', url: '/hero_stage_a.png' },
+                    { label: 'Monolith', url: '/desert_monolith.png' }
+                  ].map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setEditingGlimpse({ ...editingGlimpse, thumbnailUrl: preset.url })}
+                      className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white font-mono text-[9px] transition-all cursor-pointer"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Director Caption */}
+              <div className="md:col-span-2 space-y-1">
+                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Director Caption</label>
+                <textarea
+                  rows={2}
+                  value={editingGlimpse.caption}
+                  onChange={(e) => setEditingGlimpse({ ...editingGlimpse, caption: e.target.value })}
+                  placeholder="Curatorial notes on visual tone, camera motion, and cinematic composition..."
+                  className="w-full px-3.5 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                />
+              </div>
+            </div>
+
+            {/* Live Card Preview Box */}
+            <div className="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-2">
+              <div className="flex items-center justify-between text-[9px] font-mono text-white/40 uppercase">
+                <span>Directorial Preview Frame</span>
+                <span>{editingGlimpse.aspectRatio || '16:9'} Format</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-24 h-16 rounded-lg overflow-hidden border border-white/20 bg-neutral-950 shrink-0 relative flex items-center justify-center">
+                  {editingGlimpse.thumbnailUrl ? (
+                    <img src={editingGlimpse.thumbnailUrl} alt="Thumbnail preview" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-[8px] font-mono text-white/30">NO POSTER</span>
+                  )}
+                  {editingGlimpse.videoUrl && (
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                      <Play size={12} className="text-amber-400" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[9px] text-[#EAB308] font-bold uppercase">{editingGlimpse.category || 'CATEGORY'}</span>
+                    <span className="font-mono text-[8px] text-white/40">{editingGlimpse.duration || '0:15'}</span>
+                  </div>
+                  <h4 className="text-sm font-serif text-white truncate">{editingGlimpse.title || 'Untitled Glimpse'}</h4>
+                  <p className="text-[11px] text-white/60 line-clamp-1 font-sans">{editingGlimpse.caption || 'No caption entered yet...'}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end space-x-3 pt-4 border-t border-white/10">
+              <button
+                type="button"
+                onClick={() => setEditingGlimpse(null)}
+                className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 font-mono text-xs tracking-wider cursor-pointer transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveGlimpseModal}
+                className="px-6 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.3)] transition-all"
+              >
+                <Save size={14} />
+                <span>Save Video Glimpse</span>
               </button>
             </div>
           </div>

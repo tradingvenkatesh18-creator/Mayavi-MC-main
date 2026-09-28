@@ -1535,7 +1535,7 @@ export default function App() {
                       <span className="text-white font-bold tracking-widest text-[8.5px]">1080P REC // 24 FPS</span>
                     </div>
                     <div className="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-amber-400/20 text-amber-300 font-bold">
-                      <span>ARRI ALEXA LF</span>
+                      <span>{cms.hero.cameraTag || 'ARRI ALEXA LF'}</span>
                       <span className="text-white/20">|</span>
                       <span>SENSOR 36.70 x 25.54MM</span>
                     </div>
