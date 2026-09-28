@@ -769,20 +769,55 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
     >
       {/* Soundstage Background Layer */}
       <div 
-        className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-45 print:hidden"
+        className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-40 print:hidden"
         style={{
-          backgroundImage: `radial-gradient(ellipse at 80% 50%, rgba(7,6,11,0.4) 0%, rgba(7,6,11,0.95) 80%), radial-gradient(ellipse at 20% 40%, rgba(7,6,11,0.3) 0%, rgba(7,6,11,0.95) 75%), url('/studio_soundstage_bg.jpg')`
+          backgroundImage: `radial-gradient(ellipse at 80% 50%, rgba(7,6,11,0.5) 0%, rgba(7,6,11,0.95) 80%), radial-gradient(ellipse at 20% 40%, rgba(7,6,11,0.4) 0%, rgba(7,6,11,0.95) 75%), url('/studio_soundstage_bg.jpg')`
         }}
       />
 
-      {/* Optical Viewfinder Corner Framing Lines */}
-      <div className="fixed top-4 left-4 w-5 h-5 border-t border-l border-amber-400/40 pointer-events-none z-50 print:hidden" />
-      <div className="fixed top-4 right-4 w-5 h-5 border-t border-r border-amber-400/40 pointer-events-none z-50 print:hidden" />
-      <div className="fixed bottom-4 left-4 w-5 h-5 border-b border-l border-amber-400/40 pointer-events-none z-50 print:hidden" />
-      <div className="fixed bottom-4 right-4 w-5 h-5 border-b border-r border-amber-400/40 pointer-events-none z-50 print:hidden" />
+      {/* #16 Surreal Design: Sacred Mandalas & Cosmic Atmosphere */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden print:hidden">
+        {/* Imperial Violet Celestial Nebula */}
+        <div className="absolute -top-[10%] left-[25%] w-[700px] h-[500px] rounded-full bg-[#410682]/25 blur-[130px]" />
+        {/* Solar Gold Ambient Glow */}
+        <div className="absolute -bottom-[15%] right-[15%] w-[600px] h-[450px] rounded-full bg-[#EAB308]/10 blur-[140px]" />
 
-      {/* Top Header HUD Navigation */}
-      <header className="relative z-30 px-6 sm:px-10 py-4 flex items-center justify-between border-b border-white/[0.07] bg-[#07060B]/80 backdrop-blur-md print:hidden">
+        {/* Sacred Geometry Mandala 1 - Slow Celestial Rotation */}
+        <motion.img 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
+          src="/patterns/pattern-2.svg" 
+          alt="Mayavi Sacred Geometry"
+          className="absolute -top-32 -right-32 w-[600px] h-[600px] opacity-[0.065] invert pointer-events-none select-none drop-shadow-[0_0_50px_rgba(234,179,8,0.3)]"
+        />
+
+        {/* Sacred Geometry Mandala 2 - Harmonic Counter-Rotation */}
+        <motion.img 
+          animate={{ rotate: -360 }}
+          transition={{ duration: 200, repeat: Infinity, ease: "linear" }}
+          src="/patterns/pattern-5.svg" 
+          alt="Mayavi Sacred Lattice"
+          className="absolute -bottom-40 -left-40 w-[550px] h-[550px] opacity-[0.05] invert pointer-events-none select-none drop-shadow-[0_0_50px_rgba(65,6,130,0.4)]"
+        />
+
+        {/* #3 Futuristic HUD: Precision Camera Optical Center Reticle */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-15 pointer-events-none">
+          <div className="relative w-44 h-44 border border-white/10 rounded-full flex items-center justify-center">
+            <div className="w-10 h-[1px] bg-amber-400/50" />
+            <div className="h-10 w-[1px] bg-amber-400/50 absolute" />
+            <div className="w-2 h-2 rounded-full border border-amber-400/70" />
+          </div>
+        </div>
+      </div>
+
+      {/* Optical Viewfinder Corner Framing Lines */}
+      <div className="fixed top-4 left-4 w-5 h-5 border-t-2 border-l-2 border-amber-400/60 pointer-events-none z-50 print:hidden" />
+      <div className="fixed top-4 right-4 w-5 h-5 border-t-2 border-r-2 border-amber-400/60 pointer-events-none z-50 print:hidden" />
+      <div className="fixed bottom-4 left-4 w-5 h-5 border-b-2 border-l-2 border-amber-400/60 pointer-events-none z-50 print:hidden" />
+      <div className="fixed bottom-4 right-4 w-5 h-5 border-b-2 border-r-2 border-amber-400/60 pointer-events-none z-50 print:hidden" />
+
+      {/* #22 Liquid Glass Header HUD Navigation */}
+      <header className="relative z-30 px-6 sm:px-10 py-4 flex items-center justify-between border-b border-amber-400/20 bg-[#0B0914]/80 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.6)] print:hidden">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <img 
@@ -792,19 +827,20 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
             />
             <div className="leading-none border-l border-white/10 pl-3">
               <div className="font-display font-bold text-sm tracking-[0.14em] text-white uppercase">MAYAVI</div>
-              <div className="font-mono text-[8.5px] tracking-[0.2em] text-white/40 uppercase mt-0.5">MEDIA CREATIONS</div>
+              <div className="font-mono text-[8.5px] tracking-[0.2em] text-amber-400/80 uppercase mt-0.5">MEDIA CREATIONS</div>
             </div>
           </div>
 
           <div className="hidden sm:block h-6 w-[1px] bg-white/10 mx-1" />
 
-          <div className="hidden sm:block font-mono text-[10px] tracking-[0.22em] text-white/50 uppercase">
-            AUDITION ENGINE <span className="text-amber-400/80 mx-1">//</span> 2026 COHORT
+          <div className="hidden sm:block font-mono text-[10px] tracking-[0.25em] text-white/60 uppercase">
+            AUDITION ENGINE <span className="text-amber-400/90 mx-1">//</span> 2026 COHORT
           </div>
         </div>
 
-        <div className="hidden md:block font-mono text-[11px] tracking-[0.32em] text-white/70 uppercase">
-          {isCompleted ? "DIRECTOR'S EVALUATION ENGINE" : "DIRECTOR'S ROOM"}
+        <div className="hidden md:flex items-center gap-2 font-mono text-[11px] tracking-[0.35em] text-white/80 uppercase">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70" />
+          <span>{isCompleted ? "DIRECTOR'S EVALUATION ENGINE" : "DIRECTOR'S ROOM // SCREEN TEST"}</span>
         </div>
 
         <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] text-white/50">
@@ -814,11 +850,13 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
             <span>180.0°</span>
             <span className="text-white/20">|</span>
             <span>5600K</span>
+            <span className="text-white/20">|</span>
+            <span className="text-amber-400/80">ARRI ALEXA LF</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
-            <span className="text-amber-400 font-semibold tracking-wider">REC</span>
+            <span className="text-amber-400 font-semibold tracking-wider text-[9px]">REC</span>
           </div>
 
           <button 
@@ -826,7 +864,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
               setSoundEnabled(!soundEnabled);
               playClick();
             }}
-            className="w-7 h-7 rounded-full border border-white/10 hover:border-amber-400/60 flex items-center justify-center text-white/50 hover:text-amber-400 transition-colors ml-1 cursor-pointer"
+            className="w-8 h-8 rounded-full border border-white/10 hover:border-amber-400/60 bg-white/[0.03] backdrop-blur-md flex items-center justify-center text-white/60 hover:text-amber-400 transition-colors cursor-pointer"
             title="Toggle Sound"
           >
             {soundEnabled ? <Volume2 size={13} /> : <VolumeX size={13} />}
@@ -834,7 +872,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
           <button 
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer ml-2"
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-amber-400/20 border border-white/10 hover:border-amber-400/50 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
             title="Exit Audition"
           >
             <X size={15} />
@@ -845,25 +883,26 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
       {/* Act Breadcrumb & Progress Bar */}
       {!isCompleted && (
         <div className="relative z-30 px-6 sm:px-12 pt-5 pb-2 print:hidden">
-          <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.22em] mb-2.5">
-            <div className="text-amber-400 font-medium uppercase">
-              {currentScene.actHeader}
+          <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.25em] mb-2.5">
+            <div className="text-amber-400 font-medium uppercase flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_#EAB308]" />
+              <span>{currentScene.actHeader}</span>
             </div>
 
-            <div className="text-white/60">
+            <div className="text-white/70">
               TAKE <span className="text-white font-bold">{String(currentSceneIndex + 1).padStart(2, '0')}</span> / 12 
-              <span className="text-amber-400 font-bold ml-2">[ {String(progressPercent).padStart(2, '0')}% ]</span>
+              <span className="text-amber-400 font-bold ml-2.5 px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30">[ {String(progressPercent).padStart(2, '0')}% ]</span>
             </div>
           </div>
 
           <div className="relative w-full h-[2px] bg-white/[0.08] rounded-full overflow-visible">
             <div 
-              className="absolute top-0 left-0 h-full bg-amber-400 shadow-[0_0_10px_#EAB308] transition-all duration-300"
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300 shadow-[0_0_12px_#EAB308] transition-all duration-300"
               style={{ width: `${progressPercent}%` }}
             />
             <div 
-              className="absolute top-[-3px] w-2 h-2 rounded-full bg-amber-300 shadow-[0_0_8px_#FDE047] transition-all duration-300"
-              style={{ left: `calc(${progressPercent}% - 4px)` }}
+              className="absolute top-[-4px] w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_10px_#FDE047] transition-all duration-300 border border-amber-400"
+              style={{ left: `calc(${progressPercent}% - 5px)` }}
             />
           </div>
         </div>
@@ -873,22 +912,22 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
       <main className="relative z-20 flex-1 flex flex-col md:flex-row items-start px-6 sm:px-12 py-4 md:py-6 gap-8 max-w-7xl mx-auto w-full overflow-y-auto print:hidden">
         {!isCompleted ? (
           <>
-            {/* Left Filmstrip Sidebar */}
+            {/* Left Filmstrip Sidebar - Liquid Glass Framing */}
             <aside className="hidden md:flex flex-col items-center shrink-0 w-24 pt-2">
-              <div className="font-mono text-[9px] tracking-[0.25em] text-amber-400 uppercase text-center mb-0.5">
-                ACT 0{currentScene.actNum}
+              <div className="font-mono text-[9px] tracking-[0.3em] text-amber-400 uppercase text-center mb-0.5">
+                ACTVS 0{currentScene.actNum}
               </div>
-              <div className="font-mono text-[10px] tracking-[0.2em] text-white/80 font-bold uppercase text-center mb-4">
+              <div className="font-mono text-[10px] tracking-[0.22em] text-white/85 font-bold uppercase text-center mb-4">
                 {currentScene.actName}
               </div>
 
-              <div className="flex flex-col gap-2.5 mb-6">
+              <div className="flex flex-col gap-3 mb-6">
                 {[
-                  { act: 1, img: "/posters/theatre-modelling-workshop.png", title: "Act 1" },
-                  { act: 2, img: "/posters/media-2.png", title: "Act 2" },
-                  { act: 3, img: "/posters/theatre-modelling-recap.png", title: "Act 3" },
-                  { act: 4, img: "/posters/casting-call-prince-princess.png", title: "Act 4" },
-                  { act: 5, img: "/images/talent-creators-audition.jpg", title: "Act 5" },
+                  { act: 1, img: "/posters/theatre-modelling-workshop.png", title: "Act 1", roman: "I" },
+                  { act: 2, img: "/posters/media-2.png", title: "Act 2", roman: "II" },
+                  { act: 3, img: "/posters/theatre-modelling-recap.png", title: "Act 3", roman: "III" },
+                  { act: 4, img: "/posters/casting-call-prince-princess.png", title: "Act 4", roman: "IV" },
+                  { act: 5, img: "/images/talent-creators-audition.jpg", title: "Act 5", roman: "V" },
                 ].map(item => (
                   <div
                     key={item.act}
@@ -901,27 +940,28 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                         setShowSceneInsight(false);
                       }
                     }}
-                    className={`relative w-[58px] h-[48px] rounded-lg overflow-hidden border cursor-pointer transition-all duration-300 ${
+                    className={`relative w-[62px] h-[52px] rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 group ${
                       currentScene.actNum === item.act 
-                        ? 'border-2 border-amber-400 shadow-[0_0_20px_rgba(234,179,8,0.45)]' 
-                        : 'border-white/10 hover:border-amber-400/60 opacity-60 hover:opacity-100'
+                        ? 'border-2 border-amber-400 shadow-[0_0_24px_rgba(234,179,8,0.5)] ring-1 ring-amber-400/60 scale-105' 
+                        : 'border-white/15 hover:border-amber-400/60 opacity-60 hover:opacity-100 backdrop-blur-md bg-white/[0.03]'
                     }`}
                   >
-                    <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
-                    <span className="absolute bottom-1 left-1.5 font-mono text-[9px] font-bold text-white/90 drop-shadow">
-                      0{item.act}
+                    <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30" />
+                    <span className="absolute bottom-1 left-2 font-mono text-[9px] font-bold text-amber-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                      {item.roman}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="font-mono text-[8.5px] tracking-[0.25em] text-white/30 text-center uppercase leading-tight">
+              <div className="font-mono text-[8.5px] tracking-[0.28em] text-white/40 text-center uppercase leading-tight">
                 <div>05 ACTS</div>
-                <div>12 SCENES</div>
+                <div className="text-amber-400/70">12 TAKES</div>
               </div>
             </aside>
 
-            {/* Question Stage */}
+            {/* Question Stage - #13 Editorial + #22 Liquid Glass */}
             <section className="flex-1 max-w-3xl">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -933,14 +973,15 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                   className="space-y-6"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="font-mono text-xs tracking-[0.28em] text-[#EAB308] uppercase">
-                      {currentScene.eyebrow}
+                    <div className="flex items-center gap-2 font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                      <span>{currentScene.eyebrow}</span>
                     </div>
 
                     {/* Toggle Director's Insight Note */}
                     <button
                       onClick={() => setShowSceneInsight(!showSceneInsight)}
-                      className="px-2.5 py-1 rounded-full border border-amber-400/30 bg-amber-400/10 hover:bg-amber-400/20 text-amber-400 text-[9px] font-mono tracking-wider uppercase transition-all flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 text-[9.5px] font-mono tracking-widest uppercase transition-all flex items-center gap-1.5 cursor-pointer backdrop-blur-md shadow-[0_0_12px_rgba(234,179,8,0.15)]"
                     >
                       <Info size={11} />
                       <span>{showSceneInsight ? "HIDE DIRECTOR'S NOTE" : "DIRECTOR'S INSIGHT"}</span>
@@ -956,34 +997,47 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                         exit={{ opacity: 0, height: 0 }}
                         className="overflow-hidden"
                       >
-                        <div className="p-4 rounded-xl bg-amber-500/[0.08] border border-amber-400/30 text-xs text-white/80 font-mono leading-relaxed space-y-1">
-                          <div className="text-amber-400 font-bold uppercase tracking-wider text-[10px]">
+                        <div className="p-4 rounded-2xl bg-[#0B0914]/90 backdrop-blur-xl border border-amber-400/35 text-xs text-white/85 font-mono leading-relaxed space-y-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                          <div className="text-amber-400 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                             DIRECTOR'S EVALUATION CRITERIA:
                           </div>
-                          <div>{currentScene.directorInsight}</div>
+                          <div className="text-white/80 leading-relaxed font-body">{currentScene.directorInsight}</div>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
 
-                  <h1 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-[1.12]">
-                    {currentScene.headlinePrefix} <span className="text-[#EAB308]">{currentScene.headlineHighlight}</span>
+                  {/* Editorial Headline */}
+                  <h1 className="font-serif font-light text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-[1.14]">
+                    {currentScene.headlinePrefix} <span className="text-[#EAB308] italic font-normal drop-shadow-[0_0_20px_rgba(234,179,8,0.25)]">{currentScene.headlineHighlight}</span>
                   </h1>
 
-                  <p className="font-serif italic text-lg sm:text-xl text-white/80 leading-relaxed max-w-2xl">
-                    {currentScene.scriptQuote}
-                  </p>
+                  {/* Editorial Screenplay Excerpt Box */}
+                  <div className="relative pl-6 sm:pl-8 py-3 border-l-2 border-amber-400/50 bg-gradient-to-r from-white/[0.03] to-transparent rounded-r-2xl">
+                    <div className="font-mono text-[9px] tracking-[0.3em] text-amber-400/70 uppercase mb-2 flex items-center gap-2">
+                      <span>// SCREENPLAY EXCERPT</span>
+                      <span className="text-white/20">|</span>
+                      <span>INT. SOUNDSTAGE</span>
+                      <span className="text-white/20">|</span>
+                      <span>TAKE {String(currentSceneIndex + 1).padStart(2, '0')} OF 12</span>
+                    </div>
+                    <p className="font-serif italic text-lg sm:text-2xl text-white/90 leading-relaxed">
+                      {currentScene.scriptQuote}
+                    </p>
+                  </div>
 
+                  {/* Metadata Tags */}
                   <div className="flex flex-wrap items-center gap-2.5 pt-1">
                     {currentScene.tags.map(t => (
-                      <span key={t} className="px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 font-mono text-[9.5px] tracking-[0.2em] text-white/60 uppercase">
+                      <span key={t} className="px-3 py-1 rounded-full bg-white/[0.04] backdrop-blur-md border border-white/10 font-mono text-[9px] tracking-[0.22em] text-white/70 uppercase">
                         {t}
                       </span>
                     ))}
                   </div>
 
-                  {/* Options List */}
-                  <div className="flex flex-col gap-3 pt-3">
+                  {/* #22 Liquid Glass Options List */}
+                  <div className="flex flex-col gap-3.5 pt-2">
                     {currentScene.options.map((opt, idx) => {
                       const isSelected = selectedOptionIndex === idx;
                       return (
@@ -993,18 +1047,21 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                             playClick();
                             setSelectedOptionIndex(idx);
                           }}
-                          className={`px-5 py-4 flex flex-col gap-2 rounded-2xl cursor-pointer transition-all duration-300 ${
+                          className={`relative overflow-hidden px-5 py-4 flex flex-col gap-2 rounded-2xl cursor-pointer transition-all duration-300 group ${
                             isSelected 
-                              ? 'bg-amber-950/40 border-2 border-amber-400 shadow-[0_0_28px_rgba(234,179,8,0.28)]' 
-                              : 'bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-amber-400/50'
+                              ? 'backdrop-blur-2xl bg-gradient-to-r from-amber-950/50 via-[#181105]/70 to-[#0B0914]/90 border-2 border-amber-400 shadow-[0_0_35px_rgba(234,179,8,0.28),inset_0_1px_15px_rgba(234,179,8,0.15)] ring-1 ring-amber-400/50' 
+                              : 'backdrop-blur-xl bg-gradient-to-r from-white/[0.04] to-white/[0.015] hover:bg-white/[0.07] border border-white/[0.12] hover:border-amber-400/60 shadow-[0_4px_20px_rgba(0,0,0,0.3)]'
                           }`}
                         >
-                          <div className="flex items-center justify-between gap-4">
+                          {/* Liquid Glass Specular Light Sweep */}
+                          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent pointer-events-none" />
+
+                          <div className="flex items-center justify-between gap-4 relative z-10">
                             <div className="flex items-center gap-4">
-                              <div className={`w-[38px] h-[38px] rounded-xl flex items-center justify-center font-mono text-xs font-bold transition-all ${
+                              <div className={`w-[40px] h-[40px] rounded-xl flex items-center justify-center font-mono text-xs font-bold transition-all ${
                                 isSelected 
-                                ? 'bg-amber-400/20 border border-amber-400 text-amber-400 shadow-[0_0_12px_rgba(234,179,8,0.3)]' 
-                                : 'bg-white/5 border border-white/10 text-white/70'
+                                ? 'bg-gradient-to-br from-amber-400 to-amber-500 text-black shadow-[0_0_16px_rgba(234,179,8,0.6)] font-extrabold' 
+                                : 'bg-white/[0.06] border border-white/15 text-white/80 group-hover:border-amber-400/50 group-hover:text-amber-300'
                               }`}>
                                 {opt.letter}
                               </div>
@@ -1013,13 +1070,13 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                                 <div className="font-display font-semibold text-sm sm:text-base text-white/95 leading-snug">
                                   {opt.title}
                                 </div>
-                                <div className="font-body text-xs text-white/50 mt-0.5 leading-normal">
+                                <div className="font-body text-xs text-white/60 mt-0.5 leading-normal">
                                   {opt.desc}
                                 </div>
                               </div>
                             </div>
 
-                            <div className={`shrink-0 transition-colors ${isSelected ? 'text-amber-400' : 'text-white/20'}`}>
+                            <div className={`shrink-0 transition-colors ${isSelected ? 'text-amber-400 translate-x-1' : 'text-white/20 group-hover:text-white/50'}`}>
                               <ArrowRight size={18} />
                             </div>
                           </div>
@@ -1029,12 +1086,12 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                             <motion.div 
                               initial={{ opacity: 0, y: 4 }}
                               animate={{ opacity: 1, y: 0 }}
-                              className="mt-2 pt-2 border-t border-amber-400/20 flex items-start gap-2"
+                              className="mt-2.5 pt-2.5 border-t border-amber-400/25 flex items-start gap-2.5 bg-amber-400/[0.04] p-3 rounded-xl backdrop-blur-sm relative z-10"
                             >
-                              <span className="font-mono text-[9px] uppercase tracking-wider text-amber-400 font-bold shrink-0 mt-0.5">
-                                [ DIRECTOR'S TAKE ]:
+                              <span className="font-mono text-[9px] uppercase tracking-widest text-amber-400 font-bold shrink-0 mt-0.5 px-2 py-0.5 rounded bg-amber-400/15 border border-amber-400/30">
+                                DIRECTOR'S TAKE
                               </span>
-                              <span className="font-body text-xs text-amber-200/80 leading-relaxed">
+                              <span className="font-body text-xs text-amber-200/90 leading-relaxed">
                                 {opt.directorCritique}
                               </span>
                             </motion.div>
@@ -1059,50 +1116,53 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                 animate={{ opacity: 1, scale: 1 }}
                 className="space-y-8 py-2 max-w-4xl mx-auto w-full"
               >
-                {/* Dossier Top Banner */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/10 gap-3">
+                {/* Dossier Top Banner - #13 Editorial + #22 Liquid Glass */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-amber-400/20 gap-4">
                   <div>
-                    <div className="font-mono text-[10px] tracking-[0.3em] text-[#EAB308] uppercase mb-1">
+                    <div className="font-mono text-[10px] tracking-[0.35em] text-[#EAB308] uppercase mb-1 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
                       // AUDITION DOSSIER NO: {dossierId}
                     </div>
-                    <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-none">
+                    <h1 className="font-serif font-light text-3xl sm:text-5xl text-white tracking-tight leading-none">
                       {archetype.title}
                     </h1>
                   </div>
 
-                  <div className="px-3.5 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 font-mono text-[10px] tracking-widest uppercase shrink-0">
+                  <div className="px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/40 text-amber-300 font-mono text-[10px] tracking-widest uppercase shrink-0 backdrop-blur-md shadow-[0_0_15px_rgba(234,179,8,0.2)]">
                     {archetype.badge}
                   </div>
                 </div>
 
-                <p className="font-serif italic text-xl sm:text-2xl text-amber-300/90 leading-relaxed">
-                  {archetype.quote}
-                </p>
+                <div className="relative pl-6 py-2 border-l-2 border-amber-400/60 bg-gradient-to-r from-amber-500/[0.05] to-transparent rounded-r-2xl">
+                  <p className="font-serif italic text-xl sm:text-2xl text-amber-200/95 leading-relaxed">
+                    “{archetype.quote}”
+                  </p>
+                </div>
 
-                {/* Trait Score Gauges */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="font-mono text-[8.5px] tracking-widest text-[#EAB308] uppercase mb-1">EMOTIONAL DEPTH</div>
-                    <div className="font-display font-bold text-xl text-white">{scorePercentages.emotion}%</div>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="font-mono text-[8.5px] tracking-widest text-[#EAB308] uppercase mb-1">CAMERA MAGNETISM</div>
-                    <div className="font-display font-bold text-xl text-white">{scorePercentages.camera}%</div>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="font-mono text-[8.5px] tracking-widest text-[#EAB308] uppercase mb-1">IMPROV REFLEX</div>
-                    <div className="font-display font-bold text-xl text-white">{scorePercentages.improv}%</div>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="font-mono text-[8.5px] tracking-widest text-[#EAB308] uppercase mb-1">NARRATIVE IMAGINATION</div>
-                    <div className="font-display font-bold text-xl text-white">{scorePercentages.imag}%</div>
-                  </div>
+                {/* Trait Score Gauges - Liquid Glass Pods */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                  {[
+                    { label: "EMOTIONAL DEPTH", val: scorePercentages.emotion },
+                    { label: "CAMERA MAGNETISM", val: scorePercentages.camera },
+                    { label: "IMPROV REFLEX", val: scorePercentages.improv },
+                    { label: "NARRATIVE IMAGINATION", val: scorePercentages.imag },
+                  ].map(gauge => (
+                    <div key={gauge.label} className="p-4 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/[0.05] to-white/[0.015] border border-white/15 hover:border-amber-400/50 shadow-[0_4px_20px_rgba(0,0,0,0.4)] transition-all">
+                      <div className="font-mono text-[8.5px] tracking-[0.2em] text-[#EAB308] uppercase mb-1.5">{gauge.label}</div>
+                      <div className="font-serif font-bold text-2xl sm:text-3xl text-white flex items-baseline gap-1">
+                        {gauge.val}<span className="text-xs text-amber-400/70 font-mono">%</span>
+                      </div>
+                      <div className="w-full h-1 bg-white/10 rounded-full mt-2.5 overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-amber-400 to-amber-300 rounded-full" style={{ width: `${gauge.val}%` }} />
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
                 {/* ======================================================= */}
                 {/* DEDICATED EVALUATION ENGINE TABS INTERFACE              */}
                 {/* ======================================================= */}
-                <div className="rounded-2xl border border-amber-400/30 bg-[#0B0914]/90 backdrop-blur-2xl overflow-hidden shadow-2xl">
+                <div className="rounded-2xl border border-amber-400/35 bg-[#0B0914]/85 backdrop-blur-2xl overflow-hidden shadow-[0_0_50px_rgba(65,6,130,0.35),0_12px_40px_rgba(0,0,0,0.7)]">
                   {/* Tab Selector Navigation Bar */}
                   <div className="flex border-b border-white/10 bg-white/[0.02] overflow-x-auto no-scrollbar">
                     {[
@@ -1308,13 +1368,13 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                   </div>
                 </div>
 
-                {/* Bottom Actions */}
-                <div className="flex flex-wrap gap-4 pt-2">
+                {/* Bottom Actions - #22 Liquid Glass */}
+                <div className="flex flex-wrap gap-4 pt-3">
                   <a 
                     href={`https://wa.me/916301761783?text=${encodeURIComponent(`Hello Mayavi Casting, I have completed the Director's Room Screen Test: ${archetype.title} (Dossier Ref: ${dossierId}). Scores: Improv: ${scorePercentages.improv}%, Emotion: ${scorePercentages.emotion}%, Camera: ${scorePercentages.camera}%, Imagination: ${scorePercentages.imag}%. I would love to audition for upcoming projects.`)}`}
                     target="_blank" 
                     rel="noreferrer"
-                    className="px-8 py-3.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-mono text-xs tracking-widest uppercase font-bold inline-flex items-center gap-2 shadow-[0_0_25px_rgba(234,179,8,0.4)] transition-all cursor-pointer"
+                    className="px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-black font-mono text-xs tracking-widest uppercase font-bold inline-flex items-center gap-2.5 shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:shadow-[0_0_40px_rgba(234,179,8,0.75)] hover:scale-[1.02] transition-all cursor-pointer"
                   >
                     <span>SUBMIT AUDITION VIA WHATSAPP</span>
                     <ArrowRight size={14} />
@@ -1323,7 +1383,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                   <button 
                     type="button"
                     onClick={() => window.print()}
-                    className="px-6 py-3.5 rounded-full border border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 font-mono text-xs tracking-widest uppercase text-amber-300 hover:text-white transition-all cursor-pointer inline-flex items-center gap-2 shadow-[0_0_15px_rgba(234,179,8,0.15)]"
+                    className="px-6 py-3.5 rounded-full border border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 font-mono text-xs tracking-widest uppercase text-amber-300 hover:text-white transition-all cursor-pointer inline-flex items-center gap-2 shadow-[0_0_20px_rgba(234,179,8,0.2)] backdrop-blur-md"
                     title="Export Official 2-Page Casting Dossier (PDF or Print)"
                   >
                     <Printer size={14} />
@@ -1339,7 +1399,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                       setUserChoices([]);
                       setScores({ improv: 0, camera: 0, emotion: 0, imag: 0 });
                     }}
-                    className="px-6 py-3.5 rounded-full border border-white/10 hover:border-white/30 font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-colors cursor-pointer inline-flex items-center gap-2"
+                    className="px-6 py-3.5 rounded-full border border-white/15 hover:border-amber-400/40 bg-white/[0.03] hover:bg-white/[0.08] font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-all cursor-pointer inline-flex items-center gap-2 backdrop-blur-md"
                   >
                     <RotateCcw size={14} />
                     <span>RETAKE TEST</span>
@@ -1363,20 +1423,20 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
         />
       )}
 
-      {/* Bottom Bar Controls */}
+      {/* Bottom Bar Controls - #22 Liquid Glass & HUD */}
       {!isCompleted && (
-        <footer className="relative z-30 px-6 sm:px-12 py-5 flex items-center justify-between border-t border-white/[0.06] bg-[#07060B]/70 backdrop-blur-md print:hidden">
-          <div className="flex items-center gap-2 font-mono text-[9.5px] tracking-[0.25em] text-white/40 uppercase">
-            <span className="text-amber-400/70">[</span>
-            <span>SENSOR: FULL-FRAME 9:16 VERTICAL</span>
-            <span className="text-amber-400/70">]</span>
+        <footer className="relative z-30 px-6 sm:px-12 py-5 flex items-center justify-between border-t border-amber-400/20 bg-[#0B0914]/80 backdrop-blur-2xl shadow-[0_-4px_30px_rgba(0,0,0,0.6)] print:hidden">
+          <div className="flex items-center gap-2 font-mono text-[9.5px] tracking-[0.25em] text-white/50 uppercase">
+            <span className="text-amber-400/80">[</span>
+            <span>SENSOR: FULL-FRAME 9:16 VERTICAL // 1.33x ANAMORPHIC</span>
+            <span className="text-amber-400/80">]</span>
           </div>
 
           <div className="flex items-center gap-3">
             <button 
               onClick={handlePrev}
               disabled={currentSceneIndex === 0}
-              className={`w-10 h-10 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center transition-all ${
+              className={`w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md flex items-center justify-center transition-all ${
                 currentSceneIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:border-amber-400/60 text-white/60 hover:text-white cursor-pointer'
               }`}
               title="Previous Question"
@@ -1386,16 +1446,16 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
             <button 
               onClick={handleNext}
-              className="px-7 py-2.5 rounded-full border-2 border-amber-400 bg-black/60 hover:bg-amber-400 text-amber-400 hover:text-black font-mono text-xs tracking-[0.22em] uppercase font-bold flex items-center gap-2.5 transition-all shadow-[0_0_24px_rgba(234,179,8,0.25)] hover:shadow-[0_0_35px_rgba(234,179,8,0.55)] cursor-pointer"
+              className="px-8 py-2.5 rounded-full border-2 border-amber-400 bg-gradient-to-r from-amber-400/20 via-black/80 to-amber-400/20 hover:bg-amber-400 text-amber-300 hover:text-black font-mono text-xs tracking-[0.25em] uppercase font-bold flex items-center gap-2.5 transition-all shadow-[0_0_25px_rgba(234,179,8,0.35)] hover:shadow-[0_0_40px_rgba(234,179,8,0.6)] cursor-pointer backdrop-blur-md"
             >
               <span>{currentSceneIndex === SCENES.length - 1 ? 'COMPLETE DOSSIER' : 'NEXT QUESTION'}</span>
               <ArrowRight size={14} />
             </button>
           </div>
 
-          <div className="hidden sm:flex items-center gap-3 font-mono text-[9.5px] tracking-[0.25em] text-white/40 uppercase">
-            <span className="w-8 h-[1px] bg-white/20" />
-            <span>TALENT BEYOND THE ORDINARY</span>
+          <div className="hidden sm:flex items-center gap-3 font-mono text-[9.5px] tracking-[0.28em] text-white/50 uppercase">
+            <span className="w-8 h-[1px] bg-amber-400/30" />
+            <span className="text-amber-400/80">BUILDING PEOPLE BEFORE BRANDS</span>
           </div>
         </footer>
       )}
