@@ -71,19 +71,21 @@ export default function PrintableDossier({
         {/* TOP HEADER */}
         <div>
           <div className="flex items-center justify-between pb-3">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-amber-500 border border-amber-600 flex items-center justify-center font-display font-black text-black text-lg shadow-sm">
-                M
-              </div>
-              <div className="leading-tight text-left">
-                <div className="font-display font-bold text-sm tracking-[0.16em] text-slate-950 uppercase">
-                  MAYAVI MEDIA CREATIONS
-                </div>
-                <div className="font-mono text-[8px] tracking-[0.2em] text-slate-500 uppercase mt-0.5">
+            <div className="flex items-center gap-3.5">
+              <img 
+                src="/official-mayavi-logo.png" 
+                alt="Mayavi Media Creations Official Logo" 
+                className="h-14 w-auto object-contain"
+              />
+              <div className="leading-tight text-left border-l-2 border-amber-600/40 pl-3">
+                <div className="font-display font-bold text-xs tracking-[0.16em] text-slate-950 uppercase">
                   DIRECTORATE OF TALENT & CINEMA CASTING
                 </div>
-                <div className="font-mono text-[7px] tracking-widest text-amber-800 font-bold uppercase">
+                <div className="font-mono text-[7.5px] tracking-widest text-amber-800 font-bold uppercase mt-0.5">
                   VERTICAL CINEMA ACCREDITATION BOARD // SCREEN TEST DIVISION
+                </div>
+                <div className="font-mono text-[7px] text-slate-500 uppercase mt-0.5">
+                  OFFICIAL ARTISTIC CERTIFICATION LEDGER
                 </div>
               </div>
             </div>
@@ -267,10 +269,12 @@ export default function PrintableDossier({
         {/* BOTTOM OFFICIAL DIRECTORATE SIGN-OFF & VERIFICATION STAMP */}
         <div className="pt-2 border-t border-slate-200">
           <div className="flex items-center justify-between font-mono text-[7.5px]">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full border border-amber-600 flex items-center justify-center text-amber-700 font-serif font-black text-xs">
-                ★
-              </div>
+            <div className="flex items-center gap-2.5">
+              <img 
+                src="/official-mayavi-logo.png" 
+                alt="Mayavi Media Creations Official Stamp" 
+                className="h-8 w-auto object-contain"
+              />
               <div className="leading-tight text-left">
                 <div className="font-bold text-slate-900 uppercase">OFFICIAL MAYAVI MEDIA CREATIONS AUDITION DOSSIER</div>
                 <div className="text-slate-400">CERTIFICATE HASH: MMC-2026-AUD-{dossierId.replace(/[^0-9]/g, '')}-VERIFIED</div>
@@ -292,12 +296,19 @@ export default function PrintableDossier({
         <div>
           {/* Header */}
           <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-            <div className="text-left leading-tight">
-              <div className="font-display font-bold text-xs tracking-widest text-slate-950 uppercase">
-                MAYAVI MEDIA CREATIONS // 12-SCENE DIRECTOR'S AUDIT LOG
-              </div>
-              <div className="font-mono text-[7.5px] text-slate-500 uppercase mt-0.5">
-                CANDIDATE ARCHETYPE: <strong className="text-amber-800">{archetype.title}</strong> // DOSSIER NO: {dossierId}
+            <div className="flex items-center gap-2.5 text-left leading-tight">
+              <img 
+                src="/official-mayavi-logo.png" 
+                alt="Mayavi Media Creations" 
+                className="h-7 w-auto object-contain"
+              />
+              <div>
+                <div className="font-display font-bold text-xs tracking-widest text-slate-950 uppercase">
+                  MAYAVI MEDIA CREATIONS // 12-SCENE DIRECTOR'S AUDIT LOG
+                </div>
+                <div className="font-mono text-[7.5px] text-slate-500 uppercase mt-0.5">
+                  CANDIDATE ARCHETYPE: <strong className="text-amber-800">{archetype.title}</strong> // DOSSIER NO: {dossierId}
+                </div>
               </div>
             </div>
             <div className="font-mono text-[7.5px] text-slate-400 uppercase">

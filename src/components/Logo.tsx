@@ -12,6 +12,7 @@ interface LogoProps {
 export default function Logo({ 
   className = '', 
   iconSize = 'sm',
+  useOfficial = false,
 }: LogoProps) {
   // Height sizing mapping for maximum visibility across headers and footers
   const heightMap = {
@@ -21,6 +22,18 @@ export default function Logo({
     lg: 'h-20 md:h-24',
     xl: 'h-32 md:h-36'
   };
+
+  if (useOfficial) {
+    return (
+      <div className={`flex items-center shrink-0 ${className} select-none`}>
+        <img 
+          src="/official-mayavi-logo.png" 
+          alt="Mayavi Media Creations" 
+          className={`${heightMap[iconSize]} w-auto object-contain brightness-110 drop-shadow-[0_0_15px_rgba(234,179,8,0.35)] transition-all duration-300 hover:scale-105 shrink-0`}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={`flex items-center space-x-2 sm:space-x-3 shrink-0 ${className} select-none`}>

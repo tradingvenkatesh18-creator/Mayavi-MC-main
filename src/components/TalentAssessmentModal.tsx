@@ -785,10 +785,12 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
       <header className="relative z-30 px-6 sm:px-10 py-4 flex items-center justify-between border-b border-white/[0.07] bg-[#07060B]/80 backdrop-blur-md print:hidden">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-display font-extrabold text-black text-base shadow-[0_0_20px_rgba(234,179,8,0.4)]">
-              M
-            </div>
-            <div className="leading-none">
+            <img 
+              src="/official-mayavi-logo.png" 
+              alt="Mayavi Media Creations" 
+              className="h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(234,179,8,0.4)]"
+            />
+            <div className="leading-none border-l border-white/10 pl-3">
               <div className="font-display font-bold text-sm tracking-[0.14em] text-white uppercase">MAYAVI</div>
               <div className="font-mono text-[8.5px] tracking-[0.2em] text-white/40 uppercase mt-0.5">MEDIA CREATIONS</div>
             </div>
