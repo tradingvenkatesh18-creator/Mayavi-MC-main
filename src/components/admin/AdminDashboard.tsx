@@ -697,14 +697,16 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
       {/* TOP DIRECTORIAL HEADER - #22 Liquid Glass */}
       <header className="sticky top-0 z-40 bg-[#0B0814]/85 backdrop-blur-2xl border-b border-amber-400/25 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-[0_4px_30px_rgba(0,0,0,0.7)] relative">
-        <div className="flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EAB308]/25 to-amber-600/10 border border-amber-400/40 flex items-center justify-center text-[#EAB308] shadow-[0_0_20px_rgba(234,179,8,0.25)]">
-            <LayoutDashboard size={20} />
-          </div>
-          <div>
+        <div className="flex items-center space-x-3.5">
+          <img 
+            src="/official-mayavi-logo.png" 
+            alt="Mayavi Media Creations" 
+            className="h-11 w-auto object-contain drop-shadow-[0_0_20px_rgba(234,179,8,0.5)] hover:scale-105 transition-transform shrink-0" 
+          />
+          <div className="border-l border-amber-400/30 pl-3.5 leading-tight">
             <div className="flex items-center space-x-2">
-              <span className="font-serif italic text-lg text-white font-normal">Mayavi Master Deck</span>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-400 font-mono text-[8px] tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+              <span className="font-serif italic text-xl text-white font-normal tracking-tight">Mayavi Master Deck</span>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-400 font-mono text-[8px] tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
                 DIRECTOR CONTROL
               </span>
               {supabaseConfig.isConfigured ? (
@@ -730,10 +732,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </span>
               )}
             </div>
-            <p className="font-mono text-[9px] text-white/40 tracking-wider flex items-center gap-2 mt-0.5">
-              <span>ARRI CALIBRATED REPOSITORY</span>
+            <p className="font-mono text-[9px] text-white/40 tracking-wider flex items-center gap-2 mt-1">
+              <span className="text-amber-400/80 font-semibold">ARRI CALIBRATED REPOSITORY</span>
               <span className="text-white/20">|</span>
-              <span className="text-amber-400/70">24 FPS // LOG-C</span>
+              <span className="text-white/60">24 FPS // LOG-C</span>
             </p>
           </div>
         </div>
@@ -802,9 +804,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
       <div className="flex-1 flex flex-col md:flex-row relative z-10">
         
         {/* LEFT TABBED NAVIGATION - #22 Liquid Glass Rail */}
-        <aside className="w-full md:w-64 bg-[#090712]/80 backdrop-blur-2xl border-r border-amber-400/15 p-4 flex md:flex-col gap-1.5 overflow-x-auto md:overflow-visible shrink-0 shadow-[4px_0_30px_rgba(0,0,0,0.5)]">
-          <div className="hidden md:block px-3 py-2 font-mono text-[8px] text-amber-400/60 tracking-[0.25em] uppercase">
-            DIRECTORIAL SECTIONS
+        <aside className="w-full md:w-72 bg-[#090712]/85 backdrop-blur-3xl border-r border-amber-400/20 p-4 flex md:flex-col gap-2 overflow-x-auto md:overflow-visible shrink-0 shadow-[4px_0_35px_rgba(0,0,0,0.7)]">
+          <div className="hidden md:flex items-center justify-between px-3 py-2 mb-1 border-b border-white/[0.06]">
+            <div className="font-mono text-[9px] text-[#EAB308] tracking-[0.3em] uppercase font-bold flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
+              <span>DIRECTORIAL SECTIONS</span>
+            </div>
+            <span className="font-mono text-[8px] text-white/30 tracking-widest">[ 07 MODS ]</span>
           </div>
 
           {[
@@ -827,20 +833,36 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-left text-xs font-mono tracking-wider transition-all cursor-pointer whitespace-nowrap md:whitespace-normal group ${
+                className={`relative overflow-hidden flex items-center justify-between px-4 py-3.5 rounded-2xl text-left transition-all duration-300 backdrop-blur-xl group cursor-pointer whitespace-nowrap md:whitespace-normal ${
                   isActive
-                    ? 'bg-gradient-to-r from-amber-400/20 via-amber-500/10 to-transparent text-[#EAB308] border border-amber-400/40 font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] ring-1 ring-amber-400/30'
-                    : 'text-white/60 hover:text-white hover:bg-white/[0.04] border border-transparent hover:border-white/10'
+                    ? 'bg-gradient-to-r from-amber-500/25 via-amber-950/40 to-purple-950/20 border-2 border-amber-400 shadow-[0_0_25px_rgba(234,179,8,0.25),inset_0_1px_12px_rgba(234,179,8,0.15)] ring-1 ring-amber-400/50'
+                    : 'bg-white/[0.025] hover:bg-gradient-to-r hover:from-white/[0.07] hover:to-white/[0.02] border border-white/[0.08] hover:border-amber-400/50 text-white/75 hover:text-white shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_20px_rgba(234,179,8,0.1)]'
                 }`}
               >
-                <div className="flex items-center space-x-2.5">
-                  <Icon size={15} className={isActive ? 'text-[#EAB308]' : 'text-white/40 group-hover:text-amber-400/80 transition-colors'} />
-                  <span>{tab.label}</span>
+                {/* Liquid Glass Specular Sweep on Hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
+
+                <div className="flex items-center space-x-3 relative z-10">
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all shrink-0 ${
+                    isActive 
+                      ? 'bg-amber-400/20 border border-amber-400/50 text-amber-300 shadow-[0_0_12px_rgba(234,179,8,0.4)]' 
+                      : 'bg-white/[0.04] border border-white/10 text-white/50 group-hover:text-amber-300 group-hover:border-amber-400/40 group-hover:bg-amber-400/10'
+                  }`}>
+                    <Icon size={16} />
+                  </div>
+                  <span className={`text-xs font-mono tracking-wider ${
+                    isActive ? 'text-amber-300 font-bold' : 'text-white/80 group-hover:text-white'
+                  }`}>
+                    {tab.label}
+                  </span>
                 </div>
+
                 {tab.badge && (
                   <span
-                    className={`ml-2 px-1.5 py-0.5 rounded text-[8px] font-bold ${
-                      isActive ? 'bg-[#EAB308] text-black shadow-[0_0_8px_#EAB308]' : 'bg-white/10 text-white/50'
+                    className={`ml-2 px-2.5 py-0.5 rounded-full font-mono text-[8.5px] tracking-wider uppercase transition-all relative z-10 shrink-0 ${
+                      isActive 
+                        ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-black font-extrabold shadow-[0_0_12px_#EAB308]' 
+                        : 'backdrop-blur-md bg-amber-400/[0.08] border border-amber-400/25 text-amber-300/90 group-hover:bg-amber-400/20 group-hover:border-amber-400/50 group-hover:text-amber-200'
                     }`}
                   >
                     {tab.badge}
@@ -850,14 +872,25 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             );
           })}
 
-          <div className="mt-auto hidden md:block pt-6 border-t border-white/5 px-2">
-            <div className="p-3.5 rounded-xl bg-amber-400/[0.04] border border-amber-400/15 space-y-1 backdrop-blur-md">
-              <span className="font-mono text-[8px] text-[#EAB308] font-bold tracking-widest uppercase block">
-                DIRECTOR CONTROL // 8K
-              </span>
-              <p className="text-[10px] text-white/40 leading-relaxed font-sans">
+          <div className="mt-auto hidden md:block pt-6 border-t border-amber-400/15 px-1">
+            <div className="relative overflow-hidden p-4 rounded-2xl backdrop-blur-2xl bg-gradient-to-br from-amber-500/[0.08] via-purple-950/20 to-black/70 border border-amber-400/30 shadow-[0_0_25px_rgba(234,179,8,0.12)] space-y-2 group">
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent pointer-events-none" />
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[8.5px] text-[#EAB308] font-bold tracking-[0.25em] uppercase flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
+                  DIRECTOR CONTROL // 8K
+                </span>
+                <span className="font-mono text-[7.5px] px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/20 text-amber-300">
+                  ARRI LF
+                </span>
+              </div>
+              <p className="text-[11px] text-white/60 leading-relaxed font-sans">
                 Changes save instantly to browser and propagate directly to live visitors.
               </p>
+              <div className="pt-1 flex items-center justify-between font-mono text-[7.5px] text-white/30 tracking-widest uppercase">
+                <span>STATUS: MASTER ENGAGED</span>
+                <span className="text-emerald-400">SYNC READY</span>
+              </div>
             </div>
           </div>
         </aside>

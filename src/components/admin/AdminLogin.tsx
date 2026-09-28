@@ -130,8 +130,12 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
 
         {/* Filmstrip & Emblem Header */}
         <div className="text-center space-y-4 mb-8 relative z-10">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[#EAB308]/20 to-amber-600/10 border border-amber-400/40 flex items-center justify-center text-[#EAB308] shadow-[0_0_35px_rgba(234,179,8,0.25)]">
-            <Lock size={26} />
+          <div className="flex justify-center">
+            <img 
+              src="/official-mayavi-logo.png" 
+              alt="Mayavi Media Creations" 
+              className="h-16 w-auto object-contain drop-shadow-[0_0_25px_rgba(234,179,8,0.5)] hover:scale-105 transition-transform" 
+            />
           </div>
           <div>
             <div className="flex items-center justify-center space-x-2">
