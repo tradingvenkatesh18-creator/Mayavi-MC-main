@@ -195,7 +195,7 @@ export function ProjectStoryPage({
                 <iframe
                   src={getVideoEmbedUrl(project.videoUrl || '')}
                   className="w-full h-full border-0"
-                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 />
               )}
