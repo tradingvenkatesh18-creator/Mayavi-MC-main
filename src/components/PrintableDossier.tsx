@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Shield, Award, Camera, Film, Sparkles } from 'lucide-react';
+import { Check, Shield, Award, Film, Sparkles } from 'lucide-react';
 
 export interface PrintableArchetype {
   title: string;
@@ -9,7 +9,7 @@ export interface PrintableArchetype {
   rationale: string;
   strengths: string[];
   blindspot: string;
-  lensProfile: string;
+  performanceStyle: string;
   castingRoles: string[];
 }
 
@@ -146,7 +146,7 @@ export default function PrintableDossier({
             </div>
 
             <div className="p-2 rounded-lg bg-slate-50 border border-slate-200 text-center">
-              <div className="font-mono text-[7px] tracking-wider text-slate-500 uppercase font-semibold">CAMERA MAGNETISM</div>
+              <div className="font-mono text-[7px] tracking-wider text-slate-500 uppercase font-semibold">SCREEN MAGNETISM</div>
               <div className="font-display font-black text-lg text-slate-950 my-0.5">{scorePercentages.camera}%</div>
               <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
                 <div className="bg-amber-600 h-full rounded-full" style={{ width: `${scorePercentages.camera}%` }} />
@@ -208,29 +208,29 @@ export default function PrintableDossier({
             </div>
           </div>
 
-          {/* CINEMATOGRAPHY & OPTICAL CALIBRATION */}
+          {/* ACTING TECHNIQUE & SCREEN PRESENCE PROFILE */}
           <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-left mb-3">
             <div className="font-mono text-[8px] tracking-widest text-amber-800 uppercase font-bold mb-1.5 flex items-center gap-1.5">
-              <Camera size={10} className="text-amber-600" />
-              <span>TECHNICAL CINEMATOGRAPHY & OPTICAL CALIBRATION</span>
+              <Sparkles size={10} className="text-amber-600" />
+              <span>ACTING TECHNIQUE & SCREEN PRESENCE PROFILE</span>
             </div>
             <div className="grid grid-cols-3 gap-2 font-mono text-[8px]">
               <div className="p-1.5 rounded bg-white border border-slate-200">
-                <span className="text-slate-400 block uppercase text-[6.5px]">PRESCRIBED LENS & RIG</span>
+                <span className="text-slate-400 block uppercase text-[6.5px]">PRIMARY ACTING METHOD</span>
                 <strong className="text-slate-900 block font-sans font-semibold text-[8px] leading-tight mt-0.5">
-                  {archetype.lensProfile}
+                  {archetype.performanceStyle}
                 </strong>
               </div>
               <div className="p-1.5 rounded bg-white border border-slate-200">
-                <span className="text-slate-400 block uppercase text-[6.5px]">FRAMING COMPOSITION</span>
+                <span className="text-slate-400 block uppercase text-[6.5px]">EXPRESSION & VOCAL CADENCE</span>
                 <strong className="text-slate-900 block font-sans font-semibold text-[8px] leading-tight mt-0.5">
-                  9:16 Vertical // Controlled micro-ocular stillness
+                  Grounded emotional subtext // Controlled vocal pacing
                 </strong>
               </div>
               <div className="p-1.5 rounded bg-white border border-slate-200">
-                <span className="text-slate-400 block uppercase text-[6.5px]">COLOR SCIENCE LUT</span>
+                <span className="text-slate-400 block uppercase text-[6.5px]">ON-SCREEN ADAPTABILITY</span>
                 <strong className="text-slate-900 block font-sans font-semibold text-[8px] leading-tight mt-0.5">
-                  LOG-C to REC2020 // Kodak 5207 Skin Tones
+                  Intimate Close-Up Realism // Dynamic Scene Synergy
                 </strong>
               </div>
             </div>
@@ -304,10 +304,16 @@ export default function PrintableDossier({
               />
               <div>
                 <div className="font-display font-bold text-xs tracking-widest text-slate-950 uppercase">
-                  MAYAVI MEDIA CREATIONS // 12-SCENE DIRECTOR'S AUDIT LOG
+                  MAYAVI MEDIA CREATIONS // {scenes.length}-TAKE DIRECTOR'S AUDIT LOG
                 </div>
                 <div className="font-mono text-[7.5px] text-slate-500 uppercase mt-0.5">
-                  CANDIDATE ARCHETYPE: <strong className="text-amber-800">{archetype.title}</strong> // DOSSIER NO: {dossierId}
+                  CANDIDATE ARCHETYPE: <strong className="text-amber-800">{archetype.title}</strong>
+                  {scenes[12]?.options[userChoices[12]]?.title && (
+                    <span className="ml-2 pl-2 border-l border-slate-300">
+                      PREFERRED ROLE: <strong className="text-slate-900">{scenes[12].options[userChoices[12]].title}</strong>
+                    </span>
+                  )}
+                  {" "}// DOSSIER NO: {dossierId}
                 </div>
               </div>
             </div>

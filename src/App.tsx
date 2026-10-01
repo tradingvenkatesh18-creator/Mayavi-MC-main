@@ -263,7 +263,7 @@ export const CREATIVE_WORLDS: CreativeWorld[] = [
     title: "Media Production",
     subtitle: "Cinematic Craft",
     category: "PREMIUM FILM & COMMERCIALS",
-    tagline: "A single vertical frame can carry the entire weight of a cinematic legacy.",
+    tagline: "Cinematic storytelling crafted for modern mobile and cinema screens.",
     mood: "Cinema, Direction, Storytelling, Premium Film Production",
     description: "We formulate and direct high-value brand films, commercials, and visual systems that transcend corporate standards. Leveraging state-of-the-art camera systems, we translate raw human concepts into grand visual legacies.",
     detailedStory: "In the era of hyper-saturated feeds, high-fidelity storytelling is the only true differentiator. Our production unit handles complete end-to-end cinematography: starting from intensive scriptboarding and narrative pre-visualization to state-of-the-art camera operations (ARRI, RED, Sony Venice) and high-end cinematic color grading in REC2020/LOG-C. We build visual assets designed to stand out on mobile displays and cinema screens alike.",
@@ -804,8 +804,7 @@ export default function App() {
     setIsAdminRoute(false);
   };
 
-  // Interactive Video Glimpses & Testimonial Exhibition States
-  const [glimpseFilter, setGlimpseFilter] = useState<string>('ALL');
+  // Testimonial Exhibition & BTS States
   const [testimonialCategory, setTestimonialCategory] = useState<string>('ALL');
   const [activeBtsId, setActiveBtsId] = useState<string | null>(null);
 
@@ -1473,127 +1472,31 @@ export default function App() {
               </AnimatePresence>
             </motion.header>
 
-            {/* CORE HERO BANNER - LENS SCROLL OR 30-SEC 1080P VIDEO LOOP (Deliverable #1) */}
+            {/* CORE HERO BANNER - 4K AI-UPSCALED CINEMATIC VIDEO HERO */}
             <div id="home" className="relative">
-              {cms.hero.useVideoBackground ? (
-                <div className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden bg-black py-20 px-6">
-                  {/* 30-Second 1080p Video Loop (Deliverable #1) */}
-                  <div className="absolute inset-0 z-0">
-                    {detectVideoPlatform(cms.hero.backgroundVideoUrl) === 'direct' ? (
+              {cms.hero.useVideoBackground !== false ? (
+                <div className="relative w-full min-h-[92vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#0B0914]">
+                  {/* 4K AI-Upscaled Video Loop - Pure, Unobstructed Full Screen */}
+                  <div className="absolute inset-0 z-0 overflow-hidden">
+                    {detectVideoPlatform(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4') === 'direct' ? (
                       <video
-                        src={cms.hero.backgroundVideoUrl}
-                        poster={cms.hero.posterUrl}
+                        src={cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4'}
+                        poster={cms.hero.posterUrl || '/official-mayavi-logo.png'}
                         autoPlay
                         muted
                         loop
                         playsInline
-                        className="w-full h-full object-cover brightness-[0.55] contrast-[1.2]"
+                        className="w-full h-full object-cover brightness-[0.92] contrast-[1.04]"
                       />
                     ) : (
                       <iframe
-                        src={getVideoEmbedUrl(cms.hero.backgroundVideoUrl)}
+                        src={getVideoEmbedUrl(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4')}
                         className="w-full h-full border-0 pointer-events-none scale-125"
                         allow="autoplay; encrypted-media"
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#07050C] via-black/45 to-black/60 pointer-events-none" />
-                  </div>
-
-                  {/* #16 Surreal Design: Slow-Rotating Sacred Halo Framing 3D Solar Infinity Video */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1] overflow-hidden">
-                    {/* Atmospheric Cosmic Nebula Bloom */}
-                    <div className="w-[750px] md:w-[950px] h-[750px] md:h-[950px] rounded-full bg-gradient-to-tr from-[#410682]/25 via-purple-900/15 to-[#EAB308]/15 blur-[130px] pointer-events-none" />
-
-                    {/* Outer Rotating Sacred Mandala Halo - Pattern 2 */}
-                    <motion.img 
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
-                      src="/patterns/pattern-2.svg" 
-                      alt="Mayavi Sacred Solar Halo"
-                      className="absolute w-[700px] sm:w-[850px] md:w-[1050px] h-[700px] sm:h-[850px] md:h-[1050px] opacity-[0.14] invert select-none pointer-events-none drop-shadow-[0_0_60px_rgba(234,179,8,0.4)]"
-                    />
-
-                    {/* Concentric Counter-Rotating Sacred Lattice - Pattern 5 */}
-                    <motion.img 
-                      animate={{ rotate: -360 }}
-                      transition={{ duration: 220, repeat: Infinity, ease: "linear" }}
-                      src="/patterns/pattern-5.svg" 
-                      alt="Mayavi Concentric Lattice"
-                      className="absolute w-[500px] sm:w-[650px] md:w-[800px] h-[500px] sm:h-[650px] md:h-[800px] opacity-[0.10] invert select-none pointer-events-none drop-shadow-[0_0_40px_rgba(65,6,130,0.35)]"
-                    />
-
-                    {/* Caustic Lens Horizon Ring */}
-                    <div className="absolute w-[420px] sm:w-[550px] md:w-[680px] h-[420px] sm:h-[550px] md:h-[680px] rounded-full border border-amber-400/25 shadow-[0_0_60px_rgba(234,179,8,0.12),inset_0_0_60px_rgba(65,6,130,0.25)] pointer-events-none" />
-                  </div>
-
-                  {/* Optical Viewfinder Corner Framing Brackets */}
-                  <div className="absolute top-20 left-6 sm:left-10 w-5 h-5 border-t-2 border-l-2 border-amber-400/50 pointer-events-none z-10" />
-                  <div className="absolute top-20 right-6 sm:right-10 w-5 h-5 border-t-2 border-r-2 border-amber-400/50 pointer-events-none z-10" />
-                  <div className="absolute bottom-16 left-6 sm:left-10 w-5 h-5 border-b-2 border-l-2 border-amber-400/50 pointer-events-none z-10" />
-                  <div className="absolute bottom-16 right-6 sm:right-10 w-5 h-5 border-b-2 border-r-2 border-amber-400/50 pointer-events-none z-10" />
-
-                  {/* Top Viewfinder HUD */}
-                  <div className="absolute top-24 left-8 right-8 flex items-center justify-between font-mono text-[9px] text-white/50 tracking-widest pointer-events-none z-10">
-                    <div className="flex items-center space-x-2 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
-                      <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                      <span className="text-white font-bold tracking-widest text-[8.5px]">1080P REC // 24 FPS</span>
-                    </div>
-                    <div className="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-amber-400/20 text-amber-300 font-bold">
-                      <span>{cms.hero.cameraTag || 'ARRI ALEXA LF'}</span>
-                      <span className="text-white/20">|</span>
-                      <span>SENSOR 36.70 x 25.54MM</span>
-                    </div>
-                    <div className="hidden sm:flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/70">
-                      <span>{cms.hero.locationTag}</span>
-                    </div>
-                  </div>
-
-                  {/* Hero Copy - #13 Editorial */}
-                  <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6 pt-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/35 backdrop-blur-md text-[#EAB308] font-mono text-[9px] tracking-[0.3em] uppercase font-bold shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
-                      <span>9:16 VERTICAL CINEMA ARCHITECTURE // MMXXVI</span>
-                    </div>
-
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-light text-white leading-[1.08] tracking-tight">
-                      Stories that <span className="italic font-normal text-amber-300 drop-shadow-[0_0_30px_rgba(234,179,8,0.3)]">inspire.</span>
-                      <br />
-                      Visuals that <span className="italic font-normal text-white">stay.</span>
-                    </h1>
-
-                    <p className="text-white/80 font-sans text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed">
-                      {cms.hero.subheadline}
-                    </p>
-
-                    {/* CTA Buttons - #22 Liquid Glass */}
-                    <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-                      <button
-                        onClick={() => {
-                          const el = document.getElementById('portfolio');
-                          if (el) el.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-mono font-bold text-xs tracking-[0.2em] uppercase transition-all shadow-[0_0_30px_rgba(234,179,8,0.45)] hover:shadow-[0_0_45px_rgba(234,179,8,0.7)] hover:scale-105 active:scale-98 cursor-pointer"
-                      >
-                        {cms.hero.ctaPrimaryText}
-                      </button>
-
-                      <button
-                        onClick={() => setShowreelOpen(true)}
-                        className="px-8 py-4 rounded-full backdrop-blur-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/20 hover:border-amber-400/60 text-white font-mono text-xs tracking-[0.2em] uppercase transition-all flex items-center space-x-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_0_25px_rgba(234,179,8,0.2)] hover:scale-105 active:scale-98 cursor-pointer"
-                      >
-                        <Play size={13} className="text-[#EAB308] fill-amber-400" />
-                        <span>{cms.hero.ctaSecondaryText}</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Bottom Viewfinder Info */}
-                  <div className="absolute bottom-6 inset-x-8 flex justify-between items-center font-mono text-[8.5px] text-white/40 tracking-[0.25em] pointer-events-none z-10">
-                    <span className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400/60" />
-                      <span>SHUTTER: 180.0° // ISO 800 // 5600K</span>
-                    </span>
-                    <span className="text-amber-400/80">MAYAVI DIRECTOR ENGINE // HYDERABAD</span>
+                    {/* Seamless Bottom Gradient Fade into #0B0914 */}
+                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0914] via-[#0B0914]/60 to-transparent pointer-events-none" />
                   </div>
                 </div>
               ) : (
@@ -1608,230 +1511,7 @@ export default function App() {
               )}
             </div>
 
-            {/* DELIVERABLE #2: HIGH-FIDELITY VIDEO GLIMPSES (Cinematic Loops & Aspect Frames) */}
-            <section id="glimpses" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-16 lg:py-24 border-t border-white/5 overflow-visible">
-              {/* Prismatic atmospheric glow */}
-              <div className="absolute top-1/2 left-1/3 w-[600px] h-[600px] bg-gradient-to-tr from-[#410682]/15 via-purple-900/10 to-[#EAB308]/10 rounded-full blur-[140px] pointer-events-none" />
 
-              {/* Ambient Pattern */}
-              <div
-                className="absolute -top-12 -right-16 w-[450px] h-[450px] opacity-[0.10] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-rotate"
-                style={{ backgroundImage: "url('/patterns/pattern-2.svg')" }}
-              />
-
-              {/* Section Header with Editorial + Futuristic HUD */}
-              <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                <div className="space-y-3">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 backdrop-blur-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
-                    <span className="font-mono text-[9px] text-amber-300 tracking-[0.25em] uppercase font-bold">
-                      DELIVERABLE #2 // 1080P CINEMATIC LOOPS
-                    </span>
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light text-white leading-tight">
-                    High-Fidelity <span className="italic font-normal text-amber-300 drop-shadow-[0_0_25px_rgba(234,179,8,0.25)]">Video Glimpses.</span>
-                  </h2>
-                  <p className="text-white/60 font-sans text-xs md:text-sm font-light max-w-xl leading-relaxed">
-                    Ultra high-definition 30-second directorial cuts and multi-aspect cinema frames calibrated for vertical fiction, talent showcases, and architectural brand films.
-                  </p>
-                </div>
-
-                {/* Direct Action for Admin or Showreel */}
-                <div className="flex items-center gap-3 shrink-0">
-                  <button
-                    onClick={() => setShowreelOpen(true)}
-                    className="px-5 py-2.5 rounded-full backdrop-blur-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/15 hover:border-amber-400/50 text-white font-mono text-[10px] tracking-widest uppercase transition-all flex items-center space-x-2 cursor-pointer shadow-md"
-                  >
-                    <Film size={12} className="text-amber-400" />
-                    <span>FULL SHOWREEL</span>
-                  </button>
-                  <button
-                    onClick={navigateToAdmin}
-                    className="px-5 py-2.5 rounded-full bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/40 text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all flex items-center space-x-1.5 cursor-pointer shadow-[0_0_15px_rgba(234,179,8,0.2)]"
-                  >
-                    <Sliders size={12} />
-                    <span>MANAGE IN DECK</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Category Filter Tabs & Glimpse Shelf */}
-              {(() => {
-                const glimpses = cms.videoGlimpses || [];
-                const categories = ['ALL', ...Array.from(new Set(glimpses.map(g => g.category).filter(Boolean)))];
-                const displayedGlimpses = glimpseFilter === 'ALL'
-                  ? glimpses
-                  : glimpses.filter(g => g.category === glimpseFilter);
-
-                return (
-                  <div className="space-y-8 relative z-10">
-                    {/* Category Filter Pills */}
-                    {categories.length > 2 && (
-                      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                        {categories.map((cat) => (
-                          <button
-                            key={cat}
-                            onClick={() => setGlimpseFilter(cat)}
-                            className={`px-4 py-1.5 rounded-full font-mono text-[9px] uppercase tracking-widest transition-all whitespace-nowrap cursor-pointer ${
-                              glimpseFilter === cat
-                                ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-black font-extrabold shadow-[0_0_15px_rgba(234,179,8,0.35)]'
-                                : 'bg-white/[0.04] hover:bg-white/[0.08] text-white/60 hover:text-white border border-white/10'
-                            }`}
-                          >
-                            {cat}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Glimpses Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                      {displayedGlimpses.map((glimpse, idx) => {
-                        const hasVideo = Boolean(glimpse.videoUrl && glimpse.videoUrl.trim());
-                        const platform = detectVideoPlatform(glimpse.videoUrl);
-                        const aspectClass = glimpse.aspectRatio === '9:16'
-                          ? 'aspect-[9/16] max-w-xs mx-auto'
-                          : glimpse.aspectRatio === '1:1'
-                          ? 'aspect-square max-w-sm mx-auto'
-                          : 'aspect-[16/9]';
-
-                        return (
-                          <motion.div
-                            key={glimpse.id || idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.6, delay: (idx % 3) * 0.1 }}
-                            className="group relative rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/10 hover:border-amber-400/40 p-4 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(234,179,8,0.15)] flex flex-col justify-between overflow-hidden"
-                          >
-                            {/* Inner video frame container */}
-                            <div
-                              className={`relative w-full ${aspectClass} rounded-2xl overflow-hidden bg-black flex items-center justify-center cursor-pointer`}
-                              onClick={() => {
-                                setActiveProject({
-                                  id: glimpse.id,
-                                  title: glimpse.title,
-                                  category: glimpse.category || 'Cinematic Loop',
-                                  duration: glimpse.duration || '0:30',
-                                  imageUrl: glimpse.thumbnailUrl || '/official-mayavi-logo.png',
-                                  videoUrl: glimpse.videoUrl || '',
-                                  camera: 'ARRI ALEXA LF // 1080P LOOP',
-                                  lens: 'ZEISS SUPREME 35MM',
-                                  location: 'STUDIO STAGE A // HYDERABAD',
-                                  storyBrief: glimpse.caption || 'High-fidelity cinematic loop crafted for Mayavi Media Creations.',
-                                  editorialSentence: glimpse.caption || 'Stories that inspire. Visuals that stay.',
-                                  scenes: [glimpse.thumbnailUrl || '/official-mayavi-logo.png']
-                                });
-                              }}
-                            >
-                              <img
-                                src={glimpse.thumbnailUrl || '/official-mayavi-logo.png'}
-                                alt={glimpse.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[0.8] group-hover:brightness-95"
-                              />
-
-                              {/* Gradient overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
-
-                              {/* Aspect badge & duration */}
-                              <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
-                                <span className="px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/15 font-mono text-[8px] text-white/70 tracking-widest uppercase">
-                                  {glimpse.aspectRatio || '16:9'}
-                                </span>
-                                <span className="px-2.5 py-0.5 rounded-full bg-amber-400/90 text-black font-mono text-[8px] font-bold tracking-widest uppercase shadow-sm">
-                                  {glimpse.duration || '0:30'}
-                                </span>
-                              </div>
-
-                              {/* Center Play Indicator */}
-                              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                {hasVideo ? (
-                                  <div className="w-12 h-12 rounded-full bg-amber-400/90 text-black flex items-center justify-center shadow-[0_0_25px_rgba(234,179,8,0.6)] group-hover:scale-115 transition-transform duration-300">
-                                    <Play size={18} className="fill-black ml-0.5" />
-                                  </div>
-                                ) : (
-                                  <div className="px-3 py-1.5 rounded-full bg-black/80 border border-amber-400/40 backdrop-blur-md text-amber-300 font-mono text-[8px] tracking-widest uppercase flex items-center gap-1.5 shadow-lg">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                                    <span>CUT PENDING</span>
-                                  </div>
-                                )}
-                              </div>
-
-                              {/* Platform badge if video is set */}
-                              {hasVideo && platform !== 'unknown' && (
-                                <div className="absolute bottom-3 right-3 pointer-events-none">
-                                  <span className="px-2 py-0.5 rounded-md bg-black/80 border border-white/20 font-mono text-[7.5px] text-amber-300 uppercase tracking-widest">
-                                    {platform}
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Card Content & Details */}
-                            <div className="pt-4 px-1 space-y-2 text-left">
-                              <div className="flex items-center justify-between">
-                                <span className="font-mono text-[8.5px] text-amber-400/90 tracking-widest uppercase font-bold">
-                                  {glimpse.category}
-                                </span>
-                                <span className="font-mono text-[8px] text-white/30 tracking-widest">
-                                  GLIMPSE 0{idx + 1}
-                                </span>
-                              </div>
-                              <h3 className="text-base sm:text-lg font-serif font-light text-white group-hover:text-amber-300 transition-colors line-clamp-1">
-                                {glimpse.title}
-                              </h3>
-                              <p className="text-white/60 font-sans text-xs font-light line-clamp-2 leading-relaxed">
-                                {glimpse.caption}
-                              </p>
-
-                              {/* Bottom interactive action button */}
-                              <div className="pt-2 flex items-center justify-between border-t border-white/5 text-[9px] font-mono">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setActiveProject({
-                                      id: glimpse.id,
-                                      title: glimpse.title,
-                                      category: glimpse.category || 'Cinematic Loop',
-                                      duration: glimpse.duration || '0:30',
-                                      imageUrl: glimpse.thumbnailUrl || '/official-mayavi-logo.png',
-                                      videoUrl: glimpse.videoUrl || '',
-                                      camera: 'ARRI ALEXA LF // 1080P LOOP',
-                                      lens: 'ZEISS SUPREME 35MM',
-                                      location: 'STUDIO STAGE A // HYDERABAD',
-                                      storyBrief: glimpse.caption || 'High-fidelity cinematic loop crafted for Mayavi Media Creations.',
-                                      editorialSentence: glimpse.caption || 'Stories that inspire. Visuals that stay.',
-                                      scenes: [glimpse.thumbnailUrl || '/official-mayavi-logo.png']
-                                    });
-                                  }}
-                                  className="text-amber-400 hover:text-amber-300 flex items-center space-x-1.5 transition-colors cursor-pointer tracking-widest uppercase font-semibold"
-                                >
-                                  <Play size={10} className="fill-amber-400" />
-                                  <span>{hasVideo ? 'SCREEN 1080P LOOP' : 'VIEW ARCHIVE FRAME'}</span>
-                                </button>
-
-                                {hasVideo && (
-                                  <a
-                                    href={glimpse.videoUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="text-white/40 hover:text-white flex items-center space-x-1 transition-colors"
-                                  >
-                                    <span>OPEN</span>
-                                    <ExternalLink size={9} />
-                                  </a>
-                                )}
-                              </div>
-                            </div>
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })()}
-            </section>
 
             {/* ABOUT US SECTION */}
             <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pt-10 pb-8 lg:pt-16 lg:pb-12 border-t border-white/5 overflow-visible">
@@ -1867,9 +1547,6 @@ export default function App() {
                   <div className="space-y-4 text-white/80 font-sans text-sm md:text-base font-light leading-relaxed tracking-wide">
                     <p className="text-base md:text-lg text-amber-200/90 font-serif italic font-light leading-relaxed border-l-2 border-[#EAB308]/50 pl-4 py-2 bg-amber-500/5 rounded-r-lg">
                       {cms.about.quote}
-                    </p>
-                    <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed">
-                      {cms.about.body}
                     </p>
                   </div>
 
@@ -1943,7 +1620,7 @@ export default function App() {
                         <span className="font-mono text-[9px] text-[#EAB308] font-bold">03</span>
                         <div>
                           <h5 className="font-medium text-white text-xs">Long-Term Brand Preservation</h5>
-                          <p className="text-[10.5px] text-white/50 font-light mt-0.5">Ensuring every commercial frame builds enduring enterprise equity.</p>
+                          <p className="text-[10.5px] text-white/50 font-light mt-0.5">Creating videos that elevate your brand and build trust with your audience.</p>
                         </div>
                       </div>
                     </div>
@@ -2156,18 +1833,7 @@ export default function App() {
               {/* Section Heading & Tagline (#13 Editorial & #3 Futuristic HUD) */}
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20 relative z-10">
                 <div className="space-y-4 max-w-2xl text-left">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 backdrop-blur-md">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
-                      <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
-                        ANTHOLOGY // MMXXVI
-                      </span>
-                    </div>
-                    <span className="hidden sm:inline-block w-6 h-[1px] bg-white/20" />
-                    <span className="font-mono text-[8.5px] text-white/50 tracking-[0.25em] uppercase">
-                      [ ARRI LF // ZEISS SUPREME OPTICS ]
-                    </span>
-                  </div>
+
 
                   <h2 className="text-4xl sm:text-5xl md:text-7xl font-light font-serif text-white tracking-wide leading-[1.08]">
                     Curated <span className="italic font-normal text-amber-300 drop-shadow-[0_0_35px_rgba(234,179,8,0.35)]">Exhibitions</span>
@@ -2374,22 +2040,11 @@ export default function App() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(234,179,8,0.06)_0%,transparent_70%)] pointer-events-none" />
 
                 <div className="max-w-2xl mx-auto space-y-6 relative z-10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 backdrop-blur-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
-                    <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
-                      CREATIVE HORIZONS // COMMISSION
-                    </span>
-                  </div>
-
                   <h3 className="text-3xl sm:text-4xl md:text-5xl font-light font-serif text-white leading-tight">
                     Every story begins <br />with a <span className="italic font-normal text-amber-300 drop-shadow-[0_0_30px_rgba(234,179,8,0.35)]">conversation.</span>
                   </h3>
 
-                  <p className="text-white/70 font-sans text-xs sm:text-sm leading-relaxed tracking-wide font-light">
-                    We do not believe in standard forms or typical commissions. We architect customized legacies. Allow us to hear your vision and translate it into a masterfully directed visual experience.
-                  </p>
-
-                  <div className="pt-6 flex flex-col sm:flex-row justify-center items-center gap-4 relative z-30">
+                  <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4 relative z-30">
                     <button
                       onClick={() => {
                         window.open("https://wa.me/916301761783?text=Hello%20Mayavi!%20I'm%20interested%20in%20starting%20a%20project%20and%20would%20love%20to%20initiate%20a%20creative%20inquiry%20regarding%20your%20production%20services.", '_blank');
@@ -2420,9 +2075,6 @@ export default function App() {
               {/* Section Title — Large, Elegant, Editorial */}
               <div className="max-w-7xl mx-auto px-6 md:px-12 mb-20 lg:mb-28 text-left animate-fade-in">
                 <div className="max-w-3xl space-y-4">
-                  <span className="font-mono text-[9px] tracking-[0.35em] text-[#EAB308] uppercase font-bold block">
-                    SECTION 06 // SHARED STORIES
-                  </span>
                   <h2 className="text-4xl md:text-6xl font-light font-serif text-white tracking-wide leading-tight">
                     Collaborations That Matter
                   </h2>
@@ -2432,13 +2084,11 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Chapter 1: Selected Collaborations */}
+              {/* Selected Collaborations */}
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="space-y-6">
                   <div className="flex items-center space-x-3 text-left">
-                    <span className="font-mono text-[9px] text-[#EAB308] font-bold tracking-widest">CHAPTER 01</span>
-                    <span className="w-8 h-[1px] bg-[#EAB308]/30" />
-                    <span className="font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">SELECTED COLLABORATORS</span>
+                    <span className="font-mono text-[8.5px] text-[#EAB308] tracking-[0.25em] uppercase font-bold">SELECTED COLLABORATORS</span>
                   </div>
 
                   {/* Elegant, premium spacing. Wordmarks/monochrome brand layout */}
@@ -2491,7 +2141,7 @@ export default function App() {
             </section>
 
             {/* SECTION 07 — CLIENT STORIES (FILM CRITIQUE & PRESS EXHIBITION GALLERY) */}
-            <section id="client-stories" className="relative z-10 py-24 lg:py-40 bg-[#050505] overflow-visible border-t border-white/5">
+            <section id="client-stories" className="relative z-10 pt-20 pb-16 lg:pt-32 lg:pb-24 bg-[#050505] overflow-visible border-t border-white/5">
               {/* Ambient background glows */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
                 <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.03] stroke-white stroke-[0.5]" fill="none">
@@ -2504,14 +2154,10 @@ export default function App() {
                 <div className="absolute top-1/3 left-10 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[160px]" />
                 <div className="absolute bottom-1/3 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[160px]" />
 
-                {/* Ambient Pattern Watermarks (pattern-4 & pattern-10) */}
+                {/* Ambient Pattern Watermark */}
                 <div
-                  className="absolute top-10 -left-20 w-[450px] h-[550px] opacity-[0.07] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-wave"
+                  className="absolute top-10 -left-20 w-[450px] h-[550px] opacity-[0.05] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-wave"
                   style={{ backgroundImage: "url('/patterns/pattern-4.svg')" }}
-                />
-                <div
-                  className="absolute bottom-10 -right-20 w-[500px] h-[600px] opacity-[0.06] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-float"
-                  style={{ backgroundImage: "url('/patterns/pattern-10.svg')" }}
                 />
               </div>
 
@@ -2519,12 +2165,6 @@ export default function App() {
               <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-left">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                   <div className="max-w-3xl space-y-4">
-                    <div className="flex items-center space-x-2">
-                      <Award size={14} className="text-[#EAB308]" />
-                      <span className="font-mono text-[9px] tracking-[0.35em] text-[#EAB308] uppercase font-bold">
-                        SECTION 07 // FILM CRITIQUE & PRESS EXHIBITION
-                      </span>
-                    </div>
                     <h2 className="text-4xl md:text-6xl font-light font-serif text-white tracking-wide leading-tight">
                       Curated Press & Client Reviews
                     </h2>
@@ -2575,36 +2215,10 @@ export default function App() {
                   pauseOnHover={true}
                 />
               </div>
-
-              {/* Editorial Coda Statement */}
-              <div className="max-w-4xl mx-auto px-6 text-center pt-20 mt-24 border-t border-white/5 relative z-10 overflow-visible">
-                {/* Ambient Pattern Watermark (pattern-3 Mandala) */}
-                <div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.08] pointer-events-none mix-blend-screen bg-no-repeat bg-center bg-contain z-0 select-none animate-pattern-rotate"
-                  style={{ backgroundImage: "url('/patterns/pattern-3.svg')" }}
-                />
-                <div className="space-y-4">
-                  <span className="font-mono text-[9px] text-[#EAB308] tracking-[0.3em] uppercase font-bold block">
-                    CODA // CREATIVE SYNERGY
-                  </span>
-                  <p className="font-serif text-2xl md:text-4xl text-white/95 italic font-light tracking-wide leading-snug">
-                    "The finest stories are written together."
-                  </p>
-                  <div className="pt-2">
-                    <button
-                      onClick={() => setContactOpen(true)}
-                      className="px-6 py-2.5 rounded-full text-[9px] font-mono tracking-[0.2em] uppercase bg-[#EAB308] hover:bg-amber-400 text-black font-extrabold shadow-[0_4px_20px_rgba(234,179,8,0.3)] transition-all cursor-pointer inline-flex items-center space-x-2"
-                    >
-                      <span>INITIATE YOUR STORY</span>
-                      <ArrowRight size={11} className="text-black" />
-                    </button>
-                  </div>
-                </div>
-              </div>
             </section>
 
-            {/* SECTION 08 — START YOUR STORY */}
-            <section id="contact" className="relative z-10 py-24 lg:py-40 bg-[#050505] overflow-visible border-t border-white/5">
+            {/* CONTACT SECTION — START YOUR STORY */}
+            <section id="contact" className="relative z-10 pt-20 pb-28 lg:pt-28 lg:pb-36 bg-[#050505] overflow-visible border-t border-white/5">
               {/* Subtle geometric watermark backdrop (3-5% opacity) */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
                 <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] opacity-[0.03] stroke-white stroke-[0.5]" fill="none">
@@ -2614,34 +2228,25 @@ export default function App() {
                   <line x1="450" y1="0" x2="450" y2="900" />
                   <line x1="0" y1="450" x2="900" y2="450" />
                 </svg>
-                <div className="absolute top-1/4 right-5 w-[400px] h-[400px] bg-purple-950/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-1/4 left-5 w-[400px] h-[400px] bg-amber-950/5 rounded-full blur-[120px]" />
-
-                {/* Ambient Pattern Watermarks (pattern-10 & pattern-5) */}
-                <div
-                  className="absolute top-10 -right-20 w-[500px] h-[600px] opacity-[0.07] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-float"
-                  style={{ backgroundImage: "url('/patterns/pattern-10.svg')" }}
-                />
-                <div
-                  className="absolute bottom-10 -left-20 w-[450px] h-[550px] opacity-[0.06] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-wave"
-                  style={{ backgroundImage: "url('/patterns/pattern-5.svg')" }}
-                />
+                <div className="absolute top-1/4 right-5 w-[450px] h-[450px] bg-purple-950/15 rounded-full blur-[130px]" />
+                <div className="absolute bottom-1/4 left-5 w-[450px] h-[450px] bg-amber-950/10 rounded-full blur-[130px]" />
               </div>
 
               <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
-                {/* Section Title — Elegant Editorial Playfair Display */}
-                <div className="mb-20 lg:mb-28 text-left max-w-4xl space-y-4">
-                  <span className="font-mono text-[9px] tracking-[0.35em] text-[#EAB308] uppercase font-bold block">
-                    SECTION 08 // START YOUR STORY
-                  </span>
+                {/* Section Title — Elegant Editorial Header */}
+                <div className="mb-14 lg:mb-20 text-left max-w-4xl space-y-4">
+                  <div className="inline-flex items-center gap-2 font-mono text-[9px] text-[#EAB308] tracking-[0.3em] uppercase font-bold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                    <span>START YOUR STORY</span>
+                  </div>
                   <h2 className="text-4xl md:text-6xl font-light font-serif text-white tracking-wide leading-tight">
                     Every Great Story Begins <br className="hidden md:block" /> With A Conversation
                   </h2>
-                  <p className="text-white/60 font-sans text-sm md:text-base leading-relaxed tracking-wide font-light max-w-2xl mt-4">
-                    Every memorable production begins with a conversation. Whether you're building a personal brand, launching a campaign, producing an event, or telling a cinematic story, we'd love to hear your vision.
+                  <p className="font-serif italic text-xl md:text-2xl text-amber-200/85 font-light tracking-wide pt-1">
+                    "The finest stories are written together."
                   </p>
-                  <div className="h-[1px] w-20 bg-[#EAB308]/30 mt-6" />
+                  <div className="h-[1px] w-24 bg-gradient-to-r from-[#EAB308]/60 to-transparent mt-4" />
                 </div>
 
                 {/* Luxury Split Layout */}
@@ -2649,54 +2254,111 @@ export default function App() {
 
                   {/* Left Side: Editorial Storytelling (45%) */}
                   <div className="lg:col-span-5 space-y-10 text-left relative">
-                    {/* Background Narrative Watermark (pattern-6) */}
-                    <div
-                      className="absolute -top-16 -left-16 w-[450px] h-[550px] opacity-[0.20] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0"
-                      style={{ backgroundImage: "url('/patterns/pattern-6.svg')" }}
-                    />
-                    <div className="relative z-10 space-y-10">
+                    <div className="relative z-10 space-y-8">
                       <div className="space-y-4">
-                        <span className="font-mono text-[8px] text-[#EAB308] tracking-widest uppercase block">
-                          CO-CREATION PHILOSOPHY
+                        <span className="font-mono text-[8px] text-[#EAB308] tracking-widest uppercase block font-semibold">
+                          OUR APPROACH
                         </span>
-                        <h3 className="font-serif text-2xl text-white font-light leading-snug">
-                          We do not believe in standard commissions. We architect customized visual legacies.
+                        <h3 className="font-serif text-2xl md:text-3xl text-white font-light leading-snug">
+                          Tailored Productions for Ambitious Stories.
                         </h3>
-                        <p className="text-white/50 text-xs leading-relaxed font-light font-sans">
-                          Every project at Mayavi is treated as a unique masterclass in cinematography, spatial lighting, and brand preservation. We collaborate intimately with creators, founders, and enterprises to distill authentic narratives into timeless visual assets.
+                        <p className="text-white/60 text-xs sm:text-sm leading-relaxed font-light font-sans">
+                          Every project is customized to your exact creative vision, target audience, and brand goals. We collaborate closely with founders, creators, and brands to deliver films that truly connect.
                         </p>
                       </div>
 
-                      {/* Elegant Pull Quote */}
-                      <div className="border-l border-[#EAB308]/30 pl-6 py-2 space-y-2">
-                        <p className="font-serif text-base md:text-lg italic text-amber-50/90 font-light leading-relaxed">
-                          "The next frame is entirely yours. Let us render it with quiet confidence."
-                        </p>
-                        <span className="block font-mono text-[8px] text-white/30 tracking-widest uppercase">
-                          — MAYAVI DIRECTORS
-                        </span>
-                      </div>
-
-                      {/* High-End Location & Info Blocks */}
-                      <div className="pt-8 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-8">
-                        <div className="space-y-2">
-                          <span className="font-mono text-[8px] text-white/30 tracking-widest uppercase block">
-                            STUDIO SECTOR
-                          </span>
-                          <div className="space-y-0.5">
-                            <p className="font-sans text-xs text-white/80 font-normal">Hyderabad, India</p>
-                            <p className="font-mono text-[8px] text-white/40 tracking-wider">AVAILABLE WORLDWIDE</p>
+                      {/* High-End Location & Direct Connect Luxury Showcase */}
+                      <div className="pt-6 border-t border-white/10 space-y-4">
+                        {/* STUDIO LOCATION CARD */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] via-[#120B24]/70 to-white/[0.02] border border-amber-400/25 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] group">
+                          <div className="flex items-center justify-between mb-2.5">
+                            <div className="flex items-center space-x-2">
+                              <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#EAB308]">
+                                <MapPin size={14} />
+                              </div>
+                              <span className="font-mono text-[9px] font-bold text-amber-300/90 tracking-[0.25em] uppercase">
+                                STUDIO LOCATION
+                              </span>
+                            </div>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[8px] tracking-wider">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              HYDERABAD HQ
+                            </span>
+                          </div>
+                          
+                          <div className="space-y-1 pl-1">
+                            <p className="font-serif text-lg text-white font-light group-hover:text-amber-100 transition-colors">
+                              Hyderabad, Telangana, India
+                            </p>
+                            <p className="font-sans text-xs text-white/50 font-light">
+                              Film Nagar, Jubilee Hills Soundstage Complex
+                            </p>
+                            <div className="pt-1.5 flex items-center space-x-2 text-[9px] font-mono text-[#EAB308] tracking-widest uppercase">
+                              <Globe size={11} className="text-[#EAB308]" />
+                              <span>AVAILABLE FOR GLOBAL COMMISSIONS</span>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="space-y-2">
-                          <span className="font-mono text-[8px] text-white/30 tracking-widest uppercase block">
-                            DIRECT CONNECT
-                          </span>
-                          <div className="space-y-0.5 font-sans text-xs text-white/80 font-normal font-light">
-                            <p>mayavistudios25@gmail.com</p>
-                            <p>+91 63017 61783</p>
-                            <p className="text-[#EAB308]/60 font-mono text-[8px] tracking-widest uppercase mt-1">@mayavi_mediacreations</p>
+                        {/* DIRECT CONNECT CARD */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] via-[#120B24]/70 to-white/[0.02] border border-amber-400/25 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] group">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center space-x-2">
+                              <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#EAB308]">
+                                <MessageSquare size={14} />
+                              </div>
+                              <span className="font-mono text-[9px] font-bold text-amber-300/90 tracking-[0.25em] uppercase">
+                                DIRECT CONNECT
+                              </span>
+                            </div>
+                            <span className="px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-[#EAB308] font-mono text-[8px] font-bold tracking-wider">
+                              PRIORITY HOTLINE
+                            </span>
+                          </div>
+
+                          <div className="space-y-2 pl-1">
+                            {/* Email Link */}
+                            <a
+                              href="mailto:mayavistudios25@gmail.com"
+                              className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
+                            >
+                              <div className="flex items-center space-x-2.5 min-w-0">
+                                <Mail size={13} className="text-[#EAB308] shrink-0" />
+                                <span className="font-sans text-xs truncate">mayavistudios25@gmail.com</span>
+                              </div>
+                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#EAB308] transition-colors shrink-0 ml-2" />
+                            </a>
+
+                            {/* Phone / WhatsApp Link */}
+                            <a
+                              href="https://wa.me/916301761783"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
+                            >
+                              <div className="flex items-center space-x-2.5 min-w-0">
+                                <Phone size={13} className="text-[#EAB308] shrink-0" />
+                                <span className="font-mono text-xs">+91 63017 61783</span>
+                              </div>
+                              <div className="flex items-center space-x-1.5 shrink-0 ml-2">
+                                <span className="text-[8px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">WhatsApp</span>
+                                <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#EAB308] transition-colors" />
+                              </div>
+                            </a>
+
+                            {/* Instagram Link */}
+                            <a
+                              href="https://www.instagram.com/mayavi_mediacreations/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
+                            >
+                              <div className="flex items-center space-x-2.5 min-w-0">
+                                <Instagram size={13} className="text-[#EAB308] shrink-0" />
+                                <span className="font-mono text-xs text-amber-300/90 tracking-wider">@mayavi_mediacreations</span>
+                              </div>
+                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#EAB308] transition-colors shrink-0 ml-2" />
+                            </a>
                           </div>
                         </div>
                       </div>
@@ -2717,11 +2379,11 @@ export default function App() {
                       </div>
 
                       <h3 className="font-serif text-3xl md:text-4xl text-white font-light leading-tight">
-                        Ready to Architect Your Visual Legacy?
+                        Ready to Bring Your Story to Life?
                       </h3>
 
                       <p className="text-white/60 text-xs md:text-sm font-sans font-light leading-relaxed max-w-lg">
-                        Launch our 4-step Production Configurator to select your creative world, camera optics, budget telemetry, and story parameters in under 60 seconds.
+                        Launch our 4-step Production Configurator to select your project type, creative style, timeline, and story requirements in under 60 seconds.
                       </p>
                     </div>
 
@@ -2784,33 +2446,15 @@ export default function App() {
                 </svg>
               </div>
 
-              <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 space-y-16 lg:space-y-24">
-
-                {/* FINAL EDITORIAL MESSAGE */}
-                <div className="text-left space-y-4 max-w-3xl">
-                  <span className="font-mono text-[8px] tracking-[0.3em] text-[#EAB308]/60 uppercase block font-semibold">
-                    THE FINAL FRAME
-                  </span>
-                  <h2 className="font-serif italic text-4xl md:text-6xl lg:text-7xl text-white/95 font-light tracking-wide leading-tight">
-                    Stories stay.<br />Legacies remain.
-                  </h2>
-                  <p className="text-white/40 font-sans text-xs md:text-sm font-light leading-relaxed max-w-lg">
-                    Every unforgettable story begins with one decision. Let’s create something worth remembering.
-                  </p>
-                </div>
-
-                <hr className="border-white/5" />
+              <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 pt-4">
 
                 {/* THREE COLUMN GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 text-left items-start">
 
                   {/* COLUMN ONE: BRAND IDENTITY */}
                   <div className="md:col-span-5 space-y-6">
-                    <div className="space-y-3">
-                      <Logo iconSize="sm" useOfficial={true} className="justify-start inline-block opacity-90 hover:opacity-100 transition-opacity" />
-                      <p className="font-mono text-[9px] tracking-[0.25em] text-[#EAB308] uppercase block mt-2">
-                        Where Vertical Meets Cinematic.
-                      </p>
+                    <div>
+                      <Logo iconSize="lg" useOfficial={true} className="justify-start inline-block opacity-95 hover:opacity-100 transition-opacity" />
                     </div>
                     <p className="text-white/50 text-xs leading-relaxed font-sans font-light max-w-sm">
                       Crafting premium cinematic stories, personal brands, creative talent, and unforgettable experiences.

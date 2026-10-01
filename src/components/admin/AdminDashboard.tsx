@@ -48,6 +48,7 @@ import {
   ShowreelChapter,
   VideoGlimpse,
   CoreService,
+  StoredInquiry,
   useCMS,
   saveCMSData,
   setAdminPassword,
@@ -63,6 +64,76 @@ import {
   saveCMSToSupabase,
   SUPABASE_SQL_SCHEMA
 } from '../../lib/supabase';
+
+const GOOGLE_APPS_SCRIPT_TEMPLATE = `// ==========================================
+// MAYAVI MEDIA CREATIONS - GOOGLE SHEETS SYNC
+// ==========================================
+// 1. Open your Google Sheet
+// 2. Click Extensions > Apps Script
+// 3. Delete any code and paste this script
+// 4. Click 'Deploy' > 'New deployment'
+// 5. Select type: 'Web app'
+// 6. Set Description: 'Mayavi Contact Webhook'
+// 7. Set 'Execute as': 'Me'
+// 8. Set 'Who has access': 'Anyone'
+// 9. Click Deploy, authorize, and copy the Web App URL!
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Auto-create column headers if sheet is brand new
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        "Received At", 
+        "Client Name", 
+        "Email Address", 
+        "Phone / WhatsApp", 
+        "Production Category", 
+        "Estimated Budget", 
+        "Directorial Brief"
+      ]);
+    }
+
+    var data;
+    try {
+      data = JSON.parse(e.postData.contents);
+    } catch(err) {
+      data = e.parameter || {};
+    }
+
+    var row = [
+      new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+      data.name || "",
+      data.email || "",
+      data.phone || "",
+      data.category || "",
+      data.budget || "",
+      data.message || ""
+    ];
+
+    sheet.appendRow(row);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "success", rowAdded: row }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", error: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "online", service: "Mayavi Sheets Webhook" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
 
 interface AdminDashboardProps {
   onExit: () => void;
@@ -142,113 +213,174 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   const [showSqlSchema, setShowSqlSchema] = useState<boolean>(false);
   const [sqlCopied, setSqlCopied] = useState<boolean>(false);
 
-  // Bulk Seed Helper for 50-100 Hybrid Video Links
+  // Google Apps Script Webhook State
+  const [showAppsScript, setShowAppsScript] = useState<boolean>(false);
+  const [appsScriptCopied, setAppsScriptCopied] = useState<boolean>(false);
+  const [isTestingWebhook, setIsTestingWebhook] = useState<boolean>(false);
+
+  const handleCopyAppsScript = () => {
+    navigator.clipboard.writeText(GOOGLE_APPS_SCRIPT_TEMPLATE);
+    setAppsScriptCopied(true);
+    showToast('✓ Google Apps Script webhook code copied to clipboard!');
+    setTimeout(() => setAppsScriptCopied(false), 2500);
+  };
+
+  const handleTestWebhook = async () => {
+    const url = cms.integrations.googleSheetsWebhookUrl;
+    if (!url || url.includes('SAMPLE_MAYAVI_APP_SCRIPT_URL') || !url.startsWith('http')) {
+      alert('Please enter your deployed Google Apps Script Web App URL first.\\n\\nClick "View Google Apps Script Code" below for simple 3-step setup instructions.');
+      return;
+    }
+
+    setIsTestingWebhook(true);
+    try {
+      await fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Mayavi Test Lead',
+          email: 'test@mayavistudios.com',
+          phone: '+91 63017 61783',
+          category: 'Integration Test',
+          budget: '₹10L - ₹25L',
+          message: 'Direct test ping from Mayavi Admin Deck.'
+        })
+      });
+      showToast('✓ Test webhook ping dispatched to Google Sheets! Check sheet for new row.');
+    } catch (err: any) {
+      showToast('Dispatched test ping. Check Google Sheets for row entry.');
+    } finally {
+      setIsTestingWebhook(false);
+    }
+  };
+
+  const handleAddTestInquiry = () => {
+    const testInq: StoredInquiry = {
+      id: `inq-${Date.now()}`,
+      date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+      name: "Devi Prasad",
+      email: "devi@cinemaproductions.in",
+      phone: "+91 63017 61783",
+      category: "Media Production",
+      budget: "₹10L - ₹25L",
+      message: "Looking for an international commercial brand film shoot with ARRI Alexa Mini LF in Hyderabad soundstages.",
+      status: "new"
+    };
+    updateCMS((prev) => ({
+      ...prev,
+      inquiries: [testInq, ...prev.inquiries]
+    }));
+    showToast('Added test inquiry from Devi Prasad (+91 63017 61783)!');
+  };
+
+  // Bulk Seed Helper for Mayavi Curated Exhibitions
   const handleSeedExhibitions = () => {
-    if (!window.confirm('Add 12 additional curated video exhibitions (covering YouTube, Instagram, LinkedIn, Google Drive, and Vimeo) to your portfolio list?')) {
+    if (!window.confirm('Add 6 curated Mayavi cinematic exhibitions with authentic posters & soundstage telemetry to your portfolio?')) {
       return;
     }
 
     const sampleVideos: ExhibitionProject[] = [
       {
         id: `seed-${Date.now()}-1`,
-        title: "Neon Monsoon // Cyberpunk Heritage",
-        category: "Vertical Fiction",
-        duration: "03:15",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        imageUrl: "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&q=80&w=1200",
-        camera: "Sony FX6 Cinema Line",
-        lens: "Sirui 35mm 1.33x Anamorphic",
-        location: "Charminar Bazaars // Hyderabad",
-        storyBrief: "A high-octane vertical cinema chase bathed in neon rain reflections.",
-        editorialSentence: "Where ancient stone archways clash with ultra-saturated cybernetic neon.",
-        detailedStory: "Produced exclusively for 9:16 high-density mobile displays. Rigged on handheld gimbals with carbon-fiber rain rigs, tracking characters across wet granite cobblestones.",
-        results: "3.2M vertical impressions across Instagram Reels & YouTube Shorts.",
-        scenes: ["/desert_monolith.png", "/hero_stage_a.png"],
+        title: "The Sovereign Gaze // Executive Portrait Series",
+        category: "Personal Branding",
+        duration: "02:40",
+        videoUrl: "/videos/mayavi-hero.mp4",
+        imageUrl: "/posters/media-2.png",
+        camera: "Sony Venice 2 8K Cinema",
+        lens: "Cooke Anamorphic 50mm T2.3",
+        location: "Jubilee Hills Atelier // Hyderabad",
+        storyBrief: "Raw, intimate medium-format portraiture framing authentic leadership conviction and calm authority.",
+        editorialSentence: "True leadership cannot be artificial; we calibrate presence that commands boardrooms.",
+        detailedStory: "A slow, contemplative study in light and patience for prominent South Indian founders. We paired intimate documentary cinematography with Swiss-minimalist framing to sculpt executive authority.",
+        results: "Guided 12 prominent founders into sustained high-credibility media prominence.",
+        scenes: ["/posters/media-2.png", "/posters/media-1.png", "/hero_stage_a.png"],
         featured: true
       },
       {
         id: `seed-${Date.now()}-2`,
-        title: "The Sculptor of Time",
-        category: "Personal Branding",
-        duration: "02:40",
-        videoUrl: "https://vimeo.com/76979871",
-        imageUrl: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200",
-        camera: "Hasselblad H6D-100c Medium Format",
-        lens: "HC 100mm f/2.2 Portrait",
-        location: "Jubilee Hills Atelier // Hyderabad",
-        storyBrief: "An intimate profile of an avant-garde sculptor transforming bronze.",
-        editorialSentence: "Raw medium-format frames honoring the patience of physical sculpture.",
-        detailedStory: "A slow, contemplative study in light and patience. We recorded the physical sound of chisels against bronze in 96kHz 24-bit audio.",
-        results: "Winner of the National Creative Portrait Laurels.",
-        scenes: ["/personal_branding.png?v=2", "/volumetric_soundstage.png"],
+        title: "Theatre Improv & Stage Command // Live Masterclass",
+        category: "Campaigns",
+        duration: "04:15",
+        videoUrl: "",
+        imageUrl: "/posters/theatre-modelling-workshop.png",
+        camera: "ARRI Alexa Mini LF",
+        lens: "Zeiss Supreme Prime 35mm T1.5",
+        location: "Mayavi Rehearsal Studios // Hyderabad",
+        storyBrief: "Live acting exercises, improv games, and modeling posture training for aspiring actors and models.",
+        editorialSentence: "Building people before brands — unlocking inner confidence through classical theatre and movement.",
+        detailedStory: "Captured on-location with natural ambient workshop lighting. Under the mantra 'Building people before brands,' the immersion merged classical stage exercises and camera grooming to conquer screen anxiety.",
+        results: "Over 40 aspiring actors, models, and creators successfully completed the immersion workshop.",
+        scenes: ["/posters/theatre-modelling-workshop.png", "/posters/theatre-modelling-recap.png"],
         featured: true
       },
       {
         id: `seed-${Date.now()}-3`,
-        title: "Zero-G Kinetic Showcase",
-        category: "Brand Films",
-        duration: "01:45",
-        videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview",
-        imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200",
-        camera: "Phantom Flex 4K High-Speed",
-        lens: "Leitz Prime 24mm T1.8",
-        location: "Aerospace Propulsion Hangar // Bangalore",
-        storyBrief: "High-precision space component manufacturing captured in extreme slow motion.",
-        editorialSentence: "Aerospace alloy particles drifting through dark vacuum chambers.",
-        detailedStory: "Commissioned by deep-tech founders to illustrate precision aerospace engineering for global venture syndicates.",
-        results: "Instrumental in raising $18M Series A investment round.",
-        scenes: ["/volumetric_soundstage.png", "/desert_monolith.png"],
-        featured: false
+        title: "Prince & Princess of South India // Season 2 Discovery",
+        category: "Luxury Events",
+        duration: "03:10",
+        videoUrl: "",
+        imageUrl: "/posters/casting-call-prince-princess.png",
+        camera: "RED V-Raptor 8K VV",
+        lens: "Leica Noctilux 50mm f/0.95",
+        location: "Telangana & Andhra Pradesh Soundstages",
+        storyBrief: "Official casting announcement and scouting campaign for Season 2 regional pageant talent.",
+        editorialSentence: "Stepping into the spotlight — unlimited applications and direct pipeline to mainstream cinema.",
+        detailedStory: "Premier scouting and screen test platform designed to discover high-potential regional talent and connect them directly with mainstream film directors and luxury brand commercial campaigns.",
+        results: "Ranked as one of the most anticipated regional pageant and screen discovery platforms for 2026.",
+        scenes: ["/posters/casting-call-prince-princess.png", "/images/talent-creators-audition.jpg"],
+        featured: true
       },
       {
         id: `seed-${Date.now()}-4`,
-        title: "Ethereal Symphony // Opera Under the Stars",
-        category: "Luxury Events",
-        duration: "04:50",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        imageUrl: "https://images.unsplash.com/photo-1469488865564-c2de10f69f96?auto=format&fit=crop&q=80&w=1200",
-        camera: "ARRI Alexa 35 Multi-Rig",
-        lens: "Angenieux Optimo Ultra 12x",
-        location: "Golconda Fort Citadel // Hyderabad",
-        storyBrief: "Live spatial orchestral symphony performed against 500-year-old historic ramparts.",
-        editorialSentence: "Volumetric acoustic projection illuminating the silent citadel.",
-        detailedStory: "An arena-scale cultural installation using 18 synced camera feeds, 64-channel spatial binaural microphones, and custom drone sweeps.",
-        results: "Broadcast globally across prestige digital arts networks.",
-        scenes: ["/volumetric_soundstage.png", "/showreel_act3.png"],
+        title: "Creators In Front of Lens // Hyderabad Auditions",
+        category: "Brand Films",
+        duration: "01:50",
+        videoUrl: "",
+        imageUrl: "/images/talent-creators-audition.jpg",
+        camera: "ARRI Alexa LF Large Format",
+        lens: "Hasselblad HC 80mm f/2.8",
+        location: "Stage B Soundstage // Hyderabad",
+        storyBrief: "Scouting young, energetic, and charismatic male & female talent for digital media production.",
+        editorialSentence: "Have a natural flair for hosting? We provide the production muscle, studio sets, and global audience.",
+        detailedStory: "Direct talent recruitment initiative launched by Mayavi Media Creations. Seeking passionate creators for long-form narrative series, tech reviews, lifestyle docuseries, and brand ambassadorships.",
+        results: "Dozens of high-engagement video series launched with over 10M combined digital impressions.",
+        scenes: ["/images/talent-creators-audition.jpg", "/images/hiring-content-creators-yellow.jpg"],
         featured: false
       },
       {
         id: `seed-${Date.now()}-5`,
-        title: "Chronicles of the Silk Route",
-        category: "Commercials",
-        duration: "02:10",
-        videoUrl: "https://vimeo.com/76979871",
-        imageUrl: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=1200",
-        camera: "RED V-Raptor 8K VV",
-        lens: "Cooke S7/i Full Frame Plus 40mm",
-        location: "Pochampally Weaving Guild // Telangana",
-        storyBrief: "Heritage ikat weave craft captured with micro optical lighting.",
-        editorialSentence: "Centuries of geometry spun thread-by-thread under golden light.",
-        detailedStory: "Celebrating the master weavers who preserve ancient ikat textiles. Ultra-sharp 8K resolution exposes the texture of individual silk threads.",
-        results: "Selected for the Global Handloom Heritage Exhibition in Milan.",
-        scenes: ["/personal_branding.png?v=2", "/hero_stage_a.png"],
+        title: "Spatial Sensory Architecture // Enterprise Keynote",
+        category: "Luxury Events",
+        duration: "04:30",
+        videoUrl: "",
+        imageUrl: "/volumetric_soundstage.png",
+        camera: "Sony Venice 2 Multi-Rig 8K",
+        lens: "Angenieux Optimo Ultra 12x",
+        location: "HITEX Exhibition Centre // Hyderabad",
+        storyBrief: "Multi-camera 4K broadcast with synchronized projection mapping for enterprise summit.",
+        editorialSentence: "Turning corporate keynotes into high-energy theatrical events through light and spatial projection.",
+        detailedStory: "We engineer multi-sensory live environments. From multi-camera 4K broadcasts to architectural projection mapping, we turn corporate keynotes into unforgettable theatrical presentations.",
+        results: "Broadcast to over 85,000 live international delegates.",
+        scenes: ["/volumetric_soundstage.png", "/hero_stage_a.png"],
         featured: false
       },
       {
         id: `seed-${Date.now()}-6`,
-        title: "The Solitary Runner",
-        category: "Campaigns",
-        duration: "01:20",
-        videoUrl: "https://drive.google.com/file/d/1dPMY7XM5rxcrPB9Z1ZBLPIU94xjZCWhf/preview",
-        imageUrl: "https://images.unsplash.com/photo-1486218119243-13883505764c?auto=format&fit=crop&q=80&w=1200",
-        camera: "Sony Venice 2 8K",
-        lens: "Atlas Orion Anamorphic 65mm",
+        title: "Monolith of Silence // Poetic Brand Manifesto",
+        category: "Commercials",
+        duration: "02:15",
+        videoUrl: "",
+        imageUrl: "/desert_monolith.png",
+        camera: "Phantom Flex 4K High-Speed",
+        lens: "Leitz Prime 24mm T1.8",
         location: "Deccan Plateau Ridges // Telangana",
-        storyBrief: "A poetic sportswear commercial exploring mental fortitude at dawn.",
-        editorialSentence: "Breath, heartbeat, and the golden silence before dawn breaking.",
-        detailedStory: "Filmed during the 30 minutes before sunrise. High dynamic range capture retaining rich details in the deep indigo sky and dew-soaked earth.",
-        results: "Featured in Best Cinematography in Commercial Arts 2026.",
-        scenes: ["/desert_monolith.png", "/volumetric_soundstage.png"],
+        storyBrief: "A contemplative brand manifesto exploring natural geometry, earth tones, and timeless conviction.",
+        editorialSentence: "Where ancient granite formations clash with ultra-minimalist luxury cinematography.",
+        detailedStory: "Filmed during golden hour on the Deccan plateau. High dynamic range capture retaining rich details in the deep indigo sky and warm sandstone textures.",
+        results: "Selected for Best Cinematography in Commercial Arts 2026.",
+        scenes: ["/desert_monolith.png", "/posters/media-3.png"],
         featured: false
       }
     ];
@@ -257,7 +389,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
       ...prev,
       curatedExhibitions: [...prev.curatedExhibitions, ...sampleVideos]
     }));
-    showToast(`Added ${sampleVideos.length} curated video exhibitions. Total: ${cms.curatedExhibitions.length + sampleVideos.length}`);
+    showToast(`Added ${sampleVideos.length} curated Mayavi exhibitions. Total: ${cms.curatedExhibitions.length + sampleVideos.length}`);
   };
 
   // Save Project in Modal
@@ -1169,7 +1301,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         category: "Brand Films",
                         duration: "02:30",
                         videoUrl: "",
-                        imageUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1200",
+                        imageUrl: "/posters/media-1.png",
                         camera: "ARRI Alexa Mini LF",
                         lens: "Zeiss Supreme Prime 50mm",
                         location: "Hyderabad Studio",
@@ -1357,7 +1489,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           ...prev,
                           hero: { ...prev.hero, useVideoBackground: true }
                         }));
-                        showToast('Hero display set to: 30s 1080p Video Loop');
+                        showToast('Hero display set to: 4K Cinematic Video Hero');
                       }}
                       className={`px-3.5 py-1.5 rounded-xl font-mono text-[10px] font-bold tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer ${
                         cms.hero.useVideoBackground
@@ -1366,8 +1498,53 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       }`}
                     >
                       <span className={`w-1.5 h-1.5 rounded-full ${cms.hero.useVideoBackground ? 'bg-black animate-pulse' : 'bg-white/30'}`} />
-                      <span>30S VIDEO LOOP</span>
+                      <span>4K CINEMATIC VIDEO</span>
                     </button>
+                  </div>
+                </div>
+
+                {/* HERO LIVE STATUS MONITOR */}
+                <div className="p-5 rounded-2xl bg-black/60 border border-amber-400/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div className="flex items-center space-x-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center shrink-0">
+                      <Video size={22} className="text-amber-400" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span>{cms.hero.useVideoBackground ? '4K CINEMATIC VIDEO ACTIVE' : 'LENS SEQUENCE MODE ACTIVE'}</span>
+                        </span>
+                        <span className="font-mono text-[9px] text-white/40">3840×2160 // 60 FPS</span>
+                      </div>
+                      <p className="text-xs text-white/90 font-sans">
+                        {cms.hero.useVideoBackground ? (
+                          <>Hero is rendering <strong>4K AI-upscaled video loop</strong> with cinematic bottom fade into dark canvas.</>
+                        ) : (
+                          <>Hero is rendering <strong>80-frame dynamic camera lens sequence</strong> controlled by scroll progress.</>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setPreviewVideoUrl(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4')}
+                      className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer transition-all"
+                    >
+                      <Play size={12} className="text-amber-400" />
+                      <span>Test Video Player</span>
+                    </button>
+                    <a
+                      href="/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-mono text-xs font-bold flex items-center space-x-1.5 cursor-pointer transition-all shadow-[0_0_15px_rgba(234,179,8,0.3)]"
+                    >
+                      <ExternalLink size={12} />
+                      <span>View Live Hero</span>
+                    </a>
                   </div>
                 </div>
 
@@ -1418,16 +1595,17 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             ...prev,
                             hero: {
                               ...prev.hero,
+                              useVideoBackground: true,
                               backgroundVideoUrl: '/videos/mayavi-hero.mp4',
                               posterUrl: '/official-mayavi-logo.png'
                             }
                           }));
-                          showToast('Loaded Official Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)');
+                          showToast('Loaded 4K AI-Upscaled Cinematic Video (/videos/mayavi-hero.mp4)');
                         }}
                         className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
                       >
                         <Sparkles size={10} />
-                        <span>⚡ Use Official Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)</span>
+                        <span>⚡ Use 4K AI-Upscaled Video (/videos/mayavi-hero.mp4)</span>
                       </button>
                       {cms.hero.backgroundVideoUrl && (
                         <button
@@ -2797,7 +2975,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         category: "Brand Films",
                         duration: "02:30",
                         videoUrl: "",
-                        imageUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1200",
+                        imageUrl: "/posters/media-1.png",
                         camera: "ARRI Alexa Mini LF",
                         lens: "Zeiss Supreme Prime 50mm",
                         location: "Hyderabad Studio",
@@ -3081,6 +3259,161 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
                           />
                         </div>
+
+                        {/* Service Image Frame & Video Link */}
+                        <div className="space-y-1 text-left">
+                          <div className="flex items-center justify-between">
+                            <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Service Cover Image</label>
+                            <label className="cursor-pointer text-[8px] font-mono text-amber-400 hover:text-amber-300 flex items-center gap-1">
+                              <Upload size={9} />
+                              <span>Upload (&lt; 2.5MB)</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    handlePosterFileUpload(file, (dataUrl) => {
+                                      updateCMS((prev) => {
+                                        const next = [...prev.coreServices];
+                                        next[idx].imageUrl = dataUrl;
+                                        return { ...prev, coreServices: next };
+                                      });
+                                    });
+                                  }
+                                }}
+                              />
+                            </label>
+                          </div>
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              value={service.imageUrl}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                updateCMS((prev) => {
+                                  const next = [...prev.coreServices];
+                                  next[idx].imageUrl = val;
+                                  return { ...prev, coreServices: next };
+                                });
+                              }}
+                              className="flex-1 px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                            />
+                            {service.imageUrl && (
+                              <div className="w-9 h-9 rounded-lg overflow-hidden border border-white/20 shrink-0 bg-black/60 flex items-center justify-center">
+                                <img src={service.imageUrl} alt="Cover" className="w-full h-full object-cover" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex flex-wrap gap-1 pt-1">
+                            <span className="text-[8px] font-mono text-white/40 uppercase">Presets:</span>
+                            {[
+                              { label: 'Stage A', url: '/hero_stage_a.png' },
+                              { label: 'Branding', url: '/personal_branding.png?v=2' },
+                              { label: 'Soundstage', url: '/studio_soundstage_bg.jpg' },
+                              { label: 'Volumetric', url: '/volumetric_soundstage.png' }
+                            ].map((preset) => (
+                              <button
+                                key={preset.label}
+                                type="button"
+                                onClick={() => {
+                                  updateCMS((prev) => {
+                                    const next = [...prev.coreServices];
+                                    next[idx].imageUrl = preset.url;
+                                    return { ...prev, coreServices: next };
+                                  });
+                                }}
+                                className="px-1.5 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-[8px] transition-all cursor-pointer"
+                              >
+                                {preset.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Optional Service Video URL */}
+                        <div className="space-y-1 text-left">
+                          <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Service Video URL (Optional)</label>
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              value={service.videoUrl || ''}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                updateCMS((prev) => {
+                                  const next = [...prev.coreServices];
+                                  next[idx].videoUrl = val;
+                                  return { ...prev, coreServices: next };
+                                });
+                              }}
+                              placeholder="Direct MP4 or embed link..."
+                              className="flex-1 px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                            />
+                            {service.videoUrl && (
+                              <button
+                                type="button"
+                                onClick={() => setPreviewVideoUrl(service.videoUrl || null)}
+                                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-mono flex items-center space-x-1 cursor-pointer transition-all border border-white/10"
+                              >
+                                <Play size={11} className="text-amber-400" />
+                                <span>Test</span>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Disciplines Editor */}
+                        <div className="md:col-span-2 pt-2 border-t border-white/5 space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono text-[9px] text-[#EAB308] uppercase tracking-wider font-bold">
+                              Core Disciplines ({service.disciplines?.length || 0})
+                            </span>
+                            <span className="text-[8.5px] font-mono text-white/40">Displayed in service breakdown cards</span>
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {service.disciplines?.map((disc, discIdx) => (
+                              <div key={discIdx} className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-2 text-left">
+                                <div className="space-y-1">
+                                  <label className="text-[8px] font-mono text-white/40 uppercase">Discipline 0{discIdx + 1} Title</label>
+                                  <input
+                                    type="text"
+                                    value={disc.title}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      updateCMS((prev) => {
+                                        const next = [...prev.coreServices];
+                                        const nextDisciplines = [...next[idx].disciplines];
+                                        nextDisciplines[discIdx] = { ...nextDisciplines[discIdx], title: val };
+                                        next[idx].disciplines = nextDisciplines;
+                                        return { ...prev, coreServices: next };
+                                      });
+                                    }}
+                                    className="w-full px-2.5 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-[11px] font-serif outline-none focus:border-[#EAB308]"
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <label className="text-[8px] font-mono text-white/40 uppercase">Description</label>
+                                  <textarea
+                                    rows={2}
+                                    value={disc.desc}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      updateCMS((prev) => {
+                                        const next = [...prev.coreServices];
+                                        const nextDisciplines = [...next[idx].disciplines];
+                                        nextDisciplines[discIdx] = { ...nextDisciplines[discIdx], desc: val };
+                                        next[idx].disciplines = nextDisciplines;
+                                        return { ...prev, coreServices: next };
+                                      });
+                                    }}
+                                    className="w-full px-2.5 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-[10px] font-sans outline-none focus:border-[#EAB308]"
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -3286,16 +3619,73 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         Inquiries are also backed up locally in the Mayavi database below.
                       </p>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        showToast('Simulated test webhook dispatch to Google Sheets verified.');
-                      }}
-                      className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-mono text-[10px] tracking-wider uppercase border border-emerald-500/30 cursor-pointer"
-                    >
-                      Test Webhook Dispatch
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setShowAppsScript(!showAppsScript)}
+                        className="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-[10px] tracking-wider uppercase border border-white/20 cursor-pointer transition-all flex items-center gap-1.5"
+                      >
+                        <Code size={12} className="text-amber-400" />
+                        <span>{showAppsScript ? 'Hide Apps Script' : 'View Apps Script Code'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleTestWebhook}
+                        disabled={isTestingWebhook}
+                        className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-mono text-[10px] tracking-wider uppercase border border-emerald-500/30 cursor-pointer transition-all disabled:opacity-50 flex items-center gap-1.5"
+                      >
+                        {isTestingWebhook ? (
+                          <>
+                            <RefreshCw size={11} className="animate-spin" />
+                            <span>Dispatching...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send size={11} />
+                            <span>Test Webhook Dispatch</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
+
+                  {/* Google Apps Script Code & 3-Step Setup Assistant */}
+                  {showAppsScript && (
+                    <div className="mt-4 p-5 rounded-2xl bg-neutral-950 border border-emerald-500/30 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2 text-emerald-400">
+                          <Code size={16} />
+                          <span className="font-mono text-xs font-bold uppercase tracking-wider">
+                            Google Apps Script Code (Paste into Google Sheets)
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleCopyAppsScript}
+                          className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-[10px] font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer transition-all"
+                        >
+                          {appsScriptCopied ? <Check size={12} /> : <Copy size={12} />}
+                          <span>{appsScriptCopied ? 'COPIED TO CLIPBOARD!' : 'COPY APPS SCRIPT'}</span>
+                        </button>
+                      </div>
+
+                      <pre className="p-4 rounded-xl bg-black border border-white/10 text-white/80 font-mono text-[11px] overflow-x-auto leading-relaxed select-all">
+                        {GOOGLE_APPS_SCRIPT_TEMPLATE}
+                      </pre>
+
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1.5 text-white/60 text-xs font-sans">
+                        <p className="font-bold text-white text-[11px] font-mono uppercase tracking-wider text-emerald-400">
+                          ⚡ 4-Step Google Sheets Setup Guide:
+                        </p>
+                        <ol className="list-decimal list-inside space-y-1 text-[11px]">
+                          <li>Open your Google Sheet (e.g. named <strong>Mayavi Inquiries 2026</strong>).</li>
+                          <li>Click <strong>Extensions &gt; Apps Script</strong>, delete any default code, and click <strong>Copy Apps Script</strong> above to paste.</li>
+                          <li>Click <strong>Deploy &gt; New deployment</strong>, select type <strong>Web app</strong>, set <strong>Execute as = Me</strong>, and set <strong>Who has access = Anyone</strong>.</li>
+                          <li>Click <strong>Deploy</strong>, copy the resulting <strong>Web app URL</strong>, and paste it into the Webhook URL field above!</li>
+                        </ol>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -3321,7 +3711,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           integrations: { ...prev.integrations, whatsappNumber: val }
                         }));
                       }}
-                      placeholder="919999999999"
+                      placeholder="916301761783"
                       className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                     />
                   </div>
@@ -3340,6 +3730,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           integrations: { ...prev.integrations, contactPhone: val }
                         }));
                       }}
+                      placeholder="+91 63017 61783"
                       className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                     />
                   </div>
@@ -3386,6 +3777,15 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     INQUIRIES STORED IN BROWSER DATABASE ({cms.inquiries.length})
                   </span>
                   <div className="flex items-center space-x-3">
+                    <button
+                      type="button"
+                      onClick={handleAddTestInquiry}
+                      className="px-3 py-1.5 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 font-mono text-[10px] flex items-center space-x-1.5 transition-all cursor-pointer"
+                      title="Add a sample inquiry to test the leads pipeline"
+                    >
+                      <Plus size={11} />
+                      <span>+ Add Test Lead</span>
+                    </button>
                     <button
                       type="button"
                       onClick={handleExportInquiriesCSV}
@@ -3900,24 +4300,99 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <button
                       type="button"
                       onClick={() => setPreviewVideoUrl(editingProject.videoUrl)}
-                      className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-mono flex items-center space-x-1 cursor-pointer"
+                      className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-mono flex items-center space-x-1 cursor-pointer transition-all border border-white/10"
                     >
-                      <Play size={12} />
+                      <Play size={12} className="text-[#EAB308]" />
                       <span>Test</span>
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setEditingProject({
+                      ...editingProject,
+                      videoUrl: '/videos/mayavi-hero.mp4',
+                      imageUrl: editingProject.imageUrl || '/posters/media-1.png'
+                    })}
+                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                  >
+                    <Sparkles size={10} />
+                    <span>⚡ Use Mayavi 4K Motion Reel (/videos/mayavi-hero.mp4)</span>
+                  </button>
+                  {editingProject.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setEditingProject({ ...editingProject, videoUrl: '' })}
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-300 font-mono text-[8.5px] transition-all cursor-pointer"
+                    >
+                      Clear
                     </button>
                   )}
                 </div>
               </div>
 
+              {/* Cover Image Frame with Live Thumbnail & Upload */}
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Cover Image Frame URL</label>
-                <input
-                  type="text"
-                  value={editingProject.imageUrl}
-                  onChange={(e) => setEditingProject({ ...editingProject, imageUrl: e.target.value })}
-                  placeholder="https://images.unsplash.com/... or /hero_stage_a.png"
-                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                />
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">
+                    Cover Image Frame URL
+                  </label>
+                  <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                    <Upload size={10} />
+                    <span>Upload Poster (&lt; 2.5MB)</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          handlePosterFileUpload(file, (dataUrl) => {
+                            setEditingProject({ ...editingProject, imageUrl: dataUrl });
+                          });
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={editingProject.imageUrl}
+                    onChange={(e) => setEditingProject({ ...editingProject, imageUrl: e.target.value })}
+                    placeholder="/posters/media-1.png or image URL"
+                    className="flex-1 px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                  />
+                  {editingProject.imageUrl && (
+                    <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/20 shrink-0 bg-black/60 flex items-center justify-center">
+                      <img src={editingProject.imageUrl} alt="Cover preview" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                  {[
+                    { label: 'Media 1', url: '/posters/media-1.png' },
+                    { label: 'Media 2', url: '/posters/media-2.png' },
+                    { label: 'Media 3', url: '/posters/media-3.png' },
+                    { label: 'Workshop', url: '/posters/theatre-modelling-workshop.png' },
+                    { label: 'Casting Call', url: '/posters/casting-call-prince-princess.png' },
+                    { label: 'Auditions', url: '/images/talent-creators-audition.jpg' },
+                    { label: 'Stage A', url: '/hero_stage_a.png' },
+                    { label: 'Volumetric', url: '/volumetric_soundstage.png' },
+                    { label: 'Monolith', url: '/desert_monolith.png' }
+                  ].map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setEditingProject({ ...editingProject, imageUrl: preset.url })}
+                      className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-[8.5px] transition-all cursor-pointer"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-1">
@@ -4073,6 +4548,29 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </button>
                   )}
                 </div>
+                <div className="flex items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setEditingChapter({
+                      ...editingChapter,
+                      videoUrl: '/videos/mayavi-hero.mp4',
+                      posterUrl: editingChapter.posterUrl || '/official-mayavi-logo.png'
+                    })}
+                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                  >
+                    <Sparkles size={10} />
+                    <span>⚡ Use Mayavi 4K Motion Reel (/videos/mayavi-hero.mp4)</span>
+                  </button>
+                  {editingChapter.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setEditingChapter({ ...editingChapter, videoUrl: '' })}
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-300 font-mono text-[8.5px] transition-all cursor-pointer"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div className="space-y-1">
@@ -4086,15 +4584,60 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 />
               </div>
 
+              {/* Poster Image Frame with File Upload & Live Thumbnail */}
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Poster Image Frame URL</label>
-                <input
-                  type="text"
-                  value={editingChapter.posterUrl}
-                  onChange={(e) => setEditingChapter({ ...editingChapter, posterUrl: e.target.value })}
-                  placeholder="/showreel_act1.png"
-                  className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
-                />
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Poster Frame</label>
+                  <label className="cursor-pointer px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[8.5px] flex items-center gap-1 transition-all">
+                    <Upload size={9} />
+                    <span>Upload (&lt; 2.5MB)</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          handlePosterFileUpload(file, (dataUrl) => {
+                            setEditingChapter({ ...editingChapter, posterUrl: dataUrl });
+                          });
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={editingChapter.posterUrl}
+                    onChange={(e) => setEditingChapter({ ...editingChapter, posterUrl: e.target.value })}
+                    placeholder="/official-mayavi-logo.png"
+                    className="flex-1 px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                  />
+                  {editingChapter.posterUrl && (
+                    <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/20 shrink-0 bg-black/60 flex items-center justify-center">
+                      <img src={editingChapter.posterUrl} alt="Poster preview" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[8.5px] font-mono text-white/40 uppercase">Presets:</span>
+                  {[
+                    { label: 'Logo', url: '/official-mayavi-logo.png' },
+                    { label: 'Media 2', url: '/posters/media-2.png' },
+                    { label: 'Recap', url: '/posters/theatre-modelling-recap.png' },
+                    { label: 'Auditions', url: '/images/talent-creators-audition.jpg' }
+                  ].map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setEditingChapter({ ...editingChapter, posterUrl: preset.url })}
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-[8px] transition-all cursor-pointer"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="md:col-span-2 space-y-1">

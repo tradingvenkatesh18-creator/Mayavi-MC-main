@@ -139,15 +139,15 @@ const DEFAULT_PASSWORD = 'mayavi2026';
 
 export const DEFAULT_CMS_DATA: CMSData = {
   hero: {
-    headline: "CINEMA STARTS LONG BEFORE THE CAMERA ROLLS",
-    subheadline: "Architectural storytelling, bespoke optical precision, and cinematic legacies crafted in Hyderabad for visionary global brands.",
+    headline: "Stories that inspire. Visuals that stay.",
+    subheadline: "Crafting commercial brand films, founder portfolios, and memorable cinematic media in Hyderabad for ambitious brands worldwide.",
     quote: "We don't simply record light. We calibrate time, tension, and human emotion into permanent moving art.",
-    backgroundVideoUrl: "", // Client adds via Admin Deck
-    useVideoBackground: false, // Default to interactive lens scroll, toggleable to video loop
+    backgroundVideoUrl: "/videos/mayavi-hero.mp4", // 4K AI-upscaled cinematic video loop
+    useVideoBackground: true, // Default to 4K AI-upscaled video hero
     posterUrl: "/official-mayavi-logo.png",
     locationTag: "STUDIO STAGE A // HYDERABAD",
     cameraTag: "ARRI ALEXA LF // ZEISS SUPREME 35MM",
-    ctaPrimaryText: "START A COMMISSION",
+    ctaPrimaryText: "EXPLORE OUR WORK",
     ctaSecondaryText: "WATCH SHOWREEL"
   },
   videoGlimpses: [
@@ -155,7 +155,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       id: "glimpse-1",
       title: "3D Kinetic Motion Reveal",
       category: "Cinematic Identity",
-      videoUrl: "", // Empty until client adds link via Admin Deck
+      videoUrl: "/videos/mayavi-hero.mp4",
       thumbnailUrl: "/official-mayavi-logo.png",
       duration: "0:08",
       caption: "3D Infinity solar crown and celestial stardust revealing Mayavi Media Creations.",
@@ -165,7 +165,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       id: "glimpse-2",
       title: "Theatre & Modelling Masterclass",
       category: "Talent Development",
-      videoUrl: "", // Empty until client adds link via Admin Deck
+      videoUrl: "",
       thumbnailUrl: "/posters/theatre-modelling-workshop.png",
       duration: "0:24",
       caption: "Live acting improv, stage presence, and confidence workshop in Hyderabad.",
@@ -175,7 +175,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       id: "glimpse-3",
       title: "Creative Ecosystem Architecture",
       category: "Brand Positioning",
-      videoUrl: "", // Empty until client adds link via Admin Deck
+      videoUrl: "",
       thumbnailUrl: "/posters/media-1.png",
       duration: "0:30",
       caption: "Helping people, brands, and talent discover their voice and present it with clarity.",
@@ -185,7 +185,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       id: "glimpse-4",
       title: "Casting Discovery: Prince & Princess",
       category: "Talent & Pageants",
-      videoUrl: "", // Empty until client adds link via Admin Deck
+      videoUrl: "",
       thumbnailUrl: "/posters/casting-call-prince-princess.png",
       duration: "0:18",
       caption: "Exclusive casting pipeline for South India Season 2 film & media talent.",
@@ -195,7 +195,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       id: "glimpse-5",
       title: "Content Creator Auditions",
       category: "Media Production",
-      videoUrl: "", // Empty until client adds link via Admin Deck
+      videoUrl: "",
       thumbnailUrl: "/images/talent-creators-audition.jpg",
       duration: "0:15",
       caption: "On-camera charisma coaching and digital media production in Hyderabad.",
@@ -213,7 +213,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
         category: "Brand Films",
         camera: "ARRI Alexa Mini LF // 3D Render",
         lens: "Zeiss Supreme Prime 50mm T1.5",
-        videoUrl: "", // Empty until client adds link via Admin Deck
+        videoUrl: "/videos/mayavi-hero.mp4",
         posterUrl: "/official-mayavi-logo.png",
         duration: "0:08",
         directorNotes: "Bespoke 3D CGI solar crown and infinity loop particle simulation crafted for Mayavi Media Creations.",
@@ -441,7 +441,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
     tagline: "OUR PHILOSOPHY",
     heading: "Cinema Starts Long Before The Camera Rolls",
     quote: "We craft visual legacies through light, geometry, and human emotion. Based in Hyderabad, we build cinematic stories for global brands and visionary talent.",
-    body: "Founded with a conviction that commercial media deserves the depth and discipline of classical cinema, Mayavi Media Creations operates at the intersection of architectural light, emotional resonance, and bleeding-edge optical engineering. Every project we undertake is calibrated to endure.",
+    body: "Rooted in Hyderabad, Mayavi Media Creations combines cinema-grade optical standards with modern multi-format storytelling. From high-concept brand films and founder legacy narratives to talent masterclasses and experiential summits, our team directs every frame with architectural precision and human depth.",
     stat1Value: "150+",
     stat1Label: "Films crafted",
     stat2Value: "8+",
@@ -511,6 +511,19 @@ export function getCMSData(): CMSData {
     if (parsed.hero?.backgroundVideoUrl?.includes('BigBuckBunny')) {
       parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
     }
+    // Auto-heal hero to default to 4K video background
+    if (parsed.hero) {
+      if (!parsed.hero.backgroundVideoUrl || parsed.hero.backgroundVideoUrl === "" || parsed.hero.useVideoBackground === false) {
+        parsed.hero.useVideoBackground = true;
+        parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
+      }
+      if (parsed.hero.ctaPrimaryText === 'START A COMMISSION') {
+        parsed.hero.ctaPrimaryText = 'EXPLORE OUR WORK';
+      }
+      if (!parsed.hero.subheadline || parsed.hero.subheadline.includes('bespoke optical precision')) {
+        parsed.hero.subheadline = fallback.hero.subheadline;
+      }
+    }
     if (parsed.integrations?.whatsappNumber === '919999999999') {
       parsed.integrations.whatsappNumber = fallback.integrations.whatsappNumber;
       parsed.integrations.contactPhone = fallback.integrations.contactPhone;
@@ -518,34 +531,50 @@ export function getCMSData(): CMSData {
       parsed.integrations.socialInstagram = fallback.integrations.socialInstagram;
     }
 
-    // Auto-heal curated exhibitions to remove accidental hero video loops
+    // Auto-heal curated exhibitions: remove Rickroll links and Unsplash placeholder images
     if (parsed.curatedExhibitions && Array.isArray(parsed.curatedExhibitions)) {
       parsed.curatedExhibitions = parsed.curatedExhibitions.map((proj: any) => {
-        if (proj.videoUrl === '/videos/mayavi-hero.mp4') {
-          return { ...proj, videoUrl: '' };
+        let videoUrl = proj.videoUrl || '';
+        let imageUrl = proj.imageUrl || '/posters/media-1.png';
+        if (videoUrl.includes('dQw4w9WgXcQ')) {
+          videoUrl = '';
         }
-        return proj;
+        if (imageUrl.includes('unsplash.com')) {
+          imageUrl = '/posters/media-1.png';
+        }
+        return { ...proj, videoUrl, imageUrl };
       });
     }
 
-    // Auto-heal video glimpses to clear accidental hero video loops
+    // Auto-heal video glimpses: ensure first glimpse has 3D motion loop
     if (parsed.videoGlimpses && Array.isArray(parsed.videoGlimpses)) {
-      parsed.videoGlimpses = parsed.videoGlimpses.map((glimpse: any) => {
-        if (glimpse.videoUrl === '/videos/mayavi-hero.mp4') {
+      parsed.videoGlimpses = parsed.videoGlimpses.map((glimpse: any, idx: number) => {
+        if (idx === 0 && (!glimpse.videoUrl || glimpse.videoUrl === '')) {
+          return { ...glimpse, videoUrl: '/videos/mayavi-hero.mp4' };
+        }
+        if (glimpse.videoUrl?.includes('dQw4w9WgXcQ')) {
           return { ...glimpse, videoUrl: '' };
         }
         return glimpse;
       });
     }
 
-    // Auto-heal showreel chapters to clear accidental hero video loops
+    // Auto-heal showreel chapters: ensure Act I has 3D motion loop
     if (parsed.showreel?.chapters && Array.isArray(parsed.showreel.chapters)) {
-      parsed.showreel.chapters = parsed.showreel.chapters.map((ch: any) => {
-        if (ch.videoUrl === '/videos/mayavi-hero.mp4') {
+      parsed.showreel.chapters = parsed.showreel.chapters.map((ch: any, idx: number) => {
+        if (idx === 0 && (!ch.videoUrl || ch.videoUrl === '')) {
+          return { ...ch, videoUrl: '/videos/mayavi-hero.mp4' };
+        }
+        if (ch.videoUrl?.includes('dQw4w9WgXcQ')) {
           return { ...ch, videoUrl: '' };
         }
         return ch;
       });
+    }
+
+    // Auto-heal about narrative body if blank
+    if (parsed.about && (!parsed.about.body || parsed.about.body.trim() === '')) {
+      parsed.about.body = fallback.about.body;
     }
 
     // Ensure all critical top-level properties exist

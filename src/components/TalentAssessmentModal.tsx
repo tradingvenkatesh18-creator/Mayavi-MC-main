@@ -9,7 +9,6 @@ import {
   Printer, 
   RotateCcw,
   Sparkles,
-  Camera,
   Layers,
   FileText,
   UserCheck,
@@ -53,47 +52,47 @@ interface SceneData {
 }
 
 const SCENES: SceneData[] = [
-  // ACT 1: PERSONALITY DISCOVERY
+  // SECTION 1: PERSONALITY DISCOVERY
   {
     actNum: 1,
     actName: "PERSONALITY",
-    actHeader: "ACT 01 // SCENE 1 - PERSONALITY DISCOVERY",
+    actHeader: "SECTION 01 // SCENE 1 - PERSONALITY DISCOVERY",
     eyebrow: "// SPONTANEITY UNDER PRESSURE",
-    headlinePrefix: "A director suddenly changes your scene",
-    headlineHighlight: "seconds before rolling.",
+    headlinePrefix: "A director suddenly changes your scene.",
+    headlineHighlight: "You...",
     scriptQuote: "“You are standing on mark under full studio lighting. The director walks up and alters your entire character intention. Your immediate instinct is to...”",
-    directorInsight: "Directors test how you handle sudden cognitive disruption. In 9:16 vertical cinema, hesitations are magnified 3x. We want to see whether you freeze, over-analyze, or organically pivot inside the frame.",
+    directorInsight: "Directors test how you handle sudden cognitive disruption. In 9:16 vertical cinema, hesitations are magnified 3x. We evaluate whether you freeze, over-analyze, or organically pivot inside the frame.",
     tags: ["SPONTANEITY", "DIRECTOR DYNAMIC", "IMPULSE"],
     options: [
       { 
         letter: "A", 
-        title: "Improvise confidently with immediate impulse", 
-        desc: "You embrace the chaos and trust your instincts in the frame.",
-        directorCritique: "Demonstrates high somatic bravery and zero friction. Directors love this because it saves expensive production time and creates lightning-in-a-bottle authentic takes.",
+        title: "Improvise confidently", 
+        desc: "You embrace the sudden shift and trust your immediate impulse in the frame.",
+        directorCritique: "Demonstrates high somatic bravery and zero hesitation. Directors love this because it saves expensive production time and creates electric authentic takes.",
         actingMethod: "Meisner Intuitive Reflex",
         scores: { improv: 25, camera: 15, emotion: 15, imag: 15 } 
       },
       { 
         letter: "B", 
-        title: "Ask for clarifying notes on motivation and rhythm", 
-        desc: "You calibrate beats and intention before committing to camera.",
-        directorCritique: "Signals an architect actor who values script geometry and narrative intention over chaotic novelty.",
+        title: "Ask for clarification", 
+        desc: "You calibrate beats, motivation, and intention before committing to camera.",
+        directorCritique: "Signals an architect actor who values script geometry, character motivation, and narrative clarity over reckless chaos.",
         actingMethod: "Stanislavski Action Analysis",
         scores: { improv: 10, camera: 15, emotion: 20, imag: 15 } 
       },
       { 
         letter: "C", 
-        title: "Observe fellow cast members to synchronize", 
-        desc: "You gauge the room's energy and find harmonic support.",
-        directorCritique: "Shows an ensemble-first player who reads spatial cues and protects group chemistry under pressure.",
+        title: "Observe others first", 
+        desc: "You gauge the room's energy and synchronize with fellow cast members.",
+        directorCritique: "Shows an ensemble-first player who reads spatial cues, listens deeply, and protects group chemistry under pressure.",
         actingMethod: "Viewpoints Spatial Grid",
         scores: { improv: 15, camera: 15, emotion: 15, imag: 20 } 
       },
       { 
         letter: "D", 
-        title: "Acknowledge the adrenaline and ground your breath", 
-        desc: "You channel nervous tension into raw internal truth.",
-        directorCritique: "Deep physiological self-regulation. You convert adrenaline into authentic character vulnerability instead of tension.",
+        title: "Feel nervous", 
+        desc: "You acknowledge the internal adrenaline rush and ground your physiological breath.",
+        directorCritique: "Deep physiological self-awareness. Recognizing nervous tension allows you to channel it into raw, vulnerable character truth rather than artificial bravado.",
         actingMethod: "Somatic Breath Realism",
         scores: { improv: 10, camera: 10, emotion: 25, imag: 10 } 
       }
@@ -102,42 +101,42 @@ const SCENES: SceneData[] = [
   {
     actNum: 1,
     actName: "PERSONALITY",
-    actHeader: "ACT 01 // SCENE 2 - SOCIAL ENERGY & PRESENCE",
+    actHeader: "SECTION 01 // SCENE 2 - SOCIAL ENERGY & OBSERVATION",
     eyebrow: "// SOCIAL GRAVITATIONAL FIELD",
-    headlinePrefix: "At a cast gathering or wrap party,",
-    headlineHighlight: "you usually...",
-    scriptQuote: "“The room is crowded with cinematographers, producers, and actors. Glass clinking and ambient chatter surround you. Where is your gravity?”",
-    directorInsight: "We are assessing your involuntary status projection and social observation skills. An actor's off-screen observation habits directly feed their on-screen nuance.",
+    headlinePrefix: "At a party...",
+    headlineHighlight: "You usually",
+    scriptQuote: "“The room is crowded with filmmakers, producers, and actors. Glass clinking and ambient chatter surround you. Where is your gravity?”",
+    directorInsight: "We assess your involuntary status projection and social observation habits. An actor's off-screen observation instincts directly feed their on-screen nuance.",
     tags: ["SOCIAL GRAVITY", "CHARACTER STUDY", "PRESENCE"],
     options: [
       { 
         letter: "A", 
-        title: "Become the natural entertainer holding the floor", 
-        desc: "You project charisma and hold the room effortlessly.",
-        directorCritique: "High optical and acoustic projection. Natural magnetic lead energy that translates effortlessly to commercial and action genres.",
+        title: "Become the entertainer", 
+        desc: "You project charisma, hold court, and lift the room's energy effortlessly.",
+        directorCritique: "High screen presence and acoustic projection. Natural magnetic lead energy that translates effortlessly to commercial and high-octane cinema.",
         actingMethod: "Extroverted Magnetism",
         scores: { improv: 25, camera: 25, emotion: 10, imag: 15 } 
       },
       { 
         letter: "B", 
-        title: "Observe body language, eye contact, and micro-tensions", 
-        desc: "Quietly studying behavioral nuances for future roles.",
+        title: "Observe everyone", 
+        desc: "Quietly studying body language, eye contact, and behavioral micro-tensions.",
         directorCritique: "The classic behavioral sponge. You catalog authentic human ticks and vulnerabilities that elevate prestige drama roles.",
         actingMethod: "Behavioral Dissection",
         scores: { improv: 10, camera: 15, emotion: 20, imag: 25 } 
       },
       { 
         letter: "C", 
-        title: "Connect deeply in one-on-one intimate dialogue", 
-        desc: "You trade shallow banter for authentic emotional substance.",
+        title: "Connect deeply with one person", 
+        desc: "You trade shallow cocktail banter for authentic emotional substance.",
         directorCritique: "Intense emotional conductivity. You create microscopic chemistry in two-character close-ups with minimal dialogue.",
         actingMethod: "Intimate Resonance",
         scores: { improv: 15, camera: 15, emotion: 25, imag: 15 } 
       },
       { 
         letter: "D", 
-        title: "Stay quiet and absorb the atmospheric vibe", 
-        desc: "Preserving your artistic reservoir and enigmatic presence.",
+        title: "Stay quiet", 
+        desc: "Preserving your artistic reservoir and enigmatic internal presence.",
         directorCritique: "Enigmatic stillness. The camera is naturally magnetized to still characters because it forces the viewer to lean in.",
         actingMethod: "Subtext Stillness",
         scores: { improv: 10, camera: 10, emotion: 20, imag: 20 } 
@@ -147,42 +146,42 @@ const SCENES: SceneData[] = [
   {
     actNum: 1,
     actName: "PERSONALITY",
-    actHeader: "ACT 01 // SCENE 3 - CORE ARTISTIC FUEL",
-    eyebrow: "// PRIMAL CREATIVE MOTIVATION",
-    headlinePrefix: "Your biggest motivation as a performer is",
-    headlineHighlight: "what drives you most?",
-    scriptQuote: "“When the soundstage goes dark and the monitors turn off, what single reward makes the sleepless rehearsals worthwhile?”",
-    directorInsight: "Your artistic motivation determines how you respond to harsh notes and grueling 14-hour set days. Directors align roles with actors whose fuel matches the project's scale.",
+    actHeader: "SECTION 01 // SCENE 3 - CORE MOTIVATION",
+    eyebrow: "// PRIMAL CREATIVE FUEL",
+    headlinePrefix: "Your biggest motivation is",
+    headlineHighlight: "what drives your craft?",
+    scriptQuote: "“When the soundstage goes dark and the monitors turn off, what single reward makes the grueling rehearsals worthwhile?”",
+    directorInsight: "Your artistic motivation determines how you respond to harsh directorial notes and 14-hour set days. Directors align roles with actors whose fuel matches the project's scale.",
     tags: ["CORE PURPOSE", "AMBITION", "ARTISTIC VOICE"],
     options: [
       { 
         letter: "A", 
-        title: "Fame & worldwide cultural footprint", 
-        desc: "Leaving an unforgettable iconographic imprint across the globe.",
+        title: "Fame", 
+        desc: "Leaving an unforgettable iconographic imprint across the global cultural landscape.",
         directorCritique: "High star-power ambition. You seek the cultural spotlight, making you fearless in large promotional campaigns and blockbuster cinema.",
         actingMethod: "Iconographic Ambition",
         scores: { improv: 20, camera: 25, emotion: 10, imag: 10 } 
       },
       { 
         letter: "B", 
-        title: "Authentic storytelling that transforms human hearts", 
-        desc: "Serving the truth of the narrative above personal vanity.",
+        title: "Storytelling", 
+        desc: "Serving the truth of the narrative and transforming human hearts through catharsis.",
         directorCritique: "Pure narrative humility. You will sacrifice personal glamour to portray raw, uncomfortable human truths.",
         actingMethod: "Cathartic Storytelling",
         scores: { improv: 15, camera: 15, emotion: 25, imag: 25 } 
       },
       { 
         letter: "C", 
-        title: "Financial freedom & high-value industry leverage", 
-        desc: "Building generational security and creative executive control.",
-        directorCritique: "Pragmatic professional discipline. You view acting as elite craftsmanship and treat production budgets with high respect.",
+        title: "Money", 
+        desc: "Building generational security, high-value industry leverage, and executive independence.",
+        directorCritique: "Pragmatic professional discipline. You view acting as elite craftsmanship and treat production schedules and budgets with high respect.",
         actingMethod: "Strategic Craftsmanship",
         scores: { improv: 15, camera: 15, emotion: 10, imag: 15 } 
       },
       { 
         letter: "D", 
-        title: "Peer recognition & mastercraft legacy", 
-        desc: "Earning the reverence of master filmmakers and fellow auteurs.",
+        title: "Recognition", 
+        desc: "Earning the reverence and critical acclaim of master filmmakers and fellow auteurs.",
         directorCritique: "Auteur alignment. You are driven by artistic excellence, making you a dream collaborator for visionary festival directors.",
         actingMethod: "Mastercraft Pursuit",
         scores: { improv: 15, camera: 20, emotion: 20, imag: 20 } 
@@ -192,89 +191,89 @@ const SCENES: SceneData[] = [
   {
     actNum: 1,
     actName: "PERSONALITY",
-    actHeader: "ACT 01 // SCENE 4 - GENRE RESONANCE",
+    actHeader: "SECTION 01 // SCENE 4 - GENRE PREFERENCE",
     eyebrow: "// RHYTHMIC TONE ALIGNMENT",
-    headlinePrefix: "Which cinematic genre electrifies your soul",
-    headlineHighlight: "more than any other?",
+    headlinePrefix: "You enjoy",
+    headlineHighlight: "which genre most?",
     scriptQuote: "“Every performer's nervous system beats to a distinct frequency. Which world calls your name?”",
     directorInsight: "Genre selection reveals your nervous system's native rhythm. Comedy requires microsecond tempo; drama requires sitting in silence; action requires physical spatial dominance.",
     tags: ["GENRE AFFINITY", "TEMPO", "EXPRESSION"],
     options: [
       { 
         letter: "A", 
-        title: "Comedy — precision timing, subversion & wit", 
-        desc: "Mastering instantaneous rhythm and delighting human spirits.",
+        title: "Comedy", 
+        desc: "Precision timing, witty subversion, and instantaneous rhythmic play.",
         directorCritique: "Mathematical timing mastery. You understand how tiny vocal inflections and eyebrow lifts puncture dramatic tension.",
         actingMethod: "Subversive Timing",
         scores: { improv: 25, camera: 20, emotion: 15, imag: 15 } 
       },
       { 
         letter: "B", 
-        title: "Drama — psychological depth, moral nuance & silence", 
-        desc: "Confronting visceral human sorrow and complicated redemption.",
+        title: "Drama", 
+        desc: "Psychological depth, moral nuance, and poignant dramatic silence.",
         directorCritique: "Comfort with moral ambiguity. You possess the emotional stamina needed for high-stakes festival cinema and auteur character studies.",
         actingMethod: "Psychological Realism",
         scores: { improv: 10, camera: 15, emotion: 25, imag: 20 } 
       },
       { 
         letter: "C", 
-        title: "Action — kinetic velocity, physical stunts & adrenaline", 
-        desc: "Expressing narrative momentum through explosive body geometry.",
+        title: "Action", 
+        desc: "Kinetic velocity, physical stunts, and explosive narrative momentum.",
         directorCritique: "Dynamic spatial dominance. You understand how camera parallax and physical acceleration amplify heroic tension.",
         actingMethod: "Kinetic Physicality",
         scores: { improv: 20, camera: 25, emotion: 10, imag: 15 } 
       },
       { 
         letter: "D", 
-        title: "Romance — chemistry, subtle glances & vulnerability", 
-        desc: "The quiet electric charge between two people across space.",
-        directorCritique: "Micro-ocular calibration. You excel in 85mm portrait telephoto lenses where chemistry is communicated entirely through the eyes.",
-        actingMethod: "Ocular Intimacy",
+        title: "Romance", 
+        desc: "Chemistry, subtle glances, and electric vulnerability across the frame.",
+        directorCritique: "Intimate emotional calibration. You excel in intense close-ups where romantic chemistry is communicated entirely through subtle glances and unspoken thoughts.",
+        actingMethod: "Screen Intimacy",
         scores: { improv: 15, camera: 15, emotion: 25, imag: 20 } 
       }
     ]
   },
 
-  // ACT 2: EMOTIONAL INTELLIGENCE
+  // SECTION 2: EMOTIONAL INTELLIGENCE
   {
     actNum: 2,
     actName: "EMOTIONAL INT.",
-    actHeader: "ACT 02 // SCENE 5 - ENSEMBLE CRISIS RESPONSE",
-    eyebrow: "// SCREEN EMPATHY UNDER LIVE CAMERA",
-    headlinePrefix: "A fellow actor forgets their dialogue",
-    headlineHighlight: "during a continuous long-take.",
-    scriptQuote: "“The camera is circling you both in minute four of an intense master shot. Dead silence falls. What do you do?”",
+    actHeader: "SECTION 02 // SCENE 5 - ENSEMBLE CRISIS RESPONSE",
+    eyebrow: "// SCREEN EMPATHY & CRISIS REFLEX",
+    headlinePrefix: "A fellow actor forgets their dialogue during a performance.",
+    headlineHighlight: "What do you do?",
+    scriptQuote: "“The camera is circling you both in minute four of an intense master shot. Dead silence falls as your partner blanks. What do you do?”",
     directorInsight: "This evaluates your ensemble generosity vs self-preservation. Great actors protect the scene, not just their own ego.",
     tags: ["ENSEMBLE AGILITY", "GENEROSITY", "CRISIS REFLEX"],
     options: [
       { 
         letter: "A", 
-        title: "Help them naturally while staying fully in character", 
-        desc: "Elite ensemble anchor: you invent a cue that saves the take seamlessly.",
+        title: "Help them naturally", 
+        desc: "Feed them an intuitive line or subtextual bridge while staying fully in character.",
         directorCritique: "The director's holy grail. You save thousands in re-lighting and camera resets while making your scene partner look brilliant.",
         actingMethod: "Ensemble Armor",
         scores: { improv: 25, camera: 20, emotion: 25, imag: 20 } 
       },
       { 
         letter: "B", 
-        title: "Hold your pause with intentional, pregnant silence", 
-        desc: "You let the tension simmer as character subtext, buying them time.",
+        title: "Continue your role", 
+        desc: "Hold your pause with intentional, pregnant silence, buying them time inside the fiction.",
         directorCritique: "Cinematic composure. You use the silence as a dramatic weapon, transforming a memory lapse into gripping subtext.",
         actingMethod: "Patience Suspension",
         scores: { improv: 15, camera: 25, emotion: 20, imag: 20 } 
       },
       { 
         letter: "C", 
-        title: "Freeze and look off-camera for the director's cut", 
-        desc: "You respect script boundaries and await technical resets.",
-        directorCritique: "Technical fidelity. You prioritize script mechanics, though on-set improvisation workshops will liberate your reflex.",
+        title: "Freeze", 
+        desc: "Stop and look off-camera, awaiting the director's cut and technical reset.",
+        directorCritique: "Technical fidelity. You prioritize script mechanics, though on-set improvisation workshops will liberate your adaptive reflex.",
         actingMethod: "Script Adherence",
         scores: { improv: 5, camera: 10, emotion: 10, imag: 10 } 
       },
       { 
         letter: "D", 
-        title: "Step out of scene to whisper their cue", 
-        desc: "Practical troubleshooter, sacrificing scene illusion for mechanics.",
+        title: "Correct them", 
+        desc: "Step out of scene to whisper their exact forgotten line.",
         directorCritique: "Shows a troubleshooter mentality. You break fiction to help, which signals collaborative goodwill but breaks the take.",
         actingMethod: "Mechanic Rescue",
         scores: { improv: 10, camera: 10, emotion: 10, imag: 15 } 
@@ -282,21 +281,21 @@ const SCENES: SceneData[] = [
     ]
   },
 
-  // ACT 3: ACTING SCENARIOS
+  // SECTION 3: ACTING SCENARIOS (Interactive)
   {
     actNum: 3,
     actName: "ACTING SCENARIOS",
-    actHeader: "ACT 03 // SCENE 6 - THE BETRAYAL REFLEX",
-    eyebrow: "// SUBTEXT & STATUS UNDER BETRAYAL",
-    headlinePrefix: "You discover your closest friend has",
-    headlineHighlight: "deliberately betrayed you.",
+    actHeader: "SECTION 03 // SCENE 6 - SCENARIO 1: BETRAYAL",
+    eyebrow: "// EMOTIONAL CONTROL • EXPRESSION • CHARACTER PREFERENCE",
+    headlinePrefix: "You discover your best friend betrayed you.",
+    headlineHighlight: "Choose how your character reacts.",
     scriptQuote: "“The door clicks shut behind you. The evidence of deception lies on the table. Choose how your character reacts:”",
-    directorInsight: "Directors look for subtextual contrast. Amateur actors scream when angry; master actors compress rage into terrifying calm or tragic irony.",
-    tags: ["EMOTIONAL CONTROL", "EXPRESSION", "STATUS"],
+    directorInsight: "Each answer measures emotional control, expression, and character preference. Directors look for subtextual contrast and psychological truth.",
+    tags: ["EMOTIONAL CONTROL", "EXPRESSION", "CHARACTER PREFERENCE"],
     options: [
       { 
         letter: "A", 
-        title: "Become angry immediately — explosive fury", 
+        title: "Become angry immediately.", 
         desc: "High kinetic range: shouting, physical disruption, burning rage.",
         directorCritique: "High kinetic expression. Provides instant cinematic fireworks, ideal for climax confrontations and intense trailers.",
         actingMethod: "Kinetic Detonation",
@@ -304,15 +303,15 @@ const SCENES: SceneData[] = [
       },
       { 
         letter: "B", 
-        title: "Stay silent — icy, impenetrable stillness", 
-        desc: "Subsurface combustion: your stillness terrifies the room.",
-        directorCritique: "The Marlon Brando principle. Cold silence is ten times more terrifying on a 50mm Prime lens than screaming.",
+        title: "Stay silent.", 
+        desc: "Subsurface combustion: icy stillness that terrifies the entire room.",
+        directorCritique: "The Marlon Brando principle. Cold silence is ten times more terrifying in an intimate on-camera close-up than screaming.",
         actingMethod: "Internal Compression",
         scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } 
       },
       { 
         letter: "C", 
-        title: "Laugh sarcastically — bittersweet irony", 
+        title: "Laugh sarcastically.", 
         desc: "A psychological shield transforming raw pain into mocking humor.",
         directorCritique: "Complex psychological layering. Smiling through devastation reveals high intellectual and emotional nuance.",
         actingMethod: "Bittersweet Defense",
@@ -320,7 +319,7 @@ const SCENES: SceneData[] = [
       },
       { 
         letter: "D", 
-        title: "Walk away — calm, total emotional severance", 
+        title: "Walk away.", 
         desc: "Absolute boundary and status dominance without a single syllable.",
         directorCritique: "Absolute status dominance. Leaving the frame leaves the opposing actor completely powerless.",
         actingMethod: "Total Severance",
@@ -331,42 +330,42 @@ const SCENES: SceneData[] = [
   {
     actNum: 3,
     actName: "ACTING SCENARIOS",
-    actHeader: "ACT 03 // SCENE 7 - THE VISCERAL TRAGEDY",
+    actHeader: "SECTION 03 // SCENE 7 - SCENARIO 2: TRAGIC LOSS",
     eyebrow: "// GRIEF ANATOMY IN CLOSE-UP",
     headlinePrefix: "Your character loses their child.",
     headlineHighlight: "What emotion appears first?",
-    scriptQuote: "“Extreme close-up lens on your eyes. Ambient studio sound drops out to complete vacuum. What emotion surfaces first?”",
+    scriptQuote: "“The camera frames an intimate close-up on your eyes. Ambient studio sound drops out to complete vacuum. What emotion surfaces first?”",
     directorInsight: "Grief is rarely symmetrical. The first shock of catastrophe often presents as denial or sensory numbness rather than instant tears.",
     tags: ["GRIEF PATHWAY", "MICRO-EXPRESSION", "AUTHENTICITY"],
     options: [
       { 
         letter: "A", 
-        title: "Denial — an immediate, desperate refusal to believe", 
-        desc: "“No. You have the wrong name. Check again.”",
+        title: "Denial", 
+        desc: "An immediate, desperate refusal to believe: “No. You have the wrong name.”",
         directorCritique: "Profound psychological realism. Denial gives the audience a tragic ray of hope before reality crushes it.",
         actingMethod: "Cognitive Disbelief",
         scores: { improv: 15, camera: 20, emotion: 25, imag: 20 } 
       },
       { 
         letter: "B", 
-        title: "Anger — violent fury directed at the messenger", 
-        desc: "Lashing out at the cruelty of reality with physical rage.",
+        title: "Anger", 
+        desc: "Violent fury directed at the messenger and the cruelty of the universe.",
         directorCritique: "Combative grief. You externalize despair through revolt, creating strong physical dynamics with scene partners.",
         actingMethod: "Combative Grief",
         scores: { improv: 20, camera: 20, emotion: 15, imag: 15 } 
       },
       { 
         letter: "C", 
-        title: "Shock — paralyzing numbness and sensory shutdown", 
-        desc: "Senses detach from the body; a hollow, petrified void.",
+        title: "Shock", 
+        desc: "Paralyzing numbness and sensory shutdown: a hollow, petrified void.",
         directorCritique: "Subsurface trauma. Ideal for high-definition cinema where pupil contractions and breath changes narrate the horror.",
         actingMethod: "Autonomic Shock",
         scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } 
       },
       { 
         letter: "D", 
-        title: "Crying — immediate, uncontrollable sobbing and collapse", 
-        desc: "Instant surrender to the catastrophic flood of grief.",
+        title: "Crying", 
+        desc: "Immediate, uncontrollable sobbing and physical collapse.",
         directorCritique: "Immediate affective conduit. You possess fast-reacting tear and emotional channels for heart-wrenching melodramas.",
         actingMethod: "Affective Flood",
         scores: { improv: 15, camera: 15, emotion: 25, imag: 15 } 
@@ -376,42 +375,42 @@ const SCENES: SceneData[] = [
   {
     actNum: 3,
     actName: "ACTING SCENARIOS",
-    actHeader: "ACT 03 // SCENE 8 - PUBLIC CONFRONTATION",
+    actHeader: "SECTION 03 // SCENE 8 - SCENARIO 3: PUBLIC CONFRONTATION",
     eyebrow: "// STATUS COMBAT UNDER FLASHES",
-    headlinePrefix: "Someone insults you publicly in front of",
-    headlineHighlight: "a hostile press conference.",
-    scriptQuote: "“Fifty camera flashes go off. Microphones are shoved into your face. What is your instantaneous reply?”",
+    headlinePrefix: "Someone insults you publicly.",
+    headlineHighlight: "Your response?",
+    scriptQuote: "“In front of a packed room and dozens of camera flashes, someone insults you publicly. What is your instantaneous response?”",
     directorInsight: "Public status confrontations reveal how you command group focus. Whether through silence, venom, or humor, directors analyze your vocal cadence and status control.",
     tags: ["COMPOSURE", "STATUS BATTLE", "VOCAL CONTROL"],
     options: [
       { 
         letter: "A", 
-        title: "Fight back — strike with lethal verbal eloquence", 
-        desc: "Exposing their ignorance publicly with surgical wit.",
+        title: "Fight back", 
+        desc: "Strike with lethal verbal eloquence, exposing their ignorance publicly.",
         directorCritique: "Ruthless rhetorical power. Commands courtroom, political thrillers, and razor-sharp dialogue dramas.",
         actingMethod: "Rhetorical Attack",
         scores: { improv: 25, camera: 20, emotion: 15, imag: 15 } 
       },
       { 
         letter: "B", 
-        title: "Ignore — look past them as if they do not exist", 
-        desc: "Absolute royal indifference: rendering them completely invisible.",
+        title: "Ignore", 
+        desc: "Look past them as if they do not exist, rendering them completely invisible.",
         directorCritique: "Royal status hierarchy. By withholding eye contact, you render the attacker powerless in the public eye.",
         actingMethod: "Royal Indifference",
         scores: { improv: 15, camera: 25, emotion: 20, imag: 15 } 
       },
       { 
         letter: "C", 
-        title: "Make a joke — disarm the entire room with charm", 
-        desc: "The gallery laughs with you; your opponent looks foolish.",
+        title: "Make a joke", 
+        desc: "Disarm the entire room with charm: the crowd laughs with you, not at you.",
         directorCritique: "Masterful charismatic deflection. You weaponize charm to convert a hostile crowd into allies.",
         actingMethod: "Charismatic Pivot",
         scores: { improv: 25, camera: 25, emotion: 15, imag: 20 } 
       },
       { 
         letter: "D", 
-        title: "Stay calm — hold unwavering eye contact in silence", 
-        desc: "Psychological weight that makes them squirm and back down.",
+        title: "Stay calm", 
+        desc: "Hold unwavering eye contact in tranquil silence until they back down.",
         directorCritique: "Gravitational dominance. Silence forces the opponent to keep speaking until they reveal their own foolishness.",
         actingMethod: "Gravitational Stillness",
         scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } 
@@ -419,32 +418,32 @@ const SCENES: SceneData[] = [
     ]
   },
 
-  // ACT 4: CAMERA CONFIDENCE
+  // SECTION 4: CAMERA CONFIDENCE
   {
     actNum: 4,
     actName: "CAMERA CONF.",
-    actHeader: "ACT 04 // SCENE 9 - MEDIUM CALIBRATION",
+    actHeader: "SECTION 04 // SCENE 9 - MEDIUM PREFERENCE",
     eyebrow: "// ENERGY PROJECTION VS INTIMACY",
     headlinePrefix: "Would you rather",
-    headlineHighlight: "perform live or record yourself?",
-    scriptQuote: "“Are you drawn to the acoustic space of physical theatre or the microscopic intimacy of an 8K digital sensor?”",
-    directorInsight: "Theatre requires whole-body projection and vocal resonance; cinema requires internalized subtlety and spatial discipline around camera marks.",
-    tags: ["LIVE STAGE", "SCREEN LENS", "PROJECTION"],
+    headlineHighlight: "perform or record yourself?",
+    scriptQuote: "“Are you drawn to the open energy of live theatre or the intimate realism of an on-camera close-up?”",
+    directorInsight: "Theatre requires whole-body projection and vocal resonance; screen acting requires internalized subtlety and expressive discipline in the frame.",
+    tags: ["LIVE STAGE", "SCREEN ACTING", "PROJECTION"],
     options: [
       { 
         letter: "A", 
-        title: "Perform — live in the physical room with real humans", 
-        desc: "You feed on immediate acoustic response and room electricity.",
+        title: "Perform", 
+        desc: "Live in the physical room with real breathing humans and immediate electricity.",
         directorCritique: "Physical acoustic presence. You project energy across physical space, essential for broad theatre and stage command.",
         actingMethod: "Stage Acoustics",
         scores: { improv: 25, camera: 10, emotion: 20, imag: 20 } 
       },
       { 
         letter: "B", 
-        title: "Record yourself — close to the lens with micro-movements", 
-        desc: "You thrive on subtle pupil dilations and understated nuance.",
-        directorCritique: "Natural screen magnetism. You trust that the lens will catch every twitch, breath, and micro-thought.",
-        actingMethod: "Optic Intimacy",
+        title: "Record yourself", 
+        desc: "In front of the camera with subtle expressions, eye contact, and emotional nuance.",
+        directorCritique: "Natural screen magnetism. You trust that the camera catches every subtle breath, shift in thought, and unspoken emotion.",
+        actingMethod: "Screen Intimacy",
         scores: { improv: 10, camera: 25, emotion: 25, imag: 20 } 
       }
     ]
@@ -452,28 +451,28 @@ const SCENES: SceneData[] = [
   {
     actNum: 4,
     actName: "CAMERA CONF.",
-    actHeader: "ACT 04 // SCENE 10 - ARENA RESONANCE",
+    actHeader: "SECTION 04 // SCENE 10 - ENVIRONMENT ENJOYMENT",
     eyebrow: "// AUDIENCE FEEDBACK VS CAMERA SANCTUARY",
     headlinePrefix: "Would you enjoy",
-    headlineHighlight: "a live audience or a film camera?",
+    headlineHighlight: "live audience or film camera?",
     scriptQuote: "“Where does your artistic courage flourish with the least inhibition?”",
     directorInsight: "Understanding your comfort zone allows casting directors to pair you with the right medium or design a bridge program for your screen transition.",
-    tags: ["AUDIENCE VOLTAGE", "LENS PRECISION"],
+    tags: ["AUDIENCE ENERGY", "CAMERA FOCUS"],
     options: [
       { 
         letter: "A", 
-        title: "Live audience — feeling a packed auditorium gasp", 
-        desc: "The raw adrenaline of hundreds of breathing spectators.",
+        title: "Live audience", 
+        desc: "Feeling a packed auditorium gasp, laugh, and vibrate with collective adrenaline.",
         directorCritique: "Collective voltage junkie. You turn fear into communal adrenaline, excelling in live tours and theatrical stagings.",
         actingMethod: "Collective Feedback",
         scores: { improv: 25, camera: 10, emotion: 20, imag: 20 } 
       },
       { 
         letter: "B", 
-        title: "Film camera — whisper-quiet set with 50mm Prime lens", 
-        desc: "A sacred cinematic sanctuary where no eyes disturb your craft.",
-        directorCritique: "Sacred studio focus. You thrive in the sterile, controlled quietude where you and the lens exist in pure intimacy.",
-        actingMethod: "Sacred Set Focus",
+        title: "Film camera", 
+        desc: "A quiet, focused film set with dedicated emotional focus.",
+        directorCritique: "Focused studio discipline. You thrive in the controlled quietude where you can deliver authentic, intimate screen performances.",
+        actingMethod: "Focused Screen Discipline",
         scores: { improv: 15, camera: 25, emotion: 25, imag: 20 } 
       }
     ]
@@ -481,42 +480,42 @@ const SCENES: SceneData[] = [
   {
     actNum: 4,
     actName: "CAMERA CONF.",
-    actHeader: "ACT 04 // SCENE 11 - THE VULNERABILITY MATRIX",
+    actHeader: "SECTION 04 // SCENE 11 - VULNERABILITY MATRIX",
     eyebrow: "// CONFRONTING THE ARTISTIC NIGHTMARE",
-    headlinePrefix: "Which of these fears",
-    headlineHighlight: "scares you most?",
+    headlinePrefix: "Which scares you most?",
+    headlineHighlight: "Name your deepest friction point.",
     scriptQuote: "“To master the screen, an actor must name their deepest creative vulnerability:”",
-    directorInsight: "Every master actor has a friction point. By diagnosing whether your fear is text-based, optical, public, or identity-based, directors can unlock your breakthrough.",
+    directorInsight: "Every master actor has a friction point. By diagnosing whether your fear is text-based, camera-facing, public, or identity-based, directors can unlock your breakthrough.",
     tags: ["FEAR MATRIX", "SELF-AWARENESS", "GROWTH VECTOR"],
     options: [
       { 
         letter: "A", 
-        title: "Forget dialogue — blanking on lines mid-scene", 
-        desc: "The terror of sudden memory lapse before peers.",
+        title: "Forget dialogue", 
+        desc: "Blanking on scripted dialogue in the middle of a continuous live take.",
         directorCritique: "Text dependency. Our academy training frees you from syllables to focus on underlying visceral intention.",
         actingMethod: "Subtext Liberation",
         scores: { improv: 15, camera: 15, emotion: 15, imag: 15 } 
       },
       { 
         letter: "B", 
-        title: "Camera — the unblinking lens inches from your skin", 
-        desc: "The fear of being scrutinised under ultra-sharp 8K resolution.",
-        directorCritique: "Optical exposure hesitation. We train you to treat the lens not as a microscope, but as a trusted co-conspirator.",
-        actingMethod: "Optic Demystification",
+        title: "Camera", 
+        desc: "Being framed in intimate close-up where every subtle hesitation is visible.",
+        directorCritique: "Close-up vulnerability. We train you to treat the camera not as an intimidating observer, but as a trusted storytelling partner.",
+        actingMethod: "On-Camera Presence",
         scores: { improv: 20, camera: 10, emotion: 20, imag: 20 } 
       },
       { 
         letter: "C", 
-        title: "Audience — cold indifference from spectators", 
-        desc: "The dread of performing into unresponsive silence.",
+        title: "Audience", 
+        desc: "Facing cold indifference or unpredictable silence from spectators.",
         directorCritique: "Validation anxiety. We cultivate self-contained conviction so external silence never disrupts your character truth.",
         actingMethod: "Internal Conviction",
         scores: { improv: 15, camera: 20, emotion: 15, imag: 20 } 
       },
       { 
         letter: "D", 
-        title: "Judgement — harsh critical dissection of your soul", 
-        desc: "Having your raw emotional vulnerability mocked or invalidated.",
+        title: "Judgement", 
+        desc: "Having your raw emotional vulnerability mocked or critically dissected.",
         directorCritique: "Ego-boundary vulnerability. True acting requires stripping ego to let the character live without personal defense.",
         actingMethod: "Ego Transcendence",
         scores: { improv: 15, camera: 15, emotion: 25, imag: 15 } 
@@ -524,49 +523,184 @@ const SCENES: SceneData[] = [
     ]
   },
 
-  // ACT 5: CREATIVE THINKING
+  // SECTION 5: CREATIVE THINKING
   {
     actNum: 5,
     actName: "CREATIVE MIND",
-    actHeader: "ACT 05 // SCENE 12 - THE DETECTIVE SCENARIO",
-    eyebrow: "// NARRATIVE WORLDBUILDING & IMAGINATION",
-    headlinePrefix: "Imagine you are a detective.",
-    headlineHighlight: "A stranger drops a mysterious box.",
-    scriptQuote: "“Midnight on a rain-slicked train platform. Steam hisses from locomotive wheels. The stranger vanishes into fog, leaving a brass-bound wooden box on the cobblestones. What happens next?”",
-    directorInsight: "This evaluates worldbuilding intelligence. Actors who visualize tactile sensory details (runes, steam, reverse clocks) bring richer unscripted textures to every take.",
-    tags: ["WORLDBUILDING", "DRAMATIC INSTINCT", "SUBTEXT"],
+    actHeader: "SECTION 05 // SCENE 12 - THE DETECTIVE SCENARIO",
+    eyebrow: "// IMAGINATION MEASUREMENT",
+    headlinePrefix: "Imagine you are a detective. A stranger drops a mysterious box.",
+    headlineHighlight: "What happens next?",
+    scriptQuote: "“Midnight on a rain-slicked train platform. A stranger drops a brass-bound wooden box and vanishes into the fog. What happens next?”",
+    directorInsight: "This measures imagination, tactile sensory instinct, and unscripted narrative worldbuilding.",
+    tags: ["CREATIVE THINKING", "IMAGINATION", "WORLDBUILDING"],
     options: [
       { 
         letter: "A", 
-        title: "Glove your fingers and inspect the cryptic Nordic runes etched along its seam", 
-        desc: "Analytical, methodical realism: building suspense through meticulous observation.",
-        directorCritique: "Methodical realism. You treat props as story engines, giving cinematic close-ups incredible authenticity.",
-        actingMethod: "Sensory Realism",
-        scores: { improv: 10, camera: 20, emotion: 20, imag: 25 } 
+        title: "Open the box immediately", 
+        desc: "Prying open the rusted latch right there under the dim platform lantern.",
+        directorCritique: "Direct exploratory impulse. You drive mystery straight into immediate dramatic confrontation.",
+        actingMethod: "Immediate Discovery",
+        scores: { improv: 20, camera: 15, emotion: 20, imag: 25 } 
       },
       { 
         letter: "B", 
-        title: "Sprint through the steam into the fog to tackle the stranger before they vanish", 
-        desc: "Visceral action instinct: character acts on adrenaline and physical momentum.",
-        directorCritique: "Kinetic impulse. You drive narrative velocity forward with urgency and high physical presence.",
-        actingMethod: "Narrative Propulsion",
+        title: "Chase the stranger into the shadows", 
+        desc: "Sprinting through the steam into the fog to tackle the stranger before they vanish.",
+        directorCritique: "Visceral kinetic impulse. You drive narrative velocity forward with urgency and high physical presence.",
+        actingMethod: "Kinetic Pursuit",
         scores: { improv: 25, camera: 25, emotion: 10, imag: 20 } 
       },
       { 
         letter: "C", 
-        title: "Slowly unlatch the lid — finding an antique watch ticking steadily in reverse", 
-        desc: "Poetic, psychological surrealism: transforming mystery into existential wonder.",
-        directorCritique: "Poetic surrealism. You naturally perceive philosophical and thematic depth inside ordinary genre premises.",
-        actingMethod: "Poetic Subtext",
-        scores: { improv: 15, camera: 20, emotion: 25, imag: 25 } 
+        title: "Inspect the box carefully from a distance", 
+        desc: "Inspecting cryptic runes along its seam and listening for ticking gears.",
+        directorCritique: "Methodical sensory realism. You build cinematic suspense through careful observation and tactile props.",
+        actingMethod: "Sensory Realism",
+        scores: { improv: 10, camera: 20, emotion: 20, imag: 25 } 
       },
       { 
         letter: "D", 
-        title: "Signal your undercover partner across the tracks while keeping your hand on your holster", 
-        desc: "High-stakes tactical discipline: playing the ensemble geometry and tactical tension.",
-        directorCritique: "Tactical ensemble discipline. You play the wider geometry of the scene, utilizing space and partners instinctively.",
+        title: "Call for backup and secure the perimeter", 
+        desc: "Signaling your partner across the tracks while maintaining tactical spatial awareness.",
+        directorCritique: "High-stakes tactical discipline. You play the wider geometry of the scene, utilizing space and partners instinctively.",
         actingMethod: "Spatial Geometry",
-        scores: { improv: 20, camera: 20, emotion: 15, imag: 20 } 
+        scores: { improv: 15, camera: 20, emotion: 15, imag: 20 } 
+      }
+    ]
+  },
+
+  // SECTION 6: CHARACTER PREFERENCE
+  {
+    actNum: 6,
+    actName: "CHARACTER",
+    actHeader: "SECTION 06 // SCENE 13 - CHARACTER PREFERENCE",
+    eyebrow: "// CASTING ARCHETYPE RESONANCE",
+    headlinePrefix: "Which role excites you?",
+    headlineHighlight: "Choose your primary cinematic identity.",
+    scriptQuote: "“When exploring characters for a new production, which role ignites your greatest creative passion?”",
+    directorInsight: "Identifies your character preference and natural casting gravity across cinema genres.",
+    tags: ["CHARACTER PREFERENCE", "CASTING ARCHETYPE", "ROLE GRAVITY"],
+    options: [
+      {
+        letter: "A",
+        title: "Hero",
+        desc: "The noble protector carrying moral conviction against impossible odds.",
+        directorCritique: "Classic protagonist gravity: commanding empathy and inspiring the audience.",
+        actingMethod: "Heroic Conviction",
+        scores: { improv: 20, camera: 25, emotion: 20, imag: 20 }
+      },
+      {
+        letter: "B",
+        title: "Villain",
+        desc: "Complex, menacing antagonism driven by deep wounded philosophy.",
+        directorCritique: "High subtextual danger: dominating the frame with chilling psychological command.",
+        actingMethod: "Psychological Menace",
+        scores: { improv: 20, camera: 25, emotion: 25, imag: 25 }
+      },
+      {
+        letter: "C",
+        title: "Comedian",
+        desc: "Subversive wit, physical elasticity, and lightning-fast timing.",
+        directorCritique: "Microsecond timing precision: lifting audience spirits effortlessly.",
+        actingMethod: "Spontaneous Wit",
+        scores: { improv: 25, camera: 20, emotion: 15, imag: 20 }
+      },
+      {
+        letter: "D",
+        title: "Lawyer",
+        desc: "Razor-sharp rhetorical combat, courtroom status, and intellectual mastery.",
+        directorCritique: "Vocal velocity and articulate dominance under intense pressure.",
+        actingMethod: "Rhetorical Command",
+        scores: { improv: 20, camera: 25, emotion: 15, imag: 20 }
+      },
+      {
+        letter: "E",
+        title: "Police",
+        desc: "Tactical realism, moral duty, and gritty on-the-ground investigation.",
+        directorCritique: "Physical groundedness and authoritative presence in procedural drama.",
+        actingMethod: "Grounded Authority",
+        scores: { improv: 20, camera: 20, emotion: 15, imag: 15 }
+      },
+      {
+        letter: "F",
+        title: "Doctor",
+        desc: "High-stakes composure, compassionate vulnerability, and clinical precision.",
+        directorCritique: "Balancing clinical detachment with deep, unspoken human empathy.",
+        actingMethod: "Clinical Empathy",
+        scores: { improv: 15, camera: 20, emotion: 25, imag: 20 }
+      },
+      {
+        letter: "G",
+        title: "Teacher",
+        desc: "Inspiring guidance, patience, and emotional mentorship.",
+        directorCritique: "Warm communicative radiance that connects immediately with hearts.",
+        actingMethod: "Pedagogic Warmth",
+        scores: { improv: 15, camera: 15, emotion: 25, imag: 20 }
+      },
+      {
+        letter: "H",
+        title: "Mother",
+        desc: "Fierce maternal protection, unconditional warmth, and sacrificial depth.",
+        directorCritique: "Profound emotional conductivity: anchoring scenes with maternal gravity.",
+        actingMethod: "Maternal Conduit",
+        scores: { improv: 10, camera: 15, emotion: 30, imag: 20 }
+      },
+      {
+        letter: "I",
+        title: "Businessman",
+        desc: "Corporate leverage, shrewd negotiation, and executive elegance.",
+        directorCritique: "Impeccable poise, calculated pacing, and high-status presence.",
+        actingMethod: "Executive Poise",
+        scores: { improv: 15, camera: 25, emotion: 15, imag: 20 }
+      },
+      {
+        letter: "J",
+        title: "Politician",
+        desc: "Charismatic public rhetoric concealing cunning private ambition.",
+        directorCritique: "Dual-layer acting: projecting benevolence while playing ruthless subtext.",
+        actingMethod: "Dual-Layer Subtext",
+        scores: { improv: 25, camera: 25, emotion: 15, imag: 20 }
+      },
+      {
+        letter: "K",
+        title: "Gangster",
+        desc: "Raw street charisma, unpredictable volatility, and code of honour.",
+        directorCritique: "Electrifying volatile energy that keeps spectators on the edge of their seats.",
+        actingMethod: "Volatile Edge",
+        scores: { improv: 20, camera: 25, emotion: 20, imag: 20 }
+      },
+      {
+        letter: "L",
+        title: "Romantic Lead",
+        desc: "Tender vulnerability, magnetic chemistry, and emotional longing.",
+        directorCritique: "Intimate screen presence: holding genuine emotional connection and electric chemistry in close-up scenes.",
+        actingMethod: "Magnetic Longing",
+        scores: { improv: 15, camera: 20, emotion: 25, imag: 20 }
+      },
+      {
+        letter: "M",
+        title: "Supporting Character",
+        desc: "Scene-stealing authenticity, quirky charm, and ensemble ballast.",
+        directorCritique: "High character adaptability: elevating every scene without overpowering it.",
+        actingMethod: "Ensemble Catalyst",
+        scores: { improv: 20, camera: 20, emotion: 20, imag: 25 }
+      },
+      {
+        letter: "N",
+        title: "Historical Figure",
+        desc: "Period dignity, gravitas, and embodying documented human legacies.",
+        directorCritique: "Auteur gravitas: matching historical mannerisms with visceral truth.",
+        actingMethod: "Period Gravitas",
+        scores: { improv: 15, camera: 25, emotion: 20, imag: 25 }
+      },
+      {
+        letter: "O",
+        title: "Fantasy Character",
+        desc: "Mythic lore, non-human mannerisms, and expansive imagination.",
+        directorCritique: "Mythic physical transformation: inhabiting imaginary worlds with total conviction.",
+        actingMethod: "Mythic Embodiment",
+        scores: { improv: 20, camera: 20, emotion: 20, imag: 30 }
       }
     ]
   }
@@ -583,7 +717,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
   const [showSceneInsight, setShowSceneInsight] = useState(false);
 
   // Dedicated Explanation Engine Tab state in Results View
-  const [activeEngineTab, setActiveEngineTab] = useState<'diagnosis' | 'scenes' | 'optics' | 'casting'>('diagnosis');
+  const [activeEngineTab, setActiveEngineTab] = useState<'diagnosis' | 'scenes' | 'performance' | 'casting'>('diagnosis');
 
   const audioCtxRef = useRef<AudioContext | null>(null);
 
@@ -688,19 +822,19 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
         rationale: "Your choices throughout the assessment consistently prioritized internal truth, emotional compression, and restraint. When challenged with betrayal or crisis, you chose subsurface depth rather than performative screaming. This signals a Stanislavski-grounded actor who can anchor high-stakes prestige festival films.",
         strengths: ["Profound Subtext Density", "Micro-Expression Nuance", "Emotional Memory Conductivity", "High Scene Gravity"],
         blindspot: "Watch out for over-internalization in fast-paced commercial work where immediate external projection is demanded.",
-        lensProfile: "50mm Zeiss Supreme Prime T1.5 // Shallow Depth of Field // Soft Chiaroscuro Rim Lighting",
+        performanceStyle: "Subtle emotional stillness, micro-expression subtext, and grounded vulnerability under close-up focus",
         castingRoles: ["Complex Anti-Hero Lead", "Wounded Protagonist", "Psychological Thriller Detective", "Intense Period Drama Lead"]
       };
     } else if (maxScore === scores.camera) {
       return {
         title: "The Enigmatic Screen Presence",
         badge: "OPTICAL MAGNETISM // CLASS A",
-        quote: "“The camera lens does not just capture you — it gravitates toward your stillness.”",
+        quote: "“The camera does not just capture you — it gravitates toward your internal stillness.”",
         track: "Mayavi Anamorphic Screen Acting & High-End Commercial Masterclass",
-        rationale: "You possess rare optical discipline. You instinctively know that 8K digital sensors capture thoughts, not just actions. Your choices favored stillness, royal status holding, and quiet eye contact over frantic motion. Directors can place you in an extreme macro close-up and trust you to hold the frame without fidgeting.",
-        strengths: ["Effortless Status Projection", "Lens Discipline & Mark Precision", "Controlled Vocal Pacing", "Stillness Magnetism"],
+        rationale: "You possess rare screen discipline. You instinctively know that cinema captures thoughts, not just actions. Your choices favored stillness, high-status poise, and quiet eye contact over frantic motion. Directors can place you in an intense close-up and trust you to hold the emotional weight of the scene without unnecessary movement.",
+        strengths: ["Effortless Status Projection", "Screen Discipline & Focus", "Controlled Vocal Pacing", "Stillness Magnetism"],
         blindspot: "Avoid emotional stiffness; maintain fluid breath so still composure never reads as detachment.",
-        lensProfile: "85mm Cooke Anamorphic /i Full Frame Plus // 2x Squeeze Oval Bokeh // High Key Contrast",
+        performanceStyle: "Commanding eye contact, measured vocal cadence, and high-status physical composure",
         castingRoles: ["High-Status Executive Lead", "Enigmatic Mystery Figure", "Luxury Commercial Headliner", "Diplomat / Monarch"]
       };
     } else if (maxScore === scores.imag) {
@@ -709,10 +843,10 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
         badge: "WORLDBUILDING & SUBTEXT // CLASS A",
         quote: "“You see entire worlds and thematic geometries behind a single line of script.”",
         track: "Mayavi Directing, Theatre & Pre-Visualization Cohort",
-        rationale: "You approach acting as a co-creator and worldbuilder. In creative scenarios, you chose tactile details, mysterious subtext, and overarching dramatic rhythm. You understand where the camera is looking and why the scene matters to the overarching narrative arc.",
+        rationale: "You approach acting as a co-creator and worldbuilder. In creative scenarios, you chose tactile details, mysterious subtext, and overarching dramatic rhythm. You understand where the story is looking and why the scene matters to the overarching narrative arc.",
         strengths: ["Tactile Prop & Scene Integration", "Unscripted Subtext Creation", "Macro Narrative Awareness", "Auteur Alignment"],
         blindspot: "Do not get so lost in intellectual worldbuilding that you delay the raw emotional impulse of the moment.",
-        lensProfile: "35mm ARRI Signature Prime T1.8 // Wide Environmental Framing // Volumetric Atmospheric Haze",
+        performanceStyle: "Rich character subtext, intelligent beat analysis, and deep spatial chemistry with scene partners",
         castingRoles: ["Auteur Indieworld Lead", "Visionary Scientist / Detective", "Worldbuilding Fantasy Protagonist", "Actor-Director Hyphenate"]
       };
     }
@@ -724,7 +858,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
       rationale: "Your creative engine is pure kinetic impulse. When directors change the scene or fellow actors drop their lines, you turn chaos into gold. You possess high somatic bravery and rapid wit, allowing continuous unbroken long-takes that surprise directors in the best possible way.",
       strengths: ["Lightning Instinctive Reflexes", "Fearless Scene Rescue", "Dynamic Spatial Mobility", "Electric Screen Energy"],
       blindspot: "Practice repeating successful improv beats identically across multiple takes for script-supervision continuity.",
-      lensProfile: "40mm Leica Noctilux F/0.95 // Fluid Steadicam Motion // Kinetic Golden Hour Lighting",
+      performanceStyle: "High-voltage spontaneous impulse, rapid comedic/dramatic timing, and organic physical agility",
       castingRoles: ["Charismatic Maverick Lead", "Fast-Talking Wit / Comedy Catalyst", "High-Octane Action Lead", "Dynamic Ensemble Anchor"]
     };
   };
@@ -845,13 +979,11 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
         <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] text-white/50">
           <div className="hidden sm:flex items-center gap-2 text-white/40">
-            <span>24 FPS</span>
+            <span>ON-CAMERA AUDITION</span>
             <span className="text-white/20">|</span>
-            <span>180.0°</span>
+            <span>TAKE IN PROGRESS</span>
             <span className="text-white/20">|</span>
-            <span>5600K</span>
-            <span className="text-white/20">|</span>
-            <span className="text-amber-400/80">ARRI ALEXA LF</span>
+            <span className="text-amber-400/80">CASTING ASSESSMENT</span>
           </div>
 
           <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30">
@@ -890,7 +1022,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
             </div>
 
             <div className="text-white/70">
-              TAKE <span className="text-white font-bold">{String(currentSceneIndex + 1).padStart(2, '0')}</span> / 12 
+              TAKE <span className="text-white font-bold">{String(currentSceneIndex + 1).padStart(2, '0')}</span> / {String(SCENES.length).padStart(2, '0')} 
               <span className="text-amber-400 font-bold ml-2.5 px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30">[ {String(progressPercent).padStart(2, '0')}% ]</span>
             </div>
           </div>
@@ -921,13 +1053,14 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                 {currentScene.actName}
               </div>
 
-              <div className="flex flex-col gap-3 mb-6">
+              <div className="flex flex-col gap-2.5 mb-6">
                 {[
                   { act: 1, img: "/posters/theatre-modelling-workshop.png", title: "Act 1", roman: "I" },
                   { act: 2, img: "/posters/media-2.png", title: "Act 2", roman: "II" },
                   { act: 3, img: "/posters/theatre-modelling-recap.png", title: "Act 3", roman: "III" },
                   { act: 4, img: "/posters/casting-call-prince-princess.png", title: "Act 4", roman: "IV" },
                   { act: 5, img: "/images/talent-creators-audition.jpg", title: "Act 5", roman: "V" },
+                  { act: 6, img: "/official-mayavi-logo.png", title: "Act 6", roman: "VI" },
                 ].map(item => (
                   <div
                     key={item.act}
@@ -940,7 +1073,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                         setShowSceneInsight(false);
                       }
                     }}
-                    className={`relative w-[62px] h-[52px] rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 group ${
+                    className={`relative w-[62px] h-[48px] rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 group ${
                       currentScene.actNum === item.act 
                         ? 'border-2 border-amber-400 shadow-[0_0_24px_rgba(234,179,8,0.5)] ring-1 ring-amber-400/60 scale-105' 
                         : 'border-white/15 hover:border-amber-400/60 opacity-60 hover:opacity-100 backdrop-blur-md bg-white/[0.03]'
@@ -956,8 +1089,8 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
               </div>
 
               <div className="font-mono text-[8.5px] tracking-[0.28em] text-white/40 text-center uppercase leading-tight">
-                <div>05 ACTS</div>
-                <div className="text-amber-400/70">12 TAKES</div>
+                <div>06 SECTIONS</div>
+                <div className="text-amber-400/70">{SCENES.length} TAKES</div>
               </div>
             </aside>
 
@@ -1020,7 +1153,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                       <span className="text-white/20">|</span>
                       <span>INT. SOUNDSTAGE</span>
                       <span className="text-white/20">|</span>
-                      <span>TAKE {String(currentSceneIndex + 1).padStart(2, '0')} OF 12</span>
+                      <span>TAKE {String(currentSceneIndex + 1).padStart(2, '0')} OF {String(SCENES.length).padStart(2, '0')}</span>
                     </div>
                     <p className="font-serif italic text-lg sm:text-2xl text-white/90 leading-relaxed">
                       {currentScene.scriptQuote}
@@ -1037,9 +1170,10 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                   </div>
 
                   {/* #22 Liquid Glass Options List */}
-                  <div className="flex flex-col gap-3.5 pt-2">
+                  <div className={currentScene.options.length > 4 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2" : "flex flex-col gap-3.5 pt-2"}>
                     {currentScene.options.map((opt, idx) => {
                       const isSelected = selectedOptionIndex === idx;
+                      const isGrid = currentScene.options.length > 4;
                       return (
                         <div
                           key={opt.letter}
@@ -1047,7 +1181,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                             playClick();
                             setSelectedOptionIndex(idx);
                           }}
-                          className={`relative overflow-hidden px-5 py-4 flex flex-col gap-2 rounded-2xl cursor-pointer transition-all duration-300 group ${
+                          className={`relative overflow-hidden ${isGrid ? 'px-4 py-3' : 'px-5 py-4'} flex flex-col justify-between gap-2 rounded-2xl cursor-pointer transition-all duration-300 group ${
                             isSelected 
                               ? 'backdrop-blur-2xl bg-gradient-to-r from-amber-950/50 via-[#181105]/70 to-[#0B0914]/90 border-2 border-amber-400 shadow-[0_0_35px_rgba(234,179,8,0.28),inset_0_1px_15px_rgba(234,179,8,0.15)] ring-1 ring-amber-400/50' 
                               : 'backdrop-blur-xl bg-gradient-to-r from-white/[0.04] to-white/[0.015] hover:bg-white/[0.07] border border-white/[0.12] hover:border-amber-400/60 shadow-[0_4px_20px_rgba(0,0,0,0.3)]'
@@ -1056,9 +1190,9 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           {/* Liquid Glass Specular Light Sweep */}
                           <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent pointer-events-none" />
 
-                          <div className="flex items-center justify-between gap-4 relative z-10">
-                            <div className="flex items-center gap-4">
-                              <div className={`w-[40px] h-[40px] rounded-xl flex items-center justify-center font-mono text-xs font-bold transition-all ${
+                          <div className="flex items-center justify-between gap-3 relative z-10">
+                            <div className="flex items-center gap-3">
+                              <div className={`${isGrid ? 'w-8 h-8 text-[11px]' : 'w-[40px] h-[40px] text-xs'} shrink-0 rounded-xl flex items-center justify-center font-mono font-bold transition-all ${
                                 isSelected 
                                 ? 'bg-gradient-to-br from-amber-400 to-amber-500 text-black shadow-[0_0_16px_rgba(234,179,8,0.6)] font-extrabold' 
                                 : 'bg-white/[0.06] border border-white/15 text-white/80 group-hover:border-amber-400/50 group-hover:text-amber-300'
@@ -1067,17 +1201,17 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                               </div>
 
                               <div>
-                                <div className="font-display font-semibold text-sm sm:text-base text-white/95 leading-snug">
+                                <div className={`font-display font-semibold ${isGrid ? 'text-sm' : 'text-sm sm:text-base'} text-white/95 leading-snug`}>
                                   {opt.title}
                                 </div>
-                                <div className="font-body text-xs text-white/60 mt-0.5 leading-normal">
+                                <div className={`font-body text-xs text-white/60 mt-0.5 leading-normal ${isGrid ? 'line-clamp-2' : ''}`}>
                                   {opt.desc}
                                 </div>
                               </div>
                             </div>
 
                             <div className={`shrink-0 transition-colors ${isSelected ? 'text-amber-400 translate-x-1' : 'text-white/20 group-hover:text-white/50'}`}>
-                              <ArrowRight size={18} />
+                              <ArrowRight size={isGrid ? 14 : 18} />
                             </div>
                           </div>
 
@@ -1086,10 +1220,10 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                             <motion.div 
                               initial={{ opacity: 0, y: 4 }}
                               animate={{ opacity: 1, y: 0 }}
-                              className="mt-2.5 pt-2.5 border-t border-amber-400/25 flex items-start gap-2.5 bg-amber-400/[0.04] p-3 rounded-xl backdrop-blur-sm relative z-10"
+                              className="mt-2 pt-2 border-t border-amber-400/25 flex items-start gap-2 bg-amber-400/[0.04] p-2.5 rounded-xl backdrop-blur-sm relative z-10 text-left"
                             >
-                              <span className="font-mono text-[9px] uppercase tracking-widest text-amber-400 font-bold shrink-0 mt-0.5 px-2 py-0.5 rounded bg-amber-400/15 border border-amber-400/30">
-                                DIRECTOR'S TAKE
+                              <span className="font-mono text-[8.5px] uppercase tracking-widest text-amber-400 font-bold shrink-0 mt-0.5 px-1.5 py-0.5 rounded bg-amber-400/15 border border-amber-400/30">
+                                TAKE
                               </span>
                               <span className="font-body text-xs text-amber-200/90 leading-relaxed">
                                 {opt.directorCritique}
@@ -1143,7 +1277,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
                   {[
                     { label: "EMOTIONAL DEPTH", val: scorePercentages.emotion },
-                    { label: "CAMERA MAGNETISM", val: scorePercentages.camera },
+                    { label: "SCREEN MAGNETISM", val: scorePercentages.camera },
                     { label: "IMPROV REFLEX", val: scorePercentages.improv },
                     { label: "NARRATIVE IMAGINATION", val: scorePercentages.imag },
                   ].map(gauge => (
@@ -1167,8 +1301,8 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                   <div className="flex border-b border-white/10 bg-white/[0.02] overflow-x-auto no-scrollbar">
                     {[
                       { id: 'diagnosis', label: '1. EVALUATION RATIONALE', icon: FileText },
-                      { id: 'scenes', label: '2. 12-TAKE DIRECTOR LOG', icon: Layers },
-                      { id: 'optics', label: '3. CAMERA CALIBRATION', icon: Camera },
+                      { id: 'scenes', label: `2. ${SCENES.length}-TAKE DIRECTOR LOG`, icon: Layers },
+                      { id: 'performance', label: '3. SCREEN PERFORMANCE', icon: Sparkles },
                       { id: 'casting', label: '4. CASTING ARCHETYPES', icon: UserCheck },
                     ].map(tab => {
                       const Icon = tab.icon;
@@ -1258,7 +1392,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           className="space-y-4"
                         >
                           <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">
-                            // COMPLETE 12-SCENE DIRECTOR'S AUDIT LOG
+                            {`// COMPLETE ${SCENES.length}-SCENE DIRECTOR'S AUDIT LOG`}
                           </div>
 
                           <div className="max-h-[380px] overflow-y-auto space-y-3 pr-2">
@@ -1287,40 +1421,40 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                         </motion.div>
                       )}
 
-                      {/* TAB 3: CAMERA OPTICS & TECHNICAL CALIBRATION */}
-                      {activeEngineTab === 'optics' && (
+                      {/* TAB 3: ACTING TECHNIQUE & SCREEN PRESENCE */}
+                      {activeEngineTab === 'performance' && (
                         <motion.div
-                          key="optics"
+                          key="performance"
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -8 }}
                           className="space-y-5"
                         >
                           <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">
-                            // CINEMATOGRAPHY & OPTICAL CALIBRATION
+                            // ACTING TECHNIQUE & SCREEN PRESENCE PROFILE
                           </div>
 
                           <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
                             <div className="font-display font-bold text-base text-white">
-                              Prescribed Lens & Lighting Scheme:
+                              Core Acting Style & Delivery Method:
                             </div>
                             <div className="font-mono text-xs text-amber-400 bg-amber-400/10 border border-amber-400/30 p-2.5 rounded-lg">
-                              {archetype.lensProfile}
+                              {archetype.performanceStyle}
                             </div>
                           </div>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-1.5">
-                              <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">FRAMING COMPOSITION</div>
+                              <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">EXPRESSION & VOCAL CADENCE</div>
                               <p className="font-body text-xs text-white/80 leading-relaxed">
-                                Best framed in 9:16 vertical close-ups and dynamic medium profiles. Maintain camera stillness to let micro-ocular movements register.
+                                Controlled vocal modulation, deliberate pauses, and expressive micro-reactions that translate with natural intensity on screen.
                               </p>
                             </div>
 
                             <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-1.5">
-                              <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">COLOR SCIENCE LUT</div>
+                              <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">ON-SCREEN DYNAMICS & MOOD</div>
                               <p className="font-body text-xs text-white/80 leading-relaxed">
-                                Optimal grading: LOG-C to REC2020 with Kodak 5207 warm skin tones and desaturated shadows.
+                                High adaptability across intimate dramatic close-ups, dynamic scene partner exchanges, and commercial screen presence.
                               </p>
                             </div>
                           </div>
@@ -1371,7 +1505,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                 {/* Bottom Actions - #22 Liquid Glass */}
                 <div className="flex flex-wrap gap-4 pt-3">
                   <a 
-                    href={`https://wa.me/916301761783?text=${encodeURIComponent(`Hello Mayavi Casting, I have completed the Director's Room Screen Test: ${archetype.title} (Dossier Ref: ${dossierId}). Scores: Improv: ${scorePercentages.improv}%, Emotion: ${scorePercentages.emotion}%, Camera: ${scorePercentages.camera}%, Imagination: ${scorePercentages.imag}%. I would love to audition for upcoming projects.`)}`}
+                    href={`https://wa.me/916301761783?text=${encodeURIComponent(`Hello Mayavi Casting, I have completed the Director's Room Screen Test: ${archetype.title} (Dossier Ref: ${dossierId}). Preferred Role: ${SCENES[12]?.options[userChoices[12]]?.title || 'Lead'}. Scores: Improv: ${scorePercentages.improv}%, Emotion: ${scorePercentages.emotion}%, Camera: ${scorePercentages.camera}%, Imagination: ${scorePercentages.imag}%. I would love to audition for upcoming projects.`)}`}
                     target="_blank" 
                     rel="noreferrer"
                     className="px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-black font-mono text-xs tracking-widest uppercase font-bold inline-flex items-center gap-2.5 shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:shadow-[0_0_40px_rgba(234,179,8,0.75)] hover:scale-[1.02] transition-all cursor-pointer"
@@ -1428,7 +1562,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
         <footer className="relative z-30 px-6 sm:px-12 py-5 flex items-center justify-between border-t border-amber-400/20 bg-[#0B0914]/80 backdrop-blur-2xl shadow-[0_-4px_30px_rgba(0,0,0,0.6)] print:hidden">
           <div className="flex items-center gap-2 font-mono text-[9.5px] tracking-[0.25em] text-white/50 uppercase">
             <span className="text-amber-400/80">[</span>
-            <span>SENSOR: FULL-FRAME 9:16 VERTICAL // 1.33x ANAMORPHIC</span>
+            <span>EVALUATION: SCREEN ACTING & PERFORMANCE ARCHETYPE</span>
             <span className="text-amber-400/80">]</span>
           </div>
 
