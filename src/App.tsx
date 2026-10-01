@@ -50,7 +50,6 @@ import { InfiniteMovingCards } from './components/ui/infinite-moving-cards';
 import { ProjectStoryPage } from './components/ProjectStoryPage';
 import { WorldStoryPage } from './components/WorldStoryPage';
 import OpeningExperience from './components/opening/OpeningExperience';
-import LensScroll from './components/LensScroll';
 import CreativeWorldsSection from './components/CreativeWorldsSection';
 import TalentAssessmentModal from './components/TalentAssessmentModal';
 import { useCMS, recordNewInquiry } from './lib/cmsStore';
@@ -1474,41 +1473,30 @@ export default function App() {
 
             {/* CORE HERO BANNER - 4K AI-UPSCALED CINEMATIC VIDEO HERO */}
             <div id="home" className="relative">
-              {cms.hero.useVideoBackground !== false ? (
-                <div className="relative w-full min-h-[92vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#0B0914]">
-                  {/* 4K AI-Upscaled Video Loop - Pure, Unobstructed Full Screen */}
-                  <div className="absolute inset-0 z-0 overflow-hidden">
-                    {detectVideoPlatform(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4') === 'direct' ? (
-                      <video
-                        src={cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4'}
-                        poster={cms.hero.posterUrl || '/official-mayavi-logo.png'}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full h-full object-cover brightness-[0.92] contrast-[1.04]"
-                      />
-                    ) : (
-                      <iframe
-                        src={getVideoEmbedUrl(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4')}
-                        className="w-full h-full border-0 pointer-events-none scale-125"
-                        allow="autoplay; encrypted-media"
-                      />
-                    )}
-                    {/* Seamless Bottom Gradient Fade into #0B0914 */}
-                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0914] via-[#0B0914]/60 to-transparent pointer-events-none" />
-                  </div>
+              <div className="relative w-full min-h-[92vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#0B0914]">
+                {/* 4K AI-Upscaled Video Loop - Pure, Unobstructed Full Screen */}
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                  {detectVideoPlatform(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4') === 'direct' ? (
+                    <video
+                      src={cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4'}
+                      poster={cms.hero.posterUrl || '/official-mayavi-logo.png'}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover brightness-[0.92] contrast-[1.04]"
+                    />
+                  ) : (
+                    <iframe
+                      src={getVideoEmbedUrl(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4')}
+                      className="w-full h-full border-0 pointer-events-none scale-125"
+                      allow="autoplay; encrypted-media"
+                    />
+                  )}
+                  {/* Seamless Bottom Gradient Fade into #0B0914 */}
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0914] via-[#0B0914]/60 to-transparent pointer-events-none" />
                 </div>
-              ) : (
-                <LensScroll
-                  onExploreWork={() => {
-                    const el = document.getElementById('portfolio');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  onWatchShowreel={() => setShowreelOpen(true)}
-                  onStartProject={() => setContactOpen(true)}
-                />
-              )}
+              </div>
             </div>
 
 

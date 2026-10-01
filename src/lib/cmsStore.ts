@@ -133,7 +133,7 @@ export interface CMSData {
   lastUpdated: string;
 }
 
-const STORAGE_KEY = 'mayavi_cms_store_v3';
+const STORAGE_KEY = 'mayavi_cms_store_v4';
 const AUTH_PASSWORD_KEY = 'mayavi_admin_password_hash';
 const DEFAULT_PASSWORD = 'mayavi2026';
 
@@ -494,6 +494,99 @@ export function getDefaultCMSData(): CMSData {
 }
 
 /**
+ * Normalizes, heals, and sanitizes any CMSData object (from local or cloud)
+ */
+export function sanitizeCMSData(parsed: any): CMSData {
+  const fallback = getDefaultCMSData();
+  if (!parsed || typeof parsed !== 'object') return fallback;
+
+  // Auto-heal legacy placeholder video and contact numbers if found in cache
+  if (parsed.hero?.backgroundVideoUrl?.includes('BigBuckBunny')) {
+    parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
+  }
+  // Auto-heal hero to default to 4K video background
+  if (parsed.hero) {
+    if (!parsed.hero.backgroundVideoUrl || parsed.hero.backgroundVideoUrl === "" || parsed.hero.useVideoBackground === false) {
+      parsed.hero.useVideoBackground = true;
+      parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
+    }
+    if (parsed.hero.ctaPrimaryText === 'START A COMMISSION') {
+      parsed.hero.ctaPrimaryText = 'EXPLORE OUR WORK';
+    }
+    if (!parsed.hero.subheadline || parsed.hero.subheadline.includes('bespoke optical precision')) {
+      parsed.hero.subheadline = fallback.hero.subheadline;
+    }
+  }
+  if (parsed.integrations?.whatsappNumber === '919999999999') {
+    parsed.integrations.whatsappNumber = fallback.integrations.whatsappNumber;
+    parsed.integrations.contactPhone = fallback.integrations.contactPhone;
+    parsed.integrations.contactEmail = fallback.integrations.contactEmail;
+    parsed.integrations.socialInstagram = fallback.integrations.socialInstagram;
+  }
+
+  // Auto-heal curated exhibitions: remove Rickroll links and Unsplash placeholder images
+  if (parsed.curatedExhibitions && Array.isArray(parsed.curatedExhibitions)) {
+    parsed.curatedExhibitions = parsed.curatedExhibitions.map((proj: any) => {
+      let videoUrl = proj.videoUrl || '';
+      let imageUrl = proj.imageUrl || '/posters/media-1.png';
+      if (videoUrl.includes('dQw4w9WgXcQ')) {
+        videoUrl = '';
+      }
+      if (imageUrl.includes('unsplash.com')) {
+        imageUrl = '/posters/media-1.png';
+      }
+      return { ...proj, videoUrl, imageUrl };
+    });
+  }
+
+  // Auto-heal video glimpses: ensure first glimpse has 3D motion loop
+  if (parsed.videoGlimpses && Array.isArray(parsed.videoGlimpses)) {
+    parsed.videoGlimpses = parsed.videoGlimpses.map((glimpse: any, idx: number) => {
+      if (idx === 0 && (!glimpse.videoUrl || glimpse.videoUrl === '')) {
+        return { ...glimpse, videoUrl: '/videos/mayavi-hero.mp4' };
+      }
+      if (glimpse.videoUrl?.includes('dQw4w9WgXcQ')) {
+        return { ...glimpse, videoUrl: '' };
+      }
+      return glimpse;
+    });
+  }
+
+  // Auto-heal showreel chapters: ensure Act I has 3D motion loop
+  if (parsed.showreel?.chapters && Array.isArray(parsed.showreel.chapters)) {
+    parsed.showreel.chapters = parsed.showreel.chapters.map((ch: any, idx: number) => {
+      if (idx === 0 && (!ch.videoUrl || ch.videoUrl === '')) {
+        return { ...ch, videoUrl: '/videos/mayavi-hero.mp4' };
+      }
+      if (ch.videoUrl?.includes('dQw4w9WgXcQ')) {
+        return { ...ch, videoUrl: '' };
+      }
+      return ch;
+    });
+  }
+
+  // Auto-heal about narrative body if blank
+  if (parsed.about && (!parsed.about.body || parsed.about.body.trim() === '')) {
+    parsed.about.body = fallback.about.body;
+  }
+
+  // Ensure all critical top-level properties exist with enforced video hero
+  return {
+    ...fallback,
+    ...parsed,
+    hero: {
+      ...fallback.hero,
+      ...(parsed.hero || {}),
+      useVideoBackground: true,
+      backgroundVideoUrl: parsed.hero?.backgroundVideoUrl || fallback.hero.backgroundVideoUrl
+    },
+    showreel: { ...fallback.showreel, ...(parsed.showreel || {}) },
+    about: { ...fallback.about, ...(parsed.about || {}) },
+    integrations: { ...fallback.integrations, ...(parsed.integrations || {}) }
+  };
+}
+
+/**
  * Reads CMS data from localStorage or initializes with default values
  */
 export function getCMSData(): CMSData {
@@ -506,86 +599,7 @@ export function getCMSData(): CMSData {
       return fallback;
     }
     const parsed = JSON.parse(raw);
-    
-    // Auto-heal legacy placeholder video and contact numbers if found in cache
-    if (parsed.hero?.backgroundVideoUrl?.includes('BigBuckBunny')) {
-      parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
-    }
-    // Auto-heal hero to default to 4K video background
-    if (parsed.hero) {
-      if (!parsed.hero.backgroundVideoUrl || parsed.hero.backgroundVideoUrl === "" || parsed.hero.useVideoBackground === false) {
-        parsed.hero.useVideoBackground = true;
-        parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
-      }
-      if (parsed.hero.ctaPrimaryText === 'START A COMMISSION') {
-        parsed.hero.ctaPrimaryText = 'EXPLORE OUR WORK';
-      }
-      if (!parsed.hero.subheadline || parsed.hero.subheadline.includes('bespoke optical precision')) {
-        parsed.hero.subheadline = fallback.hero.subheadline;
-      }
-    }
-    if (parsed.integrations?.whatsappNumber === '919999999999') {
-      parsed.integrations.whatsappNumber = fallback.integrations.whatsappNumber;
-      parsed.integrations.contactPhone = fallback.integrations.contactPhone;
-      parsed.integrations.contactEmail = fallback.integrations.contactEmail;
-      parsed.integrations.socialInstagram = fallback.integrations.socialInstagram;
-    }
-
-    // Auto-heal curated exhibitions: remove Rickroll links and Unsplash placeholder images
-    if (parsed.curatedExhibitions && Array.isArray(parsed.curatedExhibitions)) {
-      parsed.curatedExhibitions = parsed.curatedExhibitions.map((proj: any) => {
-        let videoUrl = proj.videoUrl || '';
-        let imageUrl = proj.imageUrl || '/posters/media-1.png';
-        if (videoUrl.includes('dQw4w9WgXcQ')) {
-          videoUrl = '';
-        }
-        if (imageUrl.includes('unsplash.com')) {
-          imageUrl = '/posters/media-1.png';
-        }
-        return { ...proj, videoUrl, imageUrl };
-      });
-    }
-
-    // Auto-heal video glimpses: ensure first glimpse has 3D motion loop
-    if (parsed.videoGlimpses && Array.isArray(parsed.videoGlimpses)) {
-      parsed.videoGlimpses = parsed.videoGlimpses.map((glimpse: any, idx: number) => {
-        if (idx === 0 && (!glimpse.videoUrl || glimpse.videoUrl === '')) {
-          return { ...glimpse, videoUrl: '/videos/mayavi-hero.mp4' };
-        }
-        if (glimpse.videoUrl?.includes('dQw4w9WgXcQ')) {
-          return { ...glimpse, videoUrl: '' };
-        }
-        return glimpse;
-      });
-    }
-
-    // Auto-heal showreel chapters: ensure Act I has 3D motion loop
-    if (parsed.showreel?.chapters && Array.isArray(parsed.showreel.chapters)) {
-      parsed.showreel.chapters = parsed.showreel.chapters.map((ch: any, idx: number) => {
-        if (idx === 0 && (!ch.videoUrl || ch.videoUrl === '')) {
-          return { ...ch, videoUrl: '/videos/mayavi-hero.mp4' };
-        }
-        if (ch.videoUrl?.includes('dQw4w9WgXcQ')) {
-          return { ...ch, videoUrl: '' };
-        }
-        return ch;
-      });
-    }
-
-    // Auto-heal about narrative body if blank
-    if (parsed.about && (!parsed.about.body || parsed.about.body.trim() === '')) {
-      parsed.about.body = fallback.about.body;
-    }
-
-    // Ensure all critical top-level properties exist
-    return {
-      ...fallback,
-      ...parsed,
-      hero: { ...fallback.hero, ...(parsed.hero || {}) },
-      showreel: { ...fallback.showreel, ...(parsed.showreel || {}) },
-      about: { ...fallback.about, ...(parsed.about || {}) },
-      integrations: { ...fallback.integrations, ...(parsed.integrations || {}) }
-    };
+    return sanitizeCMSData(parsed);
   } catch (e) {
     console.error('Failed to parse Mayavi CMS data from localStorage:', e);
     return fallback;
@@ -699,14 +713,15 @@ export function useCMS() {
           return;
         }
 
+        const sanitizedCloud = sanitizeCMSData(cloudData);
         const localData = getCMSData();
         const localTime = new Date(localData.lastUpdated || 0).getTime();
-        const cloudTime = new Date(cloudData.lastUpdated || 0).getTime();
+        const cloudTime = new Date(sanitizedCloud.lastUpdated || 0).getTime();
 
         // If cloud data is newer or local is uninitialized default, update local store
         if (cloudTime >= localTime || !localStorage.getItem(STORAGE_KEY)) {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData));
-          setData(cloudData);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizedCloud));
+          setData(sanitizedCloud);
         }
       } catch (err) {
         console.warn('Initial cloud hydration note:', err);
@@ -737,7 +752,7 @@ export function useCMS() {
             { event: '*', schema: 'public', table: 'mayavi_cms', filter: 'id=eq.production' },
             (payload: any) => {
               if (payload.new && payload.new.data) {
-                const remoteData = payload.new.data as CMSData;
+                const remoteData = sanitizeCMSData(payload.new.data);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteData));
                 setData(remoteData);
               }
@@ -770,8 +785,9 @@ export function useCMS() {
       setIsCloudSyncing(true);
       const cloudData = await fetchCMSFromSupabase();
       if (cloudData) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData));
-        setData(cloudData);
+        const sanitized = sanitizeCMSData(cloudData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitized));
+        setData(sanitized);
         return true;
       }
       return false;
