@@ -1479,11 +1479,12 @@ export default function App() {
                   {detectVideoPlatform(cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4') === 'direct' ? (
                     <video
                       src={cms.hero.backgroundVideoUrl || '/videos/mayavi-hero.mp4'}
-                      poster={cms.hero.posterUrl || '/official-mayavi-logo.png'}
+                      poster={cms.hero.posterUrl && cms.hero.posterUrl !== '/official-mayavi-logo.png' ? cms.hero.posterUrl : '/videos/mayavi-hero-poster.jpg'}
                       autoPlay
                       muted
                       loop
                       playsInline
+                      preload="auto"
                       className="w-full h-full object-cover brightness-[0.92] contrast-[1.04]"
                     />
                   ) : (

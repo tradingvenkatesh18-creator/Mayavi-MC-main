@@ -133,7 +133,7 @@ export interface CMSData {
   lastUpdated: string;
 }
 
-const STORAGE_KEY = 'mayavi_cms_store_v4';
+const STORAGE_KEY = 'mayavi_cms_store_v5';
 const AUTH_PASSWORD_KEY = 'mayavi_admin_password_hash';
 const DEFAULT_PASSWORD = 'mayavi2026';
 
@@ -144,7 +144,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
     quote: "We don't simply record light. We calibrate time, tension, and human emotion into permanent moving art.",
     backgroundVideoUrl: "/videos/mayavi-hero.mp4", // 4K AI-upscaled cinematic video loop
     useVideoBackground: true, // Default to 4K AI-upscaled video hero
-    posterUrl: "/official-mayavi-logo.png",
+    posterUrl: "/videos/mayavi-hero-poster.jpg",
     locationTag: "STUDIO STAGE A // HYDERABAD",
     cameraTag: "ARRI ALEXA LF // ZEISS SUPREME 35MM",
     ctaPrimaryText: "EXPLORE OUR WORK",
@@ -510,6 +510,9 @@ export function sanitizeCMSData(parsed: any): CMSData {
       parsed.hero.useVideoBackground = true;
       parsed.hero.backgroundVideoUrl = fallback.hero.backgroundVideoUrl;
     }
+    if (!parsed.hero.posterUrl || parsed.hero.posterUrl === '/official-mayavi-logo.png') {
+      parsed.hero.posterUrl = fallback.hero.posterUrl;
+    }
     if (parsed.hero.ctaPrimaryText === 'START A COMMISSION') {
       parsed.hero.ctaPrimaryText = 'EXPLORE OUR WORK';
     }
@@ -570,7 +573,7 @@ export function sanitizeCMSData(parsed: any): CMSData {
     parsed.about.body = fallback.about.body;
   }
 
-  // Ensure all critical top-level properties exist with enforced video hero
+  // Ensure all critical top-level properties exist with enforced video hero and clean poster
   return {
     ...fallback,
     ...parsed,
@@ -578,7 +581,8 @@ export function sanitizeCMSData(parsed: any): CMSData {
       ...fallback.hero,
       ...(parsed.hero || {}),
       useVideoBackground: true,
-      backgroundVideoUrl: parsed.hero?.backgroundVideoUrl || fallback.hero.backgroundVideoUrl
+      backgroundVideoUrl: parsed.hero?.backgroundVideoUrl || fallback.hero.backgroundVideoUrl,
+      posterUrl: (parsed.hero?.posterUrl && parsed.hero.posterUrl !== '/official-mayavi-logo.png') ? parsed.hero.posterUrl : fallback.hero.posterUrl
     },
     showreel: { ...fallback.showreel, ...(parsed.showreel || {}) },
     about: { ...fallback.about, ...(parsed.about || {}) },
