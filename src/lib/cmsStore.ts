@@ -118,6 +118,31 @@ export interface StoredInquiry {
   status: 'new' | 'contacted' | 'archived';
 }
 
+export type GazetteCategory = 'CONTEST' | 'DIRECTOR_TIP' | 'STUDIO_NEWS' | 'TALENT_SPOTLIGHT';
+
+export interface GazettePost {
+  id: string;
+  title: string;
+  category: GazetteCategory;
+  date: string;
+  badgeText: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  imageUrl?: string;
+  actionText?: string;
+  actionUrl?: string;
+  published: boolean;
+  featured: boolean;
+}
+
+export interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  date: string;
+  source?: string;
+}
+
 export interface CMSData {
   hero: HeroConfig;
   videoGlimpses: VideoGlimpse[];
@@ -131,6 +156,8 @@ export interface CMSData {
   about: AboutConfig;
   integrations: InquiryConfig;
   inquiries: StoredInquiry[];
+  gazettePosts: GazettePost[];
+  newsletterSubscribers: NewsletterSubscriber[];
   lastUpdated: string;
 }
 
@@ -488,6 +515,82 @@ export const DEFAULT_CMS_DATA: CMSData = {
       status: "contacted"
     }
   ],
+  gazettePosts: [
+    {
+      id: "post-1",
+      title: "Prince & Princess of South India (Season 2) — Priority Casting Call",
+      category: "CONTEST",
+      date: "OCTOBER 2026",
+      badgeText: "PRIORITY AUDITIONS // TELANGANA & AP",
+      excerpt: "Calling emerging models, actors, and commercial screen talent. Selected finalists receive dedicated portfolio mentoring, runway geometry coaching, and direct casting representation under Mayavi Media.",
+      content: "Mayavi Media Creations announces the official casting screening for Prince & Princess of South India Season 2. Direct auditions are held in Hyderabad with opportunities for television, luxury brand commercial campaigns, and digital originals. Finalists will undergo our proprietary screen-test immersion.",
+      author: "Vishishta Saxena // Founder & CEO",
+      imageUrl: "/posters/casting-call-prince-princess.png",
+      actionText: "Apply via Audition Hotline",
+      actionUrl: "https://wa.me/919971410306?text=Greetings%20Vishishta!%20I%20am%20applying%20for%20Prince%20%26%20Princess%20of%20South%20India%20Season%202%20auditions.",
+      published: true,
+      featured: true
+    },
+    {
+      id: "post-2",
+      title: "Mastering Camera Geometry: The 3 Rules for Runway & Screen Tests",
+      category: "DIRECTOR_TIP",
+      date: "OCTOBER 2026",
+      badgeText: "CAMERA CRAFT // MASTERCLASS NOTE",
+      excerpt: "Stillness communicates power more than frantic movement. Before your next screen audition, remember: anchor your breath, hold your eyeline two inches above the matte box, and let your eyes reveal intention.",
+      content: "When shooting on anamorphic glass or wide cinema sensors, exaggerated physical gestures look unnatural. Here are the 3 foundational keys I teach in our masterclass:\n1. Eyeline Calibration: Never glance between eyes rapidly; choose one pupil and hold focus.\n2. Micro-Movement: Let stillness build tension. The lens magnifies every subtle nuance.\n3. Vocal Resonance: Project from your diaphragm, not your throat, especially with lavalier and boom microphones.",
+      author: "Vishishta Saxena // Founder & CEO",
+      imageUrl: "/posters/theatre-modelling-workshop.png",
+      actionText: "Talent Mentorship Direct",
+      actionUrl: "https://wa.me/919971410306?text=Greetings%20Vishishta!%20I%20read%20your%20Camera%20Geometry%20tip%20and%20would%20love%20a%20talent%20mentorship%20session.",
+      published: true,
+      featured: false
+    },
+    {
+      id: "post-3",
+      title: "Tamada Media & Mayavi Align on High-Concept Digital Series",
+      category: "STUDIO_NEWS",
+      date: "SEPTEMBER 2026",
+      badgeText: "STRATEGIC ALLIANCE // SLATE EXPANSION",
+      excerpt: "Mayavi Media Creations deepens its digital production slate through strategic collaboration with Tamada Media, bringing theatrical visual standards to next-generation regional streaming formats.",
+      content: "In our ongoing mission to elevate South India's creative ecosystem, Mayavi Media Creations has forged an extended collaborative slate with Tamada Media. Uniting cinematic grade production with cutting-edge digital distribution, this alliance bridges theatrical storytelling and digital mass reach.",
+      author: "Vishishta Saxena // Founder & CEO",
+      imageUrl: "/posters/media-2.png",
+      actionText: "Explore Slate Details",
+      actionUrl: "#portfolio",
+      published: true,
+      featured: false
+    },
+    {
+      id: "post-4",
+      title: "Spotlight: 40 Emerging Performers Graduate Hyderabad Improv Immersion",
+      category: "TALENT_SPOTLIGHT",
+      date: "SEPTEMBER 2026",
+      badgeText: "TALENT ENDORSEMENT // THEATRE LAB",
+      excerpt: "Under our mantra 'Building people before brands,' we celebrate the 40 courageous creators, models, and actors who conquered camera anxiety in our intensive stage workshop.",
+      content: "True presence cannot be faked. In our recent Hyderabad masterclass, participants aged 8 to 45 engaged in physical theatre, spontaneous scene improvisations, and high-fashion posture work. Several standout performers have already been recommended for upcoming studio casting calls.",
+      author: "Vishishta Saxena // Founder & CEO",
+      imageUrl: "/posters/theatre-modelling-recap.png",
+      actionText: "Register for Next Batch",
+      actionUrl: "https://wa.me/919971410306?text=Greetings%20Vishishta!%20I%20would%20love%20to%20register%20for%20the%20next%20Hyderabad%20Theatre%20%26%20Modelling%20Masterclass.",
+      published: true,
+      featured: false
+    }
+  ],
+  newsletterSubscribers: [
+    {
+      id: "sub-1",
+      email: "casting.director@telugucinema.com",
+      date: "2026-09-28 10:30",
+      source: "website_gazette"
+    },
+    {
+      id: "sub-2",
+      email: "ananya.sharma@talentagency.in",
+      date: "2026-10-02 16:45",
+      source: "website_gazette"
+    }
+  ],
   lastUpdated: new Date().toISOString()
 };
 
@@ -611,7 +714,13 @@ export function sanitizeCMSData(parsed: any): CMSData {
     },
     showreel: { ...fallback.showreel, ...(parsed.showreel || {}) },
     about: { ...fallback.about, ...(parsed.about || {}) },
-    integrations: { ...fallback.integrations, ...(parsed.integrations || {}) }
+    integrations: { ...fallback.integrations, ...(parsed.integrations || {}) },
+    gazettePosts: (parsed.gazettePosts && Array.isArray(parsed.gazettePosts) && parsed.gazettePosts.length > 0)
+      ? parsed.gazettePosts
+      : fallback.gazettePosts,
+    newsletterSubscribers: (parsed.newsletterSubscribers && Array.isArray(parsed.newsletterSubscribers))
+      ? parsed.newsletterSubscribers
+      : fallback.newsletterSubscribers
   };
 }
 
@@ -720,6 +829,50 @@ export function recordNewInquiry(inquiry: Omit<StoredInquiry, 'id' | 'date' | 's
   cms.inquiries = [newEntry, ...(cms.inquiries || [])];
   saveCMSData(cms);
   return newEntry;
+}
+
+export function recordNewsletterSubscriber(email: string, source: string = 'website_gazette'): { success: boolean; message: string } {
+  const cleanEmail = email.trim().toLowerCase();
+  if (!cleanEmail || !cleanEmail.includes('@') || !cleanEmail.includes('.')) {
+    return { success: false, message: 'Please enter a valid email address.' };
+  }
+  const cms = getCMSData();
+  const existing = (cms.newsletterSubscribers || []).find(s => s.email.toLowerCase() === cleanEmail);
+  if (existing) {
+    return { success: true, message: 'You are already registered for the Founder’s Dispatch.' };
+  }
+  const newSub: NewsletterSubscriber = {
+    id: `sub-${Date.now()}`,
+    email: cleanEmail,
+    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    source
+  };
+  cms.newsletterSubscribers = [newSub, ...(cms.newsletterSubscribers || [])];
+  saveCMSData(cms);
+  return { success: true, message: 'Welcome to the Mayavi Studio Circle. Priority dispatches will reach your inbox.' };
+}
+
+export function addGazettePost(post: Omit<GazettePost, 'id'>): GazettePost {
+  const cms = getCMSData();
+  const newPost: GazettePost = {
+    id: `post-${Date.now()}`,
+    ...post
+  };
+  cms.gazettePosts = [newPost, ...(cms.gazettePosts || [])];
+  saveCMSData(cms);
+  return newPost;
+}
+
+export function updateGazettePost(updatedPost: GazettePost): void {
+  const cms = getCMSData();
+  cms.gazettePosts = (cms.gazettePosts || []).map(p => p.id === updatedPost.id ? updatedPost : p);
+  saveCMSData(cms);
+}
+
+export function deleteGazettePost(id: string): void {
+  const cms = getCMSData();
+  cms.gazettePosts = (cms.gazettePosts || []).filter(p => p.id !== id);
+  saveCMSData(cms);
 }
 
 /**

@@ -52,6 +52,7 @@ import { WorldStoryPage } from './components/WorldStoryPage';
 import OpeningExperience from './components/opening/OpeningExperience';
 import CreativeWorldsSection from './components/CreativeWorldsSection';
 import TalentAssessmentModal from './components/TalentAssessmentModal';
+import GazetteSection from './components/GazetteSection';
 import { useCMS, recordNewInquiry } from './lib/cmsStore';
 import AdminDashboard from './components/admin/AdminDashboard';
 import AdminLogin from './components/admin/AdminLogin';
@@ -1311,7 +1312,7 @@ export default function App() {
 
                 {/* Centered Navigation */}
                 <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink-0 z-10">
-                  {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'CONTACT'].map((item) => {
+                  {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'GAZETTE', 'CONTACT'].map((item) => {
                     const itemLower = item.toLowerCase();
                     const isActive = activeSection === itemLower;
                     const targetId = itemLower === 'testimonials' ? 'client-stories' : itemLower;
@@ -1401,7 +1402,7 @@ export default function App() {
                     className="lg:hidden w-full bg-[#090717]/95 backdrop-blur-2xl border border-white/10 rounded-2xl mt-2 overflow-hidden shadow-2xl p-6 space-y-4"
                   >
                     <div className="space-y-3">
-                      {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'CONTACT'].map((item) => {
+                      {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'GAZETTE', 'CONTACT'].map((item) => {
                         const itemLower = item.toLowerCase();
                         const isActive = activeSection === itemLower;
                         const targetId = itemLower === 'testimonials' ? 'client-stories' : itemLower;
@@ -2240,6 +2241,18 @@ export default function App() {
               </div>
             </section>
 
+            {/* SECTION 07.5 — THE STUDIO GAZETTE & FOUNDER'S DISPATCH */}
+            <GazetteSection
+              posts={cms.gazettePosts || []}
+              founderName={cms.about.directorName || 'Vishishta Saxena'}
+              onSelectAction={(url) => {
+                if (url.startsWith('#')) {
+                  const el = document.querySelector(url);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            />
+
             {/* CONTACT SECTION — START YOUR STORY */}
             <section id="contact" className="relative z-10 pt-20 pb-28 lg:pt-28 lg:pb-36 bg-[#050505] overflow-visible border-t border-white/5">
               {/* Subtle geometric watermark backdrop (3-5% opacity) */}
@@ -2503,6 +2516,7 @@ export default function App() {
                         { name: 'Process', href: '#process' },
                         { name: 'Collaborations', href: '#collaborations' },
                         { name: 'Client Stories', href: '#client-stories' },
+                        { name: 'The Gazette', href: '#gazette' },
                         { name: 'Start Your Story', href: '#contact' },
                         { name: 'Contact', href: '#contact' }
                       ].map((link, idx) => (

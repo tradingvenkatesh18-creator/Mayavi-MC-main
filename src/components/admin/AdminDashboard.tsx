@@ -40,7 +40,12 @@ import {
   AlertCircle,
   Code,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  Newspaper,
+  Trophy,
+  Lightbulb,
+  Star,
+  Mail
 } from 'lucide-react';
 import {
   CMSData,
@@ -49,6 +54,11 @@ import {
   VideoGlimpse,
   CoreService,
   StoredInquiry,
+  GazettePost,
+  NewsletterSubscriber,
+  addGazettePost,
+  updateGazettePost,
+  deleteGazettePost,
   useCMS,
   saveCMSData,
   setAdminPassword,
@@ -142,8 +152,14 @@ interface AdminDashboardProps {
 export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   const { cms, updateCMS, resetCMS, isCloudSyncing, reloadFromCloud } = useCMS();
   const [activeTab, setActiveTab] = useState<
-    'overview' | 'hero-glimpses' | 'showreel' | 'portfolio' | 'services-about' | 'integrations' | 'security'
+    'overview' | 'hero-glimpses' | 'showreel' | 'portfolio' | 'services-about' | 'gazette' | 'integrations' | 'security'
   >('overview');
+
+  // Gazette & Founder Posts State
+  const [editingPost, setEditingPost] = useState<GazettePost | null>(null);
+  const [isNewPost, setIsNewPost] = useState<boolean>(false);
+  const [postSearch, setPostSearch] = useState<string>('');
+  const [postCategoryFilter, setPostCategoryFilter] = useState<string>('ALL');
 
   // Notification Banner
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -939,6 +955,78 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
     return matchesCategory && matchesSearch;
   });
 
+  // Export Subscribers to CSV
+  const handleExportSubscribersCSV = () => {
+    const subs = cms.newsletterSubscribers || [];
+    if (subs.length === 0) {
+      showToast('No newsletter subscribers to export yet.');
+      return;
+    }
+    const headers = ['"Email Address"', '"Date Subscribed"', '"Acquisition Source"'];
+    const rows = subs.map((sub) => [
+      `"${sub.email}"`,
+      `"${sub.date}"`,
+      `"${sub.source || 'website_gazette'}"`
+    ]);
+    const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mayavi-subscribers-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(`Downloaded ${subs.length} VIP subscribers CSV!`);
+  };
+
+  // Filtered gazette posts
+  const filteredGazettePosts = (cms.gazettePosts || []).filter((post) => {
+    const matchesCategory =
+      postCategoryFilter === 'ALL' || post.category === postCategoryFilter;
+    const matchesSearch =
+      post.title.toLowerCase().includes(postSearch.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(postSearch.toLowerCase()) ||
+      (post.badgeText || '').toLowerCase().includes(postSearch.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const handleSavePost = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingPost) return;
+    if (!editingPost.title.trim()) {
+      showToast('Please provide a post title.');
+      return;
+    }
+    if (isNewPost) {
+      const created = addGazettePost(editingPost);
+      showToast(`Published "${created.title}" successfully!`);
+    } else {
+      updateGazettePost(editingPost);
+      showToast(`Updated "${editingPost.title}" successfully!`);
+    }
+    setEditingPost(null);
+    setIsNewPost(false);
+  };
+
+  const handleDeletePost = (id: string, title: string) => {
+    if (window.confirm(`Are you sure you want to delete "${title}"?`)) {
+      deleteGazettePost(id);
+      showToast(`Deleted "${title}".`);
+    }
+  };
+
+  const handleTogglePublishPost = (post: GazettePost) => {
+    const updated = { ...post, published: !post.published };
+    updateGazettePost(updated);
+    showToast(updated.published ? `Published "${post.title}" live!` : `Unpublished "${post.title}" to draft.`);
+  };
+
+  const handleToggleFeaturedPost = (post: GazettePost) => {
+    const updated = { ...post, featured: !post.featured };
+    updateGazettePost(updated);
+    showToast(updated.featured ? `Pinned "${post.title}" as featured!` : `Unpinned "${post.title}".`);
+  };
+
   return (
     <div className="min-h-screen bg-[#07050C] text-white flex flex-col font-sans selection:bg-[#EAB308] selection:text-black relative">
       
@@ -1091,7 +1179,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
               <span>DIRECTORIAL SECTIONS</span>
             </div>
-            <span className="font-mono text-[8px] text-white/30 tracking-widest">[ 07 MODS ]</span>
+            <span className="font-mono text-[8px] text-white/30 tracking-widest">[ 08 MODS ]</span>
           </div>
 
           {[
@@ -1100,6 +1188,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             { id: 'showreel', label: 'Showreel Player', icon: Film, badge: `${cms.showreel.chapters.length}` },
             { id: 'portfolio', label: 'Curated Exhibitions', icon: FolderKanban, badge: `${cms.curatedExhibitions.length}` },
             { id: 'services-about', label: 'Core Services & Story', icon: FileText },
+            { id: 'gazette', label: 'Studio Gazette & Tips', icon: Newspaper, badge: `${(cms.gazettePosts || []).length}` },
             { id: 'integrations', label: 'Sheets & WhatsApp', icon: Sheet, badge: `${cms.inquiries.length}` },
             { 
               id: 'security', 
@@ -3562,6 +3651,543 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </div>
               </div>
 
+            </div>
+          )}
+
+          {/* TAB: STUDIO GAZETTE & FOUNDER UPDATES */}
+          {activeTab === 'gazette' && (
+            <div className="space-y-10">
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                    FOUNDER'S GAZETTE &amp; TALENT LAB
+                  </span>
+                  <h1 className="text-3xl font-light font-serif italic text-white mt-1">
+                    Studio Gazette &amp; Founder Updates
+                  </h1>
+                  <p className="text-white/50 text-xs font-sans mt-1">
+                    Publish audition calls, director craft tips, studio news, and endorse emerging talent curated by Vishishta Saxena.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsNewPost(true);
+                    setEditingPost({
+                      id: `post-${Date.now()}`,
+                      title: '',
+                      category: 'CONTEST',
+                      date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase(),
+                      badgeText: 'PRIORITY AUDITIONS',
+                      excerpt: '',
+                      content: '',
+                      author: `${cms.about.directorName || 'Vishishta Saxena'} // Founder & CEO`,
+                      imageUrl: '',
+                      actionText: 'Apply via Audition Hotline',
+                      actionUrl: `https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Greetings%20Vishishta!%20I%20am%20applying%20for%20the%20latest%20Mayavi%20auditions.`,
+                      published: true,
+                      featured: false
+                    });
+                  }}
+                  className="px-5 py-3 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-extrabold tracking-wider uppercase flex items-center space-x-2 transition-all shadow-[0_0_20px_rgba(234,179,8,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                >
+                  <Plus size={16} />
+                  <span>NEW ANNOUNCEMENT / TIP</span>
+                </button>
+              </div>
+
+              {/* STATS OVERVIEW CARDS */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
+                  <div className="flex items-center justify-between text-white/50">
+                    <span className="font-mono text-[9px] uppercase tracking-wider">LIVE POSTS</span>
+                    <Newspaper size={14} className="text-[#EAB308]" />
+                  </div>
+                  <div className="text-2xl font-serif font-light text-white">
+                    {(cms.gazettePosts || []).filter(p => p.published).length}
+                  </div>
+                  <span className="font-mono text-[8px] text-white/40 block uppercase">
+                    {(cms.gazettePosts || []).length} TOTAL CREATED
+                  </span>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
+                  <div className="flex items-center justify-between text-white/50">
+                    <span className="font-mono text-[9px] uppercase tracking-wider">AUDITIONS / CONTESTS</span>
+                    <Trophy size={14} className="text-[#b00045]" />
+                  </div>
+                  <div className="text-2xl font-serif font-light text-white">
+                    {(cms.gazettePosts || []).filter(p => p.category === 'CONTEST').length}
+                  </div>
+                  <span className="font-mono text-[8px] text-[#b00045] block uppercase font-bold">
+                    ACTIVE CASTING PIPELINES
+                  </span>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
+                  <div className="flex items-center justify-between text-white/50">
+                    <span className="font-mono text-[9px] uppercase tracking-wider">DIRECTOR TIPS</span>
+                    <Lightbulb size={14} className="text-[#f7e503]" />
+                  </div>
+                  <div className="text-2xl font-serif font-light text-white">
+                    {(cms.gazettePosts || []).filter(p => p.category === 'DIRECTOR_TIP').length}
+                  </div>
+                  <span className="font-mono text-[8px] text-[#f7e503] block uppercase font-bold">
+                    CRAFT &amp; CAMERA GUIDES
+                  </span>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
+                  <div className="flex items-center justify-between text-white/50">
+                    <span className="font-mono text-[9px] uppercase tracking-wider">VIP SUBSCRIBERS</span>
+                    <Mail size={14} className="text-[#a2d865]" />
+                  </div>
+                  <div className="text-2xl font-serif font-light text-[#a2d865]">
+                    {(cms.newsletterSubscribers || []).length}
+                  </div>
+                  <button
+                    onClick={handleExportSubscribersCSV}
+                    className="font-mono text-[8.5px] text-amber-400 hover:underline uppercase block cursor-pointer"
+                  >
+                    EXPORT CSV FILE ↓
+                  </button>
+                </div>
+              </div>
+
+              {/* POST FILTER & SEARCH CONTROLS */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/10">
+                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+                  {[
+                    { id: 'ALL', label: 'All Dispatches' },
+                    { id: 'CONTEST', label: 'Castings & Contests' },
+                    { id: 'DIRECTOR_TIP', label: "Director's Tips" },
+                    { id: 'STUDIO_NEWS', label: 'Studio News' },
+                    { id: 'TALENT_SPOTLIGHT', label: 'Talent Spotlight' }
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setPostCategoryFilter(cat.id)}
+                      className={`px-3 py-1.5 rounded-full font-mono text-[8.5px] tracking-widest uppercase transition-all whitespace-nowrap cursor-pointer ${
+                        postCategoryFilter === cat.id
+                          ? 'bg-[#EAB308] text-black font-bold shadow-[0_0_12px_rgba(234,179,8,0.3)]'
+                          : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="relative min-w-[240px]">
+                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+                  <input
+                    type="text"
+                    value={postSearch}
+                    onChange={(e) => setPostSearch(e.target.value)}
+                    placeholder="Search dispatches..."
+                    className="w-full pl-9 pr-4 py-2 bg-black/40 border border-white/10 rounded-xl text-xs font-mono text-white placeholder-white/40 focus:outline-none focus:border-[#EAB308]"
+                  />
+                </div>
+              </div>
+
+              {/* POSTS LIST */}
+              <div className="space-y-4">
+                {filteredGazettePosts.length === 0 ? (
+                  <div className="p-12 text-center rounded-2xl bg-white/[0.02] border border-white/10">
+                    <p className="text-white/40 font-mono text-xs uppercase tracking-wider">
+                      No matching posts found. Click "+ NEW ANNOUNCEMENT / TIP" above to publish one!
+                    </p>
+                  </div>
+                ) : (
+                  filteredGazettePosts.map((post) => (
+                    <div
+                      key={post.id}
+                      className="p-5 md:p-6 rounded-2xl bg-[#0D091B] border border-white/10 hover:border-white/20 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
+                    >
+                      <div className="space-y-2 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className={`px-2.5 py-0.5 rounded-full font-mono text-[7.5px] tracking-widest uppercase font-bold ${
+                            post.category === 'CONTEST'
+                              ? 'bg-[#b00045]/20 text-[#f0ebd8] border border-[#b00045]/50'
+                              : post.category === 'DIRECTOR_TIP'
+                              ? 'bg-[#400582]/40 text-[#f7e503] border border-[#f7e503]/50'
+                              : post.category === 'STUDIO_NEWS'
+                              ? 'bg-[#a2d865]/20 text-[#a2d865] border border-[#a2d865]/40'
+                              : 'bg-[#f7e503]/20 text-[#f7e503] border border-[#f7e503]/50'
+                          }`}>
+                            {post.category.replace('_', ' ')}
+                          </span>
+
+                          <span className="font-mono text-[8px] text-white/40 tracking-wider uppercase">
+                            {post.date}
+                          </span>
+
+                          {post.badgeText && (
+                            <span className="font-mono text-[8px] text-[#f7e503] uppercase font-bold tracking-wider">
+                              • {post.badgeText}
+                            </span>
+                          )}
+
+                          {post.featured && (
+                            <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono text-[7px] uppercase font-bold tracking-widest">
+                              ★ PINNED
+                            </span>
+                          )}
+
+                          <span className={`px-2 py-0.5 rounded-full font-mono text-[7px] uppercase tracking-widest font-bold ${
+                            post.published
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : 'bg-white/10 text-white/50 border border-white/20'
+                          }`}>
+                            {post.published ? 'LIVE ON SITE' : 'DRAFT'}
+                          </span>
+                        </div>
+
+                        <h3 className="font-serif text-lg md:text-xl text-white font-medium">
+                          {post.title}
+                        </h3>
+
+                        <p className="text-white/60 font-sans text-xs line-clamp-2 max-w-3xl leading-relaxed">
+                          {post.excerpt}
+                        </p>
+
+                        <div className="flex items-center gap-4 text-white/40 font-mono text-[8px] tracking-wider pt-1">
+                          <span>{post.author || `By ${cms.about.directorName || 'Vishishta Saxena'}`}</span>
+                          {post.actionText && (
+                            <span className="text-[#f7e503]">
+                              CTA: {post.actionText} →
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Card Action Buttons */}
+                      <div className="flex items-center gap-2 shrink-0 self-end md:self-center">
+                        <button
+                          type="button"
+                          onClick={() => handleTogglePublishPost(post)}
+                          className={`px-3 py-2 rounded-xl font-mono text-[8.5px] uppercase tracking-wider transition-all cursor-pointer ${
+                            post.published
+                              ? 'bg-white/5 hover:bg-white/10 text-white/60 hover:text-white border border-white/10'
+                              : 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 font-bold'
+                          }`}
+                        >
+                          {post.published ? 'Hide' : 'Publish'}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleToggleFeaturedPost(post)}
+                          className={`p-2 rounded-xl font-mono text-[8.5px] uppercase tracking-wider transition-all cursor-pointer border ${
+                            post.featured
+                              ? 'bg-amber-400/20 border-amber-400/50 text-amber-300'
+                              : 'bg-white/5 border-white/10 text-white/40 hover:text-white'
+                          }`}
+                          title={post.featured ? 'Unpin post' : 'Pin to top'}
+                        >
+                          <Star size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsNewPost(false);
+                            setEditingPost(post);
+                          }}
+                          className="p-2 rounded-xl bg-white/5 hover:bg-white/15 text-white/70 hover:text-white border border-white/10 transition-all cursor-pointer"
+                          title="Edit announcement"
+                        >
+                          <Edit3 size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeletePost(post.id, post.title)}
+                          className="p-2 rounded-xl bg-red-500/10 hover:bg-red-500/25 text-red-400 border border-red-500/20 transition-all cursor-pointer"
+                          title="Delete post"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* VIP NEWSLETTER SUBSCRIBERS TABLE */}
+              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-white/10 pb-4">
+                  <div className="flex items-center space-x-3">
+                    <Mail className="text-[#a2d865]" size={20} />
+                    <div>
+                      <h2 className="text-xl font-serif italic text-white">
+                        VIP Studio Circle Subscribers
+                      </h2>
+                      <p className="text-white/50 text-xs font-sans">
+                        Audience members who subscribed for audition drops and directorial dispatches.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleExportSubscribersCSV}
+                    className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 hover:text-white font-mono text-xs tracking-wider uppercase flex items-center space-x-2 transition-all cursor-pointer"
+                  >
+                    <Download size={14} />
+                    <span>EXPORT SUBSCRIBERS (.CSV)</span>
+                  </button>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs font-sans">
+                    <thead>
+                      <tr className="border-b border-white/10 text-white/40 font-mono text-[9px] uppercase tracking-wider">
+                        <th className="py-3 px-4">SUBSCRIBER EMAIL</th>
+                        <th className="py-3 px-4">JOINED DATE</th>
+                        <th className="py-3 px-4">ACQUISITION SOURCE</th>
+                        <th className="py-3 px-4">STATUS</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {(cms.newsletterSubscribers || []).map((sub) => (
+                        <tr key={sub.id} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="py-3 px-4 font-mono text-white/90 font-medium">
+                            {sub.email}
+                          </td>
+                          <td className="py-3 px-4 text-white/50 font-mono text-[10px]">
+                            {sub.date}
+                          </td>
+                          <td className="py-3 px-4 text-white/40 font-mono text-[9px] uppercase">
+                            {sub.source || 'website_gazette'}
+                          </td>
+                          <td className="py-3 px-4">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[8px] uppercase tracking-widest font-semibold">
+                              <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                              VERIFIED VIP
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* POST EDITOR / CREATOR MODAL */}
+              {editingPost && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+                  <div
+                    onClick={() => setEditingPost(null)}
+                    className="fixed inset-0 bg-black/85 backdrop-blur-md"
+                  />
+
+                  <div className="relative w-full max-w-3xl bg-[#0e0a20] border border-white/15 rounded-3xl p-6 md:p-8 shadow-2xl z-10 max-h-[90vh] overflow-y-auto text-left space-y-6">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                      <div>
+                        <span className="font-mono text-[8px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+                          {isNewPost ? 'CREATE NEW DISPATCH' : 'EDIT DISPATCH'}
+                        </span>
+                        <h3 className="font-serif text-2xl text-white italic mt-1">
+                          {editingPost.title || 'Untitled Dispatch'}
+                        </h3>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setEditingPost(null)}
+                        className="p-2 rounded-full bg-white/5 hover:bg-white/15 text-white/60 hover:text-white cursor-pointer"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+
+                    <form onSubmit={handleSavePost} className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-1.5 md:col-span-2">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Title / Announcement Headline *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={editingPost.title}
+                            onChange={(e) => setEditingPost({ ...editingPost, title: e.target.value })}
+                            placeholder="e.g. Prince & Princess of South India (Season 2) Auditions"
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-sans focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Category *
+                          </label>
+                          <select
+                            value={editingPost.category}
+                            onChange={(e) => setEditingPost({ ...editingPost, category: e.target.value as any })}
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-[#EAB308]"
+                          >
+                            <option value="CONTEST">Castings &amp; Contests</option>
+                            <option value="DIRECTOR_TIP">Director's Craft &amp; Tips</option>
+                            <option value="STUDIO_NEWS">Studio News</option>
+                            <option value="TALENT_SPOTLIGHT">Talent Spotlight &amp; Endorsement</option>
+                          </select>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Badge Sub-Header Tag
+                          </label>
+                          <input
+                            type="text"
+                            value={editingPost.badgeText || ''}
+                            onChange={(e) => setEditingPost({ ...editingPost, badgeText: e.target.value })}
+                            placeholder="e.g. PRIORITY AUDITIONS // TELANGANA & AP"
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Date Tag
+                          </label>
+                          <input
+                            type="text"
+                            value={editingPost.date}
+                            onChange={(e) => setEditingPost({ ...editingPost, date: e.target.value })}
+                            placeholder="e.g. OCTOBER 2026"
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Author Attribution
+                          </label>
+                          <input
+                            type="text"
+                            value={editingPost.author || ''}
+                            onChange={(e) => setEditingPost({ ...editingPost, author: e.target.value })}
+                            placeholder="e.g. Vishishta Saxena // Founder & CEO"
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-sans focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Call to Action Button Label
+                          </label>
+                          <input
+                            type="text"
+                            value={editingPost.actionText || ''}
+                            onChange={(e) => setEditingPost({ ...editingPost, actionText: e.target.value })}
+                            placeholder="e.g. Apply via Audition Hotline"
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Call to Action Destination URL / Link
+                          </label>
+                          <input
+                            type="text"
+                            value={editingPost.actionUrl || ''}
+                            onChange={(e) => setEditingPost({ ...editingPost, actionUrl: e.target.value })}
+                            placeholder="e.g. https://wa.me/919971410306?text=... or #portfolio"
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5 md:col-span-2">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Poster / Image URL (Optional)
+                          </label>
+                          <input
+                            type="text"
+                            value={editingPost.imageUrl || ''}
+                            onChange={(e) => setEditingPost({ ...editingPost, imageUrl: e.target.value })}
+                            placeholder="e.g. /posters/casting-call-prince-princess.png"
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5 md:col-span-2">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Brief Excerpt / Summary (Card View) *
+                          </label>
+                          <textarea
+                            rows={3}
+                            required
+                            value={editingPost.excerpt}
+                            onChange={(e) => setEditingPost({ ...editingPost, excerpt: e.target.value })}
+                            placeholder="Summary of the contest, tip, or news shown on the homepage card..."
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-sans leading-relaxed focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5 md:col-span-2">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Full Directional Advice / Announcement Details (Modal View)
+                          </label>
+                          <textarea
+                            rows={5}
+                            value={editingPost.content || ''}
+                            onChange={(e) => setEditingPost({ ...editingPost, content: e.target.value })}
+                            placeholder="Full detailed advice, requirements, eligibility, rules..."
+                            className="w-full px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-sans leading-relaxed focus:outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        <div className="flex items-center space-x-6 md:col-span-2 pt-2">
+                          <label className="flex items-center space-x-2.5 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={editingPost.published}
+                              onChange={(e) => setEditingPost({ ...editingPost, published: e.target.checked })}
+                              className="w-4 h-4 rounded text-[#EAB308] focus:ring-0 bg-black/40 border-white/20"
+                            />
+                            <span className="font-mono text-xs text-white uppercase tracking-wider font-semibold">
+                              Published (Visible Live on Website)
+                            </span>
+                          </label>
+
+                          <label className="flex items-center space-x-2.5 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={editingPost.featured}
+                              onChange={(e) => setEditingPost({ ...editingPost, featured: e.target.checked })}
+                              className="w-4 h-4 rounded text-amber-400 focus:ring-0 bg-black/40 border-white/20"
+                            />
+                            <span className="font-mono text-xs text-amber-300 uppercase tracking-wider font-semibold">
+                              Pinned / Featured Highlight
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="pt-4 border-t border-white/10 flex items-center justify-end space-x-3">
+                        <button
+                          type="button"
+                          onClick={() => setEditingPost(null)}
+                          className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 font-mono text-xs uppercase tracking-wider cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="px-6 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.3)]"
+                        >
+                          <Save size={14} />
+                          <span>SAVE &amp; PUBLISH DISPATCH</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
