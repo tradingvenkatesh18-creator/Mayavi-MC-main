@@ -13,6 +13,7 @@ export default function Logo({
   className = '', 
   iconSize = 'sm',
   useOfficial = false,
+  theme = 'dark',
 }: LogoProps) {
   // Height sizing mapping for maximum visibility across headers and footers
   const heightMap = {
