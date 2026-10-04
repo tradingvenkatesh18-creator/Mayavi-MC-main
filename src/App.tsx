@@ -144,7 +144,7 @@ const FEATURED_PROJECTS: CinematicProject[] = [
     storyBrief: "Premier casting and talent scouting platform for emerging models, actors, and media personalities.",
     editorialSentence: "Stepping into the spotlight — unlimited applications and priority industry selection.",
     detailedStory: "Official casting announcement and scouting campaign for Season 2 of Prince & Princess of South India across Andhra Pradesh and Telangana. Designed to discover raw, high-potential screen talent and connect them directly with mainstream film, TV, and luxury brand commercial directors.",
-    behindTheScenes: "Coordinated across Hyderabad with multi-stage audition screen tests and direct WhatsApp audition hotline (+91 63017 61783).",
+    behindTheScenes: "Coordinated across Hyderabad with multi-stage audition screen tests and direct WhatsApp audition hotline (+91 9971410306).",
     productionProcess: [
       { step: "01", title: "Regional Scouting Call", desc: "Deploying targeted casting invitations across AP and Telangana creative networks." },
       { step: "02", title: "Runway & Screen Test", desc: "Evaluating photogenic presence, movement geometry, and camera confidence under cinema lights." },
@@ -1067,7 +1067,7 @@ export default function App() {
 • Narrative Vision: ${clientBrief}`;
 
     const encodedText = encodeURIComponent(textMessage);
-    const whatsappNum = cms.integrations.whatsappNumber || '916301761783';
+    const whatsappNum = cms.integrations.whatsappNumber || '919971410306';
     const whatsappUrl = `https://wa.me/${whatsappNum}?text=${encodedText}`;
 
     // Record inquiry locally into CMS store for admin dashboard review
@@ -1618,8 +1618,8 @@ export default function App() {
                   {/* Quiet signature block & CTA */}
                   <div className="pt-4 border-t border-white/5 flex items-center justify-between">
                     <div className="space-y-1">
-                      <p className="font-serif italic text-sm text-white/90">Mayavi Media Creations</p>
-                      <p className="font-mono text-[8px] tracking-[0.2em] text-[#EAB308]/60 uppercase">Creative House // Hyderabad</p>
+                      <p className="font-serif italic text-sm text-white/90">{cms.about.directorName || 'Vishishta Saxena'}</p>
+                      <p className="font-mono text-[8px] tracking-[0.2em] text-[#f7e503]/80 uppercase">{cms.about.directorTitle || 'Founder & CEO // Mayavi Media Creations'}</p>
                     </div>
 
                     <button
@@ -1740,7 +1740,7 @@ export default function App() {
                           <div className="flex justify-between items-center pt-2">
                             <button
                               onClick={() => {
-                                window.open("https://wa.me/916301761783?text=Hello%20Mayavi!%20I'm%20interested%20in%20the%20Content%20Creator%20hiring%20opportunity.%20I%20would%20love%20to%20apply%20and%20share%20my%20resume/profile.", '_blank');
+                                window.open(`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Hello%20Mayavi!%20I'm%20interested%20in%20the%20Content%20Creator%20hiring%20opportunity.%20I%20would%20love%20to%20apply%20and%20share%20my%20resume/profile.`, '_blank');
                               }}
                               className="inline-flex items-center space-x-1.5 text-[9px] font-mono text-amber-400 hover:text-white transition-colors cursor-pointer"
                             >
@@ -2036,7 +2036,7 @@ export default function App() {
                   <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4 relative z-30">
                     <button
                       onClick={() => {
-                        window.open("https://wa.me/916301761783?text=Hello%20Mayavi!%20I'm%20interested%20in%20starting%20a%20project%20and%20would%20love%20to%20initiate%20a%20creative%20inquiry%20regarding%20your%20production%20services.", '_blank');
+                        window.open(`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Hello%20Mayavi!%20I'm%20interested%20in%20starting%20a%20project%20and%20would%20love%20to%20initiate%20a%20creative%20inquiry%20regarding%20your%20production%20services.`, '_blank');
                       }}
                       className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.2em] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-500 shadow-[0_0_30px_rgba(234,179,8,0.45)] hover:shadow-[0_0_45px_rgba(234,179,8,0.7)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
                     >
@@ -2277,14 +2277,14 @@ export default function App() {
                           
                           <div className="space-y-1 pl-1">
                             <p className="font-serif text-lg text-white font-light group-hover:text-amber-100 transition-colors">
-                              Hyderabad, Telangana, India
+                              {cms.integrations.studioAddress || 'Yapral, 500094 Hyd Telangana'}
                             </p>
                             <p className="font-sans text-xs text-white/50 font-light">
-                              Film Nagar, Jubilee Hills Soundstage Complex
+                              Hyderabad, Telangana, India
                             </p>
-                            <div className="pt-1.5 flex items-center space-x-2 text-[9px] font-mono text-[#EAB308] tracking-widest uppercase">
-                              <Globe size={11} className="text-[#EAB308]" />
-                              <span>AVAILABLE FOR GLOBAL COMMISSIONS</span>
+                            <div className="pt-1.5 flex items-center space-x-2 text-[9px] font-mono text-[#f7e503] tracking-widest uppercase">
+                              <Globe size={11} className="text-[#f7e503]" />
+                              <span>www.mayavistudios.com</span>
                             </div>
                           </div>
                         </div>
@@ -2293,14 +2293,14 @@ export default function App() {
                         <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] via-[#120B24]/70 to-white/[0.02] border border-amber-400/25 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] group">
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center space-x-2">
-                              <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#EAB308]">
+                              <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#f7e503]">
                                 <MessageSquare size={14} />
                               </div>
                               <span className="font-mono text-[9px] font-bold text-amber-300/90 tracking-[0.25em] uppercase">
                                 DIRECT CONNECT
                               </span>
                             </div>
-                            <span className="px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-[#EAB308] font-mono text-[8px] font-bold tracking-wider">
+                            <span className="px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-[#f7e503] font-mono text-[8px] font-bold tracking-wider">
                               PRIORITY HOTLINE
                             </span>
                           </div>
@@ -2308,45 +2308,45 @@ export default function App() {
                           <div className="space-y-2 pl-1">
                             {/* Email Link */}
                             <a
-                              href="mailto:mayavistudios25@gmail.com"
+                              href={`mailto:${cms.integrations.contactEmail || 'mayavistudios25@gmail.com'}`}
                               className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
                             >
                               <div className="flex items-center space-x-2.5 min-w-0">
-                                <Mail size={13} className="text-[#EAB308] shrink-0" />
-                                <span className="font-sans text-xs truncate">mayavistudios25@gmail.com</span>
+                                <Mail size={13} className="text-[#f7e503] shrink-0" />
+                                <span className="font-sans text-xs truncate">{cms.integrations.contactEmail || 'mayavistudios25@gmail.com'}</span>
                               </div>
-                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#EAB308] transition-colors shrink-0 ml-2" />
+                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#f7e503] transition-colors shrink-0 ml-2" />
                             </a>
 
                             {/* Phone / WhatsApp Link */}
                             <a
-                              href="https://wa.me/916301761783"
+                              href={`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
                             >
                               <div className="flex items-center space-x-2.5 min-w-0">
-                                <Phone size={13} className="text-[#EAB308] shrink-0" />
-                                <span className="font-mono text-xs">+91 63017 61783</span>
+                                <Phone size={13} className="text-[#f7e503] shrink-0" />
+                                <span className="font-mono text-xs">{cms.integrations.contactPhone || '+91 9971410306'}</span>
                               </div>
                               <div className="flex items-center space-x-1.5 shrink-0 ml-2">
                                 <span className="text-[8px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">WhatsApp</span>
-                                <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#EAB308] transition-colors" />
+                                <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#f7e503] transition-colors" />
                               </div>
                             </a>
 
                             {/* Instagram Link */}
                             <a
-                              href="https://www.instagram.com/mayavi_mediacreations/"
+                              href={cms.integrations.socialInstagram || 'https://www.instagram.com/mayavi_mediacreations/'}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
                             >
                               <div className="flex items-center space-x-2.5 min-w-0">
-                                <Instagram size={13} className="text-[#EAB308] shrink-0" />
+                                <Instagram size={13} className="text-[#f7e503] shrink-0" />
                                 <span className="font-mono text-xs text-amber-300/90 tracking-wider">@mayavi_mediacreations</span>
                               </div>
-                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#EAB308] transition-colors shrink-0 ml-2" />
+                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#f7e503] transition-colors shrink-0 ml-2" />
                             </a>
                           </div>
                         </div>
@@ -2388,7 +2388,7 @@ export default function App() {
                       </button>
 
                       <a
-                        href="https://wa.me/916301761783"
+                        href={`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full sm:w-auto px-6 py-4 rounded-full text-xs font-mono tracking-[0.18em] border border-white/15 bg-white/5 hover:bg-white/10 text-white/80 hover:text-white transition-all text-center uppercase"
@@ -2520,7 +2520,7 @@ export default function App() {
                           { icon: <Instagram size={14} />, href: 'https://instagram.com/mayavi_mediacreations', label: 'Instagram' },
                           { icon: <Youtube size={14} />, href: 'https://youtube.com/mayavimedia', label: 'YouTube' },
                           { icon: <Linkedin size={14} />, href: 'https://linkedin.com/company/mayavimedia', label: 'LinkedIn' },
-                          { icon: <MessageSquare size={14} />, href: 'https://wa.me/916301761783?text=Greetings%20Mayavi!%20I%20watched%20your%20showcase%20and%20would%20love%20to%20collaborate%20on%20a%20premium%20visual%20project%20together.', label: 'WhatsApp' },
+                          { icon: <MessageSquare size={14} />, href: `https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Greetings%20Mayavi!%20I%20watched%20your%20showcase%20and%20would%20love%20to%20collaborate%20on%20a%20premium%20visual%20project%20together.`, label: 'WhatsApp' },
                           { icon: <Mail size={14} />, href: 'mailto:mayavistudios25@gmail.com', label: 'Email' }
                         ].map((social, idx) => (
                           <a

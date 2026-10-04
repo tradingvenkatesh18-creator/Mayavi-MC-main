@@ -103,6 +103,7 @@ export interface InquiryConfig {
   socialInstagram: string;
   socialYoutube: string;
   socialLinkedin: string;
+  websiteUrl?: string;
 }
 
 export interface StoredInquiry {
@@ -310,7 +311,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
       storyBrief: "Premier casting and talent scouting platform for emerging models, actors, and media personalities.",
       editorialSentence: "Stepping into the spotlight — unlimited applications and priority industry selection.",
       detailedStory: "Official casting announcement and scouting campaign for Season 2 of Prince & Princess of South India across Andhra Pradesh and Telangana. Designed to discover raw, high-potential screen talent and connect them directly with mainstream film, TV, and luxury brand commercial directors.",
-      behindTheScenes: "Coordinated across Hyderabad with multi-stage audition screen tests and direct WhatsApp audition hotline (+91 63017 61783).",
+      behindTheScenes: "Coordinated across Hyderabad with multi-stage audition screen tests and direct WhatsApp audition hotline (+91 9971410306).",
       results: "Ranked as one of the most anticipated regional pageant and screen discovery platforms in South India for 2026.",
       scenes: ["/posters/casting-call-prince-princess.png", "/images/talent-creators-audition.jpg", "/images/hiring-content-creators-yellow.jpg"],
       featured: true
@@ -448,19 +449,20 @@ export const DEFAULT_CMS_DATA: CMSData = {
     stat2Label: "Years of craft",
     stat3Value: "98%",
     stat3Label: "Client belief",
-    directorName: "Mayavi Directorial Guild",
-    directorTitle: "Lead Creative Directors & Cinematographers"
+    directorName: "Vishishta Saxena",
+    directorTitle: "Founder & CEO, Mayavi Media Creations"
   },
   integrations: {
     googleSheetsWebhookUrl: "https://script.google.com/macros/s/AKfycbz_SAMPLE_MAYAVI_APP_SCRIPT_URL/exec",
-    whatsappNumber: "916301761783",
+    whatsappNumber: "919971410306",
     whatsappMessageTemplate: "Hello Mayavi Media! I would like to inquire about a cinematic production for {category}. Name: {name}, Phone: {phone}.",
     contactEmail: "mayavistudios25@gmail.com",
-    contactPhone: "+91 63017 61783",
-    studioAddress: "Soundstage 4, Film Nagar, Jubilee Hills, Hyderabad, Telangana 500096",
+    contactPhone: "+91 9971410306",
+    studioAddress: "Yapral, 500094 Hyd Telangana",
     socialInstagram: "https://www.instagram.com/mayavi_mediacreations/",
     socialYoutube: "https://youtube.com/@mayavi_mediacreations",
-    socialLinkedin: "https://linkedin.com/company/mayavi-media-creations"
+    socialLinkedin: "https://linkedin.com/company/mayavi-media-creations",
+    websiteUrl: "https://www.mayavistudios.com"
   },
   inquiries: [
     {
@@ -520,11 +522,34 @@ export function sanitizeCMSData(parsed: any): CMSData {
       parsed.hero.subheadline = fallback.hero.subheadline;
     }
   }
-  if (parsed.integrations?.whatsappNumber === '919999999999') {
-    parsed.integrations.whatsappNumber = fallback.integrations.whatsappNumber;
-    parsed.integrations.contactPhone = fallback.integrations.contactPhone;
-    parsed.integrations.contactEmail = fallback.integrations.contactEmail;
-    parsed.integrations.socialInstagram = fallback.integrations.socialInstagram;
+  // Auto-heal contact details and founder info to enforce official Brand Guidelines
+  if (parsed.integrations) {
+    if (parsed.integrations.whatsappNumber === '919999999999' || parsed.integrations.whatsappNumber === '916301761783' || !parsed.integrations.whatsappNumber) {
+      parsed.integrations.whatsappNumber = fallback.integrations.whatsappNumber;
+    }
+    if (parsed.integrations.contactPhone === '+91 63017 61783' || !parsed.integrations.contactPhone) {
+      parsed.integrations.contactPhone = fallback.integrations.contactPhone;
+    }
+    if (!parsed.integrations.studioAddress || parsed.integrations.studioAddress.includes('Film Nagar') || parsed.integrations.studioAddress.includes('Soundstage 4')) {
+      parsed.integrations.studioAddress = fallback.integrations.studioAddress;
+    }
+    if (!parsed.integrations.contactEmail) {
+      parsed.integrations.contactEmail = fallback.integrations.contactEmail;
+    }
+    if (!parsed.integrations.socialInstagram) {
+      parsed.integrations.socialInstagram = fallback.integrations.socialInstagram;
+    }
+    if (!parsed.integrations.websiteUrl) {
+      parsed.integrations.websiteUrl = fallback.integrations.websiteUrl;
+    }
+  }
+
+  // Auto-heal leadership to official Founder & CEO Vishishta Saxena
+  if (parsed.about) {
+    if (!parsed.about.directorName || parsed.about.directorName === 'Mayavi Directorial Guild') {
+      parsed.about.directorName = fallback.about.directorName;
+      parsed.about.directorTitle = fallback.about.directorTitle;
+    }
   }
 
   // Auto-heal curated exhibitions: remove Rickroll links and Unsplash placeholder images

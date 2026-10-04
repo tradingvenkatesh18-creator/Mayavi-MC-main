@@ -56,7 +56,7 @@ export function WorldStoryPage({
 • Message: ${enrollMessage}`;
 
     const encodedText = encodeURIComponent(textMessage);
-    const whatsappUrl = `https://wa.me/916301761783?text=${encodedText}`;
+    const whatsappUrl = `https://wa.me/919971410306?text=${encodedText}`;
 
     // Open WhatsApp in a new tab
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');

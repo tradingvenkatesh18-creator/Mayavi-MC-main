@@ -43,11 +43,11 @@ export default function Logo({
         alt="Mayavi Emblem Logo" 
         className={`${heightMap[iconSize]} w-auto object-contain brightness-110 contrast-110 drop-shadow-[0_0_12px_rgba(234,179,8,0.35)] transition-all duration-300 hover:scale-105 shrink-0`}
       />
-      {/* 2nd Image: logo.png with vivid white contrast */}
+      {/* 2nd Image: logo-alabaster.png with official #f0ebd8 Alabaster cream text & #b00045 dot (Page 13 Brand Guidelines) */}
       <img 
-        src="/logo.png" 
+        src={theme === 'light' ? "/logo.png" : "/logo-alabaster.png"} 
         alt="Mayavi Brand Text Logo" 
-        className={`${heightMap[iconSize]} w-auto object-contain brightness-110 contrast-105 drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)] transition-all duration-300 hover:scale-105 shrink-0`}
+        className={`${heightMap[iconSize]} w-auto object-contain brightness-105 contrast-105 drop-shadow-[0_2px_12px_rgba(240,235,216,0.25)] transition-all duration-300 hover:scale-105 shrink-0`}
       />
     </div>
   );

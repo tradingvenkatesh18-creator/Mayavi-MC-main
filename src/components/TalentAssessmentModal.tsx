@@ -1505,7 +1505,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                 {/* Bottom Actions - #22 Liquid Glass */}
                 <div className="flex flex-wrap gap-4 pt-3">
                   <a 
-                    href={`https://wa.me/916301761783?text=${encodeURIComponent(`Hello Mayavi Casting, I have completed the Director's Room Screen Test: ${archetype.title} (Dossier Ref: ${dossierId}). Preferred Role: ${SCENES[12]?.options[userChoices[12]]?.title || 'Lead'}. Scores: Improv: ${scorePercentages.improv}%, Emotion: ${scorePercentages.emotion}%, Camera: ${scorePercentages.camera}%, Imagination: ${scorePercentages.imag}%. I would love to audition for upcoming projects.`)}`}
+                    href={`https://wa.me/919971410306?text=${encodeURIComponent(`Hello Mayavi Casting, I have completed the Director's Room Screen Test: ${archetype.title} (Dossier Ref: ${dossierId}). Preferred Role: ${SCENES[12]?.options[userChoices[12]]?.title || 'Lead'}. Scores: Improv: ${scorePercentages.improv}%, Emotion: ${scorePercentages.emotion}%, Camera: ${scorePercentages.camera}%, Imagination: ${scorePercentages.imag}%. I would love to audition for upcoming projects.`)}`}
                     target="_blank" 
                     rel="noreferrer"
                     className="px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-black font-mono text-xs tracking-widest uppercase font-bold inline-flex items-center gap-2.5 shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:shadow-[0_0_40px_rgba(234,179,8,0.75)] hover:scale-[1.02] transition-all cursor-pointer"

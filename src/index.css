@@ -1,18 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Syne", "Playfair Display", Georgia, serif;
-  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Raleway", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", "Syne", Georgia, serif;
+  --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
   --font-mono: "Space Grotesk", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-accent: #EAB308; /* Precious Rich Golden Yellow */
-  --color-brand-black: #0B0914; /* Deep Onyx */
+  /* Mayavi Brand Guidelines Official Palette */
+  --color-accent: #f7e503; /* Vibrant Solar Yellow */
+  --color-brand-yellow: #f7e503; /* Solar Yellow Primary */
+  --color-brand-yellow-tint: #faee65; /* Solar Yellow Tint 70% */
+  --color-brand-purple: #400582; /* Deep Royal Purple Primary */
+  --color-brand-purple-tint: #7b51a8; /* Royal Purple Tint 60% */
+  --color-brand-purple-light: #b19ccc; /* Royal Purple Tint 30% */
+  --color-brand-green: #a2d865; /* Pistachio Fresh Green */
+  --color-brand-green-tint: #c7e8a3; /* Pistachio Green Tint 60% */
+  --color-brand-alabaster: #f0ebd8; /* Warm Alabaster Cream (Logo on dark bg) */
+  --color-brand-charcoal: #333333; /* Dark Charcoal Noir */
+  --color-brand-crimson: #b00045; /* Crimson Accent Dot */
+  --color-brand-black: #0B0914; /* Deep Onyx Background */
   --color-brand-dark: #0B0914; /* Deep Cinematic Onyx */
-  --color-brand-purple: #6D28D9; /* Royal Purple */
-  --color-brand-violet: #2E1065; /* Imperial Violet */
-  --color-brand-ivory: #FDFBF7; /* Warm Ivory */
-  --color-brand-charcoal: #1E1E24; /* Muted Charcoal */
+  --color-brand-ivory: #f0ebd8; /* Warm Alabaster Cream Ivory */
+  --color-brand-violet: #400582; /* Deep Royal Purple */
 }
 
 /* Custom premium scrollbar */
