@@ -2062,26 +2062,60 @@ export default function App() {
               <div className="absolute bottom-1/4 right-1/10 w-[350px] h-[350px] bg-amber-950/10 rounded-full blur-[130px] pointer-events-none" />
 
               {/* Section Title — Large, Elegant, Editorial */}
-              <div className="max-w-7xl mx-auto px-6 md:px-12 mb-20 lg:mb-28 text-left animate-fade-in">
+              <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16 lg:mb-20 text-left animate-fade-in">
                 <div className="max-w-3xl space-y-4">
+                  {/* Founder Leadership Badge */}
+                  <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#400582]/40 border border-[#f7e503]/35 backdrop-blur-md shadow-[0_0_20px_rgba(247,229,3,0.15)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f7e503] animate-pulse" />
+                    <span className="font-mono text-[8.5px] tracking-[0.25em] text-[#f7e503] uppercase font-bold">
+                      CURATED BY FOUNDER &amp; CEO // VISHISHTA SAXENA
+                    </span>
+                  </div>
+
                   <h2 className="text-4xl md:text-6xl font-light font-serif text-white tracking-wide leading-tight">
                     Collaborations That Matter
                   </h2>
-                  <p className="text-white/50 font-sans text-sm md:text-base leading-relaxed tracking-wide font-light max-w-2xl">
-                    We operate at the quiet intersection of artistic preservation and corporate vision. Here are the partners and collaborators that have shaped our shared legacy.
+
+                  <p className="text-white/70 font-sans text-sm md:text-base leading-relaxed tracking-wide font-light max-w-2xl">
+                    Every alliance represents a deliberate bridge between artistic cinema and industry influence. Connected, spearheaded, and collaborated directly under the vision of Founder &amp; CEO <span className="text-[#f7e503] font-semibold font-serif italic text-base md:text-lg">Vishishta Saxena</span>, these strategic partnerships unite Mayavi with South India's premier broadcast networks, production houses, and visionary brand leaders.
                   </p>
+
+                  {/* Founder Identity Card */}
+                  <div className="pt-2 flex flex-wrap items-center gap-4">
+                    <div className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/10 hover:border-[#f7e503]/40 transition-colors shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#400582] via-[#7b51a8] to-[#f7e503]/40 border border-[#f7e503]/50 flex items-center justify-center text-xs font-serif italic text-[#f0ebd8] font-bold shadow-[0_0_15px_rgba(247,229,3,0.25)]">
+                        VS
+                      </div>
+                      <div>
+                        <p className="font-serif italic text-sm text-white font-medium">Vishishta Saxena</p>
+                        <p className="font-mono text-[8px] tracking-[0.2em] text-[#f7e503] uppercase font-semibold">Founder &amp; CEO • Executive Curator</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-2 text-white/50 font-mono text-[9px] tracking-wider uppercase">
+                      <Sparkles size={11} className="text-[#f7e503]" />
+                      <span>Executive Directorial Network</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Selected Collaborations */}
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="space-y-6">
-                  <div className="flex items-center space-x-3 text-left">
-                    <span className="font-mono text-[8.5px] text-[#EAB308] tracking-[0.25em] uppercase font-bold">SELECTED COLLABORATORS</span>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-3 text-left">
+                    <div className="flex items-center space-x-3">
+                      <span className="font-mono text-[8.5px] text-[#f7e503] tracking-[0.25em] uppercase font-bold">
+                        SELECTED COLLABORATORS &amp; ALLIANCES
+                      </span>
+                    </div>
+                    <span className="font-mono text-[8px] text-white/40 tracking-wider uppercase">
+                      CURATED UNDER VISHISHTA SAXENA
+                    </span>
                   </div>
 
                   {/* Elegant, premium spacing. Wordmarks/monochrome brand layout */}
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-10">
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-8">
                     {[
                       { name: 'Tamada Media', sub: 'Digital Networks', category: 'PARTNER' },
                       { name: 'TeluguOne', sub: 'Media Broadcasts', category: 'NETWORK' },
@@ -2096,31 +2130,31 @@ export default function App() {
                     ].map((brand, i) => (
                       <div
                         key={i}
-                        className="relative overflow-hidden bg-[#0a071b]/40 backdrop-blur-md border border-white/[0.06] rounded-xl p-6 flex flex-col justify-between text-left group hover:border-[#EAB308]/30 hover:-translate-y-1.5 hover:scale-[1.03] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] transition-all duration-500 min-h-[150px] cursor-pointer"
+                        className="relative overflow-hidden bg-[#0a071b]/40 backdrop-blur-md border border-white/[0.06] rounded-xl p-6 flex flex-col justify-between text-left group hover:border-[#f7e503]/40 hover:-translate-y-1.5 hover:scale-[1.03] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] transition-all duration-500 min-h-[150px] cursor-pointer"
                       >
                         {/* Subtle color glow backlights on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/5 to-[#EAB308]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-[#400582]/10 to-[#f7e503]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                         {/* Top: Category Tag & Decorative Accent */}
                         <div className="flex items-center justify-between w-full relative z-10">
-                          <span className="font-mono text-[7px] tracking-[0.25em] text-[#EAB308] font-bold uppercase">
+                          <span className="font-mono text-[7px] tracking-[0.25em] text-[#f7e503] font-bold uppercase">
                             {brand.category}
                           </span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-white/10 group-hover:bg-[#EAB308]/80 group-hover:scale-110 transition-all duration-300" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-white/10 group-hover:bg-[#f7e503] group-hover:scale-110 transition-all duration-300" />
                         </div>
 
                         {/* Middle: Brand name */}
                         <div className="space-y-1 relative z-10 my-4">
-                          <h4 className="font-serif text-sm md:text-base lg:text-lg text-white/50 group-hover:text-white transition-colors duration-300 font-light leading-snug">
+                          <h4 className="font-serif text-sm md:text-base lg:text-lg text-white/60 group-hover:text-white transition-colors duration-300 font-light leading-snug">
                             {brand.name}
                           </h4>
-                          <p className="font-mono text-[7px] tracking-[0.2em] text-white/20 group-hover:text-[#EAB308]/80 transition-colors duration-300 uppercase">
+                          <p className="font-mono text-[7px] tracking-[0.2em] text-white/25 group-hover:text-[#f7e503]/90 transition-colors duration-300 uppercase">
                             {brand.sub}
                           </p>
                         </div>
 
                         {/* Bottom details line */}
-                        <div className="w-full h-[1px] bg-white/[0.03] group-hover:bg-[#EAB308]/20 transition-colors duration-300 relative z-10" />
+                        <div className="w-full h-[1px] bg-white/[0.03] group-hover:bg-[#f7e503]/30 transition-colors duration-300 relative z-10" />
                       </div>
                     ))}
                   </div>
