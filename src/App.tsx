@@ -41,7 +41,9 @@ import {
   Menu,
   Lock,
   Eye,
-  ExternalLink
+  ExternalLink,
+  Clock,
+  ShieldCheck
 } from 'lucide-react';
 
 import Logo from './components/Logo';
@@ -2272,182 +2274,319 @@ export default function App() {
               }}
             />
 
-            {/* CONTACT SECTION — START YOUR STORY */}
-            <section id="contact" className="relative z-10 pt-20 pb-28 lg:pt-28 lg:pb-36 bg-[#050505] overflow-visible border-t border-white/5">
-              {/* Subtle geometric watermark backdrop (3-5% opacity) */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] opacity-[0.03] stroke-white stroke-[0.5]" fill="none">
-                  <rect x="150" y="150" width="600" height="600" rx="20" strokeDasharray="5 5" />
-                  <circle cx="450" cy="450" r="300" />
-                  <circle cx="450" cy="450" r="150" strokeDasharray="10 15" />
-                  <line x1="450" y1="0" x2="450" y2="900" />
-                  <line x1="0" y1="450" x2="900" y2="450" />
+            {/* CONTACT SECTION — START YOUR STORY (OPTION E: CINEMATIC FRAMING RIBBONS & TELEMETRY DOCK) */}
+            <section id="contact" className="relative z-10 pt-20 pb-24 lg:pt-28 lg:pb-32 bg-[#07020e] overflow-hidden border-t border-white/5 select-none">
+              {/* Atmospheric Ambient Glows & Pattern-3 Backdrop Mesh */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+                <div className="absolute -top-24 -left-24 w-[550px] h-[550px] bg-[#410682]/25 rounded-full blur-[140px]" />
+                <div className="absolute top-1/4 -right-20 w-[550px] h-[550px] bg-[#b00045]/20 rounded-full blur-[140px]" />
+                <div className="absolute -bottom-20 left-1/3 w-[500px] h-[500px] bg-[#a2d865]/10 rounded-full blur-[130px]" />
+                
+                {/* Diamond Matrix Watermark Pattern (Continuity with Footer pattern-3.svg) */}
+                <div 
+                  className="absolute inset-0 opacity-[0.035] pointer-events-none"
+                  style={{
+                    backgroundImage: "url('/patterns/pattern-3.svg')",
+                    backgroundRepeat: 'repeat',
+                    backgroundSize: '180px 180px',
+                  }}
+                />
+              </div>
+
+              {/* CINEMATIC FRAMING RIBBONS (OPTION E SIGNATURE AESTHETIC) */}
+              {/* Top-Left Ribbon Cluster (Pistachio + Purple + Crimson) */}
+              <div className="absolute -top-16 -left-16 sm:-left-8 w-[380px] sm:w-[540px] lg:w-[680px] h-[480px] sm:h-[620px] pointer-events-none select-none z-0 opacity-85">
+                <svg className="w-full h-full" viewBox="0 0 680 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="optEGreenTL" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#bced78" />
+                      <stop offset="45%" stopColor="#a2d865" />
+                      <stop offset="100%" stopColor="#639430" />
+                    </linearGradient>
+                    <linearGradient id="optEPurpleTL" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#7522c7" />
+                      <stop offset="50%" stopColor="#410682" />
+                      <stop offset="100%" stopColor="#1e0240" />
+                    </linearGradient>
+                    <linearGradient id="optECrimsonTL" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#e32d69" />
+                      <stop offset="50%" stopColor="#b00045" />
+                      <stop offset="100%" stopColor="#630026" />
+                    </linearGradient>
+                    <filter id="ribbonGlowTL" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="12" stdDeviation="16" floodColor="#000000" floodOpacity="0.6" />
+                    </filter>
+                  </defs>
+                  {/* Green Ribbon - Outer flowing sweep */}
+                  <path
+                    d="M-40 40 C 140 70, 310 160, 270 340 C 230 490, 60 550, -30 580"
+                    stroke="url(#optEGreenTL)"
+                    strokeWidth="38"
+                    strokeLinecap="round"
+                    filter="url(#ribbonGlowTL)"
+                  />
+                  {/* Purple Ribbon - Middle undulating sweep */}
+                  <path
+                    d="M-30 95 C 150 120, 275 210, 235 385 C 195 520, 75 580, -20 610"
+                    stroke="url(#optEPurpleTL)"
+                    strokeWidth="32"
+                    strokeLinecap="round"
+                  />
+                  {/* Crimson Ribbon - Inner silk sweep */}
+                  <path
+                    d="M-20 145 C 160 170, 240 260, 200 425 C 160 550, 90 610, -10 635"
+                    stroke="url(#optECrimsonTL)"
+                    strokeWidth="26"
+                    strokeLinecap="round"
+                  />
                 </svg>
-                <div className="absolute top-1/4 right-5 w-[450px] h-[450px] bg-purple-950/15 rounded-full blur-[130px]" />
-                <div className="absolute bottom-1/4 left-5 w-[450px] h-[450px] bg-amber-950/10 rounded-full blur-[130px]" />
+              </div>
+
+              {/* Top-Right & Bottom-Right Framing Ribbon Cluster (Crimson + Purple + Pistachio) */}
+              <div className="absolute -top-12 -right-16 sm:-right-8 w-[380px] sm:w-[540px] lg:w-[700px] h-[550px] sm:h-[750px] pointer-events-none select-none z-0 opacity-85">
+                <svg className="w-full h-full" viewBox="0 0 700 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="optECrimsonTR" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#e32d69" />
+                      <stop offset="50%" stopColor="#b00045" />
+                      <stop offset="100%" stopColor="#630026" />
+                    </linearGradient>
+                    <linearGradient id="optEPurpleTR" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#7522c7" />
+                      <stop offset="50%" stopColor="#410682" />
+                      <stop offset="100%" stopColor="#1e0240" />
+                    </linearGradient>
+                    <linearGradient id="optEGreenTR" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#bced78" />
+                      <stop offset="50%" stopColor="#a2d865" />
+                      <stop offset="100%" stopColor="#639430" />
+                    </linearGradient>
+                    <filter id="ribbonGlowTR" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="14" stdDeviation="18" floodColor="#000000" floodOpacity="0.65" />
+                    </filter>
+                  </defs>
+                  {/* Crimson Ribbon - Outer swoop */}
+                  <path
+                    d="M720 50 C 510 80, 400 230, 460 420 C 515 580, 620 700, 720 780"
+                    stroke="url(#optECrimsonTR)"
+                    strokeWidth="38"
+                    strokeLinecap="round"
+                    filter="url(#ribbonGlowTR)"
+                  />
+                  {/* Purple Ribbon - Middle undulating swoop */}
+                  <path
+                    d="M730 100 C 530 135, 440 275, 495 455 C 545 605, 645 720, 730 795"
+                    stroke="url(#optEPurpleTR)"
+                    strokeWidth="32"
+                    strokeLinecap="round"
+                  />
+                  {/* Pistachio Ribbon - Inner silky sweep */}
+                  <path
+                    d="M740 150 C 550 190, 480 320, 530 490 C 575 630, 670 740, 740 810"
+                    stroke="url(#optEGreenTR)"
+                    strokeWidth="26"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </div>
 
               <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
-                {/* Section Title — Elegant Editorial Header */}
-                <div className="mb-14 lg:mb-20 text-left max-w-4xl space-y-4">
-                  <div className="inline-flex items-center gap-2 font-mono text-[9px] text-[#EAB308] tracking-[0.3em] uppercase font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                    <span>START YOUR STORY</span>
+                {/* SECTION TITLE — CENTERED EDITORIAL HEADER (OPTION E SIGNATURE) */}
+                <div className="flex flex-col items-center justify-center text-center space-y-4 mb-14 lg:mb-20 max-w-3xl mx-auto">
+                  {/* Brand Seal */}
+                  <div className="flex flex-col items-center gap-1 opacity-90">
+                    <span className="font-serif text-lg tracking-[0.35em] text-white/80 font-normal">MAYAVI</span>
+                    <span className="text-[8.5px] font-mono tracking-[0.3em] text-white/40 uppercase">MEDIA CREATIONS</span>
                   </div>
+
+                  {/* Category Pill */}
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-amber-400/25 backdrop-blur-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="font-mono text-[9px] text-amber-300 tracking-[0.28em] uppercase font-bold">
+                      START YOUR STORY
+                    </span>
+                  </div>
+
+                  {/* Headline */}
                   <h2 className="text-4xl md:text-6xl font-light font-serif text-white tracking-wide leading-tight">
                     Every Great Story Begins <br className="hidden md:block" /> With A Conversation
                   </h2>
+
+                  {/* Subquote */}
                   <p className="font-serif italic text-xl md:text-2xl text-amber-200/85 font-light tracking-wide pt-1">
                     "The finest stories are written together."
                   </p>
-                  <div className="h-[1px] w-24 bg-gradient-to-r from-[#EAB308]/60 to-transparent mt-4" />
+
+                  <div className="h-[1px] w-28 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mt-2" />
                 </div>
 
-                {/* Luxury Split Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+                {/* DUAL FROSTED GLASS SLATE ARCHITECTURE */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch mb-8">
 
-                  {/* Left Side: Editorial Storytelling (45%) */}
-                  <div className="lg:col-span-5 space-y-10 text-left relative">
-                    <div className="relative z-10 space-y-8">
-                      <div className="space-y-4">
-                        <span className="font-mono text-[8px] text-[#EAB308] tracking-widest uppercase block font-semibold">
-                          OUR APPROACH
+                  {/* LEFT SLATE: OUR APPROACH & STUDIO LOCATION */}
+                  <div className="lg:col-span-6 rounded-3xl bg-[#090717]/85 border border-white/10 backdrop-blur-2xl p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.08)] flex flex-col justify-between space-y-8 text-left relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-64 h-64 bg-[#410682]/15 rounded-full blur-[100px] pointer-events-none" />
+
+                    <div className="relative z-10 space-y-4">
+                      <span className="font-mono text-[8.5px] text-[#EAB308] tracking-widest uppercase block font-semibold">
+                        OUR APPROACH:
+                      </span>
+                      <h3 className="font-serif text-2xl sm:text-3xl text-white font-light leading-snug">
+                        Tailored Productions for Ambitious Stories.
+                      </h3>
+                      <p className="text-white/60 text-xs sm:text-sm leading-relaxed font-light font-sans">
+                        Every project is customized to your exact creative vision, target audience, and brand goals. We collaborate closely with founders, creators, and brands to deliver films that truly connect.
+                      </p>
+                    </div>
+
+                    {/* STUDIO LOCATION CARD */}
+                    <div className="relative z-10 p-5 rounded-2xl bg-gradient-to-br from-white/[0.05] via-[#120B24]/70 to-white/[0.02] border border-white/10 hover:border-amber-400/40 backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.06)] group">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#EAB308]">
+                            <MapPin size={14} />
+                          </div>
+                          <span className="font-mono text-[9px] font-bold text-amber-300/90 tracking-[0.25em] uppercase">
+                            STUDIO LOCATION
+                          </span>
+                        </div>
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[8px] tracking-wider">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          LIVE
                         </span>
-                        <h3 className="font-serif text-2xl md:text-3xl text-white font-light leading-snug">
-                          Tailored Productions for Ambitious Stories.
-                        </h3>
-                        <p className="text-white/60 text-xs sm:text-sm leading-relaxed font-light font-sans">
-                          Every project is customized to your exact creative vision, target audience, and brand goals. We collaborate closely with founders, creators, and brands to deliver films that truly connect.
-                        </p>
                       </div>
 
-                      {/* High-End Location & Direct Connect Luxury Showcase */}
-                      <div className="pt-6 border-t border-white/10 space-y-4">
-                        {/* STUDIO LOCATION CARD */}
-                        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] via-[#120B24]/70 to-white/[0.02] border border-amber-400/25 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] group">
-                          <div className="flex items-center justify-between mb-2.5">
-                            <div className="flex items-center space-x-2">
-                              <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#EAB308]">
-                                <MapPin size={14} />
-                              </div>
-                              <span className="font-mono text-[9px] font-bold text-amber-300/90 tracking-[0.25em] uppercase">
-                                STUDIO LOCATION
-                              </span>
-                            </div>
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[8px] tracking-wider">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              HYDERABAD HQ
-                            </span>
-                          </div>
-                          
-                          <div className="space-y-1 pl-1">
-                            <p className="font-serif text-lg text-white font-light group-hover:text-amber-100 transition-colors">
-                              {cms.integrations.studioAddress || 'Yapral, 500094 Hyd Telangana'}
-                            </p>
-                            <p className="font-sans text-xs text-white/50 font-light">
-                              Hyderabad, Telangana, India
-                            </p>
-                            <div className="pt-1.5 flex items-center space-x-2 text-[9px] font-mono text-[#f7e503] tracking-widest uppercase">
-                              <Globe size={11} className="text-[#f7e503]" />
-                              <span>www.mayavistudios.com</span>
-                            </div>
-                          </div>
+                      <div className="space-y-1.5 pl-1">
+                        <div className="flex flex-wrap items-center gap-2.5">
+                          <h4 className="font-serif text-lg text-white font-light group-hover:text-amber-100 transition-colors">
+                            HYDERABAD HQ
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[7.5px] tracking-wider uppercase inline-flex items-center gap-1">
+                            <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                            OPEN FOR COMMISSIONS
+                          </span>
                         </div>
-
-                        {/* DIRECT CONNECT CARD */}
-                        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] via-[#120B24]/70 to-white/[0.02] border border-amber-400/25 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] group">
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center space-x-2">
-                              <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#f7e503]">
-                                <MessageSquare size={14} />
-                              </div>
-                              <span className="font-mono text-[9px] font-bold text-amber-300/90 tracking-[0.25em] uppercase">
-                                DIRECT CONNECT
-                              </span>
-                            </div>
-                            <span className="px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-[#f7e503] font-mono text-[8px] font-bold tracking-wider">
-                              PRIORITY HOTLINE
-                            </span>
-                          </div>
-
-                          <div className="space-y-2 pl-1">
-                            {/* Email Link */}
-                            <a
-                              href={`mailto:${cms.integrations.contactEmail || 'mayavistudios25@gmail.com'}`}
-                              className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
-                            >
-                              <div className="flex items-center space-x-2.5 min-w-0">
-                                <Mail size={13} className="text-[#f7e503] shrink-0" />
-                                <span className="font-sans text-xs truncate">{cms.integrations.contactEmail || 'mayavistudios25@gmail.com'}</span>
-                              </div>
-                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#f7e503] transition-colors shrink-0 ml-2" />
-                            </a>
-
-                            {/* Phone / WhatsApp Link */}
-                            <a
-                              href={`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
-                            >
-                              <div className="flex items-center space-x-2.5 min-w-0">
-                                <Phone size={13} className="text-[#f7e503] shrink-0" />
-                                <span className="font-mono text-xs">{cms.integrations.contactPhone || '+91 9971410306'}</span>
-                              </div>
-                              <div className="flex items-center space-x-1.5 shrink-0 ml-2">
-                                <span className="text-[8px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">WhatsApp</span>
-                                <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#f7e503] transition-colors" />
-                              </div>
-                            </a>
-
-                            {/* Instagram Link */}
-                            <a
-                              href={cms.integrations.socialInstagram || 'https://www.instagram.com/mayavi_mediacreations/'}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-400/40 text-xs text-white/90 hover:text-amber-200 transition-all group/item"
-                            >
-                              <div className="flex items-center space-x-2.5 min-w-0">
-                                <Instagram size={13} className="text-[#f7e503] shrink-0" />
-                                <span className="font-mono text-xs text-amber-300/90 tracking-wider">@mayavi_mediacreations</span>
-                              </div>
-                              <ArrowUpRight size={12} className="text-white/40 group-hover/item:text-[#f7e503] transition-colors shrink-0 ml-2" />
-                            </a>
-                          </div>
+                        <p className="font-sans text-xs text-white/50 font-light">
+                          {cms.integrations.studioAddress || 'Yapral, 500094 Hyd Telangana'} • Hyderabad, Telangana, India
+                        </p>
+                        <div className="pt-1 flex items-center space-x-2 text-[9px] font-mono text-[#f7e503] tracking-widest uppercase">
+                          <Globe size={11} className="text-[#f7e503]" />
+                          <span>www.mayavistudios.com</span>
                         </div>
+                      </div>
+                    </div>
+
+                    {/* DIRECT CONNECT HOTLINE */}
+                    <div className="relative z-10 space-y-3 pt-2">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[8.5px] font-bold text-white/50 tracking-[0.25em] uppercase">
+                          DIRECT CONNECT HOTLINE
+                        </span>
+                        <a
+                          href={`tel:${(cms.integrations.contactPhone || '+91 9971410306').replace(/\s+/g, '')}`}
+                          className="font-mono text-xs text-amber-300 hover:text-amber-100 font-medium tracking-wider transition-colors"
+                        >
+                          {cms.integrations.contactPhone || '+91 9971410306'}
+                        </a>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2.5">
+                        {/* Email Link */}
+                        <a
+                          href={`mailto:${cms.integrations.contactEmail || 'mayavistudios25@gmail.com'}`}
+                          className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-amber-400/40 text-xs text-white/80 hover:text-white transition-all group/item"
+                          title="Send Email"
+                        >
+                          <Mail size={13} className="text-amber-400 shrink-0" />
+                          <span className="font-mono text-[10px] hidden sm:inline">Email</span>
+                        </a>
+
+                        {/* WhatsApp Link */}
+                        <a
+                          href={`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-emerald-400/40 text-xs text-white/80 hover:text-white transition-all group/item"
+                          title="WhatsApp Direct"
+                        >
+                          <Phone size={13} className="text-[#a2d865] shrink-0" />
+                          <span className="font-mono text-[10px] hidden sm:inline">WhatsApp</span>
+                        </a>
+
+                        {/* Instagram Link */}
+                        <a
+                          href={cms.integrations.socialInstagram || 'https://www.instagram.com/mayavi_mediacreations/'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-amber-400/40 text-xs text-white/80 hover:text-white transition-all group/item"
+                          title="Instagram"
+                        >
+                          <Instagram size={13} className="text-amber-400 shrink-0" />
+                          <span className="font-mono text-[10px] hidden sm:inline">Instagram</span>
+                        </a>
                       </div>
                     </div>
                   </div>
 
-                  {/* Right Side: Direct Production Brief Gateway Card */}
-                  <div className="lg:col-span-7 bg-[#090717]/80 p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden backdrop-blur-xl min-h-[420px] flex flex-col justify-center text-left space-y-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
-                    {/* Background Glow Effect */}
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+                  {/* RIGHT SLATE: PRODUCTION BRIEF & INTERACTIVE CONFIGURATOR */}
+                  <div className="lg:col-span-6 rounded-3xl bg-[#090717]/85 border border-white/10 backdrop-blur-2xl p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.08)] flex flex-col justify-between space-y-8 text-left relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
 
                     <div className="relative z-10 space-y-4">
                       <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[#EAB308]">
                         <Sparkles size={12} />
                         <span className="font-mono text-[8.5px] font-bold tracking-[0.25em] uppercase">
-                          INTERACTIVE PRODUCTION BRIEF
+                          PRODUCTION BRIEF
                         </span>
                       </div>
 
-                      <h3 className="font-serif text-3xl md:text-4xl text-white font-light leading-tight">
+                      <h3 className="font-serif text-3xl sm:text-4xl text-white font-light leading-tight">
                         Ready to Bring Your Story to Life?
                       </h3>
 
-                      <p className="text-white/60 text-xs md:text-sm font-sans font-light leading-relaxed max-w-lg">
+                      <p className="text-white/60 text-xs sm:text-sm font-sans font-light leading-relaxed">
                         Launch our 4-step Production Configurator to select your project type, creative style, timeline, and story requirements in under 60 seconds.
                       </p>
                     </div>
 
-                    {/* Action Button */}
-                    <div className="relative z-10 pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    {/* SERVICE TAGS (QUICK SELECTOR CHIPS - OPTION E SIGNATURE) */}
+                    <div className="relative z-10 space-y-2.5">
+                      <span className="font-mono text-[8px] text-white/40 tracking-widest uppercase block font-semibold">
+                        SERVICE TAGS
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {['Brand Films', 'VFX / 3D', 'Commercials', 'Music Videos'].map((tag) => (
+                          <button
+                            key={tag}
+                            onClick={() => setContactOpen(true)}
+                            className="px-3.5 py-1.5 rounded-full text-[10px] font-mono tracking-wider bg-white/[0.04] hover:bg-amber-400/15 border border-white/10 hover:border-amber-400/40 text-white/80 hover:text-amber-200 transition-all duration-300 cursor-pointer"
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 4-STEP PROGRESS INDICATOR DOTS (OPTION E SIGNATURE) */}
+                    <div className="relative z-10 flex items-center justify-between pt-2 border-t border-white/5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 shadow-[0_0_10px_rgba(245,227,2,0.6)]" />
+                        <span className="w-2 h-2 rounded-full bg-white/20" />
+                        <span className="w-2 h-2 rounded-full bg-white/20" />
+                        <span className="w-2 h-2 rounded-full bg-white/20" />
+                      </div>
+                      <span className="font-mono text-[8.5px] text-white/40 tracking-wider">
+                        01 Scope • 02 Vision • 03 Timeline • 04 Launch
+                      </span>
+                    </div>
+
+                    {/* ACTION BUTTONS (RESTRAINED CHAMPAGNE-GOLD GLASS) */}
+                    <div className="relative z-10 pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                       <button
                         id="contact-section-launch-cta"
                         onClick={() => setContactOpen(true)}
-                        className="w-full sm:w-auto px-8 py-4 rounded-full text-xs font-mono tracking-[0.2em] bg-[#EAB308] hover:bg-amber-400 text-black font-extrabold transition-all duration-300 shadow-[0_5px_25px_rgba(234,179,8,0.3)] hover:scale-105 active:scale-98 cursor-pointer uppercase flex items-center justify-center space-x-3"
+                        className="flex-1 px-8 py-4 rounded-full text-xs font-mono tracking-[0.2em] bg-gradient-to-r from-[#d4af37]/90 via-[#f5e302]/85 to-[#c59b27]/90 hover:from-[#e0be47] hover:to-[#d4af37] text-black font-extrabold transition-all duration-300 shadow-[0_4px_25px_rgba(212,175,55,0.25)] hover:shadow-[0_6px_35px_rgba(212,175,55,0.4)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer uppercase flex items-center justify-center space-x-2.5"
                       >
                         <span>START YOUR PROJECT</span>
                         <ArrowUpRight size={14} className="text-black" />
@@ -2457,29 +2596,50 @@ export default function App() {
                         href={`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full sm:w-auto px-6 py-4 rounded-full text-xs font-mono tracking-[0.18em] border border-white/15 bg-white/5 hover:bg-white/10 text-white/80 hover:text-white transition-all text-center uppercase"
+                        className="px-6 py-4 rounded-full text-xs font-mono tracking-[0.18em] border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-white/80 hover:text-white transition-all text-center uppercase flex items-center justify-center gap-2"
                       >
-                        WhatsApp Direct
+                        <Phone size={13} className="text-[#a2d865]" />
+                        <span>WhatsApp Direct</span>
                       </a>
-                    </div>
-
-                    {/* Telemetry Indicator */}
-                    <div className="relative z-10 pt-4 border-t border-white/5 grid grid-cols-3 gap-4 font-mono text-[9px] text-white/40 tracking-wider">
-                      <div>
-                        <span className="block text-white/20 text-[7px] uppercase mb-0.5">RESPONSE TIME</span>
-                        <span className="text-white/80 font-bold">&lt; 2 HOURS</span>
-                      </div>
-                      <div>
-                        <span className="block text-white/20 text-[7px] uppercase mb-0.5">LOCATION</span>
-                        <span className="text-white/80 font-bold">HYD / GLOBAL</span>
-                      </div>
-                      <div>
-                        <span className="block text-white/20 text-[7px] uppercase mb-0.5">DISPATCH</span>
-                        <span className="text-amber-400 font-bold">DIRECT DISPATCH</span>
-                      </div>
                     </div>
                   </div>
 
+                </div>
+
+                {/* INTEGRATED BOTTOM TELEMETRY DOCK (OPTION E SIGNATURE) */}
+                <div className="rounded-2xl bg-[#090717]/80 border border-white/10 backdrop-blur-xl p-4 sm:p-5 shadow-[0_15px_35px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)] grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 divide-y md:divide-y-0 md:divide-x divide-white/10 text-left">
+                  {/* Metric 1 */}
+                  <div className="flex items-center space-x-3.5 pt-2 md:pt-0">
+                    <div className="w-8 h-8 rounded-lg bg-amber-400/10 border border-amber-400/25 flex items-center justify-center text-amber-400 shrink-0">
+                      <Clock size={15} />
+                    </div>
+                    <div>
+                      <span className="block text-white/30 font-mono text-[7.5px] uppercase tracking-widest">RESPONSE TIME</span>
+                      <span className="font-mono text-xs sm:text-sm text-white/90 font-bold tracking-wider">&lt; 2 HOURS // RAPID DISPATCH</span>
+                    </div>
+                  </div>
+
+                  {/* Metric 2 */}
+                  <div className="flex items-center space-x-3.5 pt-3 md:pt-0 md:pl-6">
+                    <div className="w-8 h-8 rounded-lg bg-[#a2d865]/10 border border-[#a2d865]/25 flex items-center justify-center text-[#a2d865] shrink-0">
+                      <Globe size={15} />
+                    </div>
+                    <div>
+                      <span className="block text-white/30 font-mono text-[7.5px] uppercase tracking-widest">GLOBAL DISPATCH</span>
+                      <span className="font-mono text-xs sm:text-sm text-white/90 font-bold tracking-wider">HYD HQ // GLOBAL DIRECT</span>
+                    </div>
+                  </div>
+
+                  {/* Metric 3 */}
+                  <div className="flex items-center space-x-3.5 pt-3 md:pt-0 md:pl-6">
+                    <div className="w-8 h-8 rounded-lg bg-[#b00045]/15 border border-[#b00045]/30 flex items-center justify-center text-[#e32d69] shrink-0">
+                      <ShieldCheck size={15} />
+                    </div>
+                    <div>
+                      <span className="block text-white/30 font-mono text-[7.5px] uppercase tracking-widest">CONFIDENTIALITY</span>
+                      <span className="font-mono text-xs sm:text-sm text-white/90 font-bold tracking-wider">100% STRICT NDA GUARANTEED</span>
+                    </div>
+                  </div>
                 </div>
 
               </div>
