@@ -55,6 +55,7 @@ import OpeningExperience from './components/opening/OpeningExperience';
 import CreativeWorldsSection from './components/CreativeWorldsSection';
 import TalentAssessmentModal from './components/TalentAssessmentModal';
 import GazetteSection from './components/GazetteSection';
+import TestimonialsSection from './components/TestimonialsSection';
 import { useCMS, recordNewInquiry, recordNewsletterSubscriber } from './lib/cmsStore';
 import AdminDashboard from './components/admin/AdminDashboard';
 import AdminLogin from './components/admin/AdminLogin';
@@ -2185,82 +2186,15 @@ export default function App() {
 
             </section>
 
-            {/* SECTION 07 — CLIENT STORIES (FILM CRITIQUE & PRESS EXHIBITION GALLERY) */}
-            <section id="client-stories" className="relative z-10 pt-20 pb-16 lg:pt-32 lg:pb-24 bg-[#050505] overflow-visible border-t border-white/5">
-              {/* Ambient background glows */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.03] stroke-white stroke-[0.5]" fill="none">
-                  <circle cx="400" cy="400" r="100" strokeDasharray="4 8" />
-                  <circle cx="400" cy="400" r="220" />
-                  <circle cx="400" cy="400" r="350" strokeDasharray="20 10" />
-                  <line x1="400" y1="0" x2="400" y2="800" />
-                  <line x1="0" y1="400" x2="800" y2="400" />
-                </svg>
-                <div className="absolute top-1/3 left-10 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[160px]" />
-                <div className="absolute bottom-1/3 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[160px]" />
-
-                {/* Ambient Pattern Watermark */}
-                <div
-                  className="absolute top-10 -left-20 w-[450px] h-[550px] opacity-[0.05] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-wave"
-                  style={{ backgroundImage: "url('/patterns/pattern-4.svg')" }}
-                />
-              </div>
-
-              {/* Section Header */}
-              <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-left">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                  <div className="max-w-3xl space-y-4">
-                    <h2 className="text-4xl md:text-6xl font-light font-serif text-white tracking-wide leading-tight">
-                      Curated Press & Client Reviews
-                    </h2>
-                    <p className="text-white/60 font-sans text-xs md:text-sm font-light leading-relaxed max-w-xl">
-                      An archival gallery of film festival laurels, executive testimonials, and technical behind-the-scenes director notes.
-                    </p>
-                  </div>
-
-                  {/* Industry Festival Laurels Ticker Pill */}
-                  <div className="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-amber-400/30 bg-amber-400/5 backdrop-blur-md">
-                    <Sparkles size={13} className="text-amber-400" />
-                    <span className="font-mono text-[8.5px] text-amber-300 tracking-widest uppercase font-bold">
-                      5★ INDUSTRY CRITICS CHOICE 2026
-                    </span>
-                  </div>
-                </div>
-
-                {/* Category Filter Pills */}
-                <div className="flex items-center gap-2.5 mt-10 border-b border-white/5 pb-6 overflow-x-auto no-scrollbar max-w-full">
-                  {['ALL', 'BRAND FILMS', 'FOUNDER PORTFOLIOS', 'LUXURY EVENTS', 'TALENT & CASTING'].map((cat) => {
-                    const isActive = testimonialCategory === cat;
-                    return (
-                      <button
-                        key={cat}
-                        onClick={() => setTestimonialCategory(cat)}
-                        className={`px-4 py-2 rounded-full font-mono text-[8.5px] tracking-widest uppercase transition-all duration-300 border cursor-pointer ${isActive
-                          ? 'bg-amber-400/10 border-amber-400/50 text-amber-400 font-bold shadow-[0_0_15px_rgba(234,179,8,0.15)]'
-                          : 'bg-white/[0.02] border-white/5 text-white/50 hover:text-white hover:bg-white/5'
-                          }`}
-                      >
-                        {cat}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* INFINITE MOVING CARDS CONTINUOUS REEL WITH PAUSE ON HOVER */}
-              <div className="w-full relative z-10 my-6">
-                <InfiniteMovingCards
-                  items={
-                    testimonialCategory === 'ALL'
-                      ? CLIENT_TESTIMONIALS
-                      : CLIENT_TESTIMONIALS.filter(t => t.category.toLowerCase() === testimonialCategory.toLowerCase())
-                  }
-                  direction="left"
-                  speed="fast"
-                  pauseOnHover={true}
-                />
-              </div>
-            </section>
+            {/* SECTION 07 — CLIENT STORIES & REVIEWS (SEAMLESS MEDIA PENNANTS & PINS PATTERN) */}
+            <TestimonialsSection
+              onSelectAction={(url) => {
+                if (url.startsWith('#')) {
+                  const el = document.querySelector(url);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            />
 
             {/* SECTION 07.5 — THE STUDIO GAZETTE & FOUNDER'S DISPATCH */}
             <GazetteSection
