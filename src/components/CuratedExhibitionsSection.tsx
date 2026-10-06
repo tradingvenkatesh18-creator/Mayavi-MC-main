@@ -363,142 +363,90 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
         <div className="absolute inset-0 -translate-x-full group-hover/sanctuary:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.04] to-transparent pointer-events-none z-20" />
 
         {/* =====================================================================
-            AUTHENTIC BRAND GUIDELINES PAGES 25-26: MEDIA PENNANTS & DROP-PINS WAVE PATTERN
-            Clean, elegant geometric wave ribbons, pennant flags & media markers
+            AUTHENTIC BRAND GUIDELINES PAGE 22: SWEEPING WAVE CRESTS SWARM
+            Directly from Page 22 (Vector Assets b1-b5 & a1-a5) in Staggered Echelon Flow
             ===================================================================== */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
           <svg
-            className="absolute inset-0 w-full h-full opacity-40 sm:opacity-50 pointer-events-none select-none mix-blend-screen"
+            className="absolute inset-0 w-full h-full pointer-events-none select-none"
+            viewBox="0 0 1200 520"
+            preserveAspectRatio="xMidYMid slice"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              <pattern id="sanctuaryMediaPennants" width="460" height="260" patternUnits="userSpaceOnUse">
-                {/* WAVE 1: Cyan/Teal undulating stream */}
-                <path
-                  d="M 0,50 C 35,70 85,70 115,50 C 145,30 195,30 230,50 C 265,70 315,70 345,50 C 375,30 425,30 460,50 L 460,76 C 425,56 375,56 345,76 C 315,96 265,96 230,76 C 195,56 145,56 115,76 C 85,96 35,96 0,76 Z"
-                  fill="#38bdf8"
-                  fillOpacity="0.04"
-                  stroke="none"
-                />
-                <path
-                  d="M 0,50 C 35,70 85,70 115,50 C 145,30 195,30 230,50 C 265,70 315,70 345,50 C 375,30 425,30 460,50"
-                  fill="none"
-                  stroke="#38bdf8"
-                  strokeWidth="1.2"
-                  strokeOpacity="0.65"
-                />
-                <path
-                  d="M 0,76 C 35,96 85,96 115,76 C 145,56 195,56 230,76 C 265,96 315,96 345,76 C 375,56 425,56 460,76"
-                  fill="none"
-                  stroke="#38bdf8"
-                  strokeWidth="1.2"
-                  strokeOpacity="0.65"
-                />
-
-                {/* PENNANT 1: Cyan/Teal Curved Sail Flag (anchored at x=35, y=50) */}
-                <path
-                  d="M 35,50 L 35,88 C 65,84 95,74 115,50 C 85,46 55,48 35,50 Z"
-                  fill="#38bdf8"
-                  fillOpacity="0.06"
-                  stroke="#38bdf8"
-                  strokeWidth="1.2"
-                  strokeOpacity="0.75"
-                />
-
-                {/* WAVE 2: Solar Gold undulating stream */}
-                <path
-                  d="M 0,130 C 35,110 85,110 115,130 C 145,150 195,150 230,130 C 265,110 315,110 345,130 C 375,150 425,150 460,130 L 460,156 C 425,176 375,176 345,156 C 315,136 265,136 230,156 C 195,176 145,176 115,156 C 85,136 35,136 0,156 Z"
-                  fill="#f5e302"
-                  fillOpacity="0.04"
-                  stroke="none"
-                />
-                <path
-                  d="M 0,130 C 35,110 85,110 115,130 C 145,150 195,150 230,130 C 265,110 315,110 345,130 C 375,150 425,150 460,130"
-                  fill="none"
-                  stroke="#f5e302"
-                  strokeWidth="1.3"
-                  strokeOpacity="0.75"
-                />
-                <path
-                  d="M 0,156 C 35,176 85,176 115,156 C 145,136 195,136 230,156 C 265,176 315,176 345,156 C 375,136 425,136 460,156"
-                  fill="none"
-                  stroke="#f5e302"
-                  strokeWidth="1.3"
-                  strokeOpacity="0.75"
-                />
-
-                {/* PENNANT 2: Gold Sweeping Wave Flag (anchored at x=250, y=130) */}
-                <path
-                  d="M 250,130 L 250,92 C 285,96 320,110 345,130 C 315,134 280,132 250,130 Z"
-                  fill="#f5e302"
-                  fillOpacity="0.07"
-                  stroke="#f5e302"
-                  strokeWidth="1.3"
-                  strokeOpacity="0.8"
-                />
-
-                {/* WAVE 3: Magenta/Rose undulating stream */}
-                <path
-                  d="M 0,210 C 35,230 85,230 115,210 C 145,190 195,190 230,210 C 265,230 315,230 345,210 C 375,190 425,190 460,210 L 460,236 C 425,256 375,256 345,236 C 315,216 265,216 230,236 C 195,256 145,256 115,236 C 85,216 35,216 0,236 Z"
-                  fill="#c084fc"
-                  fillOpacity="0.04"
-                  stroke="none"
-                />
-                <path
-                  d="M 0,210 C 35,230 85,230 115,210 C 145,190 195,190 230,210 C 265,230 315,230 345,210 C 375,190 425,190 460,210"
-                  fill="none"
-                  stroke="#c084fc"
-                  strokeWidth="1.2"
-                  strokeOpacity="0.65"
-                />
-                <path
-                  d="M 0,236 C 35,256 85,256 115,236 C 145,216 195,216 230,236 C 265,256 315,256 345,236 C 375,216 425,216 460,236"
-                  fill="none"
-                  stroke="#c084fc"
-                  strokeWidth="1.2"
-                  strokeOpacity="0.65"
-                />
-
-                {/* PENNANT 3: Magenta Pennant (anchored at x=375, y=210) */}
-                <path
-                  d="M 375,210 L 375,248 C 405,244 435,232 460,210 C 430,206 400,208 375,210 Z"
-                  fill="#c084fc"
-                  fillOpacity="0.06"
-                  stroke="#c084fc"
-                  strokeWidth="1.2"
-                  strokeOpacity="0.75"
-                />
-
-                {/* MEDIA DROP PIN 1: PLAY (Cyan/Teal) */}
-                <g transform="translate(80, 85) scale(0.8)">
-                  <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#091b29" stroke="#38bdf8" strokeWidth="1.4" />
-                  <circle cx="15" cy="15" r="9" fill="none" stroke="#38bdf8" strokeWidth="1" />
-                  <polygon points="13,10 20,15 13,20" fill="#38bdf8" />
-                </g>
-
-                {/* MEDIA DROP PIN 2: PAUSE (Solar Gold) */}
-                <g transform="translate(310, 65) scale(0.8)">
-                  <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#201a05" stroke="#f5e302" strokeWidth="1.4" />
-                  <circle cx="15" cy="15" r="9" fill="none" stroke="#f5e302" strokeWidth="1" />
-                  <rect x="11.5" y="11" width="2.5" height="8" rx="1" fill="#f5e302" />
-                  <rect x="16" y="11" width="2.5" height="8" rx="1" fill="#f5e302" />
-                </g>
-
-                {/* MEDIA DROP PIN 3: STOP / SQUARE (Magenta) */}
-                <g transform="translate(185, 170) scale(0.8)">
-                  <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#24081c" stroke="#e879f9" strokeWidth="1.4" />
-                  <circle cx="15" cy="15" r="9" fill="none" stroke="#e879f9" strokeWidth="1" />
-                  <rect x="11.5" y="11.5" width="7" height="7" rx="1" fill="#e879f9" />
-                </g>
-
-                {/* MEDIA DROP PIN 4: RECORD / DISC (Crimson Rose) */}
-                <g transform="translate(390, 175) scale(0.8)">
-                  <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#260b12" stroke="#f43f5e" strokeWidth="1.4" />
-                  <circle cx="15" cy="15" r="6" fill="#f43f5e" />
-                </g>
-              </pattern>
+              {/* Authentic Page 22 Wave Crest Shape from client assets b1-b5 & a1-a5 */}
+              <path
+                id="page22Crest"
+                d="M0.0,28.6 C30.3,-1.4 106.6,-4.8 168.4,9.4 C203.9,17.6 289.8,72.7 415.9,18.8 L415.9,47.0 C290.1,100.5 204.4,45.6 168.9,37.4 C106.7,23.1 29.9,26.6 0.0,57.1 Z"
+              />
             </defs>
-            <rect width="100%" height="100%" fill="url(#sanctuaryMediaPennants)" />
+
+            {/* Right Flank Staggered Echelon Cascade (Authentic Page 22 Flow) */}
+            <g opacity="0.35" transform="scale(0.55)">
+              <use href="#page22Crest" x="1200" y="40" fill="#B00045" />
+              <use href="#page22Crest" x="1560" y="40" fill="#B00045" />
+
+              <use href="#page22Crest" x="1020" y="125" fill="#B00045" />
+              <use href="#page22Crest" x="1380" y="125" fill="#F5E302" opacity="0.9" />
+              <use href="#page22Crest" x="1740" y="125" fill="#B00045" />
+
+              <use href="#page22Crest" x="840" y="210" fill="#B00045" />
+              <use href="#page22Crest" x="1200" y="210" fill="#B00045" />
+              <use href="#page22Crest" x="1560" y="210" fill="#F5E302" opacity="0.9" />
+              <use href="#page22Crest" x="1920" y="210" fill="#B00045" />
+
+              <use href="#page22Crest" x="1020" y="295" fill="#B00045" />
+              <use href="#page22Crest" x="1380" y="295" fill="#B00045" />
+              <use href="#page22Crest" x="1740" y="295" fill="#B00045" />
+
+              <use href="#page22Crest" x="840" y="380" fill="#F5E302" opacity="0.9" />
+              <use href="#page22Crest" x="1200" y="380" fill="#B00045" />
+              <use href="#page22Crest" x="1560" y="380" fill="#B00045" />
+              <use href="#page22Crest" x="1920" y="380" fill="#B00045" />
+
+              <use href="#page22Crest" x="1020" y="465" fill="#B00045" />
+              <use href="#page22Crest" x="1380" y="465" fill="#B00045" />
+              <use href="#page22Crest" x="1740" y="465" fill="#B00045" />
+
+              <use href="#page22Crest" x="840" y="550" fill="#B00045" />
+              <use href="#page22Crest" x="1200" y="550" fill="#F5E302" opacity="0.9" />
+              <use href="#page22Crest" x="1560" y="550" fill="#B00045" />
+
+              <use href="#page22Crest" x="1020" y="635" fill="#B00045" />
+              <use href="#page22Crest" x="1380" y="635" fill="#B00045" />
+              <use href="#page22Crest" x="1740" y="635" fill="#B00045" />
+
+              <use href="#page22Crest" x="1200" y="720" fill="#B00045" />
+              <use href="#page22Crest" x="1560" y="720" fill="#B00045" />
+            </g>
+
+            {/* Left Flank Counter-Balancing Echelon Cascade */}
+            <g opacity="0.25" transform="scale(0.55)">
+              <use href="#page22Crest" x="-100" y="60" fill="#B00045" />
+              <use href="#page22Crest" x="260" y="60" fill="#F5E302" opacity="0.8" />
+
+              <use href="#page22Crest" x="-280" y="145" fill="#B00045" />
+              <use href="#page22Crest" x="80" y="145" fill="#B00045" />
+              <use href="#page22Crest" x="440" y="145" fill="#B00045" opacity="0.5" />
+
+              <use href="#page22Crest" x="-100" y="230" fill="#B00045" />
+              <use href="#page22Crest" x="260" y="230" fill="#B00045" />
+
+              <use href="#page22Crest" x="-280" y="315" fill="#B00045" />
+              <use href="#page22Crest" x="80" y="315" fill="#F5E302" opacity="0.8" />
+
+              <use href="#page22Crest" x="-100" y="400" fill="#B00045" />
+              <use href="#page22Crest" x="260" y="400" fill="#B00045" />
+
+              <use href="#page22Crest" x="-280" y="485" fill="#B00045" />
+              <use href="#page22Crest" x="80" y="485" fill="#B00045" />
+
+              <use href="#page22Crest" x="-100" y="570" fill="#B00045" />
+              <use href="#page22Crest" x="260" y="570" fill="#F5E302" opacity="0.8" />
+
+              <use href="#page22Crest" x="-280" y="655" fill="#B00045" />
+              <use href="#page22Crest" x="80" y="655" fill="#B00045" />
+            </g>
           </svg>
         </div>
 
