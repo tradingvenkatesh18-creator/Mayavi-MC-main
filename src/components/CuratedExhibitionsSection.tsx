@@ -349,114 +349,134 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
       </div>
 
       {/* =========================================================================
-          CLOSING BANNER: CREATIVE HORIZONS SANCTUARY (BRAND GUIDELINES PAGE 24)
-          Featuring Official Pattern 3 & 4 Hexagonal Wave Blossom Medallions
+          CLOSING BANNER: CREATIVE HORIZONS SANCTUARY (MATCHING APPROVED MOCKUP)
+          Featuring Undulating Brand Wave Ribbons & Floating Frosted Glass Console
           ========================================================================= */}
-      <div id="conversation-sanctuary" className="mt-32 md:mt-48 relative rounded-3xl md:rounded-[36px] overflow-hidden border border-white/15 hover:border-amber-400/40 bg-gradient-to-b from-[#140B26]/95 via-[#0A0618]/95 to-[#06040C]/98 p-10 sm:p-14 md:p-24 text-center space-y-8 shadow-[0_30px_90px_-15px_rgba(0,0,0,0.9),0_0_50px_rgba(65,6,130,0.25)] backdrop-blur-3xl transition-all duration-700 group/sanctuary">
+      <div
+        id="conversation-sanctuary"
+        className="mt-32 md:mt-48 relative rounded-3xl md:rounded-[40px] overflow-hidden border border-white/15 hover:border-amber-400/40 bg-[#0B0416] p-4 sm:p-8 md:p-14 text-center shadow-[0_40px_100px_-20px_rgba(0,0,0,0.95),0_0_50px_rgba(65,6,130,0.25)] transition-all duration-700 group/sanctuary flex items-center justify-center"
+      >
         {/* Top Prismatic Light Rim in Solar Gold */}
-        <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#F5E302]/70 to-transparent pointer-events-none transition-all duration-700" />
-
-        {/* Bottom Ambient Rim in Crimson Rose */}
-        <div className="absolute bottom-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#B00045]/40 to-transparent pointer-events-none" />
+        <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#F5E302]/70 to-transparent pointer-events-none transition-all duration-700 z-10" />
 
         {/* Ambient Specular Glint Sweep on Hover */}
         <div className="absolute inset-0 -translate-x-full group-hover/sanctuary:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.04] to-transparent pointer-events-none z-20" />
 
         {/* =====================================================================
-            AUTHENTIC BRAND GUIDELINES PAGE 22: SWEEPING WAVE CRESTS SWARM
-            Directly from Page 22 (Vector Assets b1-b5 & a1-a5) in Staggered Echelon Flow
+            ORGANIC BRAND WAVE RIBBONS (FULL 4-COLOR PALETTE)
+            Pistachio Green (#A2D865), Crimson Rose (#B00045),
+            Solar Flare Gold (#F5E302), and Imperial Violet (#410682)
             ===================================================================== */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none select-none"
-            viewBox="0 0 1200 520"
-            preserveAspectRatio="xMidYMid slice"
+            viewBox="0 0 1200 600"
+            preserveAspectRatio="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              {/* Authentic Page 22 Wave Crest Shape from client assets b1-b5 & a1-a5 */}
-              <path
-                id="page22Crest"
-                d="M0.0,28.6 C30.3,-1.4 106.6,-4.8 168.4,9.4 C203.9,17.6 289.8,72.7 415.9,18.8 L415.9,47.0 C290.1,100.5 204.4,45.6 168.9,37.4 C106.7,23.1 29.9,26.6 0.0,57.1 Z"
-              />
+              <filter id="bannerRibbonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="2" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
             </defs>
 
-            {/* Right Flank Staggered Echelon Cascade (Authentic Page 22 Flow) */}
-            <g opacity="0.35" transform="scale(0.55)">
-              <use href="#page22Crest" x="1200" y="40" fill="#B00045" />
-              <use href="#page22Crest" x="1560" y="40" fill="#B00045" />
+            {/* Continuous Undulating Ribbon Waves matching approved mockup */}
+            {/* Stream 1: Pistachio Green top wave */}
+            <path
+              d="M -60,65 C 120,30 260,110 440,75 C 620,40 780,105 960,75 C 1100,50 1200,90 1280,65"
+              fill="none"
+              stroke="#A2D865"
+              strokeWidth="22"
+              strokeLinecap="round"
+              opacity="0.9"
+              filter="url(#bannerRibbonGlow)"
+            />
 
-              <use href="#page22Crest" x="1020" y="125" fill="#B00045" />
-              <use href="#page22Crest" x="1380" y="125" fill="#F5E302" opacity="0.9" />
-              <use href="#page22Crest" x="1740" y="125" fill="#B00045" />
+            {/* Stream 2: Crimson Rose wave */}
+            <path
+              d="M -80,135 C 100,100 240,180 420,145 C 600,110 760,175 940,145 C 1080,120 1190,165 1290,140"
+              fill="none"
+              stroke="#B00045"
+              strokeWidth="24"
+              strokeLinecap="round"
+              opacity="0.85"
+            />
 
-              <use href="#page22Crest" x="840" y="210" fill="#B00045" />
-              <use href="#page22Crest" x="1200" y="210" fill="#B00045" />
-              <use href="#page22Crest" x="1560" y="210" fill="#F5E302" opacity="0.9" />
-              <use href="#page22Crest" x="1920" y="210" fill="#B00045" />
+            {/* Stream 3: Deep Imperial Violet / Magenta wave */}
+            <path
+              d="M -50,210 C 130,175 270,255 450,220 C 630,185 790,250 970,220 C 1110,195 1210,240 1280,215"
+              fill="none"
+              stroke="#7A1D54"
+              strokeWidth="22"
+              strokeLinecap="round"
+              opacity="0.8"
+            />
 
-              <use href="#page22Crest" x="1020" y="295" fill="#B00045" />
-              <use href="#page22Crest" x="1380" y="295" fill="#B00045" />
-              <use href="#page22Crest" x="1740" y="295" fill="#B00045" />
+            {/* Stream 4: Solar Gold luminous wave & Pistachio Green mid wave */}
+            <path
+              d="M 520,290 C 680,255 820,335 980,300 C 1100,270 1200,315 1280,290"
+              fill="none"
+              stroke="#F5E302"
+              strokeWidth="22"
+              strokeLinecap="round"
+              opacity="0.95"
+              filter="url(#bannerRibbonGlow)"
+            />
+            <path
+              d="M -60,290 C 120,255 260,335 440,300 C 580,270 700,315 820,290"
+              fill="none"
+              stroke="#A2D865"
+              strokeWidth="24"
+              strokeLinecap="round"
+              opacity="0.9"
+              filter="url(#bannerRibbonGlow)"
+            />
 
-              <use href="#page22Crest" x="840" y="380" fill="#F5E302" opacity="0.9" />
-              <use href="#page22Crest" x="1200" y="380" fill="#B00045" />
-              <use href="#page22Crest" x="1560" y="380" fill="#B00045" />
-              <use href="#page22Crest" x="1920" y="380" fill="#B00045" />
+            {/* Stream 5: Deep Imperial Violet wave */}
+            <path
+              d="M -70,370 C 110,335 250,415 430,380 C 610,345 770,410 950,380 C 1090,355 1200,400 1280,375"
+              fill="none"
+              stroke="#651C7A"
+              strokeWidth="24"
+              strokeLinecap="round"
+              opacity="0.85"
+            />
 
-              <use href="#page22Crest" x="1020" y="465" fill="#B00045" />
-              <use href="#page22Crest" x="1380" y="465" fill="#B00045" />
-              <use href="#page22Crest" x="1740" y="465" fill="#B00045" />
+            {/* Stream 6: Crimson Rose wave */}
+            <path
+              d="M -50,450 C 130,415 270,495 450,460 C 630,425 790,490 970,460 C 1110,435 1210,480 1280,455"
+              fill="none"
+              stroke="#B00045"
+              strokeWidth="24"
+              strokeLinecap="round"
+              opacity="0.85"
+            />
 
-              <use href="#page22Crest" x="840" y="550" fill="#B00045" />
-              <use href="#page22Crest" x="1200" y="550" fill="#F5E302" opacity="0.9" />
-              <use href="#page22Crest" x="1560" y="550" fill="#B00045" />
-
-              <use href="#page22Crest" x="1020" y="635" fill="#B00045" />
-              <use href="#page22Crest" x="1380" y="635" fill="#B00045" />
-              <use href="#page22Crest" x="1740" y="635" fill="#B00045" />
-
-              <use href="#page22Crest" x="1200" y="720" fill="#B00045" />
-              <use href="#page22Crest" x="1560" y="720" fill="#B00045" />
-            </g>
-
-            {/* Left Flank Counter-Balancing Echelon Cascade */}
-            <g opacity="0.25" transform="scale(0.55)">
-              <use href="#page22Crest" x="-100" y="60" fill="#B00045" />
-              <use href="#page22Crest" x="260" y="60" fill="#F5E302" opacity="0.8" />
-
-              <use href="#page22Crest" x="-280" y="145" fill="#B00045" />
-              <use href="#page22Crest" x="80" y="145" fill="#B00045" />
-              <use href="#page22Crest" x="440" y="145" fill="#B00045" opacity="0.5" />
-
-              <use href="#page22Crest" x="-100" y="230" fill="#B00045" />
-              <use href="#page22Crest" x="260" y="230" fill="#B00045" />
-
-              <use href="#page22Crest" x="-280" y="315" fill="#B00045" />
-              <use href="#page22Crest" x="80" y="315" fill="#F5E302" opacity="0.8" />
-
-              <use href="#page22Crest" x="-100" y="400" fill="#B00045" />
-              <use href="#page22Crest" x="260" y="400" fill="#B00045" />
-
-              <use href="#page22Crest" x="-280" y="485" fill="#B00045" />
-              <use href="#page22Crest" x="80" y="485" fill="#B00045" />
-
-              <use href="#page22Crest" x="-100" y="570" fill="#B00045" />
-              <use href="#page22Crest" x="260" y="570" fill="#F5E302" opacity="0.8" />
-
-              <use href="#page22Crest" x="-280" y="655" fill="#B00045" />
-              <use href="#page22Crest" x="80" y="655" fill="#B00045" />
-            </g>
+            {/* Stream 7: Pistachio Green & Crimson bottom waves */}
+            <path
+              d="M -60,530 C 120,495 260,575 440,540 C 600,510 740,560 900,530"
+              fill="none"
+              stroke="#A2D865"
+              strokeWidth="20"
+              strokeLinecap="round"
+              opacity="0.8"
+            />
+            <path
+              d="M 860,530 C 980,500 1100,555 1280,530"
+              fill="none"
+              stroke="#B00045"
+              strokeWidth="20"
+              strokeLinecap="round"
+              opacity="0.8"
+            />
           </svg>
         </div>
 
-        {/* Center Vignette & Soft Gradient Mask to guarantee 100% typography legibility */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,6,24,0.92)_0%,rgba(10,6,24,0.65)_60%,rgba(6,4,12,0.3)_100%)] pointer-events-none z-[1]" />
-
-        {/* Ambient Warm Golden & Purple Backlight Blooms */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-r from-[#410682]/30 via-[#F5E302]/10 to-[#B00045]/20 blur-[100px] pointer-events-none z-[1]" />
-
-        <div className="max-w-2xl mx-auto space-y-6 relative z-10">
+        {/* =====================================================================
+            FLOATING FROSTED GLASS SANCTUARY PLACARD (EXACT MATCH TO MOCKUP)
+            ===================================================================== */}
+        <div className="relative z-10 w-full max-w-3xl rounded-[28px] sm:rounded-[34px] md:rounded-[38px] border border-amber-400/40 bg-[#100720]/50 backdrop-blur-3xl p-8 sm:p-12 md:p-16 text-center space-y-6 shadow-[0_30px_80px_rgba(0,0,0,0.85),0_0_40px_rgba(245,184,0,0.12),inset_0_1px_2px_rgba(255,255,255,0.25)]">
           {/* Editorial Kicker */}
           <div className="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-[#F5E302]/30 backdrop-blur-md">
             <span className="w-1.5 h-1.5 rounded-full bg-[#F5E302] shadow-[0_0_8px_#F5E302]" />
@@ -466,9 +486,9 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
           </div>
 
           {/* Main Statement */}
-          <h3 className="text-3xl sm:text-4xl md:text-6xl font-light font-serif text-[#F0EBD8] leading-tight tracking-wide">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light font-serif text-[#F0EBD8] leading-tight tracking-wide">
             Every story begins <br />with a{' '}
-            <span className="italic font-normal text-[#F5E302] drop-shadow-[0_0_35px_rgba(245,227,2,0.45)]">
+            <span className="italic font-normal text-[#F5E302] drop-shadow-[0_0_35px_rgba(245,227,2,0.5)]">
               conversation.
             </span>
           </h3>
@@ -479,7 +499,7 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
           </p>
 
           {/* Call to Action Controls */}
-          <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4 relative z-30">
+          <div className="pt-2 flex flex-col sm:flex-row justify-center items-center gap-4 relative z-30">
             <button
               onClick={() => {
                 window.open(
@@ -499,14 +519,14 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                   document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.22em] backdrop-blur-xl bg-white/[0.05] hover:bg-white/[0.12] text-[#F0EBD8] hover:text-[#F5E302] transition-all duration-500 border border-white/20 hover:border-[#F5E302]/60 cursor-pointer uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(245,227,2,0.25)] hover:scale-105 active:scale-98"
+              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.22em] backdrop-blur-xl bg-white/[0.04] hover:bg-white/[0.1] text-white/85 hover:text-[#F5E302] transition-all duration-500 border border-white/15 hover:border-[#F5E302]/60 cursor-pointer uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(245,227,2,0.25)] hover:scale-105 active:scale-98"
             >
               Explore Creative Worlds
             </button>
           </div>
 
           {/* Bottom Telemetry Stamp */}
-          <div className="pt-6 border-t border-white/5 flex flex-wrap items-center justify-center gap-4 text-white/40 font-mono text-[8px] tracking-widest uppercase">
+          <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-4 text-white/40 font-mono text-[8px] tracking-widest uppercase">
             <span>STUDIO DIRECT: +91 9971410306</span>
             <span>•</span>
             <span>HYDERABAD PRODUCTION HQ</span>
