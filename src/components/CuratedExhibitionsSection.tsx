@@ -349,29 +349,76 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
       </div>
 
       {/* =========================================================================
-          CLOSING BANNER: CREATIVE HORIZONS SANCTUARY
+          CLOSING BANNER: CREATIVE HORIZONS SANCTUARY (BRAND GUIDELINES PAGE 24)
+          Featuring Official Pattern 3 & 4 Hexagonal Wave Blossom Medallions
           ========================================================================= */}
-      <div className="mt-32 md:mt-48 relative rounded-3xl overflow-hidden border border-white/15 bg-gradient-to-b from-[#130B24]/90 via-[#0A0718]/90 to-[#05040B]/95 p-10 sm:p-14 md:p-24 text-center space-y-8 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.9)] backdrop-blur-3xl">
-        {/* Top Prismatic Light Rim */}
-        <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
+      <div id="conversation-sanctuary" className="mt-32 md:mt-48 relative rounded-3xl md:rounded-[36px] overflow-hidden border border-white/15 hover:border-amber-400/40 bg-gradient-to-b from-[#140B26]/95 via-[#0A0618]/95 to-[#06040C]/98 p-10 sm:p-14 md:p-24 text-center space-y-8 shadow-[0_30px_90px_-15px_rgba(0,0,0,0.9),0_0_50px_rgba(65,6,130,0.25)] backdrop-blur-3xl transition-all duration-700 group/sanctuary">
+        {/* Top Prismatic Light Rim in Solar Gold */}
+        <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#F5E302]/70 to-transparent pointer-events-none transition-all duration-700" />
 
-        {/* Sacred Rotating Mandala Halo in Background */}
+        {/* Bottom Ambient Rim in Crimson Rose */}
+        <div className="absolute bottom-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#B00045]/40 to-transparent pointer-events-none" />
+
+        {/* Ambient Specular Glint Sweep on Hover */}
+        <div className="absolute inset-0 -translate-x-full group-hover/sanctuary:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.04] to-transparent pointer-events-none z-20" />
+
+        {/* =====================================================================
+            AUTHENTIC BRAND GUIDELINES PAGE 24: HEXAGONAL WAVE BLOSSOM MEDALLIONS
+            Using official client assets/patterns/pattern 3 and pattern 4
+            ===================================================================== */}
+        {/* Central Master Hexagonal Wave Blossom Cluster (Page 24 / Pattern 3) */}
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] opacity-[0.08] mix-blend-screen bg-no-repeat bg-center bg-contain pointer-events-none animate-[spin_160s_linear_infinite]"
-          style={{ backgroundImage: "url('/patterns/pattern-2.svg')" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] opacity-[0.15] mix-blend-screen bg-no-repeat bg-center bg-contain pointer-events-none animate-[spin_240s_linear_infinite]"
+          style={{ backgroundImage: "url('/patterns/pattern-3.svg')" }}
+        />
+
+        {/* Inner Focused Wave Blossom Rosette (Page 24 / Pattern 4) */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] opacity-[0.22] mix-blend-screen bg-no-repeat bg-center bg-contain pointer-events-none animate-[pulse_6s_ease-in-out_infinite]"
+          style={{ backgroundImage: "url('/patterns/pattern-4.svg')" }}
+        />
+
+        {/* Left Flank Floating Wave Blossom Accent */}
+        <div
+          className="absolute -top-16 -left-16 w-[320px] h-[320px] opacity-[0.09] mix-blend-screen bg-no-repeat bg-center bg-contain pointer-events-none"
+          style={{ backgroundImage: "url('/patterns/pattern-4.svg')" }}
+        />
+
+        {/* Right Flank Floating Wave Blossom Accent */}
+        <div
+          className="absolute -bottom-16 -right-16 w-[320px] h-[320px] opacity-[0.09] mix-blend-screen bg-no-repeat bg-center bg-contain pointer-events-none"
+          style={{ backgroundImage: "url('/patterns/pattern-4.svg')" }}
         />
 
         {/* Solar Gold Radial Ambient Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,227,2,0.06)_0%,transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,227,2,0.07)_0%,transparent_70%)] pointer-events-none" />
+
+        {/* Imperial Violet Center Caustic */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(65,6,130,0.35)_0%,transparent_60%)] pointer-events-none" />
 
         <div className="max-w-2xl mx-auto space-y-6 relative z-10">
-          <h3 className="text-3xl sm:text-4xl md:text-5xl font-light font-serif text-[#F0EBD8] leading-tight">
+          {/* Editorial Kicker */}
+          <div className="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-[#F5E302]/30 backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F5E302] shadow-[0_0_8px_#F5E302]" />
+            <span className="font-mono text-[9px] tracking-[0.28em] text-[#F5E302] uppercase font-bold">
+              DIRECTORIAL DIALOGUE // 2026
+            </span>
+          </div>
+
+          {/* Main Statement */}
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-light font-serif text-[#F0EBD8] leading-tight tracking-wide">
             Every story begins <br />with a{' '}
-            <span className="italic font-normal text-[#F5E302] drop-shadow-[0_0_30px_rgba(245,227,2,0.35)]">
+            <span className="italic font-normal text-[#F5E302] drop-shadow-[0_0_35px_rgba(245,227,2,0.45)]">
               conversation.
             </span>
           </h3>
 
+          {/* Subtitle */}
+          <p className="text-white/70 font-sans text-xs sm:text-sm leading-relaxed tracking-wide font-light max-w-xl mx-auto">
+            Whether pioneering an international theatrical release, a high-fashion digital anthology, or an intimate founder narrative — let us sculpt your vision into cinema that endures.
+          </p>
+
+          {/* Call to Action Controls */}
           <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4 relative z-30">
             <button
               onClick={() => {
@@ -380,7 +427,7 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                   '_blank'
                 );
               }}
-              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.2em] bg-gradient-to-r from-[#F5E302] via-[#F5B800] to-[#E5A800] hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-500 shadow-[0_0_30px_rgba(245,227,2,0.45)] hover:shadow-[0_0_45px_rgba(245,227,2,0.7)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
+              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.22em] bg-gradient-to-r from-[#F5E302] via-[#F5B800] to-[#E5A800] hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-500 shadow-[0_0_35px_rgba(245,227,2,0.55),0_10px_25px_rgba(0,0,0,0.6)] hover:shadow-[0_0_50px_rgba(245,227,2,0.85)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
             >
               Initiate Creative Inquiry
             </button>
@@ -392,10 +439,19 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                   document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.2em] backdrop-blur-xl bg-white/[0.06] hover:bg-white/[0.12] text-white hover:text-amber-200 transition-all duration-500 border border-white/15 hover:border-amber-400/50 cursor-pointer uppercase shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:scale-105 active:scale-98"
+              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.22em] backdrop-blur-xl bg-white/[0.05] hover:bg-white/[0.12] text-[#F0EBD8] hover:text-[#F5E302] transition-all duration-500 border border-white/20 hover:border-[#F5E302]/60 cursor-pointer uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(245,227,2,0.25)] hover:scale-105 active:scale-98"
             >
               Explore Creative Worlds
             </button>
+          </div>
+
+          {/* Bottom Telemetry Stamp */}
+          <div className="pt-6 border-t border-white/5 flex flex-wrap items-center justify-center gap-4 text-white/40 font-mono text-[8px] tracking-widest uppercase">
+            <span>STUDIO DIRECT: +91 9971410306</span>
+            <span>•</span>
+            <span>HYDERABAD PRODUCTION HQ</span>
+            <span>•</span>
+            <span className="text-[#F5E302]/80">ANTHOLOGY ARCHIVES OPEN</span>
           </div>
         </div>
       </div>
