@@ -136,7 +136,7 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
         {/* 100% Mathematically Seamless (Zero cuts, Zero gaps)         */}
         {/* ============================================================ */}
         <svg
-          className="absolute inset-0 w-full h-full opacity-[0.08] pointer-events-none select-none mix-blend-screen"
+          className="absolute inset-0 w-full h-full opacity-[0.16] pointer-events-none select-none mix-blend-screen"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
