@@ -53,7 +53,7 @@ import OpeningExperience from './components/opening/OpeningExperience';
 import CreativeWorldsSection from './components/CreativeWorldsSection';
 import TalentAssessmentModal from './components/TalentAssessmentModal';
 import GazetteSection from './components/GazetteSection';
-import { useCMS, recordNewInquiry } from './lib/cmsStore';
+import { useCMS, recordNewInquiry, recordNewsletterSubscriber } from './lib/cmsStore';
 import AdminDashboard from './components/admin/AdminDashboard';
 import AdminLogin from './components/admin/AdminLogin';
 import { getVideoEmbedUrl, detectVideoPlatform } from './lib/videoUtils';
@@ -731,6 +731,25 @@ export default function App() {
   const [budgetRange, setBudgetRange] = useState<number>(15000);
   const [selectedBrandFilter, setSelectedBrandFilter] = useState<string | null>(null);
   const [activePatternUrl, setActivePatternUrl] = useState<string | null>("/patterns/pattern-2.svg");
+
+  // Footer VIP Dispatch Newsletter state
+  const [footerEmail, setFooterEmail] = useState('');
+  const [isFooterSubscribing, setIsFooterSubscribing] = useState(false);
+  const [footerSubscribeStatus, setFooterSubscribeStatus] = useState<{ success?: boolean; message?: string } | null>(null);
+
+  const handleFooterSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!footerEmail.trim()) return;
+    setIsFooterSubscribing(true);
+    setTimeout(() => {
+      const res = recordNewsletterSubscriber(footerEmail, 'website_footer_vip_dispatch');
+      setFooterSubscribeStatus(res);
+      setIsFooterSubscribing(false);
+      if (res.success) {
+        setFooterEmail('');
+      }
+    }, 400);
+  };
 
   // Dynamic Central CMS Store
   const { cms } = useCMS();
@@ -2466,148 +2485,308 @@ export default function App() {
               </div>
             </section>
 
-            {/* FOOTER — THE FINAL FRAME */}
-            <footer className="relative z-10 w-full bg-[#050505] border-t border-white/5 overflow-hidden py-20 lg:py-32">
-              {/* Subtle radial glow */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-purple-950/10 rounded-full blur-[120px] pointer-events-none" />
+            {/* FOOTER — THE FINAL FRAME (AWWWARDS-GRADE LUXURY UNIFIED ARCHITECTURE // OPTION F) */}
+            <footer className="relative z-10 w-full bg-[#07020e] border-t border-white/10 overflow-hidden py-16 sm:py-20 lg:py-28 select-none">
+              {/* Atmospheric Multi-Color Ambient Glows */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-purple-900/20 rounded-full blur-[140px] pointer-events-none" />
+              <div className="absolute -bottom-24 -left-24 w-[500px] h-[500px] bg-[#410682]/15 rounded-full blur-[120px] pointer-events-none" />
+              <div className="absolute top-1/2 -right-24 w-[450px] h-[450px] bg-[#a2d865]/5 rounded-full blur-[130px] pointer-events-none" />
 
-              {/* Subtle geometric watermark backdrop (3% opacity) */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden select-none opacity-[0.03]">
-                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] stroke-white stroke-[0.5]" fill="none">
-                  <circle cx="400" cy="400" r="300" />
-                  <circle cx="400" cy="400" r="200" strokeDasharray="6 6" />
-                  <rect x="200" y="200" width="400" height="400" rx="10" />
-                  <line x1="400" y1="0" x2="400" y2="800" />
-                  <line x1="0" y1="400" x2="800" y2="400" />
-                </svg>
+              {/* Official Repeating Pattern Backdrop (from pattern-3.svg Symmetrical Wave Matrix) */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.16] mix-blend-screen"
+                style={{
+                  backgroundImage: "url('/patterns/pattern-3.svg')",
+                  backgroundSize: "680px auto",
+                  backgroundRepeat: "repeat",
+                  backgroundPosition: "center top"
+                }}
+              />
+
+              {/* Secondary Organic Wave Ribbons Layer (subtle static accent vectors from a1/b1) */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.08]">
+                <img src="/patterns/a1.svg" alt="" className="absolute -top-10 left-10 w-[500px] -rotate-12 blur-[1px]" />
+                <img src="/patterns/b1.svg" alt="" className="absolute bottom-10 right-10 w-[450px] rotate-6 blur-[1px]" />
               </div>
 
-              <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 pt-4">
+              {/* GRAND UNIFIED ARCHITECTURAL GLASS CARD (OPTION F) */}
+              <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+                <div className="relative rounded-[28px] sm:rounded-[36px] md:rounded-[42px] border border-white/10 bg-[#0d051c]/80 backdrop-blur-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)] overflow-hidden p-7 sm:p-10 md:p-12 lg:p-16">
+                  {/* Subtle Glass Card Inner Sheen & Glows */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] via-transparent to-black/40 pointer-events-none" />
+                  <div className="absolute top-0 right-1/4 w-[400px] h-[200px] bg-[#f5e302]/[0.025] rounded-full blur-[80px] pointer-events-none" />
+                  <div className="absolute bottom-0 left-1/3 w-[500px] h-[200px] bg-[#a2d865]/[0.025] rounded-full blur-[90px] pointer-events-none" />
 
-                {/* THREE COLUMN GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 text-left items-start">
+                  <div className="relative z-10 space-y-10 sm:space-y-12 lg:space-y-14">
 
-                  {/* COLUMN ONE: BRAND IDENTITY */}
-                  <div className="md:col-span-5 space-y-6">
-                    <div>
-                      <Logo iconSize="lg" useOfficial={true} className="justify-start inline-block opacity-95 hover:opacity-100 transition-opacity" />
-                    </div>
-                    <p className="text-white/50 text-xs leading-relaxed font-sans font-light max-w-sm">
-                      Crafting premium cinematic stories, personal brands, creative talent, and unforgettable experiences.
-                    </p>
-                    <div className="space-y-1 pt-2">
-                      <span className="font-mono text-[8px] text-white/30 tracking-widest block uppercase">STUDIO HQ</span>
-                      <p className="text-white/70 text-xs font-sans font-light">Hyderabad, India</p>
-                      <p className="text-white/40 text-[9px] font-mono tracking-wider uppercase">AVAILABLE WORLDWIDE</p>
-                    </div>
-                  </div>
+                    {/* TOP HERO CTA ZONE: "LET'S CREATE CINEMA TOGETHER" */}
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 pb-10 border-b border-white/10">
+                      <div className="space-y-3 max-w-2xl text-left">
+                        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[52px] text-white font-normal tracking-tight leading-[1.08]">
+                          LET'S CREATE CINEMA TOGETHER
+                        </h2>
+                        <p className="text-white/60 font-sans text-xs sm:text-sm md:text-base font-light leading-relaxed">
+                          Crafting iconic films, personal brands, bespoke creative talent, and memorable global experiences.
+                        </p>
+                      </div>
 
-                  {/* COLUMN TWO: REFINED NAVIGATION */}
-                  <div className="md:col-span-3 space-y-5">
-                    <span className="font-mono text-[8px] text-[#EAB308]/80 tracking-[0.3em] uppercase block font-semibold">
-                      NAVIGATION
-                    </span>
-                    <ul className="space-y-3">
-                      {[
-                        { name: 'Home', href: '#' },
-                        { name: 'About', href: '#about' },
-                        { name: 'Creative Worlds', href: '#creative-worlds' },
-                        { name: 'Portfolio', href: '#portfolio' },
-                        { name: 'Process', href: '#process' },
-                        { name: 'Collaborations', href: '#collaborations' },
-                        { name: 'Client Stories', href: '#client-stories' },
-                        { name: 'The Gazette', href: '#gazette' },
-                        { name: 'Start Your Story', href: '#contact' },
-                        { name: 'Contact', href: '#contact' }
-                      ].map((link, idx) => (
-                        <li key={idx}>
-                          <a
-                            href={link.href}
-                            className="group inline-block font-sans text-xs text-white/60 hover:text-white transition-colors duration-300 relative py-0.5"
-                          >
-                            {link.name}
-                            <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#EAB308] group-hover:w-full transition-all duration-300" />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                      {/* Actions: Refined, non-dominating luxury buttons */}
+                      <div className="flex flex-wrap sm:flex-nowrap items-center gap-3.5 w-full sm:w-auto">
+                        <button
+                          onClick={() => setContactOpen(true)}
+                          className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#F5E302]/15 via-[#F5E302]/25 to-[#F5E302]/15 hover:from-[#F5E302]/30 hover:to-[#F5E302]/30 border border-[#F5E302]/40 hover:border-[#F5E302]/70 text-[#f7e503] hover:text-white font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-[0_0_20px_rgba(245,227,2,0.12)] hover:shadow-[0_0_30px_rgba(245,227,2,0.25)] flex items-center justify-center space-x-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98] group"
+                        >
+                          <span>START A PROJECT</span>
+                          <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </button>
 
-                  {/* COLUMN THREE: CREATIVE WORLDS & SOCIAL CONNECT */}
-                  <div className="md:col-span-4 space-y-6">
-                    <div className="space-y-4">
-                      <span className="font-mono text-[8px] text-[#EAB308]/80 tracking-[0.3em] uppercase block font-semibold">
-                        CREATIVE WORLDS
-                      </span>
-                      <ul className="space-y-3">
-                        {[
-                          'Media Production',
-                          'Personal Branding',
-                          'Talent Development',
-                          'Events & Experiences'
-                        ].map((world, idx) => (
-                          <li key={idx}>
-                            <a
-                              href="#creative-worlds"
-                              className="group inline-block font-sans text-xs text-white/60 hover:text-white transition-colors duration-300 relative py-0.5"
-                            >
-                              {world}
-                              <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-purple-500 group-hover:w-full transition-all duration-300" />
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="space-y-3 pt-4 border-t border-white/5">
-                      <span className="font-mono text-[8px] text-white/30 tracking-widest block uppercase">
-                        DIRECT CHANNELS
-                      </span>
-                      <div className="flex flex-wrap gap-4 items-center">
-                        {[
-                          { icon: <Instagram size={14} />, href: 'https://instagram.com/mayavi_mediacreations', label: 'Instagram' },
-                          { icon: <Youtube size={14} />, href: 'https://youtube.com/mayavimedia', label: 'YouTube' },
-                          { icon: <Linkedin size={14} />, href: 'https://linkedin.com/company/mayavimedia', label: 'LinkedIn' },
-                          { icon: <MessageSquare size={14} />, href: `https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Greetings%20Mayavi!%20I%20watched%20your%20showcase%20and%20would%20love%20to%20collaborate%20on%20a%20premium%20visual%20project%20together.`, label: 'WhatsApp' },
-                          { icon: <Mail size={14} />, href: 'mailto:mayavistudios25@gmail.com', label: 'Email' }
-                        ].map((social, idx) => (
-                          <a
-                            key={idx}
-                            href={social.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title={social.label}
-                            className="w-8 h-8 rounded-full border border-white/10 hover:border-[#EAB308] flex items-center justify-center text-white/60 hover:text-[#EAB308] bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300"
-                          >
-                            {social.icon}
-                          </a>
-                        ))}
+                        <a
+                          href={`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Greetings%20Mayavi!%20I%20would%20love%20to%20schedule%20a%20direct%20consultation%20call%20with%20your%20directorial%20team.`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-white/25 text-white/70 hover:text-white font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 flex items-center justify-center space-x-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                        >
+                          <span>SCHEDULE A CALL</span>
+                        </a>
                       </div>
                     </div>
-                  </div>
 
+                    {/* MIDDLE VIP DISPATCH STRIP: "VIP DISPATCH // THE GAZETTE" */}
+                    <div className="rounded-2xl border border-white/5 bg-black/40 p-4 sm:p-6 lg:p-7 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6">
+                      <div className="flex items-center space-x-3 text-left">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#A2D865] shadow-[0_0_10px_#A2D865] animate-pulse" />
+                        <div>
+                          <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] text-white/90 uppercase font-semibold block">
+                            VIP DISPATCH // THE GAZETTE
+                          </span>
+                          <span className="text-[11px] text-white/45 font-sans font-light">
+                            Director's essays, festival updates, castings & studio intelligence.
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Form with subtle neon green border input & champagne subscribe button */}
+                      <form onSubmit={handleFooterSubscribe} className="flex-1 max-w-xl flex flex-col sm:flex-row items-center gap-2.5 w-full">
+                        <div className="relative w-full">
+                          <input
+                            type="email"
+                            value={footerEmail}
+                            onChange={(e) => setFooterEmail(e.target.value)}
+                            placeholder="Enter your VIP email address..."
+                            required
+                            disabled={isFooterSubscribing}
+                            className="w-full bg-black/60 border border-[#A2D865]/35 focus:border-[#A2D865] focus:shadow-[0_0_20px_rgba(162,216,101,0.25)] rounded-full px-5 py-3 text-xs text-white placeholder-white/30 outline-none transition-all duration-300"
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          disabled={isFooterSubscribing}
+                          className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#F5E302]/15 hover:bg-[#F5E302]/30 border border-[#F5E302]/35 hover:border-[#F5E302]/60 text-[#f7e503] hover:text-white font-mono text-[11px] uppercase tracking-[0.2em] font-semibold transition-all duration-300 cursor-pointer shadow-[0_0_15px_rgba(245,227,2,0.1)] hover:shadow-[0_0_25px_rgba(245,227,2,0.2)] whitespace-nowrap disabled:opacity-50"
+                        >
+                          {isFooterSubscribing ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
+                        </button>
+                      </form>
+                    </div>
+
+                    {/* VIP Status Message */}
+                    {footerSubscribeStatus && (
+                      <div className={`text-xs font-mono tracking-wider text-center p-2 rounded-lg ${footerSubscribeStatus.success ? 'text-[#a2d865] bg-[#a2d865]/10 border border-[#a2d865]/30' : 'text-rose-400 bg-rose-950/20 border border-rose-500/30'}`}>
+                        {footerSubscribeStatus.message}
+                      </div>
+                    )}
+
+                    {/* LOWER ZONE: UNIFIED 4-COLUMN STUDIO DIRECTORY */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 text-left items-start pt-2">
+
+                      {/* COLUMN 1: BRAND IDENTITY & MULTIMEDIA PINS */}
+                      <div className="md:col-span-4 space-y-6">
+                        <div className="space-y-4">
+                          <Logo iconSize="lg" useOfficial={true} className="justify-start inline-block opacity-95 hover:opacity-100 transition-opacity" />
+                          <p className="text-white/55 text-xs leading-relaxed font-sans font-light max-w-sm">
+                            Broadcasting, cinema production, personal brands, and high-impact visual storytelling.
+                          </p>
+                        </div>
+
+                        {/* Authentic Multimedia Pin Badges (Play, Stop, Record) */}
+                        <div className="flex items-center space-x-3 pt-1">
+                          <button
+                            onClick={() => {
+                              const el = document.getElementById('portfolio') || document.getElementById('showreel');
+                              if (el) el.scrollIntoView({ behavior: 'smooth' });
+                              else setShowreelOpen(true);
+                            }}
+                            title="Watch Director's Showreel"
+                            className="group relative flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/[0.03] hover:bg-[#a2d865]/15 border border-[#a2d865]/30 hover:border-[#a2d865] transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(162,216,101,0.25)]"
+                          >
+                            <img src="/patterns/d3.svg" alt="Play Pin" className="w-4 h-5 object-contain" />
+                            <span className="font-mono text-[9px] tracking-wider text-white/70 group-hover:text-white uppercase font-bold">REEL</span>
+                          </button>
+
+                          <button
+                            onClick={() => setContactOpen(true)}
+                            title="Start Project Record"
+                            className="group relative flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/[0.03] hover:bg-[#b00045]/15 border border-[#b00045]/30 hover:border-[#b00045] transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(176,0,69,0.25)]"
+                          >
+                            <img src="/patterns/d1.svg" alt="Record Pin" className="w-4 h-5 object-contain" />
+                            <span className="font-mono text-[9px] tracking-wider text-white/70 group-hover:text-white uppercase font-bold">INTAKE</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              const el = document.getElementById('gazette');
+                              if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            title="The Studio Gazette"
+                            className="group relative flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/[0.03] hover:bg-[#410682]/40 border border-purple-500/30 hover:border-purple-400 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(147,51,234,0.25)]"
+                          >
+                            <img src="/patterns/d2.svg" alt="Stop Pin" className="w-4 h-5 object-contain" />
+                            <span className="font-mono text-[9px] tracking-wider text-white/70 group-hover:text-white uppercase font-bold">DISPATCH</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* COLUMN 2: CREATIVE WORLDS */}
+                      <div className="md:col-span-3 space-y-4">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#f7e503]" />
+                          <span className="font-mono text-[10px] text-[#f7e503]/90 tracking-[0.25em] uppercase block font-semibold">
+                            CREATIVE WORLDS
+                          </span>
+                        </div>
+                        <ul className="space-y-2.5">
+                          {[
+                            { name: 'Media Production', href: '#creative-worlds' },
+                            { name: 'Personal Branding', href: '#creative-worlds' },
+                            { name: 'Talent Development', href: '#creative-worlds' },
+                            { name: 'Events & Experiences', href: '#creative-worlds' }
+                          ].map((world, idx) => (
+                            <li key={idx}>
+                              <a
+                                href={world.href}
+                                className="group inline-block font-sans text-xs text-white/60 hover:text-white transition-colors duration-300 relative py-0.5"
+                              >
+                                {world.name}
+                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#f7e503] group-hover:w-full transition-all duration-300" />
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* COLUMN 3: DIRECTORIAL SLATE */}
+                      <div className="md:col-span-2 space-y-4">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#a2d865]" />
+                          <span className="font-mono text-[10px] text-[#a2d865]/90 tracking-[0.25em] uppercase block font-semibold">
+                            DIRECTORIAL SLATE
+                          </span>
+                        </div>
+                        <ul className="space-y-2.5">
+                          {[
+                            { name: 'Featured Films', href: '#portfolio' },
+                            { name: 'Commercials', href: '#portfolio' },
+                            { name: 'Docuseries', href: '#portfolio' },
+                            { name: 'The Gazette', href: '#gazette' }
+                          ].map((slate, idx) => (
+                            <li key={idx}>
+                              <a
+                                href={slate.href}
+                                className="group inline-block font-sans text-xs text-white/60 hover:text-white transition-colors duration-300 relative py-0.5"
+                              >
+                                {slate.name}
+                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#a2d865] group-hover:w-full transition-all duration-300" />
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* COLUMN 4: COMPANY & DIRECT CHANNELS */}
+                      <div className="md:col-span-3 space-y-5">
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                            <span className="font-mono text-[10px] text-white/70 tracking-[0.25em] uppercase block font-semibold">
+                              COMPANY & CHANNELS
+                            </span>
+                          </div>
+                          <ul className="space-y-2">
+                            {[
+                              { name: 'Studio Story', href: '#about' },
+                              { name: 'Collaborations', href: '#collaborations' },
+                              { name: 'Client Stories', href: '#client-stories' },
+                              { name: 'Contact & Slate', href: '#contact' }
+                            ].map((item, idx) => (
+                              <li key={idx}>
+                                <a
+                                  href={item.href}
+                                  className="group inline-block font-sans text-xs text-white/60 hover:text-white transition-colors duration-300 relative py-0.5"
+                                >
+                                  {item.name}
+                                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-white/60 group-hover:w-full transition-all duration-300" />
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Social Icon Pills */}
+                        <div className="pt-2 flex flex-wrap gap-2.5 items-center">
+                          {[
+                            { icon: <Instagram size={13} />, href: 'https://instagram.com/mayavi_mediacreations', label: 'Instagram' },
+                            { icon: <Youtube size={13} />, href: 'https://youtube.com/mayavimedia', label: 'YouTube' },
+                            { icon: <Linkedin size={13} />, href: 'https://linkedin.com/company/mayavimedia', label: 'LinkedIn' },
+                            { icon: <MessageSquare size={13} />, href: `https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Greetings%20Mayavi!%20I%20would%20love%20to%20collaborate.`, label: 'WhatsApp' },
+                            { icon: <Mail size={13} />, href: 'mailto:mayavistudios25@gmail.com', label: 'Email' }
+                          ].map((social, idx) => (
+                            <a
+                              key={idx}
+                              href={social.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title={social.label}
+                              className="w-8 h-8 rounded-full border border-white/10 hover:border-[#f7e503]/60 flex items-center justify-center text-white/60 hover:text-[#f7e503] bg-white/[0.02] hover:bg-white/[0.06] transition-all duration-300 hover:scale-110 shadow-sm"
+                            >
+                              {social.icon}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* CARD BASELINE & STUDIO TELEMETRY */}
+                    <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-white/40 font-mono text-[9px] tracking-wider uppercase">
+                        <span className="text-white/60">STUDIO HQ: HYDERABAD, INDIA</span>
+                        <span>•</span>
+                        <span className="text-white/60">GLOBAL REACH: AVAILABLE WORLDWIDE</span>
+                      </div>
+
+                      <div className="flex items-center space-x-4">
+                        <button
+                          onClick={navigateToAdmin}
+                          className="inline-flex items-center space-x-1.5 font-mono text-[9px] tracking-widest text-white/40 hover:text-[#EAB308] transition-colors cursor-pointer group"
+                          title="Open Executive Admin Dashboard (or press Ctrl + Shift + A)"
+                        >
+                          <Lock size={10} className="text-[#EAB308]/70 group-hover:text-[#EAB308]" />
+                          <span>ADMIN ACCESS</span>
+                        </button>
+                        <span className="font-mono text-[9px] tracking-widest text-[#EAB308]/60 uppercase">
+                          DIRECTED BY MAYAVI.
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
 
-                {/* BOTTOM STRIP */}
-                <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-                  <span className="font-mono text-[9px] tracking-wider text-white/30">
+                {/* BOTTOM COPYRIGHT STRIP */}
+                <div className="mt-8 text-center">
+                  <span className="font-mono text-[9px] tracking-widest text-white/30 uppercase">
                     © 2026 MAYAVI MEDIA CREATIONS. ALL ARCHITECTURAL RIGHTS RESERVED.
                   </span>
-                  <div className="flex items-center space-x-4">
-                    <button
-                      onClick={navigateToAdmin}
-                      className="inline-flex items-center space-x-1.5 font-mono text-[9px] tracking-widest text-white/40 hover:text-[#EAB308] transition-colors cursor-pointer group"
-                      title="Open Executive Admin Dashboard (or press Ctrl + Shift + A)"
-                    >
-                      <Lock size={10} className="text-[#EAB308]/70 group-hover:text-[#EAB308]" />
-                      <span>ADMIN ACCESS</span>
-                    </button>
-                    <span className="font-mono text-[9px] tracking-widest text-[#EAB308]/60 uppercase">
-                      Directed by Mayavi.
-                    </span>
-                  </div>
                 </div>
-
               </div>
             </footer>
 
