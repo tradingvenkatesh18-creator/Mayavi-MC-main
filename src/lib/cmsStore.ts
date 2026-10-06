@@ -518,7 +518,7 @@ export const DEFAULT_CMS_DATA: CMSData = {
   gazettePosts: [
     {
       id: "post-1",
-      title: "Prince & Princess of South India (Season 2) — Priority Casting Call",
+      title: "Prince & Princess of South India (Season 2) — Priority Auditions",
       category: "CONTEST",
       date: "OCTOBER 2026",
       badgeText: "PRIORITY AUDITIONS // TELANGANA & AP",
@@ -526,14 +526,14 @@ export const DEFAULT_CMS_DATA: CMSData = {
       content: "Mayavi Media Creations announces the official casting screening for Prince & Princess of South India Season 2. Direct auditions are held in Hyderabad with opportunities for television, luxury brand commercial campaigns, and digital originals. Finalists will undergo our proprietary screen-test immersion.",
       author: "Vishishta Saxena // Founder & CEO",
       imageUrl: "/posters/casting-call-prince-princess.png",
-      actionText: "Apply via Audition Hotline",
+      actionText: "Apply For Audition",
       actionUrl: "https://wa.me/919971410306?text=Greetings%20Vishishta!%20I%20am%20applying%20for%20Prince%20%26%20Princess%20of%20South%20India%20Season%202%20auditions.",
       published: true,
       featured: true
     },
     {
       id: "post-2",
-      title: "Mastering Camera Geometry: The 3 Rules for Runway & Screen Tests",
+      title: "Mastering Camera Geometry: The 3 Rules for Screen Presence",
       category: "DIRECTOR_TIP",
       date: "OCTOBER 2026",
       badgeText: "CAMERA CRAFT // MASTERCLASS NOTE",
@@ -541,22 +541,22 @@ export const DEFAULT_CMS_DATA: CMSData = {
       content: "When shooting on anamorphic glass or wide cinema sensors, exaggerated physical gestures look unnatural. Here are the 3 foundational keys I teach in our masterclass:\n1. Eyeline Calibration: Never glance between eyes rapidly; choose one pupil and hold focus.\n2. Micro-Movement: Let stillness build tension. The lens magnifies every subtle nuance.\n3. Vocal Resonance: Project from your diaphragm, not your throat, especially with lavalier and boom microphones.",
       author: "Vishishta Saxena // Founder & CEO",
       imageUrl: "/posters/theatre-modelling-workshop.png",
-      actionText: "Talent Mentorship Direct",
+      actionText: "Read Masterclass Note",
       actionUrl: "https://wa.me/919971410306?text=Greetings%20Vishishta!%20I%20read%20your%20Camera%20Geometry%20tip%20and%20would%20love%20a%20talent%20mentorship%20session.",
       published: true,
       featured: false
     },
     {
       id: "post-3",
-      title: "Tamada Media & Mayavi Align on High-Concept Digital Series",
+      title: "Tamada Media & Mayavi Align on High-Concept Fiction Slate",
       category: "STUDIO_NEWS",
-      date: "SEPTEMBER 2026",
+      date: "OCTOBER 2026",
       badgeText: "STRATEGIC ALLIANCE // SLATE EXPANSION",
       excerpt: "Mayavi Media Creations deepens its digital production slate through strategic collaboration with Tamada Media, bringing theatrical visual standards to next-generation regional streaming formats.",
       content: "In our ongoing mission to elevate South India's creative ecosystem, Mayavi Media Creations has forged an extended collaborative slate with Tamada Media. Uniting cinematic grade production with cutting-edge digital distribution, this alliance bridges theatrical storytelling and digital mass reach.",
       author: "Vishishta Saxena // Founder & CEO",
       imageUrl: "/posters/media-2.png",
-      actionText: "Explore Slate Details",
+      actionText: "Read Full Release",
       actionUrl: "#portfolio",
       published: true,
       featured: false
