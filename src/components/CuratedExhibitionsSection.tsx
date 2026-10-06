@@ -352,9 +352,13 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
           CLOSING BANNER: CREATIVE HORIZONS SANCTUARY (MATCHING APPROVED MOCKUP)
           Featuring Undulating Brand Wave Ribbons & Floating Frosted Glass Console
           ========================================================================= */}
+      {/* =========================================================================
+          CLOSING BANNER: CREATIVE HORIZONS SANCTUARY (EXACT MATCH TO APPROVED MOCKUP)
+          Featuring Organic Dry-Brush Wave Ribbons & Floating Frosted Glass Console
+          ========================================================================= */}
       <div
         id="conversation-sanctuary"
-        className="mt-32 md:mt-48 relative rounded-3xl md:rounded-[40px] overflow-hidden border border-white/15 hover:border-amber-400/40 bg-[#0B0416] p-4 sm:p-8 md:p-14 text-center shadow-[0_40px_100px_-20px_rgba(0,0,0,0.95),0_0_50px_rgba(65,6,130,0.25)] transition-all duration-700 group/sanctuary flex items-center justify-center"
+        className="mt-32 md:mt-48 relative max-w-5xl mx-auto rounded-3xl md:rounded-[40px] overflow-hidden border border-white/15 hover:border-amber-400/40 bg-[#0B0416] p-6 sm:p-10 md:p-12 text-center shadow-[0_40px_100px_-20px_rgba(0,0,0,0.95),0_0_50px_rgba(65,6,130,0.25)] transition-all duration-700 group/sanctuary flex items-center justify-center min-h-[460px] md:min-h-[500px]"
       >
         {/* Top Prismatic Light Rim in Solar Gold */}
         <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#F5E302]/70 to-transparent pointer-events-none transition-all duration-700 z-10" />
@@ -362,123 +366,19 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
         {/* Ambient Specular Glint Sweep on Hover */}
         <div className="absolute inset-0 -translate-x-full group-hover/sanctuary:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.04] to-transparent pointer-events-none z-20" />
 
-        {/* =====================================================================
-            ORGANIC BRAND WAVE RIBBONS (FULL 4-COLOR PALETTE)
-            Pistachio Green (#A2D865), Crimson Rose (#B00045),
-            Solar Flare Gold (#F5E302), and Imperial Violet (#410682)
-            ===================================================================== */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none select-none"
-            viewBox="0 0 1200 600"
-            preserveAspectRatio="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <filter id="bannerRibbonGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="2" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-
-            {/* Continuous Undulating Ribbon Waves matching approved mockup */}
-            {/* Stream 1: Pistachio Green top wave */}
-            <path
-              d="M -60,65 C 120,30 260,110 440,75 C 620,40 780,105 960,75 C 1100,50 1200,90 1280,65"
-              fill="none"
-              stroke="#A2D865"
-              strokeWidth="22"
-              strokeLinecap="round"
-              opacity="0.9"
-              filter="url(#bannerRibbonGlow)"
-            />
-
-            {/* Stream 2: Crimson Rose wave */}
-            <path
-              d="M -80,135 C 100,100 240,180 420,145 C 600,110 760,175 940,145 C 1080,120 1190,165 1290,140"
-              fill="none"
-              stroke="#B00045"
-              strokeWidth="24"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-
-            {/* Stream 3: Deep Imperial Violet / Magenta wave */}
-            <path
-              d="M -50,210 C 130,175 270,255 450,220 C 630,185 790,250 970,220 C 1110,195 1210,240 1280,215"
-              fill="none"
-              stroke="#7A1D54"
-              strokeWidth="22"
-              strokeLinecap="round"
-              opacity="0.8"
-            />
-
-            {/* Stream 4: Solar Gold luminous wave & Pistachio Green mid wave */}
-            <path
-              d="M 520,290 C 680,255 820,335 980,300 C 1100,270 1200,315 1280,290"
-              fill="none"
-              stroke="#F5E302"
-              strokeWidth="22"
-              strokeLinecap="round"
-              opacity="0.95"
-              filter="url(#bannerRibbonGlow)"
-            />
-            <path
-              d="M -60,290 C 120,255 260,335 440,300 C 580,270 700,315 820,290"
-              fill="none"
-              stroke="#A2D865"
-              strokeWidth="24"
-              strokeLinecap="round"
-              opacity="0.9"
-              filter="url(#bannerRibbonGlow)"
-            />
-
-            {/* Stream 5: Deep Imperial Violet wave */}
-            <path
-              d="M -70,370 C 110,335 250,415 430,380 C 610,345 770,410 950,380 C 1090,355 1200,400 1280,375"
-              fill="none"
-              stroke="#651C7A"
-              strokeWidth="24"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-
-            {/* Stream 6: Crimson Rose wave */}
-            <path
-              d="M -50,450 C 130,415 270,495 450,460 C 630,425 790,490 970,460 C 1110,435 1210,480 1280,455"
-              fill="none"
-              stroke="#B00045"
-              strokeWidth="24"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-
-            {/* Stream 7: Pistachio Green & Crimson bottom waves */}
-            <path
-              d="M -60,530 C 120,495 260,575 440,540 C 600,510 740,560 900,530"
-              fill="none"
-              stroke="#A2D865"
-              strokeWidth="20"
-              strokeLinecap="round"
-              opacity="0.8"
-            />
-            <path
-              d="M 860,530 C 980,500 1100,555 1280,530"
-              fill="none"
-              stroke="#B00045"
-              strokeWidth="20"
-              strokeLinecap="round"
-              opacity="0.8"
-            />
-          </svg>
-        </div>
+        {/* Exact Textured Painterly Wave Ribbons & Glowing Amber Console Backdrop */}
+        <img
+          src="/concept-designs/sanctuary_conversation_backdrop.png"
+          alt="Directorial Dialogue Sanctuary Backdrop"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none z-0"
+        />
 
         {/* =====================================================================
-            FLOATING FROSTED GLASS SANCTUARY PLACARD (EXACT MATCH TO MOCKUP)
+            FLOATING FROSTED GLASS SANCTUARY PLACARD CONTENT
             ===================================================================== */}
-        <div className="relative z-10 w-full max-w-3xl rounded-[28px] sm:rounded-[34px] md:rounded-[38px] border border-amber-400/40 bg-[#100720]/50 backdrop-blur-3xl p-8 sm:p-12 md:p-16 text-center space-y-6 shadow-[0_30px_80px_rgba(0,0,0,0.85),0_0_40px_rgba(245,184,0,0.12),inset_0_1px_2px_rgba(255,255,255,0.25)]">
+        <div className="relative z-10 w-full max-w-[540px] mx-auto text-center space-y-5 px-4 py-6">
           {/* Editorial Kicker */}
-          <div className="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-[#F5E302]/30 backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full bg-black/40 border border-[#F5E302]/40 backdrop-blur-md">
             <span className="w-1.5 h-1.5 rounded-full bg-[#F5E302] shadow-[0_0_8px_#F5E302]" />
             <span className="font-mono text-[9px] tracking-[0.28em] text-[#F5E302] uppercase font-bold">
               DIRECTORIAL DIALOGUE // 2026
@@ -486,7 +386,7 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
           </div>
 
           {/* Main Statement */}
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light font-serif text-[#F0EBD8] leading-tight tracking-wide">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-light font-serif text-[#F0EBD8] leading-[1.15] tracking-wide">
             Every story begins <br />with a{' '}
             <span className="italic font-normal text-[#F5E302] drop-shadow-[0_0_35px_rgba(245,227,2,0.5)]">
               conversation.
@@ -494,7 +394,7 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
           </h3>
 
           {/* Subtitle */}
-          <p className="text-white/70 font-sans text-xs sm:text-sm leading-relaxed tracking-wide font-light max-w-xl mx-auto">
+          <p className="text-white/80 font-sans text-xs sm:text-[13px] leading-relaxed tracking-wide font-light max-w-lg mx-auto">
             Whether pioneering an international theatrical release, a high-fashion digital anthology, or an intimate founder narrative — let us sculpt your vision into cinema that endures.
           </p>
 
@@ -507,7 +407,7 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                   '_blank'
                 );
               }}
-              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.22em] bg-gradient-to-r from-[#F5E302] via-[#F5B800] to-[#E5A800] hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-500 shadow-[0_0_35px_rgba(245,227,2,0.55),0_10px_25px_rgba(0,0,0,0.6)] hover:shadow-[0_0_50px_rgba(245,227,2,0.85)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full text-[10px] font-mono tracking-[0.22em] bg-gradient-to-r from-[#F5E302] via-[#F5B800] to-[#E5A800] hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-500 shadow-[0_0_35px_rgba(245,227,2,0.6),0_10px_25px_rgba(0,0,0,0.6)] hover:shadow-[0_0_50px_rgba(245,227,2,0.85)] hover:scale-105 active:scale-98 cursor-pointer uppercase"
             >
               Initiate Creative Inquiry
             </button>
@@ -519,19 +419,19 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                   document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="w-full sm:w-auto px-9 py-4 rounded-full text-[10px] font-mono tracking-[0.22em] backdrop-blur-xl bg-white/[0.04] hover:bg-white/[0.1] text-white/85 hover:text-[#F5E302] transition-all duration-500 border border-white/15 hover:border-[#F5E302]/60 cursor-pointer uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(245,227,2,0.25)] hover:scale-105 active:scale-98"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full text-[10px] font-mono tracking-[0.22em] backdrop-blur-xl bg-black/40 hover:bg-white/[0.1] text-white/90 hover:text-[#F5E302] transition-all duration-500 border border-white/20 hover:border-[#F5E302]/60 cursor-pointer uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(245,227,2,0.25)] hover:scale-105 active:scale-98"
             >
               Explore Creative Worlds
             </button>
           </div>
 
           {/* Bottom Telemetry Stamp */}
-          <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-4 text-white/40 font-mono text-[8px] tracking-widest uppercase">
+          <div className="pt-5 flex flex-wrap items-center justify-center gap-3 text-white/50 font-mono text-[8px] sm:text-[8.5px] tracking-widest uppercase">
             <span>STUDIO DIRECT: +91 9971410306</span>
             <span>•</span>
             <span>HYDERABAD PRODUCTION HQ</span>
             <span>•</span>
-            <span className="text-[#F5E302]/80">ANTHOLOGY ARCHIVES OPEN</span>
+            <span className="text-[#F5E302]">ANTHOLOGY ARCHIVES OPEN</span>
           </div>
         </div>
       </div>
