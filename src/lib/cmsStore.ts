@@ -176,6 +176,45 @@ export interface NewsletterSubscriber {
   source?: string;
 }
 
+export interface TestimonialBtsNotes {
+  camera: string;
+  lighting: string;
+  grading: string;
+  directorComment: string;
+}
+
+export type TestimonialTheme = 'gold' | 'pink' | 'emerald' | 'cyan' | 'purple';
+
+export interface TestimonialReview {
+  id: string;
+  author: string;
+  role: string;
+  quote: string;
+  topBadgeLeft: string;
+  topBadgeRight: string;
+  isRightPill?: boolean;
+  image: string;
+  hasVideoIcon?: boolean;
+  btsLabel: string;
+  btsNotes: TestimonialBtsNotes;
+  accentTheme?: TestimonialTheme;
+}
+
+export interface TestimonialsConfig {
+  headline: string;
+  subheadline: string;
+  criticsChoiceBadge: string;
+  stat1Value: string;
+  stat1Label: string;
+  stat2Value: string;
+  stat2Label: string;
+  stat3Value: string;
+  stat3Label: string;
+  ctaText: string;
+  ctaTarget: string;
+  items: TestimonialReview[];
+}
+
 export interface CMSData {
   hero: HeroConfig;
   videoGlimpses: VideoGlimpse[];
@@ -187,6 +226,7 @@ export interface CMSData {
   curatedExhibitions: ExhibitionProject[];
   coreServices: CoreService[];
   about: AboutConfig;
+  testimonials: TestimonialsConfig;
   integrations: InquiryConfig;
   inquiries: StoredInquiry[];
   gazettePosts: GazettePost[];
@@ -642,6 +682,78 @@ export const DEFAULT_CMS_DATA: CMSData = {
       featured: false
     }
   ],
+  testimonials: {
+    headline: "Curated Press & Client Reviews",
+    subheadline: "An archival gallery of film festival laurels, executive testimonials, and technical behind-the-scenes director notes.",
+    criticsChoiceBadge: "5★ INDUSTRY CRITICS CHOICE 2026",
+    stat1Value: "98.4%",
+    stat1Label: "Retention",
+    stat2Value: "14",
+    stat2Label: "Festival Laurels",
+    stat3Value: "4K",
+    stat3Label: "Mastered",
+    ctaText: "INITIATE PRODUCTION",
+    ctaTarget: "#contact",
+    items: [
+      {
+        id: 'granddiva',
+        author: 'Rukmini Sharma',
+        role: 'Grand Diva International // Festival Chairperson',
+        quote: '“Mayavi elevated our national auditions with broadcast-grade optics and unmatched talent direction...”',
+        topBadgeLeft: 'Official Partner • Grand Diva Int.',
+        topBadgeRight: '5.0 ★★★★',
+        isRightPill: false,
+        image: '/posters/theatre-modelling-workshop.png',
+        hasVideoIcon: false,
+        btsLabel: 'BTS TECHNICALS',
+        btsNotes: {
+          camera: 'Sony Venice 2 8K // Zeiss Supreme 35mm T1.5',
+          lighting: 'Full Stage Follow-Spot + Volumetric Atmospheric Fog',
+          grading: 'Rich Magenta Gold Glamour LUT Emulation',
+          directorComment: 'We directed live runway auditions with dual 8K cameras to capture high-motion choreography with zero shutter blur.'
+        },
+        accentTheme: 'gold'
+      },
+      {
+        id: 'pronto',
+        author: 'Dr. S. K. Rao',
+        role: 'Director of Operations // Pronto Diagnostics',
+        quote: '“Mayavi captured complex medical insights into an emotional, human response from investors...”',
+        topBadgeLeft: 'Enterprise Storytelling',
+        topBadgeRight: 'Innovation Award',
+        isRightPill: true,
+        image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800',
+        hasVideoIcon: true,
+        btsLabel: 'Expand BTS',
+        btsNotes: {
+          camera: 'ARRI Alexa Mini LF + Macro Cinema Optics',
+          lighting: 'Clean Clinical Bi-Color Key Panel Diffusion',
+          grading: 'Subtle Emerald Precision Technical LUT',
+          directorComment: 'We focused macro lenses on microscopic diagnostic chips, treating medical engineering with cinematic grandeur.'
+        },
+        accentTheme: 'pink'
+      },
+      {
+        id: 'tamada',
+        author: 'Vikranth Varma',
+        role: 'Tamada Media // Lead Campaign Director',
+        quote: '“Mayavi transformed our campaign into a cinematic experience, raising our brand presence to an absolute ...”',
+        topBadgeLeft: 'Official Selection • South India Film Festival',
+        topBadgeRight: '',
+        isRightPill: false,
+        image: '/testimonial_cameras.png',
+        hasVideoIcon: false,
+        btsLabel: 'BTS TECHNICALS',
+        btsNotes: {
+          camera: 'ARRI Alexa LF with Anamorphic Primes',
+          lighting: 'Volumetric Tungsten Key & Cyan Edge Rim',
+          grading: 'Kodak 250D Spectral Film LUT Emulation',
+          directorComment: 'We lit the stage to evoke classic 70s neo-noir contrast while maintaining modern 9:16 mobile framing density.'
+        },
+        accentTheme: 'emerald'
+      }
+    ]
+  },
   newsletterSubscribers: [
     {
       id: "sub-1",
@@ -792,6 +904,13 @@ export function sanitizeCMSData(parsed: any): CMSData {
         ...fallback.about.grandDivaCard,
         ...(parsed.about?.grandDivaCard || {})
       }
+    },
+    testimonials: {
+      ...fallback.testimonials,
+      ...(parsed.testimonials || {}),
+      items: (parsed.testimonials?.items && Array.isArray(parsed.testimonials.items) && parsed.testimonials.items.length > 0)
+        ? parsed.testimonials.items
+        : fallback.testimonials.items
     },
     integrations: { ...fallback.integrations, ...(parsed.integrations || {}) },
     gazettePosts: (parsed.gazettePosts && Array.isArray(parsed.gazettePosts) && parsed.gazettePosts.length > 0)

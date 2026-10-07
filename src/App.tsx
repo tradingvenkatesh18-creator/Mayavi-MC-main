@@ -1833,6 +1833,7 @@ export default function App() {
 
             {/* SECTION 07 — CLIENT STORIES & REVIEWS (SEAMLESS MEDIA PENNANTS & PINS PATTERN) */}
             <TestimonialsSection
+              config={cms.testimonials}
               onSelectAction={(url) => {
                 if (url.startsWith('#')) {
                   const el = document.querySelector(url);

@@ -45,7 +45,9 @@ import {
   Trophy,
   Lightbulb,
   Star,
-  Mail
+  Mail,
+  Award,
+  Camera
 } from 'lucide-react';
 import {
   CMSData,
@@ -56,6 +58,10 @@ import {
   StoredInquiry,
   GazettePost,
   NewsletterSubscriber,
+  TestimonialsConfig,
+  TestimonialReview,
+  TestimonialBtsNotes,
+  TestimonialTheme,
   addGazettePost,
   updateGazettePost,
   deleteGazettePost,
@@ -66,6 +72,7 @@ import {
   importCMSData,
   DEFAULT_CMS_DATA
 } from '../../lib/cmsStore';
+import { getTestimonialThemeClasses } from '../TestimonialsSection';
 import { parseVideo, detectVideoPlatform, getVideoEmbedUrl } from '../../lib/videoUtils';
 import {
   getSupabaseConfig,
@@ -152,8 +159,14 @@ interface AdminDashboardProps {
 export default function AdminDashboard({ onExit }: AdminDashboardProps) {
   const { cms, updateCMS, resetCMS, isCloudSyncing, reloadFromCloud } = useCMS();
   const [activeTab, setActiveTab] = useState<
-    'overview' | 'hero-glimpses' | 'showreel' | 'portfolio' | 'services-about' | 'gazette' | 'integrations' | 'security'
+    'overview' | 'hero-glimpses' | 'showreel' | 'portfolio' | 'services-about' | 'testimonials' | 'gazette' | 'integrations' | 'security'
   >('overview');
+
+  // Testimonials & Reviews State
+  const [editingReview, setEditingReview] = useState<TestimonialReview | null>(null);
+  const [isNewReview, setIsNewReview] = useState<boolean>(false);
+  const [reviewSearch, setReviewSearch] = useState<string>('');
+  const [modalBtsOpen, setModalBtsOpen] = useState<boolean>(false);
 
   // Gazette & Founder Posts State
   const [editingPost, setEditingPost] = useState<GazettePost | null>(null);
@@ -724,6 +737,83 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
     setTimeout(() => setSavedSection(null), 2500);
   };
 
+  const handleSaveTestimonials = () => {
+    saveCMSData(cms);
+    setSavedSection('testimonials');
+    showToast(`Saved all ${(cms.testimonials?.items || []).length} Client Reviews & Accreditations live!`);
+    setTimeout(() => setSavedSection(null), 2500);
+  };
+
+  const handleSaveReview = (review: TestimonialReview) => {
+    const existingItems = cms.testimonials?.items || [];
+    const index = existingItems.findIndex((r) => r.id === review.id);
+    let updatedItems: TestimonialReview[];
+    if (index >= 0) {
+      updatedItems = existingItems.map((r) => (r.id === review.id ? review : r));
+    } else {
+      updatedItems = [review, ...existingItems];
+    }
+    const updatedCMS: CMSData = {
+      ...cms,
+      testimonials: {
+        ...cms.testimonials,
+        items: updatedItems
+      }
+    };
+    updateCMS(() => updatedCMS);
+    saveCMSData(updatedCMS);
+    setEditingReview(null);
+    setIsNewReview(false);
+    showToast(`✓ Review dossier for "${review.author}" saved live to site!`);
+  };
+
+  const handleDeleteReview = (id: string, author: string) => {
+    if (!window.confirm(`Are you sure you want to remove the review dossier from "${author}"?`)) {
+      return;
+    }
+    const updatedCMS: CMSData = {
+      ...cms,
+      testimonials: {
+        ...cms.testimonials,
+        items: (cms.testimonials?.items || []).filter((r) => r.id !== id)
+      }
+    };
+    updateCMS(() => updatedCMS);
+    saveCMSData(updatedCMS);
+    showToast(`Removed review dossier for "${author}".`);
+  };
+
+  const handleMoveReview = (index: number, direction: 'up' | 'down') => {
+    const items = [...(cms.testimonials?.items || [])];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= items.length) return;
+    const temp = items[index];
+    items[index] = items[targetIndex];
+    items[targetIndex] = temp;
+    const updatedCMS: CMSData = {
+      ...cms,
+      testimonials: {
+        ...cms.testimonials,
+        items
+      }
+    };
+    updateCMS(() => updatedCMS);
+    saveCMSData(updatedCMS);
+  };
+
+  const handleResetTestimonialsToDefault = () => {
+    if (!window.confirm('Reset all client reviews, laurels, and telemetry stats to official flagship defaults?')) {
+      return;
+    }
+    const updatedCMS: CMSData = {
+      ...cms,
+      testimonials: JSON.parse(JSON.stringify(DEFAULT_CMS_DATA.testimonials))
+    };
+    updateCMS(() => updatedCMS);
+    saveCMSData(updatedCMS);
+    showToast('✓ Restored 3 flagship reviews & official telemetry stats.');
+  };
+
   const handleSaveIntegrations = () => {
     saveCMSData(cms);
     setSavedSection('integrations');
@@ -1179,7 +1269,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
               <span>DIRECTORIAL SECTIONS</span>
             </div>
-            <span className="font-mono text-[8px] text-white/30 tracking-widest">[ 08 MODS ]</span>
+            <span className="font-mono text-[8px] text-white/30 tracking-widest">[ 09 MODS ]</span>
           </div>
 
           {[
@@ -1188,6 +1278,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             { id: 'showreel', label: 'Showreel Player', icon: Film, badge: `${cms.showreel.chapters.length}` },
             { id: 'portfolio', label: 'Curated Exhibitions', icon: FolderKanban, badge: `${cms.curatedExhibitions.length}` },
             { id: 'services-about', label: 'Core Services & Story', icon: FileText },
+            { id: 'testimonials', label: 'Reviews & Press', icon: Award, badge: `${(cms.testimonials?.items || []).length}` },
             { id: 'gazette', label: 'Studio Gazette & Tips', icon: Newspaper, badge: `${(cms.gazettePosts || []).length}` },
             { id: 'integrations', label: 'Sheets & WhatsApp', icon: Sheet, badge: `${cms.inquiries.length}` },
             { 
@@ -4212,6 +4303,941 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </div>
               </div>
 
+            </div>
+          )}
+
+          {/* TAB: REVIEWS & PRESS ACCREDITATIONS */}
+          {activeTab === 'testimonials' && (
+            <div className="space-y-10">
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold flex items-center gap-1.5">
+                    <Award size={12} className="text-[#EAB308]" />
+                    <span>PRESS ACCREDITATIONS &amp; CLIENT DOSSIERS</span>
+                  </span>
+                  <h1 className="text-3xl font-light font-serif italic text-white mt-1">
+                    Client Testimonials &amp; Press Reviews
+                  </h1>
+                  <p className="text-white/50 text-xs font-sans mt-1">
+                    Manage client quotes, festival laurels, executive dossiers, telemetry stats, and director behind-the-scenes (BTS) notes.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={handleResetTestimonialsToDefault}
+                    className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white font-mono text-xs tracking-wider uppercase flex items-center space-x-1.5 transition-all border border-white/10 cursor-pointer"
+                  >
+                    <RotateCcw size={13} />
+                    <span>FLAGSHIP PRESETS</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsNewReview(true);
+                      setEditingReview({
+                        id: `rev-${Date.now()}`,
+                        author: '',
+                        role: '',
+                        quote: '',
+                        topBadgeLeft: 'Official Partner // Industry Accreditation',
+                        topBadgeRight: '5.0 ★★★★★',
+                        isRightPill: false,
+                        image: '/testimonial_cameras.png',
+                        hasVideoIcon: false,
+                        btsLabel: 'BTS TECHNICALS',
+                        btsNotes: {
+                          camera: 'ARRI Alexa Mini LF // Zeiss Supreme Primes',
+                          lighting: 'Precision Volumetric Tungsten & Key Diffusion',
+                          grading: 'Kodak 250D Spectral Film LUT Emulation',
+                          directorComment: 'We calibrated the scene to capture natural human emotion with cinematic contrast.'
+                        },
+                        accentTheme: 'gold'
+                      });
+                      setModalBtsOpen(false);
+                    }}
+                    className="px-5 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-extrabold tracking-wider uppercase flex items-center space-x-2 transition-all shadow-[0_0_20px_rgba(234,179,8,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                  >
+                    <Plus size={16} />
+                    <span>ADD REVIEW DOSSIER</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSaveTestimonials}
+                    className={`px-5 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                      savedSection === 'testimonials'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                        : 'bg-white/10 hover:bg-white/20 text-white border border-white/15'
+                    }`}
+                  >
+                    {savedSection === 'testimonials' ? <Check size={14} /> : <Save size={14} />}
+                    <span>{savedSection === 'testimonials' ? 'REVIEWS SAVED ✓' : 'SAVE ALL'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* SECTION 1: MASTHEAD & DOCK TELEMETRY CONTROLS */}
+              <div className="p-6 md:p-8 rounded-3xl bg-neutral-950/80 border border-white/10 backdrop-blur-2xl space-y-6">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#EAB308]/20 flex items-center justify-center text-[#EAB308]">
+                      <Sliders size={18} />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-serif italic text-white">Section Masthead &amp; Bottom Telemetry Dock</h2>
+                      <p className="text-xs text-white/50 font-sans">
+                        Configure public headlines, critics choice accreditation eyebrow badge, and bottom dock metrics.
+                      </p>
+                    </div>
+                  </div>
+                  <span className="font-mono text-[9px] px-2.5 py-1 rounded-full bg-[#EAB308]/10 text-[#EAB308] border border-[#EAB308]/30 uppercase tracking-widest">
+                    SECTION #07
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Headline */}
+                  <div className="space-y-1.5 md:col-span-2">
+                    <label className="text-xs font-mono text-white/60 tracking-wider uppercase">Section Title (Garamond Serif)</label>
+                    <input
+                      type="text"
+                      value={cms.testimonials?.headline ?? ''}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          testimonials: { ...prev.testimonials, headline: val }
+                        }));
+                      }}
+                      placeholder="Curated Press & Client Reviews"
+                      className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-sm font-serif outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+
+                  {/* Subtitle */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono text-white/60 tracking-wider uppercase">Section Subtitle Narrative</label>
+                    <textarea
+                      rows={2}
+                      value={cms.testimonials?.subheadline ?? ''}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          testimonials: { ...prev.testimonials, subheadline: val }
+                        }));
+                      }}
+                      placeholder="An archival gallery of film festival laurels..."
+                      className="w-full px-4 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+
+                  {/* Critics Choice Eyebrow Badge */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono text-white/60 tracking-wider uppercase">Critics Choice Eyebrow Badge</label>
+                    <input
+                      type="text"
+                      value={cms.testimonials?.criticsChoiceBadge ?? ''}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          testimonials: { ...prev.testimonials, criticsChoiceBadge: val }
+                        }));
+                      }}
+                      placeholder="5★ INDUSTRY CRITICS CHOICE 2026"
+                      className="w-full px-4 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                </div>
+
+                {/* BOTTOM DOCK TELEMETRY METRICS */}
+                <div className="pt-4 border-t border-white/10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] text-[#EAB308] tracking-widest uppercase font-semibold">
+                      FLOATING DOCK METRICS (BOTTOM CAPSULE)
+                    </span>
+                    <span className="text-[10px] text-white/40 font-mono">3 Telemetry Callouts + Call-To-Action</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {/* Stat 1 */}
+                    <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+                      <span className="text-[9px] font-mono text-white/50 uppercase">Stat 01 (e.g. Retention)</span>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={cms.testimonials?.stat1Value ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            updateCMS((prev) => ({
+                              ...prev,
+                              testimonials: { ...prev.testimonials, stat1Value: val }
+                            }));
+                          }}
+                          placeholder="98.4%"
+                          className="w-20 px-2 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white font-mono text-xs text-center"
+                        />
+                        <input
+                          type="text"
+                          value={cms.testimonials?.stat1Label ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            updateCMS((prev) => ({
+                              ...prev,
+                              testimonials: { ...prev.testimonials, stat1Label: val }
+                            }));
+                          }}
+                          placeholder="Retention"
+                          className="flex-1 px-2 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white font-serif text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Stat 2 */}
+                    <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+                      <span className="text-[9px] font-mono text-white/50 uppercase">Stat 02 (e.g. Laurels)</span>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={cms.testimonials?.stat2Value ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            updateCMS((prev) => ({
+                              ...prev,
+                              testimonials: { ...prev.testimonials, stat2Value: val }
+                            }));
+                          }}
+                          placeholder="14"
+                          className="w-20 px-2 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white font-mono text-xs text-center"
+                        />
+                        <input
+                          type="text"
+                          value={cms.testimonials?.stat2Label ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            updateCMS((prev) => ({
+                              ...prev,
+                              testimonials: { ...prev.testimonials, stat2Label: val }
+                            }));
+                          }}
+                          placeholder="Festival Laurels"
+                          className="flex-1 px-2 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white font-serif text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Stat 3 */}
+                    <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+                      <span className="text-[9px] font-mono text-white/50 uppercase">Stat 03 (e.g. 4K Mastered)</span>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={cms.testimonials?.stat3Value ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            updateCMS((prev) => ({
+                              ...prev,
+                              testimonials: { ...prev.testimonials, stat3Value: val }
+                            }));
+                          }}
+                          placeholder="4K"
+                          className="w-20 px-2 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white font-mono text-xs text-center"
+                        />
+                        <input
+                          type="text"
+                          value={cms.testimonials?.stat3Label ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            updateCMS((prev) => ({
+                              ...prev,
+                              testimonials: { ...prev.testimonials, stat3Label: val }
+                            }));
+                          }}
+                          placeholder="Mastered"
+                          className="flex-1 px-2 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white font-serif text-xs"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dock CTA Button Label & Target */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-mono text-white/60 uppercase">Dock CTA Button Text</label>
+                      <input
+                        type="text"
+                        value={cms.testimonials?.ctaText ?? ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            testimonials: { ...prev.testimonials, ctaText: val }
+                          }));
+                        }}
+                        placeholder="INITIATE PRODUCTION or CTA"
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-mono text-white/60 uppercase">Dock CTA Target Anchor / Link</label>
+                      <input
+                        type="text"
+                        value={cms.testimonials?.ctaTarget ?? ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            testimonials: { ...prev.testimonials, ctaTarget: val }
+                          }));
+                        }}
+                        placeholder="#contact"
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 2: CLIENT REVIEWS DOSSIER CARDS (GRID/LIST) */}
+              <div className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs text-white/70 tracking-wider uppercase font-semibold">
+                      ACTIVE REVIEW DOSSIERS
+                    </span>
+                    <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/30">
+                      {(cms.testimonials?.items || []).length} Live Cards
+                    </span>
+                  </div>
+
+                  <div className="relative w-full sm:w-64">
+                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+                    <input
+                      type="text"
+                      value={reviewSearch}
+                      onChange={(e) => setReviewSearch(e.target.value)}
+                      placeholder="Search reviews by name..."
+                      className="w-full pl-9 pr-3 py-1.5 bg-neutral-900/90 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                </div>
+
+                {/* Review Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {(cms.testimonials?.items || [])
+                    .filter((r) => {
+                      const q = reviewSearch.toLowerCase();
+                      return (
+                        !q ||
+                        r.author.toLowerCase().includes(q) ||
+                        r.role.toLowerCase().includes(q) ||
+                        r.quote.toLowerCase().includes(q) ||
+                        r.topBadgeLeft.toLowerCase().includes(q)
+                      );
+                    })
+                    .map((item, idx) => {
+                      const theme = getTestimonialThemeClasses(item.accentTheme, idx);
+
+                      return (
+                        <div
+                          key={item.id}
+                          className={`relative rounded-3xl bg-[#090717]/90 border backdrop-blur-2xl p-5 flex flex-col justify-between transition-all duration-300 ${theme.rimBorder}`}
+                        >
+                          <div>
+                            {/* Card Top Row: Laurel + Rating + Action Controls */}
+                            <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10">
+                              <div className="flex items-center gap-1.5 text-xs text-white/90 font-medium truncate">
+                                <Award size={12} className="text-[#f5e302] shrink-0" />
+                                <span className="truncate text-[11px]">{item.topBadgeLeft}</span>
+                              </div>
+
+                              <div className="flex items-center gap-1 shrink-0">
+                                <button
+                                  type="button"
+                                  disabled={idx === 0}
+                                  onClick={() => handleMoveReview(idx, 'up')}
+                                  title="Move Earlier"
+                                  className="w-6 h-6 rounded-md bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white/70 transition-all cursor-pointer"
+                                >
+                                  <ArrowUp size={11} />
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={idx === (cms.testimonials?.items?.length || 0) - 1}
+                                  onClick={() => handleMoveReview(idx, 'down')}
+                                  title="Move Later"
+                                  className="w-6 h-6 rounded-md bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white/70 transition-all cursor-pointer"
+                                >
+                                  <ArrowDown size={11} />
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Badge and Theme indicator */}
+                            <div className="flex items-center justify-between mb-3">
+                              <span className={`px-2 py-0.5 rounded-full border font-mono text-[8px] font-semibold tracking-wider uppercase ${theme.badgeColor}`}>
+                                {item.accentTheme ? item.accentTheme.toUpperCase() : 'GOLD'} THEME
+                              </span>
+                              {item.topBadgeRight && (
+                                <span className={`font-mono text-xs font-semibold ${theme.starColor}`}>
+                                  {item.topBadgeRight}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Editorial Quote */}
+                            <blockquote className="font-serif text-sm text-white/90 italic leading-relaxed line-clamp-3 mb-4">
+                              {item.quote}
+                            </blockquote>
+
+                            {/* Author & Role */}
+                            <div className="mb-4 space-y-0.5">
+                              <h4 className="font-sans text-sm text-white font-semibold">
+                                {item.author}
+                              </h4>
+                              <p className="font-mono text-[9px] text-white/50 uppercase truncate">
+                                {item.role}
+                              </p>
+                            </div>
+
+                            {/* 16:9 Thumbnail preview */}
+                            <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-black/60 border border-white/10 mb-4">
+                              <img
+                                src={item.image || '/testimonial_cameras.png'}
+                                alt={item.author}
+                                className="w-full h-full object-cover"
+                              />
+                              {item.hasVideoIcon && (
+                                <div className="absolute top-2 right-2 p-1 rounded-md bg-black/60 border border-white/20">
+                                  <Video size={10} className="text-white" />
+                                </div>
+                              )}
+                            </div>
+
+                            {/* BTS Summary snippet */}
+                            {item.btsNotes && (
+                              <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1 mb-4 text-[10px]">
+                                <span className="font-mono text-[8px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1">
+                                  <Camera size={9} />
+                                  <span>{item.btsLabel || 'BTS TECHNICALS'}</span>
+                                </span>
+                                <p className="text-white/60 truncate font-mono text-[9px]">{item.btsNotes.camera}</p>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Card Footer Actions */}
+                          <div className="flex items-center gap-2 pt-3 border-t border-white/10">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setIsNewReview(false);
+                                setEditingReview(JSON.parse(JSON.stringify(item)));
+                                setModalBtsOpen(false);
+                              }}
+                              className="flex-1 py-2 rounded-xl bg-white/5 hover:bg-amber-400/20 hover:border-amber-400/40 border border-white/10 text-white/80 hover:text-amber-300 font-mono text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                            >
+                              <Edit3 size={13} />
+                              <span>EDIT DOSSIER</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteReview(item.id, item.author)}
+                              className="p-2 rounded-xl bg-red-950/20 hover:bg-red-900/40 border border-red-500/20 hover:border-red-500/40 text-red-400 transition-all cursor-pointer"
+                              title="Delete Review"
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+
+              {/* Bottom Master Save Bar */}
+              <div className="pt-6 border-t border-white/10 flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center space-x-2 text-white/50 text-xs font-mono">
+                  <span>PERSISTENCE:</span>
+                  <span className="text-amber-300">LOCAL STORAGE + SUPABASE CLOUD</span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleSaveTestimonials}
+                  className={`px-8 py-3 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                    savedSection === 'testimonials'
+                      ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                      : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                  }`}
+                >
+                  {savedSection === 'testimonials' ? <Check size={14} /> : <Save size={14} />}
+                  <span>{savedSection === 'testimonials' ? 'ALL REVIEWS SAVED ✓' : 'SAVE ALL REVIEWS & PRESS'}</span>
+                </button>
+              </div>
+
+              {/* REVIEW EDITOR / CREATOR MODAL */}
+              {editingReview && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+                  <div
+                    onClick={() => setEditingReview(null)}
+                    className="fixed inset-0 bg-black/85 backdrop-blur-md"
+                  />
+
+                  <div className="relative w-full max-w-4xl bg-[#0b0818] border border-white/15 rounded-3xl p-6 md:p-8 shadow-2xl z-10 max-h-[92vh] overflow-y-auto text-left space-y-6">
+                    {/* Modal Top Bar */}
+                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                      <div>
+                        <span className="font-mono text-[8px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+                          {isNewReview ? 'CREATE NEW REVIEW DOSSIER' : 'EDIT CLIENT & PRESS REVIEW'}
+                        </span>
+                        <h3 className="font-serif text-2xl text-white italic mt-1">
+                          {editingReview.author || 'Untitled Reviewer'}
+                        </h3>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setEditingReview(null)}
+                        className="p-2 rounded-full bg-white/5 hover:bg-white/15 text-white/60 hover:text-white cursor-pointer"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+
+                    {/* Modal Body: 2 Columns (Form + Real-Time Live Preview) */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                      {/* Left Column: Form Controls (7 cols) */}
+                      <div className="lg:col-span-7 space-y-5">
+                        {/* Reviewer Name */}
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Author / Client Name *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={editingReview.author}
+                            onChange={(e) => setEditingReview({ ...editingReview, author: e.target.value })}
+                            placeholder="e.g. Rukmini Sharma or Dr. S. K. Rao"
+                            className="w-full px-3.5 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        {/* Role & Organization */}
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Role &amp; Organization Byline *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={editingReview.role}
+                            onChange={(e) => setEditingReview({ ...editingReview, role: e.target.value })}
+                            placeholder="e.g. Grand Diva International // Festival Chairperson"
+                            className="w-full px-3.5 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        {/* Editorial Quote */}
+                        <div className="space-y-1.5">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Editorial Review Quote *
+                          </label>
+                          <textarea
+                            rows={3}
+                            required
+                            value={editingReview.quote}
+                            onChange={(e) => setEditingReview({ ...editingReview, quote: e.target.value })}
+                            placeholder="“Mayavi elevated our national auditions with broadcast-grade optics...”"
+                            className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-serif italic outline-none focus:border-[#EAB308]"
+                          />
+                        </div>
+
+                        {/* Top Badges Row */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="space-y-1">
+                            <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                              Top Left Laurel Badge
+                            </label>
+                            <input
+                              type="text"
+                              value={editingReview.topBadgeLeft}
+                              onChange={(e) => setEditingReview({ ...editingReview, topBadgeLeft: e.target.value })}
+                              placeholder="Official Partner • Grand Diva Int."
+                              className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                            />
+                          </div>
+
+                          <div className="space-y-1">
+                            <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                              Top Right Rating / Award
+                            </label>
+                            <input
+                              type="text"
+                              value={editingReview.topBadgeRight}
+                              onChange={(e) => setEditingReview({ ...editingReview, topBadgeRight: e.target.value })}
+                              placeholder="5.0 ★★★★ or Innovation Award"
+                              className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Right Badge Style Toggle */}
+                        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                          <span className="font-mono text-[9px] text-white/60 uppercase">Right Badge Format:</span>
+                          <button
+                            type="button"
+                            onClick={() => setEditingReview({ ...editingReview, isRightPill: false })}
+                            className={`px-3 py-1 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                              !editingReview.isRightPill
+                                ? 'bg-amber-400/20 text-amber-300 border border-amber-400/50'
+                                : 'bg-white/5 text-white/60'
+                            }`}
+                          >
+                            Star Rating Text
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setEditingReview({ ...editingReview, isRightPill: true })}
+                            className={`px-3 py-1 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                              editingReview.isRightPill
+                                ? 'bg-amber-400/20 text-amber-300 border border-amber-400/50'
+                                : 'bg-white/5 text-white/60'
+                            }`}
+                          >
+                            Gold Pill Badge
+                          </button>
+                        </div>
+
+                        {/* Accent Theme Selection */}
+                        <div className="space-y-2">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            Card Accent Color Theme Preset
+                          </label>
+                          <div className="grid grid-cols-5 gap-2">
+                            {[
+                              { id: 'gold', label: 'Gold', color: '#d4af37', ring: 'ring-[#d4af37]' },
+                              { id: 'pink', label: 'Magenta', color: '#db2777', ring: 'ring-[#db2777]' },
+                              { id: 'emerald', label: 'Emerald', color: '#10b981', ring: 'ring-[#10b981]' },
+                              { id: 'cyan', label: 'Cyan', color: '#06b6d4', ring: 'ring-[#06b6d4]' },
+                              { id: 'purple', label: 'Purple', color: '#a855f7', ring: 'ring-[#a855f7]' }
+                            ].map((thm) => {
+                              const isSelected = (editingReview.accentTheme || 'gold') === thm.id;
+                              return (
+                                <button
+                                  key={thm.id}
+                                  type="button"
+                                  onClick={() => setEditingReview({ ...editingReview, accentTheme: thm.id as any })}
+                                  className={`p-2 rounded-xl border flex flex-col items-center gap-1.5 transition-all cursor-pointer ${
+                                    isSelected
+                                      ? `border-white/40 bg-white/10 ${thm.ring} ring-2`
+                                      : 'border-white/10 bg-white/[0.02] hover:bg-white/5'
+                                  }`}
+                                >
+                                  <span className="w-3.5 h-3.5 rounded-full shadow-sm" style={{ backgroundColor: thm.color }} />
+                                  <span className="font-mono text-[9px] text-white/70">{thm.label}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Thumbnail Image URL & Presets */}
+                        <div className="space-y-2">
+                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            16:9 Thumbnail Image URL
+                          </label>
+                          <input
+                            type="text"
+                            value={editingReview.image}
+                            onChange={(e) => setEditingReview({ ...editingReview, image: e.target.value })}
+                            placeholder="/testimonial_cameras.png or image URL"
+                            className="w-full px-3.5 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                          />
+                          <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                            <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                            {[
+                              { label: 'Workshop', url: '/posters/theatre-modelling-workshop.png' },
+                              { label: 'Cameras', url: '/testimonial_cameras.png' },
+                              { label: 'Volumetric', url: '/volumetric_soundstage.png' },
+                              { label: 'Stage A', url: '/hero_stage_a.png' },
+                              { label: 'Medical Unsplash', url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800' }
+                            ].map((preset) => (
+                              <button
+                                key={preset.label}
+                                type="button"
+                                onClick={() => setEditingReview({ ...editingReview, image: preset.url })}
+                                className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-[8.5px] transition-all cursor-pointer"
+                              >
+                                {preset.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Video Icon Badge Toggle */}
+                        <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                          <div>
+                            <span className="font-mono text-xs text-white block">Video Reel Icon Overlay</span>
+                            <span className="font-sans text-[10px] text-white/40">Shows a camera/play badge in top-right of thumbnail</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setEditingReview({ ...editingReview, hasVideoIcon: !editingReview.hasVideoIcon })}
+                            className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer ${
+                              editingReview.hasVideoIcon
+                                ? 'bg-amber-400 text-black font-bold'
+                                : 'bg-white/10 text-white/60'
+                            }`}
+                          >
+                            {editingReview.hasVideoIcon ? 'ENABLED ✓' : 'OFF'}
+                          </button>
+                        </div>
+
+                        {/* Behind-The-Scenes (BTS) Drawer Controls */}
+                        <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+                          <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                            <span className="font-mono text-[10px] text-[#EAB308] tracking-widest uppercase font-semibold flex items-center gap-1.5">
+                              <Camera size={12} />
+                              <span>BTS TECHNICALS ACCORDION</span>
+                            </span>
+                            <span className="font-mono text-[9px] text-white/40">TECHNICAL DIRECTORIAL NOTES</span>
+                          </div>
+
+                          <div className="space-y-1">
+                            <label className="font-mono text-[8.5px] text-white/60 uppercase">Toggle Button Label</label>
+                            <input
+                              type="text"
+                              value={editingReview.btsLabel}
+                              onChange={(e) => setEditingReview({ ...editingReview, btsLabel: e.target.value })}
+                              placeholder="BTS TECHNICALS or Expand BTS"
+                              className="w-full px-3 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none"
+                            />
+                          </div>
+
+                          <div className="space-y-1">
+                            <label className="font-mono text-[8.5px] text-white/60 uppercase">Camera &amp; Optics</label>
+                            <input
+                              type="text"
+                              value={editingReview.btsNotes?.camera ?? ''}
+                              onChange={(e) => setEditingReview({
+                                ...editingReview,
+                                btsNotes: { ...editingReview.btsNotes, camera: e.target.value }
+                              })}
+                              placeholder="Sony Venice 2 8K // Zeiss Supreme 35mm T1.5"
+                              className="w-full px-3 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none"
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div className="space-y-1">
+                              <label className="font-mono text-[8.5px] text-white/60 uppercase">Stage Lighting</label>
+                              <input
+                                type="text"
+                                value={editingReview.btsNotes?.lighting ?? ''}
+                                onChange={(e) => setEditingReview({
+                                  ...editingReview,
+                                  btsNotes: { ...editingReview.btsNotes, lighting: e.target.value }
+                                })}
+                                placeholder="Volumetric Atmospheric Fog"
+                                className="w-full px-3 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none"
+                              />
+                            </div>
+
+                            <div className="space-y-1">
+                              <label className="font-mono text-[8.5px] text-white/60 uppercase">Color Grading LUT</label>
+                              <input
+                                type="text"
+                                value={editingReview.btsNotes?.grading ?? ''}
+                                onChange={(e) => setEditingReview({
+                                  ...editingReview,
+                                  btsNotes: { ...editingReview.btsNotes, grading: e.target.value }
+                                })}
+                                placeholder="Rich Magenta Gold Glamour LUT"
+                                className="w-full px-3 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-1">
+                            <label className="font-mono text-[8.5px] text-white/60 uppercase">Director's Craft Note</label>
+                            <textarea
+                              rows={2}
+                              value={editingReview.btsNotes?.directorComment ?? ''}
+                              onChange={(e) => setEditingReview({
+                                ...editingReview,
+                                btsNotes: { ...editingReview.btsNotes, directorComment: e.target.value }
+                              })}
+                              placeholder="We directed live runway auditions with dual 8K cameras..."
+                              className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-serif italic outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right Column: Live Interactive Preview (5 cols) */}
+                      <div className="lg:col-span-5 space-y-3 sticky top-4">
+                        <div className="flex items-center justify-between pb-1">
+                          <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase font-bold flex items-center gap-1.5">
+                            <Eye size={12} />
+                            <span>LIVE DOSSIER PREVIEW</span>
+                          </span>
+                          <span className="font-mono text-[8px] text-white/40 uppercase">INTERACTIVE CARD</span>
+                        </div>
+
+                        {/* Render Card Preview */}
+                        {(() => {
+                          const previewTheme = getTestimonialThemeClasses(editingReview.accentTheme);
+
+                          return (
+                            <div className={`relative rounded-3xl bg-[#090717]/95 border backdrop-blur-2xl p-5 flex flex-col justify-between text-left transition-all ${previewTheme.rimBorder}`}>
+                              <div>
+                                {/* Top Laurel & Rating Row */}
+                                <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10">
+                                  <div className="flex items-center gap-1.5 text-xs text-white/90 font-medium truncate">
+                                    <Award size={12} className="text-[#f5e302] shrink-0" />
+                                    <span className="truncate text-[11px]">{editingReview.topBadgeLeft || 'Official Accreditation'}</span>
+                                  </div>
+
+                                  {editingReview.topBadgeRight && (
+                                    editingReview.isRightPill ? (
+                                      <span className={`px-2.5 py-0.5 rounded-full border font-mono text-[8px] font-semibold tracking-wider uppercase shrink-0 ${previewTheme.badgeColor}`}>
+                                        {editingReview.topBadgeRight}
+                                      </span>
+                                    ) : (
+                                      <span className={`font-mono text-xs font-semibold tracking-wider shrink-0 ${previewTheme.starColor}`}>
+                                        {editingReview.topBadgeRight}
+                                      </span>
+                                    )
+                                  )}
+                                </div>
+
+                                {/* Editorial Quote */}
+                                <blockquote className="font-serif text-sm text-white font-normal leading-relaxed line-clamp-3 mb-4 italic">
+                                  {editingReview.quote || '“Add your editorial review quote to preview live appearance...”'}
+                                </blockquote>
+
+                                {/* Author Byline */}
+                                <div className="mb-4 space-y-0.5">
+                                  <h4 className="font-sans text-sm text-white font-semibold">
+                                    {editingReview.author || 'Author Name'}
+                                  </h4>
+                                  <p className="font-mono text-[9px] text-white/60 tracking-wider uppercase truncate">
+                                    {editingReview.role || 'Organization & Role'}
+                                  </p>
+                                </div>
+
+                                {/* 16:9 Thumbnail Still */}
+                                <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-black/60 border border-white/10 shadow-lg mb-4">
+                                  <img
+                                    src={editingReview.image || '/testimonial_cameras.png'}
+                                    alt={editingReview.author}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                                  {editingReview.hasVideoIcon && (
+                                    <div className="absolute top-2 right-2 p-1 rounded-md bg-black/60 border border-white/15">
+                                      <Video size={10} className="text-white/80" />
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+
+                              {/* Bottom BTS Technicals Drawer Toggle */}
+                              <div>
+                                <button
+                                  type="button"
+                                  onClick={() => setModalBtsOpen(!modalBtsOpen)}
+                                  className="w-full py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white/80 font-mono text-[9px] tracking-[0.18em] uppercase flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                                >
+                                  <span>{editingReview.btsLabel || 'BTS TECHNICALS'}</span>
+                                  <ChevronDown
+                                    size={11}
+                                    className={`transition-transform duration-300 ${modalBtsOpen ? `rotate-180 ${previewTheme.btsHighlight}` : 'text-white/60'}`}
+                                  />
+                                </button>
+
+                                {/* Expandable BTS Preview */}
+                                <AnimatePresence>
+                                  {modalBtsOpen && editingReview.btsNotes && (
+                                    <motion.div
+                                      initial={{ opacity: 0, height: 0 }}
+                                      animate={{ opacity: 1, height: 'auto' }}
+                                      exit={{ opacity: 0, height: 0 }}
+                                      transition={{ duration: 0.2 }}
+                                      className="overflow-hidden mt-2.5 pt-2.5 border-t border-white/10 space-y-2 text-left font-sans text-xs text-white/70"
+                                    >
+                                      {editingReview.btsNotes.camera && (
+                                        <div className="space-y-0.5">
+                                          <p className="font-mono text-[8px] text-[#f5e302] uppercase font-semibold flex items-center gap-1">
+                                            <Camera size={9} />
+                                            <span>Camera &amp; Optics</span>
+                                          </p>
+                                          <p className="text-white/80 text-[10px] font-light">{editingReview.btsNotes.camera}</p>
+                                        </div>
+                                      )}
+
+                                      {(editingReview.btsNotes.lighting || editingReview.btsNotes.grading) && (
+                                        <div className="space-y-0.5">
+                                          <p className="font-mono text-[8px] text-[#f5e302] uppercase font-semibold flex items-center gap-1">
+                                            <Layers size={9} />
+                                            <span>Color &amp; Lighting</span>
+                                          </p>
+                                          <p className="text-white/80 text-[10px] font-light">
+                                            {editingReview.btsNotes.lighting}{editingReview.btsNotes.lighting && editingReview.btsNotes.grading ? ' // ' : ''}{editingReview.btsNotes.grading}
+                                          </p>
+                                        </div>
+                                      )}
+
+                                      {editingReview.btsNotes.directorComment && (
+                                        <div className="space-y-0.5 pt-0.5">
+                                          <p className="font-mono text-[7.5px] text-white/40 uppercase font-semibold">
+                                            Director Craft Note
+                                          </p>
+                                          <p className="text-white/70 text-[10px] italic font-serif leading-relaxed">
+                                            &ldquo;{editingReview.btsNotes.directorComment}&rdquo;
+                                          </p>
+                                        </div>
+                                      )}
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    </div>
+
+                    {/* Modal Footer Controls */}
+                    <div className="flex items-center justify-end space-x-3 pt-4 border-t border-white/10">
+                      <button
+                        type="button"
+                        onClick={() => setEditingReview(null)}
+                        className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 font-mono text-xs tracking-wider cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleSaveReview(editingReview)}
+                        className="px-6 py-2.5 rounded-xl bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(234,179,8,0.3)] cursor-pointer"
+                      >
+                        {isNewReview ? 'ADD TO REVIEWS DOSSIER' : 'SAVE REVIEW CHANGES'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

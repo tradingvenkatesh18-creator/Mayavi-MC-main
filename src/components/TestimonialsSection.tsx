@@ -11,109 +11,66 @@ import {
   Video,
   Clapperboard
 } from 'lucide-react';
-
-export interface TestimonialItem {
-  id: string;
-  author: string;
-  role: string;
-  company: string;
-  category: string;
-  project: string;
-  quote: string;
-  metrics: string;
-  image: string;
-  timecode: string;
-  audioDuration?: string;
-  avatarBg?: string;
-  publication: string;
-  laurel: string;
-  rating: string;
-  btsNotes: {
-    camera: string;
-    lighting: string;
-    grading: string;
-    directorComment: string;
-  };
-}
+import { TestimonialsConfig, TestimonialReview, DEFAULT_CMS_DATA } from '../lib/cmsStore';
 
 interface TestimonialsSectionProps {
   onSelectAction?: (url: string) => void;
+  config?: TestimonialsConfig;
 }
 
-export default function TestimonialsSection({ onSelectAction }: TestimonialsSectionProps) {
+export const getTestimonialThemeClasses = (theme?: string, fallbackIndex = 0) => {
+  const t = theme || (fallbackIndex % 3 === 0 ? 'gold' : fallbackIndex % 3 === 1 ? 'pink' : 'emerald');
+  switch (t) {
+    case 'pink':
+      return {
+        rimBorder: 'border-[#db2777]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(219,39,119,0.15)]',
+        badgeColor: 'text-[#f472b6] border-[#db2777]/40 bg-[#db2777]/10',
+        starColor: 'text-[#f472b6]',
+        btsHighlight: 'text-[#f472b6]'
+      };
+    case 'emerald':
+      return {
+        rimBorder: 'border-[#10b981]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(16,185,129,0.15)]',
+        badgeColor: 'text-[#34d399] border-[#10b981]/40 bg-[#10b981]/10',
+        starColor: 'text-[#34d399]',
+        btsHighlight: 'text-[#34d399]'
+      };
+    case 'cyan':
+      return {
+        rimBorder: 'border-[#06b6d4]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.15)]',
+        badgeColor: 'text-[#22d3ee] border-[#06b6d4]/40 bg-[#06b6d4]/10',
+        starColor: 'text-[#22d3ee]',
+        btsHighlight: 'text-[#22d3ee]'
+      };
+    case 'purple':
+      return {
+        rimBorder: 'border-[#a855f7]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(168,85,247,0.15)]',
+        badgeColor: 'text-[#c084fc] border-[#a855f7]/40 bg-[#a855f7]/10',
+        starColor: 'text-[#c084fc]',
+        btsHighlight: 'text-[#c084fc]'
+      };
+    case 'gold':
+    default:
+      return {
+        rimBorder: 'border-[#d4af37]/60 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.12)]',
+        badgeColor: 'text-[#f5e302] border-[#d4af37]/40 bg-[#d4af37]/10',
+        starColor: 'text-[#f5e302]',
+        btsHighlight: 'text-[#f5e302]'
+      };
+  }
+};
+
+export default function TestimonialsSection({ onSelectAction, config }: TestimonialsSectionProps) {
   const [expandedBtsId, setExpandedBtsId] = useState<string | null>(null);
+
+  const activeConfig = config || DEFAULT_CMS_DATA.testimonials;
+  const reviews: TestimonialReview[] = (activeConfig.items && activeConfig.items.length > 0)
+    ? activeConfig.items
+    : DEFAULT_CMS_DATA.testimonials.items;
 
   const toggleBts = (id: string) => {
     setExpandedBtsId(prev => (prev === id ? null : id));
   };
-
-  const handleCtaClick = () => {
-    if (onSelectAction) {
-      onSelectAction('#contact');
-    } else {
-      const contactEl = document.getElementById('contact');
-      if (contactEl) {
-        contactEl.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
-
-  // The 3 Flagship Reviews matching the approved design
-  const reviews = [
-    {
-      id: 'granddiva',
-      rimBorder: 'border-[#d4af37]/60 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.12)]',
-      topBadgeLeft: 'Official Partner • Grand Diva Int.',
-      topBadgeRight: '5.0 ★★★★',
-      quote: '“Mayavi elevated our national auditions with broadcast-grade optics and unmatched talent direction...”',
-      author: 'Rukmini Sharma',
-      role: 'Grand Diva International // Festival Chairperson',
-      image: '/posters/theatre-modelling-workshop.png',
-      btsLabel: 'BTS TECHNICALS',
-      btsNotes: {
-        camera: 'Sony Venice 2 8K // Zeiss Supreme 35mm T1.5',
-        lighting: 'Full Stage Follow-Spot + Volumetric Atmospheric Fog',
-        grading: 'Rich Magenta Gold Glamour LUT Emulation',
-        directorComment: 'We directed live runway auditions with dual 8K cameras to capture high-motion choreography with zero shutter blur.'
-      }
-    },
-    {
-      id: 'pronto',
-      rimBorder: 'border-[#db2777]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(219,39,119,0.15)]',
-      topBadgeLeft: 'Enterprise Storytelling',
-      topBadgeRight: 'Innovation Award',
-      isRightPill: true,
-      quote: '“Mayavi captured complex medical insights into an emotional, human response from investors...”',
-      author: 'Dr. S. K. Rao',
-      role: 'Director of Operations // Pronto Diagnostics',
-      image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800',
-      hasVideoIcon: true,
-      btsLabel: 'Expand BTS',
-      btsNotes: {
-        camera: 'ARRI Alexa Mini LF + Macro Cinema Optics',
-        lighting: 'Clean Clinical Bi-Color Key Panel Diffusion',
-        grading: 'Subtle Emerald Precision Technical LUT',
-        directorComment: 'We focused macro lenses on microscopic diagnostic chips, treating medical engineering with cinematic grandeur.'
-      }
-    },
-    {
-      id: 'tamada',
-      rimBorder: 'border-[#10b981]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(16,185,129,0.15)]',
-      topBadgeLeft: 'Official Selection • South India Film Festival',
-      topBadgeRight: '',
-      quote: '“Mayavi transformed our campaign into a cinematic experience, raising our brand presence to an absolute ...”',
-      author: 'Vikranth Varma',
-      role: 'Tamada Media // Lead Campaign Director',
-      image: '/testimonial_cameras.png',
-      btsLabel: 'BTS TECHNICALS',
-      btsNotes: {
-        camera: 'ARRI Alexa LF with Anamorphic Primes',
-        lighting: 'Volumetric Tungsten Key & Cyan Edge Rim',
-        grading: 'Kodak 250D Spectral Film LUT Emulation',
-        directorComment: 'We lit the stage to evoke classic 70s neo-noir contrast while maintaining modern 9:16 mobile framing density.'
-      }
-    }
-  ];
 
   return (
     <section
@@ -249,10 +206,10 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 text-left">
           <div className="max-w-3xl space-y-3">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal font-serif text-white tracking-tight leading-tight">
-              Curated Press &amp; Client Reviews
+              {activeConfig.headline || "Curated Press & Client Reviews"}
             </h2>
             <p className="text-white/60 font-sans text-xs sm:text-sm font-light leading-relaxed max-w-xl">
-              An archival gallery of film festival laurels, executive testimonials, and technical behind-the-scenes director notes.
+              {activeConfig.subheadline || "An archival gallery of film festival laurels, executive testimonials, and technical behind-the-scenes director notes."}
             </p>
           </div>
 
@@ -260,20 +217,22 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#d4af37]/40 bg-[#161009]/80 backdrop-blur-md self-start md:self-auto shadow-[0_0_15px_rgba(212,175,55,0.15)]">
             <Award size={13} className="text-[#f5e302]" />
             <span className="font-mono text-[9px] text-[#f5e302] tracking-[0.2em] uppercase font-bold">
-              5★ INDUSTRY CRITICS CHOICE 2026
+              {activeConfig.criticsChoiceBadge || "5★ INDUSTRY CRITICS CHOICE 2026"}
             </span>
           </div>
         </div>
 
         {/* 3-COLUMN LUXURY ACCREDITATION DOSSIER CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
-          {reviews.map((item) => {
+          {reviews.map((item, idx) => {
             const isBtsOpen = expandedBtsId === item.id;
+            const theme = getTestimonialThemeClasses(item.accentTheme, idx);
+            const rimBorderClass = item.accentTheme ? theme.rimBorder : (item.id === 'granddiva' ? 'border-[#d4af37]/60 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.12)]' : item.id === 'pronto' ? 'border-[#db2777]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(219,39,119,0.15)]' : theme.rimBorder);
 
             return (
               <div
                 key={item.id}
-                className={`group relative rounded-3xl bg-[#090717]/85 border backdrop-blur-2xl transition-all duration-300 p-6 flex flex-col justify-between text-left ${item.rimBorder}`}
+                className={`group relative rounded-3xl bg-[#090717]/85 border backdrop-blur-2xl transition-all duration-300 p-6 flex flex-col justify-between text-left ${rimBorderClass}`}
               >
                 <div>
                   {/* Top Laurel & Rating Row */}
@@ -285,11 +244,11 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
 
                     {item.topBadgeRight && (
                       item.isRightPill ? (
-                        <span className="px-2.5 py-0.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/40 font-mono text-[8px] text-[#f5e302] font-semibold tracking-wider uppercase shrink-0">
+                        <span className={`px-2.5 py-0.5 rounded-full border font-mono text-[8px] font-semibold tracking-wider uppercase shrink-0 ${theme.badgeColor}`}>
                           {item.topBadgeRight}
                         </span>
                       ) : (
-                        <span className="font-mono text-xs text-[#f5e302] font-semibold tracking-wider shrink-0">
+                        <span className={`font-mono text-xs font-semibold tracking-wider shrink-0 ${theme.starColor}`}>
                           {item.topBadgeRight}
                         </span>
                       )
@@ -314,7 +273,7 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
                   {/* Cinematic 16:9 Thumbnail Still */}
                   <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-black/60 border border-white/10 shadow-lg mb-5 group/img">
                     <img
-                      src={item.image}
+                      src={item.image || '/testimonial_cameras.png'}
                       alt={item.author}
                       className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
                     />
@@ -336,16 +295,16 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
                     onClick={() => toggleBts(item.id)}
                     className="w-full py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-white/80 font-mono text-[9.5px] tracking-[0.18em] uppercase flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-98"
                   >
-                    <span>{item.btsLabel}</span>
+                    <span>{item.btsLabel || 'BTS TECHNICALS'}</span>
                     <ChevronDown
                       size={12}
-                      className={`transition-transform duration-300 ${isBtsOpen ? 'rotate-180 text-[#f5e302]' : 'text-white/60'}`}
+                      className={`transition-transform duration-300 ${isBtsOpen ? `rotate-180 ${theme.btsHighlight}` : 'text-white/60'}`}
                     />
                   </button>
 
                   {/* Expandable BTS Notes Drawer */}
                   <AnimatePresence>
-                    {isBtsOpen && (
+                    {isBtsOpen && item.btsNotes && (
                       <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
@@ -353,30 +312,38 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
                         transition={{ duration: 0.25 }}
                         className="overflow-hidden mt-3 pt-3 border-t border-white/10 space-y-2.5 font-sans text-xs text-white/70"
                       >
-                        <div className="space-y-1">
-                          <p className="font-mono text-[8.5px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1.5">
-                            <Camera size={11} />
-                            <span>Camera &amp; Optics</span>
-                          </p>
-                          <p className="text-white/80 text-[11px] font-light">{item.btsNotes.camera}</p>
-                        </div>
+                        {item.btsNotes.camera && (
+                          <div className="space-y-1">
+                            <p className="font-mono text-[8.5px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1.5">
+                              <Camera size={11} />
+                              <span>Camera &amp; Optics</span>
+                            </p>
+                            <p className="text-white/80 text-[11px] font-light">{item.btsNotes.camera}</p>
+                          </div>
+                        )}
 
-                        <div className="space-y-1">
-                          <p className="font-mono text-[8.5px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1.5">
-                            <Layers size={11} />
-                            <span>Color &amp; Lighting</span>
-                          </p>
-                          <p className="text-white/80 text-[11px] font-light">{item.btsNotes.lighting} // {item.btsNotes.grading}</p>
-                        </div>
+                        {(item.btsNotes.lighting || item.btsNotes.grading) && (
+                          <div className="space-y-1">
+                            <p className="font-mono text-[8.5px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1.5">
+                              <Layers size={11} />
+                              <span>Color &amp; Lighting</span>
+                            </p>
+                            <p className="text-white/80 text-[11px] font-light">
+                              {item.btsNotes.lighting}{item.btsNotes.lighting && item.btsNotes.grading ? ' // ' : ''}{item.btsNotes.grading}
+                            </p>
+                          </div>
+                        )}
 
-                        <div className="space-y-1 pt-1">
-                          <p className="font-mono text-[8px] text-white/40 tracking-wider uppercase font-semibold">
-                            Director&apos;s Craft Note
-                          </p>
-                          <p className="text-white/70 text-[11px] italic font-serif leading-relaxed">
-                            &ldquo;{item.btsNotes.directorComment}&rdquo;
-                          </p>
-                        </div>
+                        {item.btsNotes.directorComment && (
+                          <div className="space-y-1 pt-1">
+                            <p className="font-mono text-[8px] text-white/40 tracking-wider uppercase font-semibold">
+                              Director&apos;s Craft Note
+                            </p>
+                            <p className="text-white/70 text-[11px] italic font-serif leading-relaxed">
+                              &ldquo;{item.btsNotes.directorComment}&rdquo;
+                            </p>
+                          </div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -394,25 +361,33 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
             {/* Telemetry Stats */}
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 font-serif text-sm sm:text-base text-white/90 font-light">
               <span>
-                <strong className="font-medium text-[#f5e302]">98.4%</strong> Retention
+                <strong className="font-medium text-[#f5e302]">{activeConfig.stat1Value || "98.4%"}</strong> {activeConfig.stat1Label || "Retention"}
               </span>
               <span className="w-1 h-1 rounded-full bg-white/30" />
               <span>
-                <strong className="font-medium text-[#f5e302]">14</strong> Festival Laurels
+                <strong className="font-medium text-[#f5e302]">{activeConfig.stat2Value || "14"}</strong> {activeConfig.stat2Label || "Festival Laurels"}
               </span>
               <span className="w-1 h-1 rounded-full bg-white/30" />
               <span>
-                <strong className="font-medium text-[#f5e302]">4K</strong> Mastered
+                <strong className="font-medium text-[#f5e302]">{activeConfig.stat3Value || "4K"}</strong> {activeConfig.stat3Label || "Mastered"}
               </span>
             </div>
 
             {/* Champagne Gold CTA Button */}
             <button
               type="button"
-              onClick={handleCtaClick}
+              onClick={() => {
+                const target = activeConfig.ctaTarget || '#contact';
+                if (onSelectAction) {
+                  onSelectAction(target);
+                } else {
+                  const el = document.querySelector(target);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="px-6 py-2 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f5e302] to-[#c59b27] hover:brightness-110 active:scale-95 text-[#050505] font-mono text-[10px] tracking-wider uppercase font-extrabold shadow-[0_2px_15px_rgba(212,175,55,0.3)] transition-all cursor-pointer shrink-0"
             >
-              CTA
+              {activeConfig.ctaText || "CTA"}
             </button>
           </div>
         </div>
