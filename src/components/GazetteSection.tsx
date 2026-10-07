@@ -142,13 +142,13 @@ export default function GazetteSection({
       {/* ============================================================ */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
         {/* Ambient Color Blooms */}
-        <div className="absolute top-12 left-10 w-[550px] h-[550px] bg-[#410682]/25 rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 right-5 w-[500px] h-[500px] bg-[#b00045]/20 rounded-full blur-[140px]" />
-        <div className="absolute bottom-10 left-1/4 w-[450px] h-[450px] bg-[#a2d865]/10 rounded-full blur-[130px]" />
+        <div className="absolute top-12 left-10 w-[550px] h-[550px] bg-[#410682]/35 rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 right-5 w-[500px] h-[500px] bg-[#b00045]/28 rounded-full blur-[140px]" />
+        <div className="absolute bottom-10 left-1/4 w-[450px] h-[450px] bg-[#a2d865]/18 rounded-full blur-[130px]" />
 
         {/* Diamond Matrix Watermark Pattern (Continuity with Footer & Contact pattern-3.svg) */}
         <div
-          className="absolute inset-0 opacity-[0.035] pointer-events-none"
+          className="absolute inset-0 opacity-[0.16] pointer-events-none mix-blend-screen"
           style={{
             backgroundImage: "url('/patterns/pattern-3.svg')",
             backgroundRepeat: 'repeat',
@@ -158,7 +158,7 @@ export default function GazetteSection({
       </div>
 
       {/* LEFT FLANK FRAMING RIBBONS (Pistachio Green + Purple + Crimson) */}
-      <div className="absolute -top-10 -left-16 sm:-left-8 w-[320px] sm:w-[480px] lg:w-[600px] h-[650px] lg:h-[800px] pointer-events-none select-none z-0 opacity-85">
+      <div className="absolute -top-10 -left-28 sm:-left-20 lg:-left-24 w-[320px] sm:w-[480px] lg:w-[580px] h-[650px] lg:h-[800px] pointer-events-none select-none z-0 opacity-85">
         <svg className="w-full h-full" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="gzLeftGreen" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -253,11 +253,9 @@ export default function GazetteSection({
         </svg>
       </div>
 
-      {/* BOTTOM RIGHT SPARKLE STAR ACCENT (From Approved Option D) */}
+      {/* BOTTOM RIGHT SOLAR DOT ACCENT */}
       <div className="absolute bottom-28 right-8 md:right-16 pointer-events-none select-none opacity-45">
-        <svg className="w-8 h-8 text-[#f0ebd8]" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" />
-        </svg>
+        <span className="w-2.5 h-2.5 rounded-full bg-[#f5e302] block shadow-[0_0_12px_#f5e302]" />
       </div>
 
       {/* ============================================================ */}
@@ -265,8 +263,8 @@ export default function GazetteSection({
       {/* ============================================================ */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
-        {/* SECTION HEADER — MASTHEAD & FOUNDER SEAL */}
-        <div className="max-w-3xl space-y-3 mb-10 text-left">
+        {/* SECTION HEADER — MASTHEAD & FOUNDER SEAL (Shifted right for ribbon clearance) */}
+        <div className="max-w-3xl space-y-3 mb-10 text-left pl-3 sm:pl-8 md:pl-14 lg:pl-16">
           {/* Dual Pill Indicators */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c120c]/80 border border-[#d4af37]/35 shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-md">
@@ -305,8 +303,8 @@ export default function GazetteSection({
           </div>
         </div>
 
-        {/* CATEGORY FILTER PILLS STRIP */}
-        <div className="flex items-center gap-3 mb-10 overflow-x-auto no-scrollbar pb-2">
+        {/* CATEGORY FILTER PILLS STRIP (Shifted right to match header) */}
+        <div className="flex items-center gap-3 mb-10 overflow-x-auto no-scrollbar pb-2 pl-3 sm:pl-8 md:pl-14 lg:pl-16">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
