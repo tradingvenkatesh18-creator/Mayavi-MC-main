@@ -1532,19 +1532,40 @@ export default function App() {
             {/* ABOUT US SECTION */}
             <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pt-10 pb-8 lg:pt-16 lg:pb-12 border-t border-white/5 overflow-visible">
 
-              {/* Soft, deep violet-indigo ambient glow behind the layout */}
-              <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-violet-950/15 rounded-full filter blur-[150px] pointer-events-none" />
+              {/* Rich Cinematic Studio Ambient Glows (Luminous Violet & Vibrant Crimson) */}
+              <div className="absolute -top-10 -left-20 w-[600px] sm:w-[700px] h-[600px] sm:h-[700px] bg-[#7c3aed]/28 rounded-full blur-[150px] pointer-events-none" />
+              <div className="absolute top-16 -left-8 w-[450px] h-[450px] bg-[#9333ea]/22 rounded-full blur-[120px] pointer-events-none" />
+              <div className="absolute top-8 -right-16 w-[600px] sm:w-[700px] h-[600px] sm:h-[700px] bg-[#e11d48]/24 rounded-full blur-[150px] pointer-events-none" />
+              <div className="absolute top-32 -right-8 w-[450px] h-[450px] bg-[#f43f5e]/18 rounded-full blur-[120px] pointer-events-none" />
+              <div className="absolute bottom-20 left-1/3 w-[500px] h-[500px] bg-[#6d28d9]/18 rounded-full blur-[140px] pointer-events-none" />
+              <div className="absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-[#be185d]/16 rounded-full blur-[130px] pointer-events-none" />
 
-              {/* Ambient Wave Background Watermark (pattern-5) - Left Aligned */}
+              {/* Subtle Repeating Diamond Matrix Watermark Texture (Continuity & Texture) */}
               <div
-                className="absolute -top-10 -left-20 w-[450px] h-[550px] opacity-[0.16] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-wave"
-                style={{ backgroundImage: "url('/patterns/pattern-5.svg')" }}
+                className="absolute inset-0 opacity-[0.09] pointer-events-none mix-blend-screen"
+                style={{
+                  backgroundImage: "url('/patterns/pattern-3.svg')",
+                  backgroundRepeat: 'repeat',
+                  backgroundSize: '200px 200px'
+                }}
               />
 
-              {/* Ambient Mandala Background Watermark (pattern-3) - Right Aligned */}
+              {/* Luminous Electric Violet Wave Watermark (pattern-5-luminous) - Left Aligned */}
               <div
-                className="absolute top-10 -right-20 w-[500px] h-[600px] opacity-[0.14] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-rotate"
-                style={{ backgroundImage: "url('/patterns/pattern-3.svg')" }}
+                className="absolute -top-12 -left-24 sm:-left-20 w-[520px] sm:w-[620px] h-[640px] sm:h-[740px] opacity-[0.80] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-wave filter drop-shadow-[0_0_28px_rgba(168,85,247,0.45)]"
+                style={{ backgroundImage: "url('/patterns/pattern-5-luminous.svg')" }}
+              />
+
+              {/* Luminous Radiant Crimson Wave Watermark (pattern-3-luminous) - Right Aligned (Top Visual) */}
+              <div
+                className="absolute top-6 -right-24 sm:-right-20 w-[540px] sm:w-[640px] h-[680px] sm:h-[780px] opacity-[0.75] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none animate-pattern-rotate filter drop-shadow-[0_0_24px_rgba(244,63,94,0.4)]"
+                style={{ backgroundImage: "url('/patterns/pattern-3-luminous.svg')" }}
+              />
+
+              {/* Luminous Radiant Crimson Wave Watermark (pattern-3-luminous) - Right Aligned (Casting Area) */}
+              <div
+                className="absolute top-[680px] -right-24 sm:-right-20 w-[500px] sm:w-[580px] h-[580px] sm:h-[680px] opacity-[0.70] pointer-events-none mix-blend-screen bg-no-repeat bg-contain z-0 select-none filter drop-shadow-[0_0_22px_rgba(244,63,94,0.35)]"
+                style={{ backgroundImage: "url('/patterns/pattern-3-luminous.svg')" }}
               />
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start relative z-10">
@@ -1718,19 +1739,19 @@ export default function App() {
                           <span className="font-mono text-[7px] text-white/30 tracking-widest uppercase block mb-2">YOUR BENEFITS:</span>
                           <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[9px] text-white/60 font-sans font-light">
                             <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">✦</span>
+                              <span className="text-amber-400 text-[8px]">●</span>
                               <span>Unlimited Castings</span>
                             </div>
                             <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">✦</span>
+                              <span className="text-amber-400 text-[8px]">●</span>
                               <span>Priority Selection</span>
                             </div>
                             <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">✦</span>
+                              <span className="text-amber-400 text-[8px]">●</span>
                               <span>Film & Media Roles</span>
                             </div>
                             <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">✦</span>
+                              <span className="text-amber-400 text-[8px]">●</span>
                               <span>Portfolio Projects</span>
                             </div>
                           </div>
