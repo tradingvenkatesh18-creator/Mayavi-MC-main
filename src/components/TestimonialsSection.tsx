@@ -126,9 +126,9 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
       {/* ============================================================ */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
         {/* Ambient Color Blooms */}
-        <div className="absolute top-10 left-10 w-[550px] h-[550px] bg-[#410682]/20 rounded-full blur-[150px]" />
-        <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-[#b00045]/15 rounded-full blur-[150px]" />
-        <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-[#0d9488]/10 rounded-full blur-[140px]" />
+        <div className="absolute top-10 left-10 w-[550px] h-[550px] bg-[#410682]/30 rounded-full blur-[150px]" />
+        <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-[#b00045]/22 rounded-full blur-[150px]" />
+        <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-[#0d9488]/16 rounded-full blur-[140px]" />
 
         {/* ============================================================ */}
         {/* OFFICIAL CLIENT PATTERN: SEAMLESS MEDIA PENNANTS & PINS     */}
@@ -136,7 +136,7 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
         {/* 100% Mathematically Seamless (Zero cuts, Zero gaps)         */}
         {/* ============================================================ */}
         <svg
-          className="absolute inset-0 w-full h-full opacity-[0.16] pointer-events-none select-none mix-blend-screen"
+          className="absolute inset-0 w-full h-full opacity-[0.32] pointer-events-none select-none mix-blend-screen"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
@@ -145,7 +145,7 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
               <path
                 d="M 0,45 C 28,62 72,62 100,45 C 128,28 172,28 200,45 C 228,62 272,62 300,45 C 328,28 372,28 400,45 L 400,69 C 372,52 328,52 300,69 C 272,86 228,86 200,69 C 172,52 128,52 100,69 C 72,86 28,86 0,69 Z"
                 fill="#38bdf8"
-                fillOpacity="0.05"
+                fillOpacity="0.08"
                 stroke="none"
               />
               <path
@@ -153,21 +153,21 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
                 fill="none"
                 stroke="#38bdf8"
                 strokeWidth="1.3"
-                strokeOpacity="0.75"
+                strokeOpacity="0.88"
               />
               <path
                 d="M 0,69 C 28,86 72,86 100,69 C 128,52 172,52 200,69 C 228,86 272,86 300,69 C 328,52 372,52 400,69"
                 fill="none"
                 stroke="#38bdf8"
                 strokeWidth="1.3"
-                strokeOpacity="0.75"
+                strokeOpacity="0.88"
               />
 
               {/* WAVE 2: Gold (y around 125) */}
               <path
                 d="M 0,115 C 28,98 72,98 100,115 C 128,132 172,132 200,115 C 228,98 272,98 300,115 C 328,132 372,132 400,115 L 400,139 C 372,156 328,156 300,139 C 272,122 228,122 200,139 C 172,156 128,156 100,139 C 72,122 28,122 0,139 Z"
                 fill="#f5e302"
-                fillOpacity="0.05"
+                fillOpacity="0.08"
                 stroke="none"
               />
               <path
@@ -175,21 +175,21 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
                 fill="none"
                 stroke="#f5e302"
                 strokeWidth="1.3"
-                strokeOpacity="0.75"
+                strokeOpacity="0.88"
               />
               <path
                 d="M 0,139 C 28,156 72,156 100,139 C 128,122 172,122 200,139 C 228,156 272,156 300,139 C 328,122 372,122 400,139"
                 fill="none"
                 stroke="#f5e302"
                 strokeWidth="1.3"
-                strokeOpacity="0.75"
+                strokeOpacity="0.88"
               />
 
               {/* WAVE 3: Purple/Magenta (y around 205) */}
               <path
                 d="M 0,200 C 28,217 72,217 100,200 C 128,183 172,183 200,200 C 228,217 272,217 300,200 C 328,183 372,183 400,200 L 400,224 C 372,241 328,241 300,224 C 272,207 228,207 200,224 C 172,241 128,241 100,224 C 72,207 28,207 0,224 Z"
                 fill="#c084fc"
-                fillOpacity="0.05"
+                fillOpacity="0.08"
                 stroke="none"
               />
               <path
@@ -197,14 +197,14 @@ export default function TestimonialsSection({ onSelectAction }: TestimonialsSect
                 fill="none"
                 stroke="#c084fc"
                 strokeWidth="1.3"
-                strokeOpacity="0.75"
+                strokeOpacity="0.88"
               />
               <path
                 d="M 0,224 C 28,241 72,241 100,224 C 128,207 172,207 200,224 C 228,241 272,241 300,224 C 328,207 372,207 400,224"
                 fill="none"
                 stroke="#c084fc"
                 strokeWidth="1.3"
-                strokeOpacity="0.75"
+                strokeOpacity="0.88"
               />
 
               {/* MEDIA PIN 1: PLAY (Cyan) */}
