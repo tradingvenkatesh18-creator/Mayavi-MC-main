@@ -78,6 +78,32 @@ export interface CoreService {
   disciplines: { title: string; desc: string }[];
 }
 
+export interface AuditionCard1Config {
+  badge: string;
+  title: string;
+  description: string;
+  benefits: string[];
+}
+
+export interface AuditionCard2Config {
+  badge: string;
+  title: string;
+  description: string;
+  experience: string;
+  roleType: string;
+  ctaText: string;
+  whatsappMessage?: string;
+  instagramHandle: string;
+}
+
+export interface GrandDivaCardConfig {
+  tagline: string;
+  title: string;
+  description: string;
+  ctaText: string;
+  ctaUrl: string;
+}
+
 export interface AboutConfig {
   tagline: string;
   heading: string;
@@ -91,6 +117,13 @@ export interface AboutConfig {
   stat3Label: string;
   directorName: string;
   directorTitle: string;
+  cinematicImageUrl?: string;
+  sceneOverlayText?: string;
+  castingTagline?: string;
+  castingHeading?: string;
+  auditionCard1?: AuditionCard1Config;
+  auditionCard2?: AuditionCard2Config;
+  grandDivaCard?: GrandDivaCardConfig;
 }
 
 export interface InquiryConfig {
@@ -477,7 +510,39 @@ export const DEFAULT_CMS_DATA: CMSData = {
     stat3Value: "98%",
     stat3Label: "Client belief",
     directorName: "Vishishta Saxena",
-    directorTitle: "Founder & CEO, Mayavi Media Creations"
+    directorTitle: "Founder & CEO, Mayavi Media Creations",
+    cinematicImageUrl: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200",
+    sceneOverlayText: "SCENE 02 — PHILOSOPHY",
+    castingTagline: "// ACTIVE INVITATIONS & CASTINGS",
+    castingHeading: "Casting Calls & Auditions",
+    auditionCard1: {
+      badge: "SPECIAL OPPORTUNITY",
+      title: "Prince & Princess of South India (Season 2)",
+      description: "AP & Telangana editions happening in July 2026. Become a member today to get instant casting alerts and priority selections.",
+      benefits: [
+        "Unlimited Castings",
+        "Priority Selection",
+        "Film & Media Roles",
+        "Portfolio Projects"
+      ]
+    },
+    auditionCard2: {
+      badge: "WE ARE HIRING",
+      title: "Looking for Content Creators",
+      description: "If you are young, energetic, charismatic, and camera-friendly with 0-2 years of experience, we want to groom you for our commercial projects.",
+      experience: "0-2 Years",
+      roleType: "Presenting & Hosting",
+      ctaText: "SUBMIT PROFILE",
+      whatsappMessage: "Hello Mayavi! I'm interested in the Content Creator hiring opportunity. I would love to apply and share my resume/profile.",
+      instagramHandle: "OR DM @mayavi_mediacreations"
+    },
+    grandDivaCard: {
+      tagline: "// OFFICIAL PARTNERSHIP APPLICATION",
+      title: "Grand Diva International Pageant (Season 2)",
+      description: "We have partnered with the official Grand Diva organization. Open the Season 2 participation form to secure your workshop registration details.",
+      ctaText: "OPEN OFFICIAL APPLICATION",
+      ctaUrl: "https://docs.google.com/forms/d/1amHV4nUd7M8cDqZzFVOIVoVR1PgM86Ucg3ByxHuZ6AU/viewform?edit_requested=true"
+    }
   },
   integrations: {
     googleSheetsWebhookUrl: "https://script.google.com/macros/s/AKfycbz_SAMPLE_MAYAVI_APP_SCRIPT_URL/exec",
@@ -712,8 +777,22 @@ export function sanitizeCMSData(parsed: any): CMSData {
       backgroundVideoUrl: parsed.hero?.backgroundVideoUrl || fallback.hero.backgroundVideoUrl,
       posterUrl: (parsed.hero?.posterUrl && parsed.hero.posterUrl !== '/official-mayavi-logo.png') ? parsed.hero.posterUrl : fallback.hero.posterUrl
     },
-    showreel: { ...fallback.showreel, ...(parsed.showreel || {}) },
-    about: { ...fallback.about, ...(parsed.about || {}) },
+    about: {
+      ...fallback.about,
+      ...(parsed.about || {}),
+      auditionCard1: {
+        ...fallback.about.auditionCard1,
+        ...(parsed.about?.auditionCard1 || {})
+      },
+      auditionCard2: {
+        ...fallback.about.auditionCard2,
+        ...(parsed.about?.auditionCard2 || {})
+      },
+      grandDivaCard: {
+        ...fallback.about.grandDivaCard,
+        ...(parsed.about?.grandDivaCard || {})
+      }
+    },
     integrations: { ...fallback.integrations, ...(parsed.integrations || {}) },
     gazettePosts: (parsed.gazettePosts && Array.isArray(parsed.gazettePosts) && parsed.gazettePosts.length > 0)
       ? parsed.gazettePosts

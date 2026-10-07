@@ -3651,6 +3651,567 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </div>
               </div>
 
+              {/* CINEMATIC VISUAL & CAMERA RIG SETTINGS */}
+              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-6">
+                <div className="flex items-center space-x-3 border-b border-white/10 pb-4">
+                  <Film className="text-[#EAB308]" size={20} />
+                  <div>
+                    <h2 className="text-xl font-serif italic text-white">Cinematic Visual & Camera Rig</h2>
+                    <p className="text-white/40 text-xs font-sans">
+                      Configure the 16:9 cinematic photo/video and standby scene telemetry overlay in the Philosophy section.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-1 text-left">
+                    <label className="text-[9px] font-mono text-white/50 uppercase">Cinematic Image / Rig URL</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={cms.about.cinematicImageUrl || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: { ...prev.about, cinematicImageUrl: val }
+                          }));
+                        }}
+                        placeholder="https://images.unsplash.com/..."
+                        className="flex-1 px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    {/* Quick presets */}
+                    <div className="flex flex-wrap gap-1.5 pt-1.5">
+                      <span className="text-[8px] font-mono text-white/40 uppercase">Presets:</span>
+                      {[
+                        { label: 'ARRI Set', url: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200' },
+                        { label: 'Director Cam', url: 'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&q=80&w=1200' },
+                        { label: 'Cinema Rig', url: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1200' },
+                        { label: 'Stage A', url: '/hero_stage_a.png' }
+                      ].map((preset) => (
+                        <button
+                          key={preset.label}
+                          type="button"
+                          onClick={() => {
+                            updateCMS((prev) => ({
+                              ...prev,
+                              about: { ...prev.about, cinematicImageUrl: preset.url }
+                            }));
+                          }}
+                          className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-[8px] transition-all cursor-pointer"
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-1 text-left">
+                    <label className="text-[9px] font-mono text-white/50 uppercase">Scene Telemetry Overlay Tag</label>
+                    <input
+                      type="text"
+                      value={cms.about.sceneOverlayText || ''}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          about: { ...prev.about, sceneOverlayText: val }
+                        }));
+                      }}
+                      placeholder="SCENE 02 — PHILOSOPHY"
+                      className="w-full px-3.5 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                </div>
+
+                {/* Preview Thumbnail */}
+                {cms.about.cinematicImageUrl && (
+                  <div className="relative w-full aspect-[21/9] max-h-48 rounded-xl overflow-hidden border border-white/10 bg-black/50">
+                    <img
+                      src={cms.about.cinematicImageUrl}
+                      alt="Philosophy Visual Preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[8px] font-mono text-white/70">
+                      <span className="text-[#EAB308]">● ACTIVE SET // STANDBY</span>
+                      <span>{cms.about.sceneOverlayText || 'SCENE 02 — PHILOSOPHY'}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* CASTING CALLS & AUDITIONS MANAGER (DELIVERABLE #10) */}
+              <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-8">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <div className="flex items-center space-x-3">
+                    <Sparkles className="text-[#EAB308]" size={20} />
+                    <div>
+                      <h2 className="text-xl font-serif italic text-white">Casting Calls & Auditions Dashboard</h2>
+                      <p className="text-white/40 text-xs font-sans">
+                        Manage active audition notices, creator hiring calls, and partner pageant applications.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section Headings */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1 text-left">
+                    <label className="text-[9px] font-mono text-white/50 uppercase">Casting Subheading Tagline</label>
+                    <input
+                      type="text"
+                      value={cms.about.castingTagline || ''}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          about: { ...prev.about, castingTagline: val }
+                        }));
+                      }}
+                      className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                  <div className="space-y-1 text-left">
+                    <label className="text-[9px] font-mono text-white/50 uppercase">Casting Section Title</label>
+                    <input
+                      type="text"
+                      value={cms.about.castingHeading || ''}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        updateCMS((prev) => ({
+                          ...prev,
+                          about: { ...prev.about, castingHeading: val }
+                        }));
+                      }}
+                      className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-serif italic outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                </div>
+
+                {/* OPPORTUNITY 01: SPECIAL OPPORTUNITY (PRINCE & PRINCESS) */}
+                <div className="p-5 rounded-2xl bg-black/40 border border-amber-500/20 space-y-4 text-left">
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <div className="flex items-center space-x-2">
+                      <Sparkles size={14} className="text-amber-400" />
+                      <span className="font-mono text-xs font-bold text-amber-400 uppercase">Opportunity 01 — Special Audition</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Card Badge</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard1?.badge || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard1: { ...(prev.about.auditionCard1 || { badge: '', title: '', description: '', benefits: [] }), badge: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="md:col-span-2 space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Audition Title</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard1?.title || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard1: { ...(prev.about.auditionCard1 || { badge: '', title: '', description: '', benefits: [] }), title: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-serif italic outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="md:col-span-3 space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Opportunity Description & Dates</label>
+                      <textarea
+                        rows={2}
+                        value={cms.about.auditionCard1?.description || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard1: { ...(prev.about.auditionCard1 || { badge: '', title: '', description: '', benefits: [] }), description: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Benefits Array */}
+                  <div className="space-y-2 pt-2 border-t border-white/5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[9px] font-mono text-amber-400 uppercase font-semibold">Audition Benefits / Perks</label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateCMS((prev) => {
+                            const cur = prev.about.auditionCard1?.benefits || [];
+                            return {
+                              ...prev,
+                              about: {
+                                ...prev.about,
+                                auditionCard1: {
+                                  ...(prev.about.auditionCard1 || { badge: '', title: '', description: '', benefits: [] }),
+                                  benefits: [...cur, 'New Benefit']
+                                }
+                              }
+                            };
+                          });
+                        }}
+                        className="text-[9px] font-mono text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer"
+                      >
+                        <Plus size={10} />
+                        <span>Add Benefit</span>
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {(cms.about.auditionCard1?.benefits || []).map((ben, bIdx) => (
+                        <div key={bIdx} className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={ben}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              updateCMS((prev) => {
+                                const nextB = [...(prev.about.auditionCard1?.benefits || [])];
+                                nextB[bIdx] = val;
+                                return {
+                                  ...prev,
+                                  about: {
+                                    ...prev.about,
+                                    auditionCard1: {
+                                      ...(prev.about.auditionCard1 || { badge: '', title: '', description: '', benefits: [] }),
+                                      benefits: nextB
+                                    }
+                                  }
+                                };
+                              });
+                            }}
+                            className="flex-1 px-2.5 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              updateCMS((prev) => {
+                                const nextB = (prev.about.auditionCard1?.benefits || []).filter((_, i) => i !== bIdx);
+                                return {
+                                  ...prev,
+                                  about: {
+                                    ...prev.about,
+                                    auditionCard1: {
+                                      ...(prev.about.auditionCard1 || { badge: '', title: '', description: '', benefits: [] }),
+                                      benefits: nextB
+                                    }
+                                  }
+                                };
+                              });
+                            }}
+                            className="p-1.5 rounded-lg text-white/30 hover:text-red-400 transition-colors cursor-pointer"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* OPPORTUNITY 02: CONTENT CREATORS HIRING */}
+                <div className="p-5 rounded-2xl bg-black/40 border border-emerald-500/20 space-y-4 text-left">
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <div className="flex items-center space-x-2">
+                      <Film size={14} className="text-emerald-400" />
+                      <span className="font-mono text-xs font-bold text-emerald-400 uppercase">Opportunity 02 — Creator Hiring Call</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Badge Label</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard2?.badge || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), badge: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="md:col-span-2 space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Hiring Title</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard2?.title || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), title: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-serif italic outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="md:col-span-3 space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Role Description</label>
+                      <textarea
+                        rows={2}
+                        value={cms.about.auditionCard2?.description || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), description: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Experience Required</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard2?.experience || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), experience: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Role Type</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard2?.roleType || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), roleType: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">CTA Button Text</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard2?.ctaText || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), ctaText: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="md:col-span-2 space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">WhatsApp Inquiry Message</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard2?.whatsappMessage || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), whatsappMessage: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Instagram Handle / Note</label>
+                      <input
+                        type="text"
+                        value={cms.about.auditionCard2?.instagramHandle || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              auditionCard2: { ...(prev.about.auditionCard2 || { badge: '', title: '', description: '', experience: '', roleType: '', ctaText: '', instagramHandle: '' }), instagramHandle: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* OPPORTUNITY 03: GRAND DIVA PARTNERSHIP APPLICATION BANNER */}
+                <div className="p-5 rounded-2xl bg-black/40 border border-purple-500/20 space-y-4 text-left">
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <div className="flex items-center space-x-2">
+                      <Sparkles size={14} className="text-purple-400" />
+                      <span className="font-mono text-xs font-bold text-purple-400 uppercase">Opportunity 03 — Grand Diva Partnership Banner</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Banner Tagline</label>
+                      <input
+                        type="text"
+                        value={cms.about.grandDivaCard?.tagline || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              grandDivaCard: { ...(prev.about.grandDivaCard || { tagline: '', title: '', description: '', ctaText: '', ctaUrl: '' }), tagline: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Pageant Title</label>
+                      <input
+                        type="text"
+                        value={cms.about.grandDivaCard?.title || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              grandDivaCard: { ...(prev.about.grandDivaCard || { tagline: '', title: '', description: '', ctaText: '', ctaUrl: '' }), title: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-serif italic outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="md:col-span-2 space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Banner Description</label>
+                      <textarea
+                        rows={2}
+                        value={cms.about.grandDivaCard?.description || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              grandDivaCard: { ...(prev.about.grandDivaCard || { tagline: '', title: '', description: '', ctaText: '', ctaUrl: '' }), description: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Google Form / Application URL</label>
+                      <input
+                        type="text"
+                        value={cms.about.grandDivaCard?.ctaUrl || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              grandDivaCard: { ...(prev.about.grandDivaCard || { tagline: '', title: '', description: '', ctaText: '', ctaUrl: '' }), ctaUrl: val }
+                            }
+                          }));
+                        }}
+                        placeholder="https://docs.google.com/forms/..."
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-mono text-white/50 uppercase">Button Label</label>
+                      <input
+                        type="text"
+                        value={cms.about.grandDivaCard?.ctaText || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          updateCMS((prev) => ({
+                            ...prev,
+                            about: {
+                              ...prev.about,
+                              grandDivaCard: { ...(prev.about.grandDivaCard || { tagline: '', title: '', description: '', ctaText: '', ctaUrl: '' }), ctaUrl: val }
+                            }
+                          }));
+                        }}
+                        className="w-full px-3 py-2 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Final Save Button */}
+                <div className="pt-4 border-t border-white/10 flex items-center justify-end">
+                  <button
+                    type="button"
+                    onClick={handleSaveServicesAbout}
+                    className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-2 cursor-pointer transition-all shadow-md ${
+                      savedSection === 'services-about'
+                        ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                        : 'bg-[#EAB308] hover:bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.2)]'
+                    }`}
+                  >
+                    {savedSection === 'services-about' ? <Check size={14} /> : <Save size={14} />}
+                    <span>{savedSection === 'services-about' ? 'ALL ABOUT & CASTINGS SAVED ✓' : 'SAVE ALL ABOUT US & CASTINGS'}</span>
+                  </button>
+                </div>
+              </div>
+
             </div>
           )}
 

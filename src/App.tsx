@@ -1664,7 +1664,7 @@ export default function App() {
 
                     {/* High resolution cinematic background photograph of active film camera rigs representing high-end craft */}
                     <img
-                      src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200"
+                      src={cms.about.cinematicImageUrl || "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200"}
                       alt="Cinema Camera rigging setup on active dark film set"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover brightness-[0.7] contrast-[1.05] grayscale-[8%] group-hover:scale-102 transition-transform duration-[1200ms]"
@@ -1676,7 +1676,9 @@ export default function App() {
                         <div className="w-1 h-1 bg-[#EAB308] rounded-full animate-pulse" />
                         <span className="font-mono text-[7px] tracking-[0.2em] text-white/60">ACTIVE SET // STANDBY</span>
                       </div>
-                      <span className="font-mono text-[7px] tracking-[0.2em] text-white/40">SCENE 02 — PHILOSOPHY</span>
+                      <span className="font-mono text-[7px] tracking-[0.2em] text-white/40">
+                        {cms.about.sceneOverlayText || 'SCENE 02 — PHILOSOPHY'}
+                      </span>
                     </div>
                   </motion.div>
 
@@ -1684,10 +1686,10 @@ export default function App() {
                   <div className="space-y-6">
                     <div className="space-y-2 text-left">
                       <span className="font-mono text-[9px] text-[#EAB308] tracking-[0.25em] font-bold block uppercase">
-                  // ACTIVE INVITATIONS & CASTINGS
+                        {cms.about.castingTagline || '// ACTIVE INVITATIONS & CASTINGS'}
                       </span>
                       <h3 className="text-2xl font-serif font-light text-white italic">
-                        Casting Calls & Auditions
+                        {cms.about.castingHeading || 'Casting Calls & Auditions'}
                       </h3>
                     </div>
 
@@ -1697,33 +1699,30 @@ export default function App() {
                         <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/10 rounded-full blur-xl pointer-events-none" />
                         <div className="flex items-center space-x-2">
                           <Sparkles size={13} className="text-amber-400" />
-                          <span className="font-mono text-[8px] text-amber-400 font-bold tracking-widest uppercase">SPECIAL OPPORTUNITY</span>
+                          <span className="font-mono text-[8px] text-amber-400 font-bold tracking-widest uppercase">
+                            {cms.about.auditionCard1?.badge || 'SPECIAL OPPORTUNITY'}
+                          </span>
                         </div>
                         <h4 className="font-serif italic text-sm text-white leading-snug">
-                          Prince & Princess of South India (Season 2)
+                          {cms.about.auditionCard1?.title || 'Prince & Princess of South India (Season 2)'}
                         </h4>
                         <p className="text-[10px] text-white/70 leading-relaxed font-light font-sans">
-                          AP & Telangana editions happening in <strong>July 2026</strong>. Become a member today to get instant casting alerts and priority selections.
+                          {cms.about.auditionCard1?.description || 'AP & Telangana editions happening in July 2026. Become a member today to get instant casting alerts and priority selections.'}
                         </p>
                         <div className="border-t border-white/5 pt-3 mt-2">
                           <span className="font-mono text-[7px] text-white/30 tracking-widest uppercase block mb-2">YOUR BENEFITS:</span>
                           <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[9px] text-white/60 font-sans font-light">
-                            <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">●</span>
-                              <span>Unlimited Castings</span>
-                            </div>
-                            <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">●</span>
-                              <span>Priority Selection</span>
-                            </div>
-                            <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">●</span>
-                              <span>Film & Media Roles</span>
-                            </div>
-                            <div className="flex items-center space-x-1.5">
-                              <span className="text-amber-400 text-[8px]">●</span>
-                              <span>Portfolio Projects</span>
-                            </div>
+                            {(cms.about.auditionCard1?.benefits || [
+                              'Unlimited Castings',
+                              'Priority Selection',
+                              'Film & Media Roles',
+                              'Portfolio Projects'
+                            ]).map((benefit, bIdx) => (
+                              <div key={bIdx} className="flex items-center space-x-1.5">
+                                <span className="text-amber-400 text-[8px]">●</span>
+                                <span>{benefit}</span>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -1733,13 +1732,15 @@ export default function App() {
                         <div>
                           <div className="flex items-center space-x-2">
                             <Film size={13} className="text-emerald-400" />
-                            <span className="font-mono text-[8px] text-emerald-400 font-bold tracking-widest uppercase">WE ARE HIRING</span>
+                            <span className="font-mono text-[8px] text-emerald-400 font-bold tracking-widest uppercase">
+                              {cms.about.auditionCard2?.badge || 'WE ARE HIRING'}
+                            </span>
                           </div>
                           <h4 className="font-serif italic text-sm text-white leading-snug mt-2">
-                            Looking for Content Creators
+                            {cms.about.auditionCard2?.title || 'Looking for Content Creators'}
                           </h4>
                           <p className="text-[10px] text-white/70 leading-relaxed font-light font-sans mt-2">
-                            If you are young, energetic, charismatic, and camera-friendly with 0-2 years of experience, we want to groom you for our commercial projects.
+                            {cms.about.auditionCard2?.description || 'If you are young, energetic, charismatic, and camera-friendly with 0-2 years of experience, we want to groom you for our commercial projects.'}
                           </p>
                         </div>
 
@@ -1747,25 +1748,32 @@ export default function App() {
                           <div className="grid grid-cols-2 gap-2 text-[9px] text-white/50 font-mono">
                             <div>
                               <span className="text-white/30 uppercase block">EXPERIENCE:</span>
-                              <span className="text-white/80 font-sans">0-2 Years</span>
+                              <span className="text-white/80 font-sans">
+                                {cms.about.auditionCard2?.experience || '0-2 Years'}
+                              </span>
                             </div>
                             <div>
                               <span className="text-white/30 uppercase block">ROLE TYPE:</span>
-                              <span className="text-white/80 font-sans">Presenting & Hosting</span>
+                              <span className="text-white/80 font-sans">
+                                {cms.about.auditionCard2?.roleType || 'Presenting & Hosting'}
+                              </span>
                             </div>
                           </div>
 
                           <div className="flex justify-between items-center pt-2">
                             <button
                               onClick={() => {
-                                window.open(`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=Hello%20Mayavi!%20I'm%20interested%20in%20the%20Content%20Creator%20hiring%20opportunity.%20I%20would%20love%20to%20apply%20and%20share%20my%20resume/profile.`, '_blank');
+                                const msg = encodeURIComponent(cms.about.auditionCard2?.whatsappMessage || "Hello Mayavi! I'm interested in the Content Creator hiring opportunity. I would love to apply and share my resume/profile.");
+                                window.open(`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=${msg}`, '_blank');
                               }}
                               className="inline-flex items-center space-x-1.5 text-[9px] font-mono text-amber-400 hover:text-white transition-colors cursor-pointer"
                             >
-                              <span>SUBMIT PROFILE</span>
+                              <span>{cms.about.auditionCard2?.ctaText || 'SUBMIT PROFILE'}</span>
                               <ArrowRight size={10} />
                             </button>
-                            <span className="text-[8.5px] text-white/35 font-mono">OR DM @mayavi_mediacreations</span>
+                            <span className="text-[8.5px] text-white/35 font-mono">
+                              {cms.about.auditionCard2?.instagramHandle || 'OR DM @mayavi_mediacreations'}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -1775,19 +1783,23 @@ export default function App() {
                     <div className="bg-neutral-900/60 border border-white/5 p-6 rounded-2xl text-left space-y-4 relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-32 h-32 bg-violet-600/5 rounded-full blur-2xl pointer-events-none" />
                       <div className="space-y-1">
-                        <span className="font-mono text-[8px] text-[#EAB308] tracking-widest uppercase font-bold block">// OFFICIAL PARTNERSHIP APPLICATION</span>
-                        <h4 className="font-serif italic text-lg text-white">Grand Diva International Pageant (Season 2)</h4>
+                        <span className="font-mono text-[8px] text-[#EAB308] tracking-widest uppercase font-bold block">
+                          {cms.about.grandDivaCard?.tagline || '// OFFICIAL PARTNERSHIP APPLICATION'}
+                        </span>
+                        <h4 className="font-serif italic text-lg text-white">
+                          {cms.about.grandDivaCard?.title || 'Grand Diva International Pageant (Season 2)'}
+                        </h4>
                         <p className="text-xs text-white/60 font-sans font-light leading-relaxed">
-                          We have partnered with the official Grand Diva organization. Open the Season 2 participation form to secure your workshop registration details.
+                          {cms.about.grandDivaCard?.description || 'We have partnered with the official Grand Diva organization. Open the Season 2 participation form to secure your workshop registration details.'}
                         </p>
                       </div>
                       <a
-                        href="https://docs.google.com/forms/d/1amHV4nUd7M8cDqZzFVOIVoVR1PgM86Ucg3ByxHuZ6AU/viewform?edit_requested=true"
+                        href={cms.about.grandDivaCard?.ctaUrl || "https://docs.google.com/forms/d/1amHV4nUd7M8cDqZzFVOIVoVR1PgM86Ucg3ByxHuZ6AU/viewform?edit_requested=true"}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl text-[10px] font-mono tracking-widest bg-[#EAB308] hover:bg-amber-600 text-black font-extrabold transition-all duration-300 shadow-xl cursor-pointer"
                       >
-                        <span>OPEN OFFICIAL APPLICATION</span>
+                        <span>{cms.about.grandDivaCard?.ctaText || 'OPEN OFFICIAL APPLICATION'}</span>
                         <ArrowRight size={11} className="text-black" />
                       </a>
                     </div>
