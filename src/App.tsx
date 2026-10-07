@@ -1336,10 +1336,11 @@ export default function App() {
 
                 {/* Centered Navigation */}
                 <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink-0 z-10">
-                  {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'GAZETTE', 'CONTACT'].map((item) => {
+                  {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'NEWS & TIPS', 'CONTACT'].map((item) => {
                     const itemLower = item.toLowerCase();
-                    const isActive = activeSection === itemLower;
-                    const targetId = itemLower === 'testimonials' ? 'client-stories' : itemLower;
+                    const isNews = item === 'NEWS & TIPS';
+                    const isActive = isNews ? (activeSection === 'gazette' || activeSection === 'news & tips') : activeSection === itemLower;
+                    const targetId = itemLower === 'testimonials' ? 'client-stories' : isNews ? 'gazette' : itemLower;
 
                     return (
                       <a
@@ -1426,10 +1427,11 @@ export default function App() {
                     className="lg:hidden w-full bg-[#090717]/95 backdrop-blur-2xl border border-white/10 rounded-2xl mt-2 overflow-hidden shadow-2xl p-6 space-y-4"
                   >
                     <div className="space-y-3">
-                      {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'GAZETTE', 'CONTACT'].map((item) => {
+                      {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'TESTIMONIALS', 'NEWS & TIPS', 'CONTACT'].map((item) => {
                         const itemLower = item.toLowerCase();
-                        const isActive = activeSection === itemLower;
-                        const targetId = itemLower === 'testimonials' ? 'client-stories' : itemLower;
+                        const isNews = item === 'NEWS & TIPS';
+                        const isActive = isNews ? (activeSection === 'gazette' || activeSection === 'news & tips') : activeSection === itemLower;
+                        const targetId = itemLower === 'testimonials' ? 'client-stories' : isNews ? 'gazette' : itemLower;
 
                         return (
                           <a
@@ -2284,13 +2286,13 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* MIDDLE VIP DISPATCH STRIP: "VIP DISPATCH // THE GAZETTE" */}
+                    {/* MIDDLE VIP NEWSLETTER STRIP: "VIP NEWSLETTER // STUDIO UPDATES" */}
                     <div className="rounded-2xl border border-white/5 bg-black/40 p-4 sm:p-6 lg:p-7 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6">
                       <div className="flex items-center space-x-3 text-left">
                         <div className="w-2.5 h-2.5 rounded-full bg-[#A2D865] shadow-[0_0_10px_#A2D865] animate-pulse" />
                         <div>
                           <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] text-white/90 uppercase font-semibold block">
-                            VIP DISPATCH // THE GAZETTE
+                            VIP NEWSLETTER // STUDIO UPDATES
                           </span>
                           <span className="text-[11px] text-white/45 font-sans font-light">
                             Director's essays, festival updates, castings & studio intelligence.
@@ -2369,11 +2371,11 @@ export default function App() {
                               const el = document.getElementById('gazette');
                               if (el) el.scrollIntoView({ behavior: 'smooth' });
                             }}
-                            title="The Studio Gazette"
+                            title="Studio News & Tips"
                             className="group relative flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/[0.03] hover:bg-[#410682]/40 border border-purple-500/30 hover:border-purple-400 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(147,51,234,0.25)]"
                           >
                             <img src="/patterns/d2.svg" alt="Stop Pin" className="w-4 h-5 object-contain" />
-                            <span className="font-mono text-[9px] tracking-wider text-white/70 group-hover:text-white uppercase font-bold">DISPATCH</span>
+                            <span className="font-mono text-[9px] tracking-wider text-white/70 group-hover:text-white uppercase font-bold">NEWS &amp; TIPS</span>
                           </button>
                         </div>
                       </div>
@@ -2419,7 +2421,7 @@ export default function App() {
                             { name: 'Featured Films', href: '#portfolio' },
                             { name: 'Commercials', href: '#portfolio' },
                             { name: 'Docuseries', href: '#portfolio' },
-                            { name: 'The Gazette', href: '#gazette' }
+                            { name: 'News & Tips', href: '#gazette' }
                           ].map((slate, idx) => (
                             <li key={idx}>
                               <a

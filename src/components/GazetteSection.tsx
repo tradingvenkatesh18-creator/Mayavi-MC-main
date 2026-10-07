@@ -33,7 +33,7 @@ export default function GazetteSection({
   const [subscribeStatus, setSubscribeStatus] = useState<{ success?: boolean; message?: string } | null>(null);
 
   const categories = [
-    { id: 'ALL', label: 'All Dispatches', icon: <Sparkles size={12} className="text-[#f5e302]" /> },
+    { id: 'ALL', label: 'All News & Tips', icon: <Sparkles size={12} className="text-[#f5e302]" /> },
     { id: 'CONTEST', label: 'Castings & Contests', icon: <Trophy size={12} className="text-[#f5e302]" /> },
     { id: 'DIRECTOR_TIP', label: "Director's Tips", icon: <Lightbulb size={12} className="text-[#f5e302]" /> },
     { id: 'STUDIO_NEWS', label: 'Studio News', icon: <Newspaper size={12} className="text-[#f5e302]" /> },
@@ -113,7 +113,7 @@ export default function GazetteSection({
         };
       default:
         return {
-          badgeLabel: 'STUDIO DISPATCH',
+          badgeLabel: 'STUDIO UPDATE',
           bannerGradient: 'bg-gradient-to-r from-[#1c120c] via-[#38165c] to-[#1c120c]',
           bannerBorder: 'border-white/20',
           dotColor: 'bg-white',
@@ -269,26 +269,26 @@ export default function GazetteSection({
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c120c]/80 border border-[#d4af37]/35 shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-md">
               <span className="font-mono text-[9px] tracking-[0.22em] text-[#e5c365] uppercase font-bold">
-                MAYAVI FILM DISPATCH // VOLUME 04
+                MAYAVI NEWS &amp; TIPS // 2026
               </span>
             </div>
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a1e14]/80 border border-[#10b981]/35 shadow-[0_0_15px_rgba(16,185,129,0.15)] backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
               <span className="font-mono text-[9px] tracking-[0.2em] text-[#34d399] uppercase font-bold">
-                DISPATCH FLOOR ACTIVE
+                UPDATED WEEKLY
               </span>
             </div>
           </div>
 
           {/* Section Headline */}
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal font-serif text-white tracking-tight leading-tight pt-1">
-            The Studio Dispatch
+            Studio News &amp; Tips
           </h2>
 
           {/* Subquote */}
           <p className="font-serif italic text-base sm:text-lg md:text-xl text-[#f0ebd8]/80 font-normal">
-            &ldquo;Where cinematic craft meets tomorrow&apos;s screen talent.&rdquo;
+            &ldquo;Where cinematic craft meets tomorrow&apos;s screen talent &mdash; casting calls, director filmmaking tips, and studio news.&rdquo;
           </p>
 
           {/* Founder Verification Seal */}
@@ -297,7 +297,7 @@ export default function GazetteSection({
               <span className="font-serif italic font-bold text-xs text-[#f0ebd8]">VS</span>
             </div>
             <span className="font-sans text-xs sm:text-sm text-white/90 font-medium tracking-wide">
-              {founderName} &mdash; Founder &amp; Executive Editor
+              {founderName} &mdash; Founder &amp; Director
             </span>
             <CheckCircle2 size={15} className="text-[#d4af37] shrink-0" />
           </div>
@@ -328,7 +328,7 @@ export default function GazetteSection({
         {filteredPosts.length === 0 ? (
           <div className="p-12 text-center rounded-3xl bg-[#090717]/80 border border-white/10 my-8">
             <p className="text-white/50 font-mono text-xs uppercase tracking-widest">
-              No dispatches currently listed in this category. Check back shortly.
+              No articles currently listed in this category. Check back shortly.
             </p>
           </div>
         ) : (
@@ -438,20 +438,20 @@ export default function GazetteSection({
           </div>
         )}
 
-        {/* Expandable toggle for additional archive posts when on All Dispatches */}
+        {/* Expandable toggle for additional archive posts when on All News & Tips */}
         {selectedCategory === 'ALL' && filteredPosts.length > 3 && (
           <div className="flex justify-center mt-6">
             <button
               onClick={() => setShowAllDispatches(!showAllDispatches)}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 hover:border-[#d4af37]/40 text-white/70 hover:text-white font-mono text-[9px] tracking-widest uppercase transition-all cursor-pointer shadow-sm"
             >
-              <span>{showAllDispatches ? 'Show 3 Flagship Dispatches ▴' : `View All Dispatches (${filteredPosts.length}) ▾`}</span>
+              <span>{showAllDispatches ? 'Show 3 Featured Articles ▴' : `View All Articles (${filteredPosts.length}) ▾`}</span>
             </button>
           </div>
         )}
 
         {/* ============================================================ */}
-        {/* BOTTOM MASTER DOCK — OPTION D TELEMETRY & VIP DISPATCH BAR   */}
+        {/* BOTTOM MASTER DOCK — TELEMETRY & NEWSLETTER UPDATES BAR      */}
         {/* ============================================================ */}
         <div className="mt-14 lg:mt-20 relative z-10">
           <div className="rounded-2xl md:rounded-full bg-[#0c081b]/85 border border-white/15 backdrop-blur-2xl p-4 sm:px-8 sm:py-4 flex flex-col md:flex-row items-center justify-between gap-5 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
@@ -467,10 +467,10 @@ export default function GazetteSection({
             {/* Vertical Separator */}
             <div className="hidden md:block h-5 w-px bg-white/15 shrink-0" />
 
-            {/* Right VIP Dispatch Subscription Input */}
+            {/* Right Newsletter Subscription Input */}
             <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
               <span className="font-serif text-sm text-[#f0ebd8] font-medium tracking-wide shrink-0">
-                VIP Dispatch
+                Studio Updates
               </span>
               <div className="relative w-full sm:w-auto flex items-center gap-2">
                 <input
@@ -478,7 +478,7 @@ export default function GazetteSection({
                   required
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="Enter email for priority alerts..."
+                  placeholder="Enter email for audition & tip alerts..."
                   className="w-full sm:w-56 md:w-64 px-4 py-2 rounded-full bg-white/[0.04] border border-white/15 focus:border-[#d4af37] text-white placeholder-white/40 font-sans text-xs tracking-wide focus:outline-none transition-all shadow-inner"
                 />
                 <button
@@ -486,7 +486,7 @@ export default function GazetteSection({
                   disabled={isSubscribing}
                   className="px-5 py-2 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f5e302] to-[#c59b27] hover:brightness-110 active:scale-95 text-[#050505] font-mono text-[10px] tracking-wider uppercase font-bold transition-all shadow-[0_2px_15px_rgba(212,175,55,0.3)] cursor-pointer shrink-0 disabled:opacity-50"
                 >
-                  {isSubscribing ? 'JOINING...' : 'JOIN THE CIRCLE'}
+                  {isSubscribing ? 'JOINING...' : 'GET UPDATES'}
                 </button>
               </div>
             </form>
@@ -599,7 +599,7 @@ export default function GazetteSection({
                 {activeModalPost.actionUrl && (
                   <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <span className="text-white/40 font-mono text-[8px] tracking-wider uppercase">
-                      Official Mayavi Studio Dispatch
+                      Official Mayavi Studio Article
                     </span>
 
                     <a
