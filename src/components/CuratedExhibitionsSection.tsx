@@ -59,16 +59,26 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
           ========================================================================= */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none -z-10">
         {/* Radial Imperial Violet Atmosphere Core */}
-        <div
-          className="absolute -top-32 right-0 w-[800px] h-[750px] opacity-[0.22] blur-3xl pointer-events-none"
+        <motion.div
+          animate={{
+            scale: [1, 1.08, 0.98, 1],
+            opacity: [0.18, 0.28, 0.22, 0.18],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 right-0 w-[800px] h-[750px] blur-3xl pointer-events-none"
           style={{
             background: 'radial-gradient(ellipse at 70% 30%, rgba(65, 6, 130, 0.85) 0%, rgba(176, 0, 69, 0.25) 50%, transparent 75%)'
           }}
         />
 
         {/* Ambient Warm Golden Rim Glow behind Header CTA */}
-        <div
-          className="absolute top-12 right-12 w-[500px] h-[350px] opacity-[0.14] blur-2xl pointer-events-none"
+        <motion.div
+          animate={{
+            scale: [1, 1.14, 1],
+            opacity: [0.12, 0.22, 0.12],
+          }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute top-12 right-12 w-[500px] h-[350px] blur-2xl pointer-events-none"
           style={{
             background: 'radial-gradient(circle at center, rgba(245, 227, 2, 0.6) 0%, transparent 65%)'
           }}
@@ -76,11 +86,11 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
 
         {/* =====================================================================
             AUTHENTIC BRAND GUIDELINES PAGE 22: SWEEPING WAVE CRESTS / CINEMA SWARM
-            Using exact vector geometry from client assets/patterns/b1-b5 and a1-a5
+            Harmonic Tidal Drift: 6-Tier Living Undulation across Crimson & Gold
             ===================================================================== */}
         <div className="absolute top-0 right-0 w-full max-w-3xl h-[460px] pointer-events-none opacity-90 overflow-hidden">
           <svg
-            className="w-full h-full"
+            className="w-full h-full overflow-visible"
             viewBox="0 0 1100 460"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -120,41 +130,209 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
 
             {/* Cascading Sweeping Wave Crests Swarm (Page 22 / Concept 1) */}
             <g transform="translate(420, 10)">
-              {/* Row 1: High subtle wave ripples */}
-              <g opacity="0.35">
-                <path d="M120,25 C160,10 220,10 260,25 C300,40 360,40 400,25" stroke="#B00045" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M260,15 C300,0 360,0 400,15 C440,30 500,30 540,15" stroke="#F5E302" strokeWidth="2.5" strokeLinecap="round" />
-              </g>
+              {/* Master Cluster Ambient Drift */}
+              <motion.g
+                animate={{
+                  y: [0, -5, 4, 0],
+                  rotate: [0, 0.35, -0.25, 0],
+                }}
+                transition={{
+                  duration: 14,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                {/* Row 1: High subtle wave ripples */}
+                <motion.g
+                  animate={{
+                    x: [0, 8, -5, 0],
+                    y: [0, -4, 3, 0],
+                    opacity: [0.32, 0.52, 0.38, 0.32],
+                  }}
+                  transition={{
+                    duration: 5.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <motion.path
+                    d="M120,25 C160,10 220,10 260,25 C300,40 360,40 400,25"
+                    stroke="#B00045"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    animate={{ x: [0, -3, 2, 0] }}
+                    transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <motion.path
+                    d="M260,15 C300,0 360,0 400,15 C440,30 500,30 540,15"
+                    stroke="#F5E302"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    animate={{ x: [0, 4, -2, 0] }}
+                    transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+                  />
+                </motion.g>
 
-              {/* Row 2: Gentle cresting wave ripples */}
-              <g opacity="0.45">
-                <path d="M80,65 C125,48 190,48 235,65 C280,82 345,82 390,65" stroke="#B00045" strokeWidth="3" strokeLinecap="round" />
-                <path d="M220,55 C265,38 330,38 375,55 C420,72 485,72 530,55" stroke="#F5E302" strokeWidth="3" strokeLinecap="round" />
-              </g>
+                {/* Row 2: Gentle cresting wave ripples */}
+                <motion.g
+                  animate={{
+                    x: [0, -7, 6, 0],
+                    y: [0, 5, -3, 0],
+                    opacity: [0.42, 0.65, 0.48, 0.42],
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.3,
+                  }}
+                >
+                  <motion.path
+                    d="M80,65 C125,48 190,48 235,65 C280,82 345,82 390,65"
+                    stroke="#B00045"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    animate={{ x: [0, -3, 3, 0] }}
+                    transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <motion.path
+                    d="M220,55 C265,38 330,38 375,55 C420,72 485,72 530,55"
+                    stroke="#F5E302"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    animate={{ x: [0, 3, -3, 0] }}
+                    transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                  />
+                </motion.g>
 
-              {/* Row 3: Transition wave fins */}
-              <g transform="translate(60, 105)">
-                <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.62)" fill="url(#p22-crimson-flow)" opacity="0.7" />
-                <use href="#page22-wave-fin" x="220" y="-12" transform="scale(0.62)" fill="url(#p22-gold-flow)" opacity="0.75" />
-              </g>
+                {/* Row 3: Transition wave fins */}
+                <g transform="translate(60, 105)">
+                  <motion.g
+                    animate={{
+                      x: [0, 6, -4, 0],
+                      y: [0, -6, 5, 0],
+                      rotate: [0, 0.5, -0.3, 0],
+                    }}
+                    transition={{
+                      duration: 8.2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5,
+                    }}
+                  >
+                    <motion.g
+                      animate={{ x: [0, -3, 2, 0], y: [0, -2, 1, 0] }}
+                      transition={{ duration: 6.8, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.62)" fill="url(#p22-crimson-flow)" opacity="0.7" />
+                    </motion.g>
+                    <motion.g
+                      animate={{ x: [0, 3.5, -2, 0], y: [0, 2, -1, 0] }}
+                      transition={{ duration: 7.4, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                    >
+                      <use href="#page22-wave-fin" x="220" y="-12" transform="scale(0.62)" fill="url(#p22-gold-flow)" opacity="0.75" />
+                    </motion.g>
+                  </motion.g>
+                </g>
 
-              {/* Row 4: Primary focal wave crests */}
-              <g transform="translate(-10, 185)">
-                <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.82)" fill="url(#p22-crimson-flow)" opacity="0.88" />
-                <use href="#page22-wave-fin" x="250" y="-18" transform="scale(0.82)" fill="url(#p22-gold-flow)" opacity="0.95" />
-              </g>
+                {/* Row 4: Primary focal wave crests */}
+                <g transform="translate(-10, 185)">
+                  <motion.g
+                    animate={{
+                      x: [0, -8, 7, 0],
+                      y: [0, 8, -6, 0],
+                      rotate: [0, -0.7, 0.5, 0],
+                    }}
+                    transition={{
+                      duration: 9.8,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.9,
+                    }}
+                  >
+                    <motion.g
+                      animate={{
+                        x: [0, -4, 2.5, 0],
+                        y: [0, -2.5, 2, 0],
+                        scale: [1, 1.012, 0.99, 1],
+                      }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.82)" fill="url(#p22-crimson-flow)" opacity="0.88" />
+                    </motion.g>
+                    <motion.g
+                      animate={{
+                        x: [0, 4.5, -2.5, 0],
+                        y: [0, 2.5, -1.8, 0],
+                        scale: [1, 1.015, 0.99, 1],
+                      }}
+                      transition={{ duration: 8.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                    >
+                      <use href="#page22-wave-fin" x="250" y="-18" transform="scale(0.82)" fill="url(#p22-gold-flow)" opacity="0.95" />
+                    </motion.g>
+                  </motion.g>
+                </g>
 
-              {/* Row 5: Bold anchor wave crests */}
-              <g transform="translate(-70, 280)">
-                <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.96)" fill="url(#p22-crimson-flow)" opacity="0.85" />
-                <use href="#page22-wave-fin" x="280" y="-22" transform="scale(0.96)" fill="url(#p22-gold-flow)" opacity="0.9" />
-              </g>
+                {/* Row 5: Bold anchor wave crests */}
+                <g transform="translate(-70, 280)">
+                  <motion.g
+                    animate={{
+                      x: [0, 9, -6, 0],
+                      y: [0, -8, 6, 0],
+                      rotate: [0, 0.6, -0.4, 0],
+                    }}
+                    transition={{
+                      duration: 11.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1.4,
+                    }}
+                  >
+                    <motion.g
+                      animate={{ x: [0, -3.5, 2, 0], y: [0, -2, 1.5, 0] }}
+                      transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.96)" fill="url(#p22-crimson-flow)" opacity="0.85" />
+                    </motion.g>
+                    <motion.g
+                      animate={{ x: [0, 4, -2.5, 0], y: [0, 2.5, -1.5, 0] }}
+                      transition={{ duration: 9.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                    >
+                      <use href="#page22-wave-fin" x="280" y="-22" transform="scale(0.96)" fill="url(#p22-gold-flow)" opacity="0.9" />
+                    </motion.g>
+                  </motion.g>
+                </g>
 
-              {/* Row 6: Tapering base wave crests */}
-              <g transform="translate(30, 380)">
-                <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.85)" fill="url(#p22-crimson-flow)" opacity="0.65" />
-                <use href="#page22-wave-fin" x="260" y="-15" transform="scale(0.85)" fill="url(#p22-gold-flow)" opacity="0.7" />
-              </g>
+                {/* Row 6: Tapering base wave crests */}
+                <g transform="translate(30, 380)">
+                  <motion.g
+                    animate={{
+                      x: [0, -6, 5, 0],
+                      y: [0, 6, -5, 0],
+                      rotate: [0, -0.4, 0.3, 0],
+                    }}
+                    transition={{
+                      duration: 9.2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1.8,
+                    }}
+                  >
+                    <motion.g
+                      animate={{ x: [0, -2.5, 1.8, 0] }}
+                      transition={{ duration: 8.2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <use href="#page22-wave-fin" x="0" y="0" transform="scale(0.85)" fill="url(#p22-crimson-flow)" opacity="0.65" />
+                    </motion.g>
+                    <motion.g
+                      animate={{ x: [0, 3.5, -2, 0] }}
+                      transition={{ duration: 8.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                    >
+                      <use href="#page22-wave-fin" x="260" y="-15" transform="scale(0.85)" fill="url(#p22-gold-flow)" opacity="0.7" />
+                    </motion.g>
+                  </motion.g>
+                </g>
+              </motion.g>
             </g>
           </svg>
         </div>

@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useRef, useCallback } from 'react';
+import { motion, AnimatePresence, useSpring, useTransform } from 'motion/react';
 import {
   Sparkles,
-  Award,
   ChevronDown,
   Star,
-  Film,
   Camera,
   Layers,
-  Video,
-  Clapperboard
+  ShieldCheck,
+  CheckCircle2,
+  TrendingUp,
+  ArrowUpRight,
+  Activity
 } from 'lucide-react';
 import { TestimonialsConfig, TestimonialReview, DEFAULT_CMS_DATA } from '../lib/cmsStore';
 
@@ -19,49 +20,94 @@ interface TestimonialsSectionProps {
 }
 
 export const getTestimonialThemeClasses = (theme?: string, fallbackIndex = 0) => {
-  const t = theme || (fallbackIndex % 3 === 0 ? 'gold' : fallbackIndex % 3 === 1 ? 'pink' : 'emerald');
+  const t = theme || (fallbackIndex % 3 === 0 ? 'gold' : fallbackIndex % 3 === 1 ? 'purple' : 'emerald');
   switch (t) {
     case 'pink':
       return {
         rimBorder: 'border-[#db2777]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(219,39,119,0.15)]',
-        badgeColor: 'text-[#f472b6] border-[#db2777]/40 bg-[#db2777]/10',
+        badgeColor: 'text-[#f472b6] border-[#db2777]/40 bg-[#db2777]/15',
         starColor: 'text-[#f472b6]',
-        btsHighlight: 'text-[#f472b6]'
+        btsHighlight: 'text-[#f472b6]',
+        accentHex: '#db2777'
       };
     case 'emerald':
       return {
-        rimBorder: 'border-[#10b981]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(16,185,129,0.15)]',
-        badgeColor: 'text-[#34d399] border-[#10b981]/40 bg-[#10b981]/10',
-        starColor: 'text-[#34d399]',
-        btsHighlight: 'text-[#34d399]'
+        rimBorder: 'border-[#a2d865]/45 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(162,216,101,0.15)]',
+        badgeColor: 'text-[#a2d865] border-[#a2d865]/40 bg-[#a2d865]/15',
+        starColor: 'text-[#a2d865]',
+        btsHighlight: 'text-[#a2d865]',
+        accentHex: '#a2d865'
       };
     case 'cyan':
       return {
         rimBorder: 'border-[#06b6d4]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.15)]',
-        badgeColor: 'text-[#22d3ee] border-[#06b6d4]/40 bg-[#06b6d4]/10',
+        badgeColor: 'text-[#22d3ee] border-[#06b6d4]/40 bg-[#06b6d4]/15',
         starColor: 'text-[#22d3ee]',
-        btsHighlight: 'text-[#22d3ee]'
+        btsHighlight: 'text-[#22d3ee]',
+        accentHex: '#06b6d4'
       };
     case 'purple':
       return {
         rimBorder: 'border-[#a855f7]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(168,85,247,0.15)]',
-        badgeColor: 'text-[#c084fc] border-[#a855f7]/40 bg-[#a855f7]/10',
+        badgeColor: 'text-[#c084fc] border-[#a855f7]/40 bg-[#a855f7]/15',
         starColor: 'text-[#c084fc]',
-        btsHighlight: 'text-[#c084fc]'
+        btsHighlight: 'text-[#c084fc]',
+        accentHex: '#a855f7'
       };
     case 'gold':
     default:
       return {
-        rimBorder: 'border-[#d4af37]/60 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.12)]',
-        badgeColor: 'text-[#f5e302] border-[#d4af37]/40 bg-[#d4af37]/10',
-        starColor: 'text-[#f5e302]',
-        btsHighlight: 'text-[#f5e302]'
+        rimBorder: 'border-amber-400/50 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_35px_rgba(234,179,8,0.2)]',
+        badgeColor: 'text-amber-300 border-amber-400/40 bg-amber-400/15',
+        starColor: 'text-amber-400',
+        btsHighlight: 'text-amber-400',
+        accentHex: '#f5e302'
       };
   }
 };
 
 export default function TestimonialsSection({ onSelectAction, config }: TestimonialsSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
   const [expandedBtsId, setExpandedBtsId] = useState<string | null>(null);
+
+  // Interactive mouse spotlight & 3D multi-plane parallax
+  const [isHovered, setIsHovered] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
+  const mouseX = useSpring(0, { stiffness: 45, damping: 25 });
+  const mouseY = useSpring(0, { stiffness: 45, damping: 25 });
+
+  // 3-Plane Parallax Transforms (Foreground, Midground, Background)
+  const fgX = useTransform(mouseX, [-1, 1], [-26, 26]);
+  const fgY = useTransform(mouseY, [-1, 1], [-20, 20]);
+
+  const mgX = useTransform(mouseX, [-1, 1], [-14, 14]);
+  const mgY = useTransform(mouseY, [-1, 1], [-11, 11]);
+
+  const bgX = useTransform(mouseX, [-1, 1], [-8, 8]);
+  const bgY = useTransform(mouseY, [-1, 1], [-6, 6]);
+
+  const lanternTilt = useTransform(mouseX, [-1, 1], [-3.5, 3.5]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const normX = ((x / rect.width) * 2) - 1;
+    const normY = ((y / rect.height) * 2) - 1;
+
+    mouseX.set(normX);
+    mouseY.set(normY);
+    setCursorPos({ x, y });
+  }, [mouseX, mouseY]);
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   const activeConfig = config || DEFAULT_CMS_DATA.testimonials;
   const reviews: TestimonialReview[] = (activeConfig.items && activeConfig.items.length > 0)
@@ -75,234 +121,416 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
   return (
     <section
       id="client-stories"
-      className="relative z-10 py-24 lg:py-32 bg-[#06020d] overflow-hidden border-t border-white/5 select-none"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative z-10 scroll-mt-36 pt-44 sm:pt-48 lg:pt-52 pb-24 lg:pb-32 bg-[#07020e] overflow-hidden border-t border-white/5 select-none transition-colors duration-700"
     >
       {/* ============================================================ */}
-      {/* OFFICIAL CLIENT PATTERN (BRAND GUIDELINES PAGES 25-26)       */}
-      {/* Stylized Media Pennants & Pins with Play, Pause, Stop tokens  */}
+      {/* 1. LAYERED 2.5D VOLUMETRIC ZERO-GRAVITY ACOUSTIC ORBS & STAGE */}
+      {/* 100% Faithful to Approved Nano Banana Visual Concept Mockup */}
       {/* ============================================================ */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        {/* Ambient Color Blooms */}
-        <div className="absolute top-10 left-10 w-[550px] h-[550px] bg-[#410682]/30 rounded-full blur-[150px]" />
-        <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-[#b00045]/22 rounded-full blur-[150px]" />
-        <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-[#0d9488]/16 rounded-full blur-[140px]" />
+        {/* Cinematic Ambient Atmosphere Light Blooms */}
+        {/* Lantern warm glow top-left */}
+        <div className="absolute top-0 left-[18%] w-[420px] h-[320px] bg-amber-400/18 rounded-full blur-[110px]" />
+        {/* Royal Purple glow on the left */}
+        <div className="absolute top-1/4 -left-10 w-[550px] h-[550px] bg-[#410682]/35 rounded-full blur-[140px]" />
+        {/* Warm amber / crimson glow top-right */}
+        <div className="absolute top-0 right-0 w-[550px] h-[500px] bg-[#eab308]/15 rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 -right-20 w-[450px] h-[450px] bg-[#b00045]/18 rounded-full blur-[130px]" />
+        {/* Pistachio lime aura bottom-right */}
+        <div className="absolute -bottom-20 right-0 w-[500px] h-[500px] bg-[#a2d865]/16 rounded-full blur-[130px]" />
 
-        {/* ============================================================ */}
-        {/* OFFICIAL CLIENT PATTERN: SEAMLESS MEDIA PENNANTS & PINS     */}
-        {/* Continuous Flowing Waves with Location Pins & Media Markers */}
-        {/* 100% Mathematically Seamless (Zero cuts, Zero gaps)         */}
-        {/* ============================================================ */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.32] pointer-events-none select-none mix-blend-screen"
-          xmlns="http://www.w3.org/2000/svg"
+        {/* ------------------------------------------------------------ */}
+        {/* LAYER 1: DEEP BACKGROUND (z-[1])                            */}
+        {/* ------------------------------------------------------------ */}
+
+        {/* 1. Top Hanging Acoustic Wireframe Lantern */}
+        <motion.div
+          style={{ x: bgX, y: bgY, rotate: lanternTilt }}
+          className="absolute top-0 left-[18%] sm:left-[21%] z-[1]"
         >
-          <defs>
-            <pattern id="mayaviMediaSeamless" width="400" height="260" patternUnits="userSpaceOnUse">
-              {/* WAVE 1: Cyan/Teal (y around 45) */}
-              <path
-                d="M 0,45 C 28,62 72,62 100,45 C 128,28 172,28 200,45 C 228,62 272,62 300,45 C 328,28 372,28 400,45 L 400,69 C 372,52 328,52 300,69 C 272,86 228,86 200,69 C 172,52 128,52 100,69 C 72,86 28,86 0,69 Z"
-                fill="#38bdf8"
-                fillOpacity="0.08"
-                stroke="none"
-              />
-              <path
-                d="M 0,45 C 28,62 72,62 100,45 C 128,28 172,28 200,45 C 228,62 272,62 300,45 C 328,28 372,28 400,45"
-                fill="none"
-                stroke="#38bdf8"
-                strokeWidth="1.3"
-                strokeOpacity="0.88"
-              />
-              <path
-                d="M 0,69 C 28,86 72,86 100,69 C 128,52 172,52 200,69 C 228,86 272,86 300,69 C 328,52 372,52 400,69"
-                fill="none"
-                stroke="#38bdf8"
-                strokeWidth="1.3"
-                strokeOpacity="0.88"
-              />
+          <motion.img
+            src="/patterns/official/orbs/lantern_top.png"
+            alt="Acoustic Lantern"
+            className="w-[100px] sm:w-[125px] md:w-[135px] h-auto drop-shadow-[0_15px_30px_rgba(234,179,8,0.35)]"
+            animate={{
+              y: [0, -7, 0],
+              rotate: [-1.2, 1.2, -1.2],
+            }}
+            transition={{
+              duration: 5.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
 
-              {/* WAVE 2: Gold (y around 125) */}
-              <path
-                d="M 0,115 C 28,98 72,98 100,115 C 128,132 172,132 200,115 C 228,98 272,98 300,115 C 328,132 372,132 400,115 L 400,139 C 372,156 328,156 300,139 C 272,122 228,122 200,139 C 172,156 128,156 100,139 C 72,122 28,122 0,139 Z"
-                fill="#f5e302"
-                fillOpacity="0.08"
-                stroke="none"
-              />
-              <path
-                d="M 0,115 C 28,98 72,98 100,115 C 128,132 172,132 200,115 C 228,98 272,98 300,115 C 328,132 372,132 400,115"
-                fill="none"
-                stroke="#f5e302"
-                strokeWidth="1.3"
-                strokeOpacity="0.88"
-              />
-              <path
-                d="M 0,139 C 28,156 72,156 100,139 C 128,122 172,122 200,139 C 228,156 272,156 300,139 C 328,122 372,122 400,139"
-                fill="none"
-                stroke="#f5e302"
-                strokeWidth="1.3"
-                strokeOpacity="0.88"
-              />
+        {/* 2. Top-Right Small Purple Ribbed Acoustic Sphere */}
+        <motion.div
+          style={{ x: bgX, y: bgY }}
+          className="absolute top-1 right-[23%] sm:right-[26%] z-[1]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_purple_tr.png"
+            alt="Purple Soundwave Sphere"
+            className="w-[95px] sm:w-[120px] md:w-[140px] h-auto drop-shadow-[0_10px_25px_rgba(65,6,130,0.5)]"
+            animate={{
+              y: [0, -9, 0],
+            }}
+            transition={{
+              duration: 6.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
 
-              {/* WAVE 3: Purple/Magenta (y around 205) */}
-              <path
-                d="M 0,200 C 28,217 72,217 100,200 C 128,183 172,183 200,200 C 228,217 272,217 300,200 C 328,183 372,183 400,200 L 400,224 C 372,241 328,241 300,224 C 272,207 228,207 200,224 C 172,241 128,241 100,224 C 72,207 28,207 0,224 Z"
-                fill="#c084fc"
-                fillOpacity="0.08"
-                stroke="none"
-              />
-              <path
-                d="M 0,200 C 28,217 72,217 100,200 C 128,183 172,183 200,200 C 228,217 272,217 300,200 C 328,183 372,183 400,200"
-                fill="none"
-                stroke="#c084fc"
-                strokeWidth="1.3"
-                strokeOpacity="0.88"
-              />
-              <path
-                d="M 0,224 C 28,241 72,241 100,224 C 128,207 172,207 200,224 C 228,241 272,241 300,224 C 328,207 372,207 400,224"
-                fill="none"
-                stroke="#c084fc"
-                strokeWidth="1.3"
-                strokeOpacity="0.88"
-              />
+        {/* 3. Mid-Right Edge Purple Acoustic Sphere */}
+        <motion.div
+          style={{ x: bgX, y: bgY }}
+          className="absolute top-[44%] -right-4 sm:right-[0%] z-[1]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_purple_br_mid.png"
+            alt="Purple Soundwave Sphere"
+            className="w-[75px] sm:w-[95px] md:w-[115px] h-auto drop-shadow-[0_12px_24px_rgba(65,6,130,0.6)]"
+            animate={{
+              y: [0, -13, 0],
+            }}
+            transition={{
+              duration: 5.7,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.4,
+            }}
+          />
+        </motion.div>
 
-              {/* MEDIA PIN 1: PLAY (Cyan) */}
-              <g transform="translate(70, 80) scale(0.85)">
-                <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#0d1f2d" stroke="#38bdf8" strokeWidth="1.4" />
-                <circle cx="15" cy="15" r="9" fill="none" stroke="#38bdf8" strokeWidth="1" />
-                <polygon points="13,10 20,15 13,20" fill="#38bdf8" />
-              </g>
+        {/* ------------------------------------------------------------ */}
+        {/* LAYER 2: MIDGROUND (z-[2])                                   */}
+        {/* ------------------------------------------------------------ */}
 
-              {/* MEDIA PIN 2: PAUSE (Gold) */}
-              <g transform="translate(270, 60) scale(0.85)">
-                <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#241e06" stroke="#f5e302" strokeWidth="1.4" />
-                <circle cx="15" cy="15" r="9" fill="none" stroke="#f5e302" strokeWidth="1" />
-                <rect x="11.5" y="11" width="2.5" height="8" rx="1" fill="#f5e302" />
-                <rect x="16" y="11" width="2.5" height="8" rx="1" fill="#f5e302" />
-              </g>
+        {/* 4. Top-Right Huge Golden-Amber Ribbed Sphere (Cleaned, no green slices) */}
+        <motion.div
+          style={{ x: mgX, y: mgY }}
+          className="absolute top-0 -right-6 sm:top-1 sm:-right-3 md:-right-2 z-[2]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_gold_tr.png"
+            alt="Golden Amber Acoustic Sphere"
+            className="w-[170px] sm:w-[210px] md:w-[245px] h-auto drop-shadow-[0_20px_50px_rgba(234,179,8,0.35)]"
+            animate={{
+              y: [0, -14, 0],
+              rotate: [0, -2, 0],
+            }}
+            transition={{
+              duration: 7.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.3,
+            }}
+          />
+        </motion.div>
 
-              {/* MEDIA PIN 3: STOP (Magenta) */}
-              <g transform="translate(160, 160) scale(0.85)">
-                <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#2b0a23" stroke="#e879f9" strokeWidth="1.4" />
-                <circle cx="15" cy="15" r="9" fill="none" stroke="#e879f9" strokeWidth="1" />
-                <rect x="11.5" y="11.5" width="7" height="7" rx="1" fill="#e879f9" />
-              </g>
+        {/* 5. Mid-Left Large Royal Purple Ribbed Sphere (Partially behind Card 1) */}
+        <motion.div
+          style={{ x: mgX, y: mgY }}
+          className="absolute top-[26%] left-[7%] sm:left-[10%] md:left-[11%] z-[2]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_purple_ml.png"
+            alt="Royal Purple Acoustic Resonance Sphere"
+            className="w-[140px] sm:w-[170px] md:w-[200px] h-auto drop-shadow-[0_20px_45px_rgba(65,6,130,0.7)]"
+            animate={{
+              y: [0, -15, 0],
+              rotate: [0, -2.5, 0],
+            }}
+            transition={{
+              duration: 7.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
 
-              {/* MEDIA PIN 4: RECORD (Red/Pink) */}
-              <g transform="translate(340, 170) scale(0.85)">
-                <path d="M 15 0 C 23.28 0 30 6.72 30 15 C 30 25 15 38 15 38 C 15 38 0 25 0 15 C 0 6.72 6.72 0 15 0 Z" fill="#2b0d14" stroke="#f43f5e" strokeWidth="1.4" />
-                <circle cx="15" cy="15" r="6" fill="#f43f5e" />
-              </g>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#mayaviMediaSeamless)" />
-        </svg>
+        {/* ------------------------------------------------------------ */}
+        {/* LAYER 3: CRISP SPHERES & CLUSTERS (z-[3])                    */}
+        {/* ------------------------------------------------------------ */}
+
+        {/* 6. Mid-Left Seamless Green Pair Cluster (100% Intact, NO slices!) */}
+        <motion.div
+          style={{ x: mgX, y: mgY }}
+          className="absolute top-[39%] -left-6 sm:-left-3 md:left-[0%] z-[3]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_green_left_cluster.png"
+            alt="Lime Soundwave Spheres Cluster"
+            className="w-[125px] sm:w-[155px] md:w-[175px] h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.85)]"
+            animate={{
+              y: [0, -14, 0],
+              rotate: [0, 2, 0],
+            }}
+            transition={{
+              duration: 6.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.8,
+            }}
+          />
+        </motion.div>
+
+        {/* 7. Mid-Right Crisp Green Ribbed Sphere (Partially behind Card 3) */}
+        <motion.div
+          style={{ x: mgX, y: mgY }}
+          className="absolute top-[22%] right-[8%] sm:right-[11%] md:right-[12%] z-[3]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_green_mr.png"
+            alt="Crisp Lime Acoustic Sphere"
+            className="w-[150px] sm:w-[190px] md:w-[225px] h-auto drop-shadow-[0_20px_45px_rgba(162,216,101,0.25)]"
+            animate={{
+              y: [0, -16, 0],
+              rotate: [0, 2.5, 0],
+            }}
+            transition={{
+              duration: 6.9,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.6,
+            }}
+          />
+        </motion.div>
+
+        {/* ------------------------------------------------------------ */}
+        {/* LAYER 4: FOREGROUND VOLUMETRICS (z-[4])                      */}
+        {/* ------------------------------------------------------------ */}
+
+        {/* 8. Top-Left Giant Pistachio Green Ribbed Sphere */}
+        <motion.div
+          style={{ x: fgX, y: fgY }}
+          className="absolute top-3 -left-8 sm:top-6 sm:-left-4 md:-left-2 z-[4]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_green_tl.png"
+            alt="Pistachio Green Acoustic Sphere"
+            className="w-[160px] sm:w-[200px] md:w-[235px] h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.85)]"
+            animate={{
+              y: [0, -18, 0],
+              rotate: [0, 3.5, 0],
+            }}
+            transition={{
+              duration: 6.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
+
+        {/* 9. Bottom-Right Enormous Foreground Pistachio Green Sphere (Complete unoccluded sphere, zero artifacts) */}
+        <motion.div
+          style={{ x: fgX, y: fgY }}
+          className="absolute -bottom-10 -right-10 sm:-bottom-12 sm:-right-8 md:-bottom-14 md:-right-6 z-[4]"
+        >
+          <motion.img
+            src="/patterns/official/orbs/orb_green_mr.png"
+            alt="Foreground Acoustic Resonance Sphere"
+            className="w-[200px] sm:w-[250px] md:w-[280px] h-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] filter blur-[0.6px]"
+            animate={{
+              y: [0, -22, 0],
+              rotate: [0, 4, 0],
+            }}
+            transition={{
+              duration: 8.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
+          />
+        </motion.div>
+
+        {/* Interactive Mouse Spotlight on Acoustic Spheres */}
+        <div
+          className="absolute inset-0 pointer-events-none mix-blend-screen transition-opacity duration-500 z-[5]"
+          style={{
+            background: `radial-gradient(circle 480px at ${cursorPos.x}px ${cursorPos.y}px, rgba(162, 216, 101, 0.18) 0%, rgba(234, 179, 8, 0.12) 35%, rgba(65, 6, 130, 0.05) 70%, transparent 100%)`,
+            opacity: isHovered ? 1 : 0,
+          }}
+        />
+
+        {/* Center Specular Glint */}
+        <div
+          className="absolute inset-0 pointer-events-none mix-blend-color-dodge transition-opacity duration-300 z-[5]"
+          style={{
+            background: `radial-gradient(circle 220px at ${cursorPos.x}px ${cursorPos.y}px, rgba(255, 240, 180, 0.20) 0%, transparent 75%)`,
+            opacity: isHovered ? 1 : 0,
+          }}
+        />
       </div>
 
       {/* ============================================================ */}
-      {/* SECTION CONTENT CONTAINER                                    */}
+      {/* 2. SECTION CONTENT CONTAINER                                  */}
       {/* ============================================================ */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
-        {/* MASTHEAD HEADER */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 text-left">
-          <div className="max-w-3xl space-y-3">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal font-serif text-white tracking-tight leading-tight">
-              {activeConfig.headline || "Curated Press & Client Reviews"}
-            </h2>
-            <p className="text-white/60 font-sans text-xs sm:text-sm font-light leading-relaxed max-w-xl">
-              {activeConfig.subheadline || "An archival gallery of film festival laurels, executive testimonials, and technical behind-the-scenes director notes."}
-            </p>
+        {/* CENTERED EDITORIAL MASTHEAD (Matches Mockup 100%) */}
+        <div className="relative flex flex-col items-center justify-center text-center space-y-3.5 mb-14 lg:mb-18 max-w-3xl mx-auto">
+          {/* Soft Radial Focus Scrim (Guarantees crystalline typography readability) */}
+          <div 
+            className="absolute -inset-x-24 -inset-y-12 rounded-full pointer-events-none -z-10"
+            style={{
+              background: 'radial-gradient(ellipse 90% 80% at 50% 50%, rgba(7, 2, 14, 0.92) 0%, rgba(7, 2, 14, 0.65) 55%, rgba(7, 2, 14, 0) 100%)',
+              filter: 'blur(20px)',
+            }}
+          />
+
+          {/* Brand Seal */}
+          <div className="flex flex-col items-center gap-0.5 opacity-90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            <span className="font-serif text-lg sm:text-xl tracking-[0.38em] text-[#f0ebd8] font-normal">MAYAVI</span>
+            <span className="text-[8.5px] font-mono tracking-[0.32em] text-[#f0ebd8]/60 uppercase">MEDIA CREATIONS</span>
           </div>
 
-          {/* Industry Critics Choice Badge (Approved Design) */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#d4af37]/40 bg-[#161009]/80 backdrop-blur-md self-start md:self-auto shadow-[0_0_15px_rgba(212,175,55,0.15)]">
-            <Award size={13} className="text-[#f5e302]" />
-            <span className="font-mono text-[9px] text-[#f5e302] tracking-[0.2em] uppercase font-bold">
-              {activeConfig.criticsChoiceBadge || "5★ INDUSTRY CRITICS CHOICE 2026"}
+          {/* Category Pill with Ambient Pulse */}
+          <motion.div 
+            whileHover={{ scale: 1.04 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#140b25]/85 border border-amber-400/35 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-default transition-all"
+          >
+            <Sparkles size={11} className="text-amber-400 animate-pulse" />
+            <span className="font-mono text-[9px] text-amber-300 tracking-[0.26em] uppercase font-bold">
+              ✦ CLIENT STORIES // ACOUSTIC RESONANCE
             </span>
-          </div>
+          </motion.div>
+
+          {/* Modern Geometric Sans Headline (Voices That Resonate / Across Screens) */}
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium font-sans text-white tracking-tight leading-[1.12] drop-shadow-[0_4px_28px_rgba(0,0,0,0.95)] max-w-2xl">
+            Voices That Resonate
+            <br />
+            Across Screens
+          </h2>
+
+          {/* Subtitle / Quote */}
+          <p className="font-serif italic text-base sm:text-lg md:text-xl text-amber-200/90 font-light tracking-wide pt-1 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] max-w-xl">
+            &ldquo;Trust is built through cinema that moves audiences.&rdquo;
+          </p>
         </div>
 
-        {/* 3-COLUMN LUXURY ACCREDITATION DOSSIER CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+        {/* ============================================================ */}
+        {/* 3. 3 FROSTED GLASS TESTIMONIAL CARDS (Identical to Image 2)  */}
+        {/* ============================================================ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-12">
           {reviews.map((item, idx) => {
             const isBtsOpen = expandedBtsId === item.id;
             const theme = getTestimonialThemeClasses(item.accentTheme, idx);
-            const rimBorderClass = item.accentTheme ? theme.rimBorder : (item.id === 'granddiva' ? 'border-[#d4af37]/60 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.12)]' : item.id === 'pronto' ? 'border-[#db2777]/55 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(219,39,119,0.15)]' : theme.rimBorder);
+
+            // Card titles matching Image 2
+            const cardTitle = idx === 0
+              ? 'Enterprise brand film'
+              : idx === 1
+              ? 'Cinema OTT & 4K color grading'
+              : 'Commercial & VFX production';
+
+            // Metrics matching Image 2
+            const metricBadge = idx === 0
+              ? '+420% Viewership'
+              : idx === 1
+              ? 'Theatrical Grade Authority'
+              : 'Flawless Visuals & Rapid Turnaround';
+
+            // Center card gets highlighted golden rim glow matching mockup
+            const isCenterCard = idx === 1;
+            const cardBorderClasses = isCenterCard
+              ? 'border-amber-400/50 shadow-[0_0_35px_rgba(234,179,8,0.22),0_20px_50px_rgba(0,0,0,0.85)] bg-[#0d071d]/60'
+              : 'border-white/10 hover:border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.75)] bg-[#0c0618]/50';
 
             return (
-              <div
+              <motion.div
                 key={item.id}
-                className={`group relative rounded-3xl bg-[#090717]/85 border backdrop-blur-2xl transition-all duration-300 p-6 flex flex-col justify-between text-left ${rimBorderClass}`}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.3 }}
+                className={`group relative rounded-2xl sm:rounded-3xl border backdrop-blur-2xl transition-all duration-300 p-6 sm:p-7 flex flex-col justify-between text-left overflow-hidden ${cardBorderClasses}`}
               >
-                <div>
-                  {/* Top Laurel & Rating Row */}
-                  <div className="flex items-center justify-between gap-2 pb-4 mb-4 border-b border-white/5">
-                    <div className="flex items-center gap-1.5 text-xs text-white/90 font-medium truncate">
-                      <Award size={13} className="text-[#f5e302] shrink-0" />
-                      <span className="truncate">{item.topBadgeLeft}</span>
-                    </div>
+                {/* Top Specular Glint */}
+                <div 
+                  className="absolute top-0 left-0 right-0 h-[1px] opacity-80 pointer-events-none"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${isCenterCard ? '#f5e302' : theme.accentHex}, transparent)`,
+                  }}
+                />
 
-                    {item.topBadgeRight && (
-                      item.isRightPill ? (
-                        <span className={`px-2.5 py-0.5 rounded-full border font-mono text-[8px] font-semibold tracking-wider uppercase shrink-0 ${theme.badgeColor}`}>
-                          {item.topBadgeRight}
-                        </span>
-                      ) : (
-                        <span className={`font-mono text-xs font-semibold tracking-wider shrink-0 ${theme.starColor}`}>
-                          {item.topBadgeRight}
-                        </span>
-                      )
-                    )}
+                <div>
+                  {/* Top Rating Row: 5 Golden Stars ★★★★★ */}
+                  <div className="flex items-center space-x-1 pb-4 mb-4 border-b border-white/5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={15} className="fill-amber-400 text-amber-400" />
+                    ))}
                   </div>
 
-                  {/* Powerful Editorial Quote */}
-                  <blockquote className="font-serif text-base lg:text-lg text-white font-normal leading-relaxed line-clamp-3 mb-5">
-                    {item.quote}
+                  {/* Card Title (Sans Bold White) */}
+                  <h3 className="font-sans font-semibold text-lg sm:text-xl text-white tracking-wide mb-3 group-hover:text-amber-100 transition-colors">
+                    {cardTitle}
+                  </h3>
+
+                  {/* Editorial Quote Body */}
+                  <blockquote className="font-sans text-xs sm:text-sm text-white/80 font-light leading-relaxed line-clamp-4 mb-6">
+                    {item.quote.replace(/^[“"]|[”"]$/g, '')}
                   </blockquote>
 
-                  {/* Author Byline */}
-                  <div className="mb-5 space-y-0.5">
-                    <h4 className="font-sans text-sm text-white font-semibold tracking-wide">
-                      {item.author}
-                    </h4>
-                    <p className="font-mono text-[9px] text-white/60 tracking-wider uppercase">
-                      {item.role}
-                    </p>
-                  </div>
-
-                  {/* Cinematic 16:9 Thumbnail Still */}
-                  <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-black/60 border border-white/10 shadow-lg mb-5 group/img">
-                    <img
-                      src={item.image || '/testimonial_cameras.png'}
-                      alt={item.author}
-                      className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                    {/* Optional Video Icon on middle card */}
-                    {item.hasVideoIcon && (
-                      <div className="absolute top-2.5 right-2.5 p-1.5 rounded-md bg-black/60 backdrop-blur-md border border-white/15">
-                        <Video size={12} className="text-white/80" />
+                  {/* Author / Metric Row */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2 mb-4 border-t border-white/5">
+                    {/* Author Byline with Initials Avatar */}
+                    <div className="flex items-center gap-2.5">
+                      <div 
+                        className="w-8 h-8 rounded-full flex items-center justify-center font-sans font-bold text-[11px] text-white border shrink-0 shadow-md"
+                        style={{
+                          backgroundColor: `${isCenterCard ? '#f5e302' : theme.accentHex}25`,
+                          borderColor: isCenterCard ? '#f5e302' : theme.accentHex,
+                        }}
+                      >
+                        {item.author.split(' ').map(n => n[0]).join('').slice(0, 2)}
                       </div>
-                    )}
+                      <div className="space-y-0.5 overflow-hidden">
+                        <h4 className="font-sans text-xs text-white font-medium tracking-wide truncate">
+                          {item.author}
+                        </h4>
+                        <p className="font-mono text-[8.5px] text-white/50 tracking-wider uppercase truncate">
+                          {item.role.split('//')[0]}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Metric Pill Badge */}
+                    <span 
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[9px] font-semibold tracking-wider uppercase border shadow-sm ${
+                        isCenterCard 
+                          ? 'border-amber-400/40 bg-amber-400/10 text-amber-300' 
+                          : idx === 0 
+                          ? 'border-[#a2d865]/40 bg-[#a2d865]/10 text-[#a2d865]' 
+                          : 'border-amber-300/35 bg-amber-300/10 text-amber-200'
+                      }`}
+                    >
+                      {idx === 0 && <TrendingUp size={10} className="text-[#a2d865]" />}
+                      {idx === 2 && <Sparkles size={10} className="text-amber-300" />}
+                      {metricBadge}
+                    </span>
                   </div>
                 </div>
 
-                {/* Bottom BTS Technicals Drawer Toggle */}
-                <div>
+                {/* Bottom Expandable BTS Technicals Drawer */}
+                <div className="mt-2">
                   <button
                     type="button"
                     onClick={() => toggleBts(item.id)}
-                    className="w-full py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-white/80 font-mono text-[9.5px] tracking-[0.18em] uppercase flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-98"
+                    className="w-full py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-white/70 font-mono text-[9px] tracking-[0.16em] uppercase flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-98"
                   >
                     <span>{item.btsLabel || 'BTS TECHNICALS'}</span>
                     <ChevronDown
-                      size={12}
-                      className={`transition-transform duration-300 ${isBtsOpen ? `rotate-180 ${theme.btsHighlight}` : 'text-white/60'}`}
+                      size={11}
+                      className={`transition-transform duration-300 ${isBtsOpen ? `rotate-180 ${theme.btsHighlight}` : 'text-white/50'}`}
                     />
                   </button>
 
-                  {/* Expandable BTS Notes Drawer */}
                   <AnimatePresence>
                     {isBtsOpen && item.btsNotes && (
                       <motion.div
@@ -310,11 +538,11 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.25 }}
-                        className="overflow-hidden mt-3 pt-3 border-t border-white/10 space-y-2.5 font-sans text-xs text-white/70"
+                        className="overflow-hidden mt-3 pt-3 border-t border-white/10 space-y-2 font-sans text-xs text-white/70"
                       >
                         {item.btsNotes.camera && (
-                          <div className="space-y-1">
-                            <p className="font-mono text-[8.5px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1.5">
+                          <div className="space-y-0.5">
+                            <p className="font-mono text-[8.5px] text-amber-400 tracking-wider uppercase font-semibold flex items-center gap-1.5">
                               <Camera size={11} />
                               <span>Camera &amp; Optics</span>
                             </p>
@@ -323,8 +551,8 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                         )}
 
                         {(item.btsNotes.lighting || item.btsNotes.grading) && (
-                          <div className="space-y-1">
-                            <p className="font-mono text-[8.5px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1.5">
+                          <div className="space-y-0.5">
+                            <p className="font-mono text-[8.5px] text-amber-400 tracking-wider uppercase font-semibold flex items-center gap-1.5">
                               <Layers size={11} />
                               <span>Color &amp; Lighting</span>
                             </p>
@@ -335,7 +563,7 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                         )}
 
                         {item.btsNotes.directorComment && (
-                          <div className="space-y-1 pt-1">
+                          <div className="space-y-0.5 pt-1">
                             <p className="font-mono text-[8px] text-white/40 tracking-wider uppercase font-semibold">
                               Director&apos;s Craft Note
                             </p>
@@ -348,48 +576,65 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                     )}
                   </AnimatePresence>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* ============================================================ */}
-        {/* BOTTOM MASTER TELEMETRY & CTA DOCK (APPROVED DESIGN)         */}
+        {/* 4. INTEGRATED TRUST BAR DOCK (100% Faithful to Image 2)      */}
         {/* ============================================================ */}
-        <div className="mt-14 lg:mt-16 flex justify-center">
-          <div className="rounded-full bg-[#0d091e]/85 border border-white/15 backdrop-blur-2xl px-6 sm:px-8 py-3 sm:py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-            {/* Telemetry Stats */}
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 font-serif text-sm sm:text-base text-white/90 font-light">
-              <span>
-                <strong className="font-medium text-[#f5e302]">{activeConfig.stat1Value || "98.4%"}</strong> {activeConfig.stat1Label || "Retention"}
-              </span>
-              <span className="w-1 h-1 rounded-full bg-white/30" />
-              <span>
-                <strong className="font-medium text-[#f5e302]">{activeConfig.stat2Value || "14"}</strong> {activeConfig.stat2Label || "Festival Laurels"}
-              </span>
-              <span className="w-1 h-1 rounded-full bg-white/30" />
-              <span>
-                <strong className="font-medium text-[#f5e302]">{activeConfig.stat3Value || "4K"}</strong> {activeConfig.stat3Label || "Mastered"}
-              </span>
+        <div className="flex flex-col items-center justify-center space-y-5">
+          {/* Continuous Glass Capsule Dock matching Image 2 */}
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="rounded-full bg-[#0d071c]/80 border border-white/15 backdrop-blur-2xl px-3 py-2 sm:px-4 sm:py-2.5 flex flex-wrap items-center justify-center gap-3 sm:gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-xs font-mono transition-all"
+          >
+            {/* Solid Pill Button: 'Trust bar' */}
+            <div className="px-4 py-1.5 rounded-full bg-[#1b1231] border border-white/10 text-white font-sans text-xs font-semibold shadow-inner">
+              Trust bar
             </div>
 
-            {/* Champagne Gold CTA Button */}
-            <button
-              type="button"
-              onClick={() => {
-                const target = activeConfig.ctaTarget || '#contact';
-                if (onSelectAction) {
-                  onSelectAction(target);
-                } else {
-                  const el = document.querySelector(target);
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="px-6 py-2 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f5e302] to-[#c59b27] hover:brightness-110 active:scale-95 text-[#050505] font-mono text-[10px] tracking-wider uppercase font-extrabold shadow-[0_2px_15px_rgba(212,175,55,0.3)] transition-all cursor-pointer shrink-0"
-            >
-              {activeConfig.ctaText || "CTA"}
-            </button>
-          </div>
+            {/* Minimalist Studio */}
+            <div className="flex items-center gap-2 text-white/85 font-mono text-[11px] tracking-wide">
+              <Activity size={13} className="text-[#a2d865]" />
+              <span>Minimalist Studio</span>
+            </div>
+
+            <span className="hidden sm:inline text-white/20">|</span>
+
+            {/* Verified Badges */}
+            <div className="flex items-center gap-2 text-white/85 font-mono text-[11px] tracking-wide">
+              <ShieldCheck size={13} className="text-[#a2d865]" />
+              <span>Verified Badges</span>
+            </div>
+
+            <span className="hidden sm:inline text-white/20">|</span>
+
+            {/* 99.4% Client Satisfaction */}
+            <div className="flex items-center gap-2 text-white/85 font-mono text-[11px] tracking-wide pr-2">
+              <CheckCircle2 size={13} className="text-[#a2d865]" />
+              <span className="font-semibold text-white">99.4% Client Satisfaction</span>
+            </div>
+          </motion.div>
+
+          {/* Quick Production Inquiry CTA */}
+          <button
+            type="button"
+            onClick={() => {
+              const target = activeConfig.ctaTarget || '#contact';
+              if (onSelectAction) {
+                onSelectAction(target);
+              } else {
+                const el = document.querySelector(target);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f5e302] to-[#c59b27] hover:brightness-110 active:scale-95 text-[#050505] font-mono text-[10px] tracking-widest uppercase font-extrabold shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all cursor-pointer"
+          >
+            <span>{activeConfig.ctaText || "START YOUR STORY"}</span>
+            <ArrowUpRight size={13} className="text-black" />
+          </button>
         </div>
 
       </div>
