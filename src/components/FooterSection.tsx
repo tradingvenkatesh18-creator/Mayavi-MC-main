@@ -2,7 +2,6 @@ import React, { useState, useRef, useCallback } from 'react';
 import { motion, useSpring, useTransform } from 'motion/react';
 import {
   ArrowUpRight,
-  Lock,
   Instagram,
   Youtube,
   Linkedin,
@@ -15,7 +14,7 @@ import Logo from './Logo';
 interface FooterSectionProps {
   cms: CMSData;
   setContactOpen: (open: boolean) => void;
-  navigateToAdmin: () => void;
+  navigateToAdmin?: () => void;
   setShowreelOpen?: (open: boolean) => void;
 }
 
@@ -425,15 +424,6 @@ export default function FooterSection({
               </div>
 
               <div className="flex items-center space-x-4">
-                <button
-                  type="button"
-                  onClick={navigateToAdmin}
-                  className="inline-flex items-center space-x-1.5 font-mono text-[9px] tracking-widest text-white/40 hover:text-[#EAB308] transition-colors cursor-pointer group"
-                  title="Open Executive Admin Dashboard (or press Ctrl + Shift + A)"
-                >
-                  <Lock size={10} className="text-[#EAB308]/70 group-hover:text-[#EAB308]" />
-                  <span>ADMIN ACCESS</span>
-                </button>
                 <span className="font-mono text-[9px] tracking-widest text-[#EAB308]/60 uppercase">
                   DIRECTED BY MAYAVI.
                 </span>
