@@ -743,9 +743,14 @@ export default function App() {
   // Dynamic Central CMS Store
   const { cms } = useCMS();
 
-  // Admin Portal & Authentication States (/admin single-user dashboard or ?admin=true)
+  // Admin Portal & Authentication States (Protected: Only accessible on private deployment URL, never on mayavimedia.in)
   const [isAdminRoute, setIsAdminRoute] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname.toLowerCase();
+      // Block admin completely on public domain
+      if (hostname.includes('mayavimedia.in')) {
+        return false;
+      }
       const path = window.location.pathname;
       const hash = window.location.hash;
       const search = window.location.search;
@@ -760,9 +765,21 @@ export default function App() {
     return false;
   });
 
-  // Listen to popstate, hashchange, and Ctrl+Shift+A hotkey
+  // Listen to popstate, hashchange, and hotkey
   useEffect(() => {
     const handleLocationChange = () => {
+      const hostname = window.location.hostname.toLowerCase();
+      // On public domain, redirect any /admin attempts back to homepage
+      if (hostname.includes('mayavimedia.in')) {
+        const path = window.location.pathname;
+        const hash = window.location.hash;
+        if (path === '/admin' || hash === '#/admin' || hash === '#admin') {
+          window.history.replaceState(null, '', '/');
+        }
+        setIsAdminRoute(false);
+        return;
+      }
+
       const path = window.location.pathname;
       const hash = window.location.hash;
       const search = window.location.search;
@@ -776,6 +793,11 @@ export default function App() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Hotkey disabled on public domain
+      if (window.location.hostname.toLowerCase().includes('mayavimedia.in')) {
+        return;
+      }
+
       // Hotkey: Ctrl + Shift + A or Cmd + Shift + A to open admin
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
         e.preventDefault();

@@ -219,14 +219,10 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
           </button>
         </form>
 
-        {/* Security Note & Default Passcode Helper for Client Demo */}
-        <div className="mt-8 pt-6 border-t border-white/10 text-center space-y-2 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-[#EAB308] font-mono text-[9px] tracking-wider">
-            <span>DEFAULT KEY:</span>
-            <code className="bg-black/60 px-2 py-0.5 rounded text-white font-bold select-all">mayavi2026</code>
-          </div>
-          <p className="text-[10.5px] text-white/40 font-sans">
-            Configurable anytime inside the Cloud DB & Security tab.
+        {/* Security Notice */}
+        <div className="mt-8 pt-6 border-t border-white/10 text-center relative z-10">
+          <p className="text-[10px] text-white/30 font-mono tracking-wider uppercase">
+            RESTRICTED ACCESS • AUTHORIZED PERSONNEL ONLY
           </p>
         </div>
 
