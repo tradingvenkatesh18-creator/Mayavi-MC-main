@@ -1315,10 +1315,10 @@ export default function App() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-3 inset-x-0 mx-auto max-w-6xl z-50 px-3 sm:px-4"
+              className="fixed top-3 inset-x-0 mx-auto max-w-7xl 2xl:max-w-[1360px] w-full z-50 px-3 sm:px-4"
             >
               {/* #22 Liquid Glass Floating Pill Navbar */}
-              <div className={`relative overflow-hidden w-full rounded-full border transition-all duration-500 ease-in-out px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between gap-3 ${
+              <div className={`relative overflow-hidden w-full rounded-full border transition-all duration-500 ease-in-out px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-3 ${
                 isScrolled
                   ? 'backdrop-blur-2xl bg-gradient-to-r from-[#090717]/95 via-[#130B24]/90 to-[#090717]/95 border-amber-400/35 shadow-[0_15px_45px_rgba(0,0,0,0.9),0_0_25px_rgba(234,179,8,0.15),inset_0_1px_1px_rgba(255,255,255,0.2)]'
                   : 'backdrop-blur-xl bg-gradient-to-r from-[#090717]/85 via-[#140B28]/80 to-[#090717]/85 border-amber-400/25 shadow-[0_10px_35px_rgba(0,0,0,0.65),0_0_20px_rgba(65,6,130,0.25),inset_0_1px_1px_rgba(255,255,255,0.15)]'
@@ -1372,7 +1372,7 @@ export default function App() {
                             setActiveSection(itemLower);
                           }
                         }}
-                        className={`relative text-xs xl:text-sm font-mono tracking-[0.14em] xl:tracking-[0.18em] transition-all duration-300 py-2 px-3 xl:px-4 rounded-full uppercase select-none whitespace-nowrap shrink-0 ${isActive
+                        className={`relative text-xs xl:text-xs font-mono tracking-[0.10em] xl:tracking-[0.14em] transition-all duration-300 py-1.5 px-2.5 xl:px-3.5 rounded-full uppercase select-none whitespace-nowrap shrink-0 ${isActive
                           ? 'text-amber-300 font-bold'
                           : 'text-white/70 hover:text-white hover:text-amber-200'
                           }`}
@@ -1395,7 +1395,7 @@ export default function App() {
                   <button
                     id="top-cta-talent-assessment"
                     onClick={() => setAssessmentOpen(true)}
-                    className="hidden xl:flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-mono tracking-[0.14em] border border-amber-400/60 bg-amber-400/10 hover:bg-amber-400/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap backdrop-blur-md"
+                    className="hidden 2xl:flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider border border-amber-400/60 bg-amber-400/10 hover:bg-amber-400/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap backdrop-blur-md"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#EAB308] animate-pulse shadow-[0_0_6px_#EAB308]"></span>
                     <span>AUDITION TEST</span>
@@ -1403,10 +1403,10 @@ export default function App() {
                   <button
                     id="top-cta-start-project"
                     onClick={() => setContactOpen(true)}
-                    className="flex items-center space-x-2 px-5 py-2 rounded-full text-xs xl:text-sm font-mono tracking-[0.14em] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.35)] hover:shadow-[0_0_30px_rgba(234,179,8,0.6)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
+                    className="flex items-center space-x-1.5 px-4 py-1.5 rounded-full text-xs font-mono tracking-wider bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.35)] hover:shadow-[0_0_30px_rgba(234,179,8,0.6)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
                   >
                     <span>START A PROJECT</span>
-                    <ArrowUpRight size={14} className="text-black" />
+                    <ArrowUpRight size={13} className="text-black" />
                   </button>
                 </div>
 
