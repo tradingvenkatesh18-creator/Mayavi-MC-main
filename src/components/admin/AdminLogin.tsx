@@ -116,8 +116,8 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
           <span>Exit to Public Site</span>
         </button>
 
-        <div className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] backdrop-blur-md border border-amber-400/30 font-mono text-[9px] tracking-widest text-[#EAB308] shadow-[0_0_15px_rgba(234,179,8,0.15)]">
-          <ShieldCheck size={12} />
+        <div className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] backdrop-blur-md border border-amber-400/30 font-mono text-xs tracking-wider text-[#EAB308] shadow-[0_0_15px_rgba(234,179,8,0.15)]">
+          <ShieldCheck size={14} />
           <span>MAYAVI STUDIO SECURITY PROTOCOL // MMXXVI</span>
         </div>
       </div>
@@ -139,13 +139,13 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
           </div>
           <div>
             <div className="flex items-center justify-center space-x-2">
-              <span className="font-mono text-[9px] tracking-[0.35em] text-[#EAB308] uppercase font-bold">EXECUTIVE VAULT ACCESS</span>
+              <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#EAB308] uppercase font-bold">EXECUTIVE VAULT ACCESS</span>
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-serif font-light italic text-white mt-1.5 tracking-tight">
               Mayavi Master Deck
             </h1>
-            <p className="text-white/50 text-xs font-mono tracking-wider mt-1.5">
+            <p className="text-white/60 text-xs sm:text-sm font-mono tracking-wider mt-1.5">
               Secure Director Console // Media Link & Cloud Manager
             </p>
           </div>
@@ -157,7 +157,7 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
             <AlertCircle size={18} className="shrink-0 text-red-400" />
             <div>
               <p className="font-bold">Security Lockout Active</p>
-              <p className="text-[11px] text-red-300/80">Please wait {lockoutTime} seconds before attempting access.</p>
+              <p className="text-xs text-red-300/90">Please wait {lockoutTime} seconds before attempting access.</p>
             </div>
           </div>
         )}
@@ -165,7 +165,7 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
           <div className="space-y-2 text-left">
-            <label className="block text-[10px] font-mono tracking-[0.25em] text-white/70 uppercase">
+            <label className="block text-xs font-mono tracking-wider text-white/80 uppercase font-semibold">
               Master Access Passcode
             </label>
             <div className="relative">
@@ -221,7 +221,7 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
 
         {/* Security Notice */}
         <div className="mt-8 pt-6 border-t border-white/10 text-center relative z-10">
-          <p className="text-[10px] text-white/30 font-mono tracking-wider uppercase">
+          <p className="text-xs text-white/50 font-mono tracking-wider uppercase">
             RESTRICTED ACCESS • AUTHORIZED PERSONNEL ONLY
           </p>
         </div>
@@ -229,10 +229,10 @@ export default function AdminLogin({ onLoginSuccess, onExit }: AdminLoginProps) 
       </div>
 
       {/* Footer System Telemetry */}
-      <div className="absolute bottom-6 font-mono text-[8.5px] text-white/30 tracking-[0.3em] uppercase flex items-center gap-3">
+      <div className="absolute bottom-6 font-mono text-xs text-white/50 tracking-wider uppercase flex items-center gap-3">
         <span>MAYAVI CORE ENGINE // VERSION 2.6.4</span>
         <span className="text-white/20">|</span>
-        <span className="text-amber-400/60">ARRI ALEXA LF // 24 FPS</span>
+        <span className="text-amber-400/80">ARRI ALEXA LF // 24 FPS</span>
       </div>
     </div>
   );

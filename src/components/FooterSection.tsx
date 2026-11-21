@@ -241,7 +241,7 @@ export default function FooterSection({
                 <div className="px-3.5 py-1.5 rounded-full bg-[#1b152b] border border-white/10 flex items-center gap-2 shadow-inner">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#a2d865] shadow-[0_0_10px_#a2d865] animate-pulse" />
                 </div>
-                <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] text-white/90 uppercase font-semibold whitespace-nowrap">
+                <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-white/90 uppercase font-semibold whitespace-nowrap">
                   VIP NEWSLETTER // STUDIO UPDATES
                 </span>
               </div>
@@ -330,7 +330,7 @@ export default function FooterSection({
               <div className="md:col-span-2 space-y-4">
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#f7e503]" />
-                  <span className="font-mono text-[10px] text-[#f7e503]/90 tracking-[0.25em] uppercase block font-semibold">
+                  <span className="font-mono text-xs text-[#f7e503] tracking-[0.2em] uppercase block font-bold">
                     CREATIVE WORLDS
                   </span>
                 </div>
@@ -345,7 +345,7 @@ export default function FooterSection({
                       <span className="w-1 h-1 rounded-full bg-[#f7e503]/50" />
                       <a
                         href={world.href}
-                        className="group inline-block font-sans text-xs text-white/65 hover:text-white transition-colors duration-300 relative py-0.5"
+                        className="group inline-block font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 relative py-0.5"
                       >
                         {world.name}
                         <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#f7e503] group-hover:w-full transition-all duration-300" />
@@ -359,7 +359,7 @@ export default function FooterSection({
               <div className="md:col-span-3 space-y-4">
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#a2d865]" />
-                  <span className="font-mono text-[10px] text-[#a2d865]/90 tracking-[0.25em] uppercase block font-semibold">
+                  <span className="font-mono text-xs text-[#a2d865] tracking-[0.2em] uppercase block font-bold">
                     DIRECTORIAL SLATE
                   </span>
                 </div>
@@ -374,7 +374,7 @@ export default function FooterSection({
                       <span className="w-1 h-1 rounded-full bg-[#a2d865]/50" />
                       <a
                         href={slate.href}
-                        className="group inline-block font-sans text-xs text-white/65 hover:text-white transition-colors duration-300 relative py-0.5"
+                        className="group inline-block font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 relative py-0.5"
                       >
                         {slate.name}
                         <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#a2d865] group-hover:w-full transition-all duration-300" />
@@ -388,7 +388,7 @@ export default function FooterSection({
               <div className="md:col-span-3 space-y-4">
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-white/70" />
-                  <span className="font-mono text-[10px] text-white/80 tracking-[0.25em] uppercase block font-semibold">
+                  <span className="font-mono text-xs text-white/90 tracking-[0.2em] uppercase block font-bold">
                     COMPANY &amp; CHANNELS
                   </span>
                 </div>
@@ -403,7 +403,7 @@ export default function FooterSection({
                       <span className="w-1 h-1 rounded-full bg-white/40" />
                       <a
                         href={item.href}
-                        className="group inline-block font-sans text-xs text-white/65 hover:text-white transition-colors duration-300 relative py-0.5"
+                        className="group inline-block font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 relative py-0.5"
                       >
                         {item.name}
                         <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-white/60 group-hover:w-full transition-all duration-300" />
@@ -417,14 +417,14 @@ export default function FooterSection({
 
             {/* CARD BASELINE & STUDIO TELEMETRY */}
             <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-white/40 font-mono text-[9px] tracking-wider uppercase">
-                <span className="text-white/60">STUDIO HQ: HYDERABAD, INDIA</span>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-white/70 font-mono text-xs tracking-wider uppercase">
+                <span className="text-white/80">STUDIO HQ: HYDERABAD, INDIA</span>
                 <span>•</span>
-                <span className="text-white/60">GLOBAL REACH: AVAILABLE WORLDWIDE</span>
+                <span className="text-white/80">GLOBAL REACH: AVAILABLE WORLDWIDE</span>
               </div>
 
               <div className="flex items-center space-x-4">
-                <span className="font-mono text-[9px] tracking-widest text-[#EAB308]/60 uppercase">
+                <span className="font-mono text-xs tracking-widest text-[#EAB308] font-bold uppercase">
                   DIRECTED BY MAYAVI.
                 </span>
               </div>
@@ -435,7 +435,7 @@ export default function FooterSection({
 
         {/* BOTTOM COPYRIGHT STRIP */}
         <div className="mt-8 text-center">
-          <span className="font-mono text-[9px] tracking-widest text-white/30 uppercase">
+          <span className="font-mono text-xs tracking-widest text-white/50 uppercase">
             © 2026 MAYAVI MEDIA CREATIONS. ALL ARCHITECTURAL RIGHTS RESERVED.
           </span>
         </div>

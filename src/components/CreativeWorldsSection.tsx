@@ -95,7 +95,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
         {/* Header Bar inside Sticky Viewport */}
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between z-30 pt-2 pb-4">
           <div className="space-y-1 text-left">
-            <span className="font-mono text-[9px] tracking-[0.35em] text-[#EAB308] uppercase font-bold flex items-center gap-2">
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#EAB308] uppercase font-bold flex items-center gap-2">
               <Sparkles size={11} className="text-[#EAB308]" />
               THE SIX PILLARS
             </span>
@@ -106,7 +106,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
 
           {/* Active World Indicator Pill */}
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex flex-col items-end font-mono text-[9px] text-white/50 tracking-widest uppercase">
+            <div className="hidden sm:flex flex-col items-end font-mono text-xs text-white/70 tracking-wider uppercase">
               <span>ACTIVE WORLD</span>
               <span className="text-[#EAB308] font-bold text-xs">0{currentWorldIndex} / 06</span>
             </div>
@@ -142,9 +142,9 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
               <div className="relative z-10 max-w-2xl py-8 px-6 sm:px-8 md:py-10 md:px-12 space-y-4 text-left my-auto">
                 <div className="space-y-2">
                   <div className="flex items-center space-x-3">
-                    <span className="font-mono text-[10px] text-[#EAB308] font-bold tracking-widest">01</span>
+                    <span className="font-mono text-xs text-[#EAB308] font-bold tracking-wider">01</span>
                     <span className="w-6 h-[1px] bg-[#EAB308]/30" />
-                    <span className="font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">CINEMATIC PRODUCTION GATEWAY</span>
+                    <span className="font-mono text-xs text-white/60 tracking-wider uppercase">CINEMATIC PRODUCTION GATEWAY</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light font-serif text-white leading-tight">
                     Media Production
@@ -161,7 +161,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 <div className="pt-2">
                   <button 
                     onClick={() => onOpenWorldDetails(worlds[0])}
-                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
+                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
                   >
                     <span>Explore Media Production</span>
                     <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1 duration-300" />
@@ -169,7 +169,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 </div>
               </div>
 
-              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[7px] text-white/30 tracking-[0.2em] pointer-events-none border-t border-white/5">
+              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider pointer-events-none border-t border-white/5">
                 <span>ARRI SENSOR • 8K RAW</span>
                 <span>1:2.39 ANAMORPHIC</span>
               </div>
@@ -196,9 +196,9 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
               <div className="relative z-10 max-w-2xl py-8 px-6 sm:px-8 md:py-10 md:px-12 space-y-4 text-left my-auto">
                 <div className="space-y-2">
                   <div className="flex items-center space-x-3">
-                    <span className="font-mono text-[10px] text-[#EAB308] font-bold tracking-widest">02</span>
+                    <span className="font-mono text-xs text-[#EAB308] font-bold tracking-wider">02</span>
                     <span className="w-6 h-[1px] bg-[#EAB308]/30" />
-                    <span className="font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">EXECUTIVE PRESENCE SYSTEM</span>
+                    <span className="font-mono text-xs text-white/60 tracking-wider uppercase">EXECUTIVE PRESENCE SYSTEM</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light font-serif text-white leading-tight">
                     Personal Branding
@@ -215,7 +215,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 <div className="pt-2">
                   <button 
                     onClick={() => onOpenWorldDetails(worlds[1])}
-                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
+                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
                   >
                     <span>Explore Personal Branding</span>
                     <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1 duration-300" />
@@ -223,7 +223,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 </div>
               </div>
 
-              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[7px] text-white/30 tracking-[0.2em] pointer-events-none border-t border-white/5">
+              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider pointer-events-none border-t border-white/5">
                 <span>ZEISS OPTICS • PORTRAIT JOURNAL</span>
                 <span>ZEISS SUPREME PL</span>
               </div>
@@ -249,9 +249,9 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
 
               <div className="relative z-10 max-w-2xl text-center space-y-4 px-6 sm:px-8 md:py-10 md:px-12 mx-auto my-auto">
                 <div className="flex items-center justify-center space-x-3">
-                  <span className="font-mono text-[10px] text-[#EAB308] font-bold tracking-widest">03</span>
+                  <span className="font-mono text-xs text-[#EAB308] font-bold tracking-wider">03</span>
                   <span className="w-6 h-[1px] bg-[#EAB308]/30" />
-                  <span className="font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">ACADEMY MASTERCLASS MENTORSHIP</span>
+                  <span className="font-mono text-xs text-white/60 tracking-wider uppercase">ACADEMY MASTERCLASS MENTORSHIP</span>
                 </div>
                 
                 <div className="space-y-2">
@@ -270,7 +270,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                   <button 
                     onClick={() => onOpenWorldDetails(worlds[2])}
-                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-white/20 hover:border-[#EAB308]/60 text-white/80 hover:text-white bg-white/5 hover:bg-white/10 text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer"
+                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-white/20 hover:border-[#EAB308]/60 text-white/80 hover:text-white bg-white/5 hover:bg-white/10 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer"
                   >
                     <span>Explore Talent Development</span>
                     <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1 duration-300" />
@@ -288,7 +288,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 </div>
               </div>
 
-              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[7px] text-white/30 tracking-[0.2em] pointer-events-none border-t border-white/5">
+              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider pointer-events-none border-t border-white/5">
                 <span>ACTIVE LAB WORKSHOPS</span>
                 <span>OPTICS // CALIBRATION 03</span>
               </div>
@@ -315,9 +315,9 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
               <div className="relative z-10 max-w-2xl py-8 px-6 sm:px-8 md:py-10 md:px-12 space-y-4 text-left my-auto">
                 <div className="space-y-2">
                   <div className="flex items-center space-x-3">
-                    <span className="font-mono text-[10px] text-[#EAB308] font-bold tracking-widest">04</span>
+                    <span className="font-mono text-xs text-[#EAB308] font-bold tracking-wider">04</span>
                     <span className="w-6 h-[1px] bg-[#EAB308]/30" />
-                    <span className="font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">GRAND EXPERIENTIAL SCENOGRAPHY</span>
+                    <span className="font-mono text-xs text-white/60 tracking-wider uppercase">GRAND EXPERIENTIAL SCENOGRAPHY</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light font-serif text-white leading-tight">
                     Events & Experiences
@@ -334,7 +334,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 <div className="pt-2">
                   <button 
                     onClick={() => onOpenWorldDetails(worlds[3])}
-                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
+                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
                   >
                     <span>Explore Events</span>
                     <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1 duration-300" />
@@ -342,7 +342,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 </div>
               </div>
 
-              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[7px] text-white/30 tracking-[0.2em] pointer-events-none border-t border-white/5">
+              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider pointer-events-none border-t border-white/5">
                 <span>VOLUMETRIC LIGHTING</span>
                 <span>PROJECTION MAPPING 4K</span>
               </div>
@@ -369,9 +369,9 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
               <div className="relative z-10 max-w-2xl py-8 px-6 sm:px-8 md:py-10 md:px-12 space-y-4 text-left my-auto">
                 <div className="space-y-2">
                   <div className="flex items-center space-x-3">
-                    <span className="font-mono text-[10px] text-[#EAB308] font-bold tracking-widest">05</span>
+                    <span className="font-mono text-xs text-[#EAB308] font-bold tracking-wider">05</span>
                     <span className="w-6 h-[1px] bg-[#EAB308]/30" />
-                    <span className="font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">DIGITAL PLATFORM GROWTH</span>
+                    <span className="font-mono text-xs text-white/60 tracking-wider uppercase">DIGITAL PLATFORM GROWTH</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light font-serif text-white leading-tight">
                     Social Media Strategy
@@ -388,7 +388,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 <div className="pt-2">
                   <button 
                     onClick={() => onOpenWorldDetails(worlds[4])}
-                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
+                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
                   >
                     <span>Explore Strategy</span>
                     <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1 duration-300" />
@@ -396,7 +396,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 </div>
               </div>
 
-              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[7px] text-white/30 tracking-[0.2em] pointer-events-none border-t border-white/5">
+              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider pointer-events-none border-t border-white/5">
                 <span>ALGORITHM ENGINE</span>
                 <span>VERTICAL RETENTION PIPELINE</span>
               </div>
@@ -424,9 +424,9 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
               <div className="relative z-10 max-w-2xl py-8 px-6 sm:px-8 md:py-10 md:px-12 space-y-4 text-left my-auto">
                 <div className="space-y-2">
                   <div className="flex items-center space-x-3">
-                    <span className="font-mono text-[10px] text-[#EAB308] font-bold tracking-widest">06</span>
+                    <span className="font-mono text-xs text-[#EAB308] font-bold tracking-wider">06</span>
                     <span className="w-6 h-[1px] bg-[#EAB308]/30" />
-                    <span className="font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">COMMUNITY INFLUENCE & TRUST</span>
+                    <span className="font-mono text-xs text-white/60 tracking-wider uppercase">COMMUNITY INFLUENCE & TRUST</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light font-serif text-white leading-tight">
                     UGC & Creator Content
@@ -443,7 +443,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 <div className="pt-2">
                   <button 
                     onClick={() => onOpenWorldDetails(worlds[5])}
-                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
+                    className="group inline-flex items-center space-x-2 px-5 py-2.5 rounded-full border border-[#EAB308]/40 hover:border-[#EAB308] text-[#EAB308] bg-[#EAB308]/5 hover:bg-[#EAB308]/15 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.08)] hover:shadow-[0_4px_25px_rgba(234,179,8,0.2)] cursor-pointer"
                   >
                     <span>Explore UGC Content</span>
                     <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1 duration-300" />
@@ -451,7 +451,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
                 </div>
               </div>
 
-              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[7px] text-white/30 tracking-[0.2em] pointer-events-none border-t border-white/5">
+              <div className="relative z-20 p-5 flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider pointer-events-none border-t border-white/5">
                 <span>CREATOR NETWORK</span>
                 <span>VERTICAL SCRIPT HOOKS</span>
               </div>
@@ -461,7 +461,7 @@ export default function CreativeWorldsSection({ worlds, onOpenWorldDetails, onOp
         </div>
 
         {/* Footer Scroller Status Bar */}
-        <div className="max-w-7xl mx-auto w-full z-30 pt-4 flex items-center justify-between font-mono text-[8px] text-white/40 tracking-[0.25em] uppercase">
+        <div className="max-w-7xl mx-auto w-full z-30 pt-4 flex items-center justify-between font-mono text-xs text-white/60 tracking-wider uppercase">
           <span>SCROLL DOWN TO PROGRESS WORLDS</span>
           
           <div className="w-36 md:w-64 h-[2px] bg-white/10 rounded-full overflow-hidden relative">

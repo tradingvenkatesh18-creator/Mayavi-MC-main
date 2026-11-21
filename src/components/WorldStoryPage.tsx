@@ -101,7 +101,7 @@ export function WorldStoryPage({
         <div className="flex items-center space-x-4">
           <button
             onClick={onClose}
-            className="flex items-center space-x-2 text-white/60 hover:text-white font-mono text-[9px] tracking-widest uppercase transition-colors group cursor-pointer"
+            className="flex items-center space-x-2 text-white/60 hover:text-white font-mono text-xs tracking-widest uppercase transition-colors group cursor-pointer"
           >
             <ArrowLeft size={12} className="transform transition-transform group-hover:-translate-x-1 duration-300" />
             <span>BACK TO HOMEPAGE</span>
@@ -109,7 +109,7 @@ export function WorldStoryPage({
         </div>
 
         <div className="hidden md:flex items-center space-x-6">
-          <span className="font-mono text-[9px] text-[#EAB308] tracking-[0.25em] uppercase font-bold">
+          <span className="font-mono text-xs text-[#EAB308] tracking-[0.25em] uppercase font-bold">
             MAYAVI CREATIVE WORLD // {world.number}
           </span>
         </div>
@@ -138,7 +138,7 @@ export function WorldStoryPage({
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center space-x-3 bg-amber-400/5 border border-amber-400/15 px-3.5 py-1 rounded-full">
               <span className="w-1.5 h-1.5 bg-[#EAB308] rounded-full animate-pulse" />
-              <span className="font-mono text-[9px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+              <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                 WORLD {world.number} • {world.category}
               </span>
             </div>
@@ -169,7 +169,7 @@ export function WorldStoryPage({
             {/* Part 1: Narrative */}
             <div className="space-y-6 text-left relative z-10">
               <div className="space-y-2">
-                <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase block font-bold">
+                <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase block font-bold">
                   // THE NARRATIVE
                 </span>
                 <h3 className="text-2xl md:text-3xl font-light font-serif italic text-white/95 leading-snug">
@@ -184,7 +184,7 @@ export function WorldStoryPage({
               </p>
               
               <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3 mt-6">
-                <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase block font-bold">
+                <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase block font-bold">
                   CREATIVE ORIENTATION
                 </span>
                 <p className="text-white/80 font-sans text-xs font-light leading-relaxed">
@@ -198,7 +198,7 @@ export function WorldStoryPage({
             {/* Part 2: Core Disciplines */}
             <div className="space-y-8 text-left">
               <div className="space-y-2">
-                <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase block font-bold">
+                <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase block font-bold">
                   // CORE DISCIPLINES
                 </span>
                 <h3 className="text-2xl font-light font-serif text-white">
@@ -235,7 +235,7 @@ export function WorldStoryPage({
               <div className="relative overflow-hidden bg-[#090715]/90 border border-white/10 rounded-2xl p-6 md:p-8 space-y-6 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)]">
 
                 <div className="space-y-2 text-left">
-                  <span className="font-mono text-[8px] tracking-[0.3em] text-[#EAB308] uppercase block">
+                  <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase block">
                     — ENTRANCE REGISTRY —
                   </span>
                   <h3 className="text-xl md:text-2xl font-light font-serif italic text-white">
@@ -271,13 +271,13 @@ export function WorldStoryPage({
                       </div>
 
                       <div className="bg-black/60 border border-amber-400/20 rounded-xl p-4 font-mono text-center space-y-1">
-                        <span className="text-[7.5px] text-white/40 tracking-widest block uppercase">Inquiry ID Token</span>
+                        <span className="text-[11px] text-white/40 tracking-widest block uppercase">Inquiry ID Token</span>
                         <span className="text-xs text-amber-400 font-bold tracking-widest">{enrollCode}</span>
                       </div>
 
                       <button
                         onClick={() => setEnrollSubmitted(false)}
-                        className="px-6 py-2.5 rounded-full border border-white/10 text-[9px] font-mono tracking-widest text-white hover:bg-white/5 transition-all cursor-pointer uppercase"
+                        className="px-6 py-2.5 rounded-full border border-white/10 text-xs font-mono tracking-widest text-white hover:bg-white/5 transition-all cursor-pointer uppercase"
                       >
                         Submit Another Inquiry
                       </button>
@@ -290,7 +290,7 @@ export function WorldStoryPage({
                     >
                       {/* Tier Selection */}
                       <div className="space-y-2">
-                        <label className="font-mono text-[8px] text-white/40 tracking-widest uppercase block">
+                        <label className="font-mono text-xs text-white/40 tracking-widest uppercase block">
                           Select Inquiry Engagement Tier
                         </label>
                         <div className="grid grid-cols-2 gap-3">
@@ -299,7 +299,7 @@ export function WorldStoryPage({
                               key={tier}
                               type="button"
                               onClick={() => setEnrollTier(tier)}
-                              className={`px-3 py-2.5 rounded-xl border font-mono text-[9px] tracking-widest text-center transition-all cursor-pointer ${enrollTier === tier ? 'bg-amber-400/10 border-amber-400/40 text-amber-400 font-bold' : 'bg-black/40 border-white/5 text-white/50 hover:bg-white/[0.03]'}`}
+                              className={`px-3 py-2.5 rounded-xl border font-mono text-xs tracking-widest text-center transition-all cursor-pointer ${enrollTier === tier ? 'bg-amber-400/10 border-amber-400/40 text-amber-400 font-bold' : 'bg-black/40 border-white/5 text-white/50 hover:bg-white/[0.03]'}`}
                             >
                               {tier}
                             </button>
@@ -309,7 +309,7 @@ export function WorldStoryPage({
 
                       {/* Coordinates */}
                       <div className="space-y-1">
-                        <label className="font-mono text-[8px] text-white/40 tracking-widest uppercase block">
+                        <label className="font-mono text-xs text-white/40 tracking-widest uppercase block">
                           Client Coordinates
                         </label>
                         <input
@@ -334,7 +334,7 @@ export function WorldStoryPage({
                       </div>
 
                       <div className="space-y-1">
-                        <label className="font-mono text-[8px] text-white/40 tracking-widest uppercase block">
+                        <label className="font-mono text-xs text-white/40 tracking-widest uppercase block">
                           Narrative Objective
                         </label>
                         <textarea
@@ -377,7 +377,7 @@ export function WorldStoryPage({
                   style={{ backgroundImage: "url('/patterns/pattern-7.svg')" }} 
                 />
                 <div className="space-y-2 text-left">
-                  <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase block font-bold">
+                  <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase block font-bold">
                     // SYSTEM SPECS
                   </span>
                   <h3 className="text-xl font-light font-serif text-white">
@@ -388,7 +388,7 @@ export function WorldStoryPage({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {world.specs.map((spec, index) => (
                     <div key={index} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1.5 text-left">
-                      <span className="font-mono text-[7px] text-[#EAB308] tracking-widest uppercase block">
+                      <span className="font-mono text-[11px] text-[#EAB308] tracking-widest uppercase block">
                         {spec.label}
                       </span>
                       <p className="text-[11px] text-white/90 font-sans font-medium leading-snug">
@@ -401,10 +401,10 @@ export function WorldStoryPage({
                 <div className="p-4 rounded-xl border border-dashed border-white/10 bg-black/45 flex items-center space-x-3 text-left">
                   <SlidersHorizontal size={18} className="text-amber-400 shrink-0" />
                   <div>
-                    <span className="font-mono text-[7px] text-white/40 tracking-widest uppercase block">
+                    <span className="font-mono text-[11px] text-white/40 tracking-widest uppercase block">
                       SYSTEM INTEGRATION
                     </span>
-                    <p className="text-[10px] text-white/75 font-light mt-0.5 leading-relaxed">
+                    <p className="text-xs text-white/75 font-light mt-0.5 leading-relaxed">
                       All camera sensor setups and sound calibration profiles are fully customized based on project requirements.
                     </p>
                   </div>
@@ -435,7 +435,7 @@ export function WorldStoryPage({
           />
           
           <div className="relative z-10 max-w-3xl mx-auto px-6 space-y-6">
-            <span className="font-mono text-[9px] tracking-[0.3em] text-white/40 uppercase font-bold block">
+            <span className="font-mono text-xs tracking-[0.3em] text-white/40 uppercase font-bold block">
               NEXT CREATIVE CHAPTER
             </span>
             
@@ -453,7 +453,7 @@ export function WorldStoryPage({
                   onNavigateToWorld(nextWorld);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="inline-flex items-center space-x-2.5 px-6 py-3 rounded-full border border-amber-400/20 hover:border-amber-400 bg-amber-400/5 hover:bg-amber-400/10 text-[9px] font-mono tracking-widest text-amber-400 transition-all cursor-pointer uppercase"
+                className="inline-flex items-center space-x-2.5 px-6 py-3 rounded-full border border-amber-400/20 hover:border-amber-400 bg-amber-400/5 hover:bg-amber-400/10 text-xs font-mono tracking-widest text-amber-400 transition-all cursor-pointer uppercase"
               >
                 <span>ENTER NEXT WORLD</span>
                 <ArrowRight size={11} />

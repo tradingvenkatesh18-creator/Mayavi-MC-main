@@ -1165,11 +1165,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           <div className="border-l border-amber-400/30 pl-3.5 leading-tight">
             <div className="flex items-center space-x-2">
               <span className="font-serif italic text-xl text-white font-normal tracking-tight">Mayavi Master Deck</span>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-400 font-mono text-[8px] tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-400 font-mono text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
                 DIRECTOR CONTROL
               </span>
               {supabaseConfig.isConfigured ? (
-                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[8px] tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(16,185,129,0.2)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>SUPABASE CLOUD LIVE</span>
                 </span>
@@ -1177,7 +1177,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <button
                   type="button"
                   onClick={() => setActiveTab('security')}
-                  className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 font-mono text-[8px] tracking-widest uppercase hover:bg-amber-500/30 transition-all cursor-pointer"
+                  className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 font-mono text-xs tracking-widest uppercase hover:bg-amber-500/30 transition-all cursor-pointer"
                   title="Click to connect Supabase Cloud Database"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
@@ -1185,13 +1185,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </button>
               )}
               {isCloudSyncing && (
-                <span className="flex items-center space-x-1 text-[8px] font-mono text-[#EAB308] animate-pulse">
+                <span className="flex items-center space-x-1 text-xs font-mono text-[#EAB308] animate-pulse">
                   <RefreshCw size={9} className="animate-spin" />
                   <span>SYNCING...</span>
                 </span>
               )}
             </div>
-            <p className="font-mono text-[9px] text-white/40 tracking-wider flex items-center gap-2 mt-1">
+            <p className="font-mono text-xs text-white/60 tracking-wider flex items-center gap-2 mt-1">
               <span className="text-amber-400/80 font-semibold">ARRI CALIBRATED REPOSITORY</span>
               <span className="text-white/20">|</span>
               <span className="text-white/60">24 FPS // LOG-C</span>
@@ -1265,11 +1265,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
         {/* LEFT TABBED NAVIGATION - #22 Liquid Glass Rail */}
         <aside className="w-full md:w-72 bg-[#090712]/85 backdrop-blur-3xl border-r border-amber-400/20 p-4 flex md:flex-col gap-2 overflow-x-auto md:overflow-visible shrink-0 shadow-[4px_0_35px_rgba(0,0,0,0.7)]">
           <div className="hidden md:flex items-center justify-between px-3 py-2 mb-1 border-b border-white/[0.06]">
-            <div className="font-mono text-[9px] text-[#EAB308] tracking-[0.3em] uppercase font-bold flex items-center gap-2">
+            <div className="font-mono text-xs text-[#EAB308] tracking-[0.3em] uppercase font-bold flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
               <span>DIRECTORIAL SECTIONS</span>
             </div>
-            <span className="font-mono text-[8px] text-white/30 tracking-widest">[ 09 MODS ]</span>
+            <span className="font-mono text-xs text-white/30 tracking-widest">[ 09 MODS ]</span>
           </div>
 
           {[
@@ -1320,7 +1320,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 {tab.badge && (
                   <span
-                    className={`ml-2 px-2.5 py-0.5 rounded-full font-mono text-[8.5px] tracking-wider uppercase transition-all relative z-10 shrink-0 ${
+                    className={`ml-2 px-2.5 py-0.5 rounded-full font-mono text-xs tracking-wider uppercase transition-all relative z-10 shrink-0 ${
                       isActive 
                         ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-black font-extrabold shadow-[0_0_12px_#EAB308]' 
                         : 'backdrop-blur-md bg-amber-400/[0.08] border border-amber-400/25 text-amber-300/90 group-hover:bg-amber-400/20 group-hover:border-amber-400/50 group-hover:text-amber-200'
@@ -1337,18 +1337,18 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             <div className="relative overflow-hidden p-4 rounded-2xl backdrop-blur-2xl bg-gradient-to-br from-amber-500/[0.08] via-purple-950/20 to-black/70 border border-amber-400/30 shadow-[0_0_25px_rgba(234,179,8,0.12)] space-y-2 group">
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent pointer-events-none" />
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[8.5px] text-[#EAB308] font-bold tracking-[0.25em] uppercase flex items-center gap-1.5">
+                <span className="font-mono text-xs text-[#EAB308] font-bold tracking-[0.25em] uppercase flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
                   DIRECTOR CONTROL // 8K
                 </span>
-                <span className="font-mono text-[7.5px] px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/20 text-amber-300">
+                <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/20 text-amber-300">
                   ARRI LF
                 </span>
               </div>
-              <p className="text-[11px] text-white/60 leading-relaxed font-sans">
+              <p className="text-xs text-white/60 leading-relaxed font-sans">
                 Changes save instantly to browser and propagate directly to live visitors.
               </p>
-              <div className="pt-1 flex items-center justify-between font-mono text-[7.5px] text-white/30 tracking-widest uppercase">
+              <div className="pt-1 flex items-center justify-between font-mono text-xs text-white/30 tracking-widest uppercase">
                 <span>STATUS: MASTER ENGAGED</span>
                 <span className="text-emerald-400">SYNC READY</span>
               </div>
@@ -1363,7 +1363,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           {activeTab === 'overview' && (
             <div className="space-y-8">
               <div>
-                <span className="font-mono text-[9px] tracking-[0.35em] text-[#EAB308] uppercase font-bold flex items-center gap-2">
+                <span className="font-mono text-xs tracking-[0.35em] text-[#EAB308] uppercase font-bold flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
                   DASHBOARD OVERVIEW // MMXXVI
                 </span>
@@ -1384,13 +1384,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 >
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
                   <div className="flex items-center justify-between text-white/50 group-hover:text-[#EAB308] transition-colors relative z-10">
-                    <span className="font-mono text-[9px] tracking-widest uppercase">Hero Background</span>
+                    <span className="font-mono text-xs tracking-widest uppercase">Hero Background</span>
                     <Video size={16} className="text-[#EAB308]" />
                   </div>
                   <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors relative z-10">
                     {cms.hero.useVideoBackground ? 'Video Loop Active' : 'Lens Sequence'}
                   </p>
-                  <p className="text-[10px] font-mono text-white/50 group-hover:text-[#EAB308] transition-colors relative z-10">
+                  <p className="text-xs font-mono text-white/50 group-hover:text-[#EAB308] transition-colors relative z-10">
                     Click to configure loop →
                   </p>
                 </button>
@@ -1402,13 +1402,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 >
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
                   <div className="flex items-center justify-between text-white/50 group-hover:text-amber-400 transition-colors relative z-10">
-                    <span className="font-mono text-[9px] tracking-widest uppercase">Video Glimpses</span>
+                    <span className="font-mono text-xs tracking-widest uppercase">Video Glimpses</span>
                     <Film size={16} className="text-amber-400" />
                   </div>
                   <p className="text-2xl font-serif italic text-white font-light group-hover:text-amber-200 transition-colors relative z-10">
                     {cms.videoGlimpses.length} Loops Configured
                   </p>
-                  <p className="text-[10px] font-mono text-emerald-400 relative z-10">
+                  <p className="text-xs font-mono text-emerald-400 relative z-10">
                     ● Click to edit 5 loops →
                   </p>
                 </button>
@@ -1420,13 +1420,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 >
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
                   <div className="flex items-center justify-between text-white/50 group-hover:text-purple-400 transition-colors relative z-10">
-                    <span className="font-mono text-[9px] tracking-widest uppercase">Curated Exhibitions</span>
+                    <span className="font-mono text-xs tracking-widest uppercase">Curated Exhibitions</span>
                     <FolderKanban size={16} className="text-purple-400" />
                   </div>
                   <p className="text-2xl font-serif italic text-white font-light group-hover:text-purple-200 transition-colors relative z-10">
                     {cms.curatedExhibitions.length} Hybrid Links
                   </p>
-                  <p className="text-[10px] font-mono text-purple-400 relative z-10">
+                  <p className="text-xs font-mono text-purple-400 relative z-10">
                     Click to manage portfolio →
                   </p>
                 </button>
@@ -1438,13 +1438,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 >
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
                   <div className="flex items-center justify-between text-white/50 group-hover:text-emerald-400 transition-colors relative z-10">
-                    <span className="font-mono text-[9px] tracking-widest uppercase">Client Inquiries</span>
+                    <span className="font-mono text-xs tracking-widest uppercase">Client Inquiries</span>
                     <Sheet size={16} className="text-emerald-400" />
                   </div>
                   <p className="text-2xl font-serif italic text-white font-light group-hover:text-emerald-200 transition-colors relative z-10">
                     {cms.inquiries.length} Recorded
                   </p>
-                  <p className="text-[10px] font-mono text-emerald-400 relative z-10">
+                  <p className="text-xs font-mono text-emerald-400 relative z-10">
                     Click to view leads & sheets →
                   </p>
                 </button>
@@ -1452,7 +1452,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
               {/* Quick Actions Panel */}
               <div className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4">
-                <span className="font-mono text-[9px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+                <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                   DIRECTOR QUICK ACTIONS
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -1468,7 +1468,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <Plus size={16} />
                       <span className="font-mono text-xs font-bold uppercase">Add Showreel Act</span>
                     </div>
-                    <p className="text-[11px] text-white/50">Add a new 9:16 vertical cinema act with live video embed.</p>
+                    <p className="text-xs text-white/70">Add a new 9:16 vertical cinema act with live video embed.</p>
                   </button>
 
                   <button
@@ -1499,7 +1499,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <FolderKanban size={16} />
                       <span className="font-mono text-xs font-bold uppercase">Add Exhibition</span>
                     </div>
-                    <p className="text-[11px] text-white/50">Add a new YouTube, Vimeo, Instagram, or Drive video link.</p>
+                    <p className="text-xs text-white/70">Add a new YouTube, Vimeo, Instagram, or Drive video link.</p>
                   </button>
 
                   <button
@@ -1511,7 +1511,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <Video size={16} />
                       <span className="font-mono text-xs font-bold uppercase">Configure Hero</span>
                     </div>
-                    <p className="text-[11px] text-white/50">Update 30s 1080p background loop and headline copy.</p>
+                    <p className="text-xs text-white/70">Update 30s 1080p background loop and headline copy.</p>
                   </button>
 
                   <button
@@ -1524,7 +1524,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <CloudUpload size={16} className={isPushingCloud ? "animate-spin" : ""} />
                       <span className="font-mono text-xs font-bold uppercase">Push to Cloud DB</span>
                     </div>
-                    <p className="text-[11px] text-white/50">Sync all videos and showreels globally to Supabase.</p>
+                    <p className="text-xs text-white/70">Sync all videos and showreels globally to Supabase.</p>
                   </button>
                 </div>
               </div>
@@ -1532,13 +1532,13 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* Recent Inquiries Snapshot */}
               <div className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+                  <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                     RECENT INQUIRIES & AUDITIONS
                   </span>
                   <button
                     type="button"
                     onClick={() => setActiveTab('integrations')}
-                    className="text-[10px] font-mono text-amber-400 hover:underline cursor-pointer"
+                    className="text-xs font-mono text-amber-400 hover:underline cursor-pointer"
                   >
                     View All ({cms.inquiries.length}) →
                   </button>
@@ -1547,7 +1547,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left font-mono text-xs">
                     <thead>
-                      <tr className="border-b border-white/10 text-white/40 text-[9px] uppercase tracking-wider">
+                      <tr className="border-b border-white/10 text-white/40 text-xs uppercase tracking-wider">
                         <th className="py-2.5">Date</th>
                         <th className="py-2.5">Client Name</th>
                         <th className="py-2.5">Category</th>
@@ -1568,7 +1568,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           <td className="py-3 text-[#EAB308]">{inq.category}</td>
                           <td className="py-3 text-white/70">{inq.budget}</td>
                           <td className="py-3">
-                            <span className="px-2 py-0.5 rounded text-[8px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 uppercase font-bold">
+                            <span className="px-2 py-0.5 rounded text-xs bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 uppercase font-bold">
                               {inq.status}
                             </span>
                           </td>
@@ -1589,10 +1589,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                    <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold">
                       DELIVERABLES #1 & #2
                     </span>
-                    <span className="font-mono text-[8px] px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold uppercase">
+                    <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold uppercase">
                       {cms.videoGlimpses.length} LOOPS CONFIGURED
                     </span>
                   </div>
@@ -1634,11 +1634,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <div>
                       <h2 className="text-xl font-serif italic text-white flex items-center gap-2">
                         <span>Hero Stage Presentation</span>
-                        <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
+                        <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
                           DELIVERABLE #1
                         </span>
                       </h2>
-                      <p className="text-xs text-white/40 font-mono">Calibrate hero presentation mode, optical metadata, and high-definition video loop</p>
+                      <p className="text-xs text-white/60 font-mono">Calibrate hero presentation mode, optical metadata, and high-definition video loop</p>
                     </div>
                   </div>
 
@@ -1653,7 +1653,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         }));
                         showToast('Hero display set to: Lens Sequence Scroll (80 Frames)');
                       }}
-                      className={`px-3.5 py-1.5 rounded-xl font-mono text-[10px] font-bold tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer ${
+                      className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer ${
                         !cms.hero.useVideoBackground
                           ? 'bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.4)]'
                           : 'text-white/60 hover:text-white'
@@ -1671,7 +1671,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         }));
                         showToast('Hero display set to: 4K Cinematic Video Hero');
                       }}
-                      className={`px-3.5 py-1.5 rounded-xl font-mono text-[10px] font-bold tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer ${
+                      className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer ${
                         cms.hero.useVideoBackground
                           ? 'bg-amber-400 text-black shadow-[0_0_15px_rgba(234,179,8,0.4)]'
                           : 'text-white/60 hover:text-white'
@@ -1691,11 +1691,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </div>
                     <div className="space-y-1">
                       <div className="flex items-center space-x-2">
-                        <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                        <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                           <span>{cms.hero.useVideoBackground ? '4K CINEMATIC VIDEO ACTIVE' : 'LENS SEQUENCE MODE ACTIVE'}</span>
                         </span>
-                        <span className="font-mono text-[9px] text-white/40">3840×2160 // 60 FPS</span>
+                        <span className="font-mono text-xs text-white/60">3840×2160 // 60 FPS</span>
                       </div>
                       <p className="text-xs text-white/90 font-sans">
                         {cms.hero.useVideoBackground ? (
@@ -1732,11 +1732,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* HERO VIDEO URL */}
                   <div className="space-y-2 text-left">
                     <div className="flex items-center justify-between">
-                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                      <label className="text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                         Hero Video URL (30s 1080p Loop)
                       </label>
                       {cms.hero.backgroundVideoUrl && (
-                        <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-md bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold">
+                        <span className="font-mono text-xs uppercase px-2 py-0.5 rounded-md bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold">
                           {detectVideoPlatform(cms.hero.backgroundVideoUrl)} STREAM
                         </span>
                       )}
@@ -1782,7 +1782,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           }));
                           showToast('Loaded 4K AI-Upscaled Cinematic Video (/videos/mayavi-hero.mp4)');
                         }}
-                        className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-xs hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
                       >
                         <Sparkles size={10} />
                         <span>⚡ Use 4K AI-Upscaled Video (/videos/mayavi-hero.mp4)</span>
@@ -1797,14 +1797,14 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             }));
                             showToast('Cleared hero background video URL');
                           }}
-                          className="px-2 py-1 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300 font-mono text-[9px] hover:bg-red-500/20 transition-all flex items-center gap-1 cursor-pointer"
+                          className="px-2 py-1 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300 font-mono text-xs hover:bg-red-500/20 transition-all flex items-center gap-1 cursor-pointer"
                         >
                           <X size={10} />
                           <span>Clear</span>
                         </button>
                       )}
                     </div>
-                    <p className="text-[10px] text-white/40 font-mono">
+                    <p className="text-xs text-white/60 font-mono">
                       Supports direct .mp4 files, YouTube watch/embed links, Vimeo streams, and Google Drive video previews.
                     </p>
                   </div>
@@ -1812,10 +1812,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* POSTER IMAGE FALLBACK & FILE UPLOAD */}
                   <div className="space-y-2 text-left">
                     <div className="flex items-center justify-between">
-                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                      <label className="text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                         Poster Image Fallback Frame
                       </label>
-                      <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                      <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs flex items-center gap-1 transition-all">
                         <Upload size={10} />
                         <span>Upload Poster File</span>
                         <input
@@ -1857,7 +1857,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       )}
                     </div>
                     <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                      <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                      <span className="text-xs font-mono text-white/40 uppercase">Presets:</span>
                       {[
                         { label: 'Official Logo', url: '/official-mayavi-logo.png' },
                         { label: 'Stage A', url: '/hero_stage_a.png' },
@@ -1873,7 +1873,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             }));
                             showToast(`Poster set to ${preset.label}`);
                           }}
-                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white font-mono text-[9px] transition-all cursor-pointer"
+                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white font-mono text-xs transition-all cursor-pointer"
                         >
                           {preset.label}
                         </button>
@@ -1884,10 +1884,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* HERO PRIMARY HEADLINE */}
                   <div className="md:col-span-2 space-y-2 text-left">
                     <div className="flex items-center justify-between">
-                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                      <label className="text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                         Hero Primary Headline
                       </label>
-                      <span className="font-mono text-[9px] text-white/40">{cms.hero.headline.length} chars</span>
+                      <span className="font-mono text-xs text-white/60">{cms.hero.headline.length} chars</span>
                     </div>
                     <input
                       type="text"
@@ -1906,10 +1906,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* HERO SUBHEADLINE / PHILOSOPHY */}
                   <div className="md:col-span-2 space-y-2 text-left">
                     <div className="flex items-center justify-between">
-                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                      <label className="text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                         Hero Subheadline / Architectural Philosophy
                       </label>
-                      <span className="font-mono text-[9px] text-white/40">{cms.hero.subheadline.length} chars</span>
+                      <span className="font-mono text-xs text-white/60">{cms.hero.subheadline.length} chars</span>
                     </div>
                     <textarea
                       rows={2}
@@ -1928,10 +1928,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* HERO DIRECTORIAL QUOTE */}
                   <div className="md:col-span-2 space-y-2 text-left">
                     <div className="flex items-center justify-between">
-                      <label className="text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                      <label className="text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                         Hero Directorial Quote
                       </label>
-                      <span className="font-mono text-[9px] text-white/40">{cms.hero.quote?.length || 0} chars</span>
+                      <span className="font-mono text-xs text-white/60">{cms.hero.quote?.length || 0} chars</span>
                     </div>
                     <textarea
                       rows={2}
@@ -1950,7 +1950,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                   {/* CAMERA TELEMETRY BADGE */}
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                    <label className="block text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                       Camera Telemetry Badge
                     </label>
                     <input
@@ -1982,7 +1982,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             }));
                             showToast(`Camera tag: ${preset}`);
                           }}
-                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 hover:text-amber-300 border border-white/10 text-white/60 font-mono text-[8.5px] transition-all cursor-pointer"
+                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 hover:text-amber-300 border border-white/10 text-white/60 font-mono text-xs transition-all cursor-pointer"
                         >
                           {preset}
                         </button>
@@ -1992,7 +1992,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                   {/* LOCATION TAG */}
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                    <label className="block text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                       Location Tag
                     </label>
                     <input
@@ -2024,7 +2024,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             }));
                             showToast(`Location tag: ${preset}`);
                           }}
-                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 hover:text-amber-300 border border-white/10 text-white/60 font-mono text-[8.5px] transition-all cursor-pointer"
+                          className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 hover:text-amber-300 border border-white/10 text-white/60 font-mono text-xs transition-all cursor-pointer"
                         >
                           {preset}
                         </button>
@@ -2034,7 +2034,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                   {/* CTA BUTTON LABELS */}
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                    <label className="block text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                       Primary CTA Button Text
                     </label>
                     <input
@@ -2052,7 +2052,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-mono tracking-wider text-white/70 uppercase font-semibold">
+                    <label className="block text-xs font-mono tracking-wider text-white/70 uppercase font-semibold">
                       Secondary CTA Button Text
                     </label>
                     <input
@@ -2072,7 +2072,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 {/* HERO SAVE BUTTON */}
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-[10px] font-mono text-white/50">
+                  <div className="flex items-center space-x-2 text-xs font-mono text-white/50">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span>Mode: <strong className="text-white">{cms.hero.useVideoBackground ? 'Video Loop' : 'Lens Sequence Scroll'}</strong></span>
                   </div>
@@ -2102,11 +2102,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <div>
                       <h2 className="text-xl font-serif italic text-white flex items-center gap-2">
                         <span>High-Fidelity Video Glimpses</span>
-                        <span className="font-mono text-[9px] px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
+                        <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
                           {cms.videoGlimpses.length} LOOPS LOADED
                         </span>
                       </h2>
-                      <p className="text-xs text-white/40 font-mono">
+                      <p className="text-xs text-white/60 font-mono">
                         Deliverable #2 // Max 30s 1080p loops with multi-aspect cinema frames and lazy streaming
                       </p>
                     </div>
@@ -2180,7 +2180,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <button
                       type="button"
                       onClick={() => setGlimpseCategoryFilter('ALL')}
-                      className={`px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg font-mono text-xs uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
                         glimpseCategoryFilter === 'ALL'
                           ? 'bg-[#EAB308] text-black shadow-[0_0_12px_rgba(234,179,8,0.3)]'
                           : 'bg-white/5 hover:bg-white/10 text-white/60 hover:text-white border border-white/10'
@@ -2195,7 +2195,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           key={cat}
                           type="button"
                           onClick={() => setGlimpseCategoryFilter(cat)}
-                          className={`px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                          className={`px-3 py-1.5 rounded-lg font-mono text-xs uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
                             glimpseCategoryFilter === cat
                               ? 'bg-[#EAB308] text-black shadow-[0_0_12px_rgba(234,179,8,0.3)]'
                               : 'bg-white/5 hover:bg-white/10 text-white/60 hover:text-white border border-white/10'
@@ -2300,12 +2300,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                 GLIMPSE 0{trueIndex + 1}
                               </span>
 
-                              <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/60">
+                              <span className="font-mono text-xs uppercase px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/60">
                                 {platform}
                               </span>
 
                               {glimpse.aspectRatio && (
-                                <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300">
+                                <span className="font-mono text-xs uppercase px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300">
                                   {glimpse.aspectRatio}
                                 </span>
                               )}
@@ -2317,7 +2317,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                 <button
                                   type="button"
                                   onClick={() => setPreviewVideoUrl(glimpse.videoUrl)}
-                                  className="px-2.5 py-1 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 font-mono text-[10px] flex items-center space-x-1 cursor-pointer transition-all border border-amber-400/20"
+                                  className="px-2.5 py-1 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 font-mono text-xs flex items-center space-x-1 cursor-pointer transition-all border border-amber-400/20"
                                 >
                                   <Play size={10} />
                                   <span>Test Play</span>
@@ -2358,10 +2358,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             {/* Left Column: Thumbnail Preview & File Upload (4 cols) */}
                             <div className="md:col-span-4 space-y-3 text-left">
                               <div className="flex items-center justify-between">
-                                <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">
+                                <label className="text-xs font-mono text-white/50 uppercase font-semibold">
                                   Poster Thumbnail Frame
                                 </label>
-                                <label className="cursor-pointer px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                                <label className="cursor-pointer px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white font-mono text-xs flex items-center gap-1 transition-all">
                                   <Upload size={9} />
                                   <span>Upload File</span>
                                   <input
@@ -2392,7 +2392,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                     className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
                                   />
                                 ) : (
-                                  <div className="text-center p-3 text-white/30 font-mono text-[10px]">
+                                  <div className="text-center p-3 text-white/60 font-mono text-xs">
                                     No poster frame specified
                                   </div>
                                 )}
@@ -2421,12 +2421,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                   });
                                 }}
                                 placeholder="/official-mayavi-logo.png or image URL"
-                                className="w-full px-3 py-1.5 bg-black/50 border border-white/10 rounded-lg text-white text-[11px] font-mono outline-none focus:border-[#EAB308]"
+                                className="w-full px-3 py-1.5 bg-black/50 border border-white/10 rounded-lg text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                               />
 
                               {/* Aspect Ratio Selector Chips */}
                               <div className="flex items-center space-x-1.5 pt-1">
-                                <span className="text-[9px] font-mono text-white/40 uppercase">Ratio:</span>
+                                <span className="text-xs font-mono text-white/40 uppercase">Ratio:</span>
                                 {(['16:9', '9:16', '1:1'] as const).map((ratio) => (
                                   <button
                                     key={ratio}
@@ -2438,7 +2438,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                         return { ...prev, videoGlimpses: next };
                                       });
                                     }}
-                                    className={`px-2 py-0.5 rounded text-[9px] font-mono uppercase transition-all cursor-pointer ${
+                                    className={`px-2 py-0.5 rounded text-xs font-mono uppercase transition-all cursor-pointer ${
                                       (glimpse.aspectRatio || '16:9') === ratio
                                         ? 'bg-amber-400 text-black font-bold'
                                         : 'bg-white/5 hover:bg-white/10 text-white/60'
@@ -2454,7 +2454,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             <div className="md:col-span-8 space-y-3 text-left">
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 <div className="sm:col-span-2 space-y-1">
-                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Title</label>
+                                  <label className="text-xs font-mono text-white/50 uppercase font-semibold">Title</label>
                                   <input
                                     type="text"
                                     value={glimpse.title}
@@ -2472,7 +2472,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                 </div>
 
                                 <div className="space-y-1">
-                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Duration</label>
+                                  <label className="text-xs font-mono text-white/50 uppercase font-semibold">Duration</label>
                                   <input
                                     type="text"
                                     value={glimpse.duration}
@@ -2492,7 +2492,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                               <div className="space-y-1">
                                 <div className="flex items-center justify-between">
-                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Category</label>
+                                  <label className="text-xs font-mono text-white/50 uppercase font-semibold">Category</label>
                                   <div className="flex items-center space-x-1">
                                     {['Cinematic Identity', 'Media Production', 'Talent Development'].map((cat) => (
                                       <button
@@ -2505,7 +2505,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                             return { ...prev, videoGlimpses: next };
                                           });
                                         }}
-                                        className="text-[8px] font-mono text-amber-300/80 hover:text-amber-300 underline cursor-pointer"
+                                        className="text-xs font-mono text-amber-300/80 hover:text-amber-300 underline cursor-pointer"
                                       >
                                         +{cat.split(' ')[0]}
                                       </button>
@@ -2530,11 +2530,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                               <div className="space-y-1">
                                 <div className="flex items-center justify-between">
-                                  <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">
+                                  <label className="text-xs font-mono text-white/50 uppercase font-semibold">
                                     Video URL (1080p Cine Loop)
                                   </label>
                                   {glimpse.videoUrl && (
-                                    <span className="text-[9px] font-mono text-amber-400">
+                                    <span className="text-xs font-mono text-amber-400">
                                       {platform} detected
                                     </span>
                                   )}
@@ -2568,7 +2568,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                       });
                                       showToast('Filled with official motion reel');
                                     }}
-                                    className="px-2 py-1 bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 rounded-lg font-mono text-[9px] transition-all cursor-pointer whitespace-nowrap"
+                                    className="px-2 py-1 bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 rounded-lg font-mono text-xs transition-all cursor-pointer whitespace-nowrap"
                                     title="Quick fill with official Mayavi reel"
                                   >
                                     Reel
@@ -2577,7 +2577,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               </div>
 
                               <div className="space-y-1">
-                                <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">
+                                <label className="text-xs font-mono text-white/50 uppercase font-semibold">
                                   Director Caption
                                 </label>
                                 <textarea
@@ -2600,14 +2600,14 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                           {/* INDIVIDUAL GLIMPSE SAVE BUTTON */}
                           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-                            <span className="font-mono text-[9px] text-white/40">
+                            <span className="font-mono text-xs text-white/60">
                               1080p Cine Loop // Deliverable #2 // ID: {glimpse.id}
                             </span>
                             <div className="flex items-center space-x-2">
                               <button
                                 type="button"
                                 onClick={() => handleSaveGlimpse(trueIndex, glimpse.title)}
-                                className={`px-4 py-1.5 rounded-lg font-mono text-[10px] font-bold uppercase flex items-center space-x-1.5 cursor-pointer transition-all ${
+                                className={`px-4 py-1.5 rounded-lg font-mono text-xs font-bold uppercase flex items-center space-x-1.5 cursor-pointer transition-all ${
                                   isSaved
                                     ? 'bg-emerald-500 text-black shadow-[0_0_12px_rgba(16,185,129,0.4)]'
                                     : 'bg-white/10 hover:bg-[#EAB308] hover:text-black text-white'
@@ -2626,7 +2626,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 {/* BOTTOM ALL GLIMPSES SAVE & QUICK ACTION BAR */}
                 <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="text-[10px] font-mono text-white/50 flex items-center gap-2">
+                  <div className="text-xs font-mono text-white/50 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-amber-400" />
                     <span>{cms.videoGlimpses.length} total loops live on site</span>
                   </div>
@@ -2663,7 +2663,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             <div className="space-y-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                  <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold">
                     DELIVERABLE #3
                   </span>
                   <h1 className="text-3xl font-light font-serif italic text-white mt-1">
@@ -2712,7 +2712,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <div className="p-6 rounded-2xl bg-[#0D091B] border border-white/10 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Showreel Title</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Showreel Title</label>
                     <input
                       type="text"
                       value={cms.showreel.title}
@@ -2727,7 +2727,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     />
                   </div>
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Showreel Tagline</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Showreel Tagline</label>
                     <input
                       type="text"
                       value={cms.showreel.tagline}
@@ -2750,7 +2750,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       saveCMSData(cms);
                       showToast('Saved Showreel Header configuration live!');
                     }}
-                    className="px-4 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white font-mono text-[10px] flex items-center space-x-1.5 cursor-pointer"
+                    className="px-4 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer"
                   >
                     <Save size={12} className="text-[#EAB308]" />
                     <span>SAVE HEADER</span>
@@ -2762,7 +2762,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-[#0D091B] border border-white/10">
                 <div className="flex items-center space-x-2">
                   <Film size={14} className="text-[#EAB308]" />
-                  <span className="font-mono text-[10px] text-white/70 uppercase tracking-widest font-bold">
+                  <span className="font-mono text-xs text-white/70 uppercase tracking-widest font-bold">
                     Chapters ({cms.showreel.chapters.length})
                   </span>
                 </div>
@@ -2771,7 +2771,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <a
                       key={ch.id}
                       href={`#chapter-${ch.id}`}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#EAB308]/20 border border-white/10 hover:border-[#EAB308]/40 text-white/80 font-mono text-[9px] font-bold uppercase transition-all whitespace-nowrap"
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#EAB308]/20 border border-white/10 hover:border-[#EAB308]/40 text-white/80 font-mono text-xs font-bold uppercase transition-all whitespace-nowrap"
                     >
                       Act 0{idx + 1}
                     </a>
@@ -2779,7 +2779,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   <button
                     type="button"
                     onClick={handleQuickAddChapter}
-                    className="px-3 py-1.5 rounded-lg bg-[#EAB308]/15 hover:bg-[#EAB308]/30 border border-[#EAB308]/40 text-[#EAB308] font-mono text-[9px] font-bold uppercase flex items-center space-x-1 cursor-pointer whitespace-nowrap"
+                    className="px-3 py-1.5 rounded-lg bg-[#EAB308]/15 hover:bg-[#EAB308]/30 border border-[#EAB308]/40 text-[#EAB308] font-mono text-xs font-bold uppercase flex items-center space-x-1 cursor-pointer whitespace-nowrap"
                     title="Quickly add new chapter card to bottom of list"
                   >
                     <Plus size={10} />
@@ -2803,7 +2803,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           <span className="font-mono text-xs text-[#EAB308] font-bold">
                             ACT 0{idx + 1}
                           </span>
-                          <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[8px] text-white/70 uppercase">
+                          <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-xs text-white/70 uppercase">
                             Platform: <strong className="text-[#EAB308]">{detected.toUpperCase()}</strong>
                           </span>
                         </div>
@@ -2845,7 +2845,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               setIsNewChapter(false);
                               setEditingChapter({ ...chapter });
                             }}
-                            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-mono text-[10px] flex items-center space-x-1.5 cursor-pointer"
+                            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer"
                           >
                             <Edit3 size={11} className="text-[#EAB308]" />
                             <span>Edit in Modal</span>
@@ -2854,7 +2854,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             <button
                               type="button"
                               onClick={() => setPreviewVideoUrl(chapter.videoUrl)}
-                              className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-mono text-[10px] flex items-center space-x-1.5 cursor-pointer"
+                              className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-mono text-xs flex items-center space-x-1.5 cursor-pointer"
                             >
                               <Play size={11} className="text-[#EAB308]" />
                               <span>Play Embed</span>
@@ -2873,7 +2873,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Chapter Title</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Chapter Title</label>
                           <input
                             type="text"
                             value={chapter.title}
@@ -2890,7 +2890,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Subtitle</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Subtitle</label>
                           <input
                             type="text"
                             value={chapter.subtitle}
@@ -2907,7 +2907,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Camera & Optics</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Camera & Optics</label>
                           <input
                             type="text"
                             value={chapter.camera}
@@ -2924,10 +2924,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="md:col-span-2 space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase flex items-center justify-between">
+                          <label className="text-xs font-mono text-white/50 uppercase flex items-center justify-between">
                             <span>Video Link (YouTube, Instagram Reel, LinkedIn, Vimeo, Drive, or MP4)</span>
                             {chapter.videoUrl && (
-                              <span className="text-[#EAB308] lowercase text-[8px]">
+                              <span className="text-[#EAB308] lowercase text-xs">
                                 detected: {detected}
                               </span>
                             )}
@@ -2951,8 +2951,8 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                         <div className="space-y-1 text-left">
                           <div className="flex items-center justify-between">
-                            <label className="text-[9px] font-mono text-white/50 uppercase">Poster Image Frame</label>
-                            <label className="text-[8px] font-mono text-[#EAB308] hover:text-amber-300 cursor-pointer flex items-center space-x-1">
+                            <label className="text-xs font-mono text-white/50 uppercase">Poster Image Frame</label>
+                            <label className="text-xs font-mono text-[#EAB308] hover:text-amber-300 cursor-pointer flex items-center space-x-1">
                               <Upload size={9} />
                               <span>Upload File</span>
                               <input
@@ -2990,7 +2990,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="md:col-span-3 space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Directorial Notes</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Directorial Notes</label>
                           <input
                             type="text"
                             value={chapter.directorNotes}
@@ -3009,7 +3009,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                       {/* PHYSICAL CARD SAVE BUTTON & STATUS BAR */}
                       <div className="pt-4 mt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 bg-neutral-950/40 -mx-6 -mb-6 p-4 rounded-b-2xl">
-                        <div className="flex items-center space-x-2 text-[10px] font-mono text-white/60">
+                        <div className="flex items-center space-x-2 text-xs font-mono text-white/60">
                           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                           <span>Status: <strong className="text-white">Active in Showreel</strong></span>
                           <span className="text-white/20">|</span>
@@ -3066,7 +3066,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <p className="font-mono text-xs font-bold text-white uppercase tracking-wider">
                       Showreel Acts: {cms.showreel.chapters.length} Loaded
                     </p>
-                    <p className="text-[10px] text-white/50 font-sans">
+                    <p className="text-xs text-white/70 font-sans">
                       All video changes save directly to site storage & auto-play in vertical mobile frame.
                     </p>
                   </div>
@@ -3123,7 +3123,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             <div className="space-y-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                  <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold">
                     DELIVERABLE #4
                   </span>
                   <h1 className="text-3xl font-light font-serif italic text-white mt-1">
@@ -3197,7 +3197,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <button
                       key={cat}
                       onClick={() => setPortfolioCategoryFilter(cat)}
-                      className={`px-3 py-1.5 rounded-lg font-mono text-[9px] tracking-wider uppercase transition-all whitespace-nowrap cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg font-mono text-xs tracking-wider uppercase transition-all whitespace-nowrap cursor-pointer ${
                         portfolioCategoryFilter === cat
                           ? 'bg-amber-400 text-black font-bold'
                           : 'bg-white/5 text-white/50 hover:text-white hover:bg-white/10'
@@ -3228,15 +3228,15 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                         
                         <div className="absolute top-3 left-3 flex items-center space-x-1.5">
-                          <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 font-mono text-[8px] text-[#EAB308] uppercase">
+                          <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 font-mono text-xs text-[#EAB308] uppercase">
                             {project.category}
                           </span>
-                          <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 font-mono text-[8px] text-white/60 uppercase">
+                          <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 font-mono text-xs text-white/60 uppercase">
                             {platform.toUpperCase()}
                           </span>
                         </div>
 
-                        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white/70 font-mono text-[9px]">
+                        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white/70 font-mono text-xs">
                           <span>{project.duration}</span>
                           <span>{project.location}</span>
                         </div>
@@ -3266,7 +3266,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           </p>
                         </div>
 
-                        <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-[8px] text-white/40">
+                        <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-xs text-white/60">
                           <span className="truncate max-w-[180px]">{project.camera}</span>
                           <div className="flex items-center space-x-1">
                             <button
@@ -3306,7 +3306,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <p className="font-mono text-xs font-bold text-white uppercase tracking-wider">
                       Curated Exhibitions: {cms.curatedExhibitions.length} Available
                     </p>
-                    <p className="text-[10px] text-white/50 font-sans">
+                    <p className="text-xs text-white/70 font-sans">
                       All hybrid video links and stories are live on the site.
                     </p>
                   </div>
@@ -3333,7 +3333,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           {activeTab === 'services-about' && (
             <div className="space-y-10">
               <div>
-                <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold">
                   DELIVERABLES #9 & #10
                 </span>
                 <h1 className="text-3xl font-light font-serif italic text-white mt-1">
@@ -3366,14 +3366,14 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           </span>
                           <span className="font-serif italic text-base text-white">{service.title}</span>
                         </div>
-                        <span className="font-mono text-[8px] text-white/40 uppercase tracking-widest">
+                        <span className="font-mono text-xs text-white/60 uppercase tracking-widest">
                           {service.category}
                         </span>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Service Title</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Service Title</label>
                           <input
                             type="text"
                             value={service.title}
@@ -3390,7 +3390,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Tagline / Motto</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Tagline / Motto</label>
                           <input
                             type="text"
                             value={service.tagline}
@@ -3407,7 +3407,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="md:col-span-2 space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Short Description</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Short Description</label>
                           <textarea
                             rows={2}
                             value={service.description}
@@ -3424,7 +3424,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="md:col-span-2 space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase">Detailed Story Narrative</label>
+                          <label className="text-xs font-mono text-white/50 uppercase">Detailed Story Narrative</label>
                           <textarea
                             rows={3}
                             value={service.detailedStory}
@@ -3443,8 +3443,8 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         {/* Service Image Frame & Video Link */}
                         <div className="space-y-1 text-left">
                           <div className="flex items-center justify-between">
-                            <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Service Cover Image</label>
-                            <label className="cursor-pointer text-[8px] font-mono text-amber-400 hover:text-amber-300 flex items-center gap-1">
+                            <label className="text-xs font-mono text-white/50 uppercase font-semibold">Service Cover Image</label>
+                            <label className="cursor-pointer text-xs font-mono text-amber-400 hover:text-amber-300 flex items-center gap-1">
                               <Upload size={9} />
                               <span>Upload (&lt; 2.5MB)</span>
                               <input
@@ -3487,7 +3487,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             )}
                           </div>
                           <div className="flex flex-wrap gap-1 pt-1">
-                            <span className="text-[8px] font-mono text-white/40 uppercase">Presets:</span>
+                            <span className="text-xs font-mono text-white/40 uppercase">Presets:</span>
                             {[
                               { label: 'Stage A', url: '/hero_stage_a.png' },
                               { label: 'Branding', url: '/personal_branding.png?v=2' },
@@ -3504,7 +3504,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                     return { ...prev, coreServices: next };
                                   });
                                 }}
-                                className="px-1.5 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-[8px] transition-all cursor-pointer"
+                                className="px-1.5 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-xs transition-all cursor-pointer"
                               >
                                 {preset.label}
                               </button>
@@ -3514,7 +3514,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                         {/* Optional Service Video URL */}
                         <div className="space-y-1 text-left">
-                          <label className="text-[9px] font-mono text-white/50 uppercase font-semibold">Service Video URL (Optional)</label>
+                          <label className="text-xs font-mono text-white/50 uppercase font-semibold">Service Video URL (Optional)</label>
                           <div className="flex gap-2">
                             <input
                               type="text"
@@ -3546,16 +3546,16 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         {/* Disciplines Editor */}
                         <div className="md:col-span-2 pt-2 border-t border-white/5 space-y-3">
                           <div className="flex items-center justify-between">
-                            <span className="font-mono text-[9px] text-[#EAB308] uppercase tracking-wider font-bold">
+                            <span className="font-mono text-xs text-[#EAB308] uppercase tracking-wider font-bold">
                               Core Disciplines ({service.disciplines?.length || 0})
                             </span>
-                            <span className="text-[8.5px] font-mono text-white/40">Displayed in service breakdown cards</span>
+                            <span className="text-xs font-mono text-white/40">Displayed in service breakdown cards</span>
                           </div>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             {service.disciplines?.map((disc, discIdx) => (
                               <div key={discIdx} className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-2 text-left">
                                 <div className="space-y-1">
-                                  <label className="text-[8px] font-mono text-white/40 uppercase">Discipline 0{discIdx + 1} Title</label>
+                                  <label className="text-xs font-mono text-white/40 uppercase">Discipline 0{discIdx + 1} Title</label>
                                   <input
                                     type="text"
                                     value={disc.title}
@@ -3569,11 +3569,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                         return { ...prev, coreServices: next };
                                       });
                                     }}
-                                    className="w-full px-2.5 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-[11px] font-serif outline-none focus:border-[#EAB308]"
+                                    className="w-full px-2.5 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-serif outline-none focus:border-[#EAB308]"
                                   />
                                 </div>
                                 <div className="space-y-1">
-                                  <label className="text-[8px] font-mono text-white/40 uppercase">Description</label>
+                                  <label className="text-xs font-mono text-white/40 uppercase">Description</label>
                                   <textarea
                                     rows={2}
                                     value={disc.desc}
@@ -3587,7 +3587,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                         return { ...prev, coreServices: next };
                                       });
                                     }}
-                                    className="w-full px-2.5 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-[10px] font-sans outline-none focus:border-[#EAB308]"
+                                    className="w-full px-2.5 py-1.5 bg-neutral-900 border border-white/10 rounded-lg text-white text-xs font-sans outline-none focus:border-[#EAB308]"
                                   />
                                 </div>
                               </div>
@@ -3609,7 +3609,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Philosophy Heading</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Philosophy Heading</label>
                     <input
                       type="text"
                       value={cms.about.heading}
@@ -3625,7 +3625,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Directorial Quote</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Directorial Quote</label>
                     <input
                       type="text"
                       value={cms.about.quote}
@@ -3641,7 +3641,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="md:col-span-2 space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">About Us Narrative Body</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">About Us Narrative Body</label>
                     <textarea
                       rows={4}
                       value={cms.about.body}
@@ -3659,7 +3659,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* 3 Key Stats */}
                   <div className="md:col-span-2 grid grid-cols-3 gap-4 pt-2">
                     <div className="space-y-1 text-left">
-                      <label className="text-[8px] font-mono text-white/50 uppercase">Stat 1 Value & Label</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Stat 1 Value & Label</label>
                       <input
                         type="text"
                         value={cms.about.stat1Value}
@@ -3676,12 +3676,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           const val = e.target.value;
                           updateCMS((prev) => ({ ...prev, about: { ...prev.about, stat1Label: val } }));
                         }}
-                        className="w-full px-3 py-1 bg-black/40 border border-white/5 rounded text-white/50 font-mono text-[9px]"
+                        className="w-full px-3 py-1 bg-black/40 border border-white/5 rounded text-white/50 font-mono text-xs"
                       />
                     </div>
 
                     <div className="space-y-1 text-left">
-                      <label className="text-[8px] font-mono text-white/50 uppercase">Stat 2 Value & Label</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Stat 2 Value & Label</label>
                       <input
                         type="text"
                         value={cms.about.stat2Value}
@@ -3698,12 +3698,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           const val = e.target.value;
                           updateCMS((prev) => ({ ...prev, about: { ...prev.about, stat2Label: val } }));
                         }}
-                        className="w-full px-3 py-1 bg-black/40 border border-white/5 rounded text-white/50 font-mono text-[9px]"
+                        className="w-full px-3 py-1 bg-black/40 border border-white/5 rounded text-white/50 font-mono text-xs"
                       />
                     </div>
 
                     <div className="space-y-1 text-left">
-                      <label className="text-[8px] font-mono text-white/50 uppercase">Stat 3 Value & Label</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Stat 3 Value & Label</label>
                       <input
                         type="text"
                         value={cms.about.stat3Value}
@@ -3720,7 +3720,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           const val = e.target.value;
                           updateCMS((prev) => ({ ...prev, about: { ...prev.about, stat3Label: val } }));
                         }}
-                        className="w-full px-3 py-1 bg-black/40 border border-white/5 rounded text-white/50 font-mono text-[9px]"
+                        className="w-full px-3 py-1 bg-black/40 border border-white/5 rounded text-white/50 font-mono text-xs"
                       />
                     </div>
                   </div>
@@ -3756,7 +3756,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Cinematic Image / Rig URL</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Cinematic Image / Rig URL</label>
                     <div className="flex gap-2">
                       <input
                         type="text"
@@ -3774,7 +3774,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </div>
                     {/* Quick presets */}
                     <div className="flex flex-wrap gap-1.5 pt-1.5">
-                      <span className="text-[8px] font-mono text-white/40 uppercase">Presets:</span>
+                      <span className="text-xs font-mono text-white/40 uppercase">Presets:</span>
                       {[
                         { label: 'ARRI Set', url: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200' },
                         { label: 'Director Cam', url: 'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&q=80&w=1200' },
@@ -3790,7 +3790,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               about: { ...prev.about, cinematicImageUrl: preset.url }
                             }));
                           }}
-                          className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-[8px] transition-all cursor-pointer"
+                          className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-xs transition-all cursor-pointer"
                         >
                           {preset.label}
                         </button>
@@ -3799,7 +3799,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Scene Telemetry Overlay Tag</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Scene Telemetry Overlay Tag</label>
                     <input
                       type="text"
                       value={cms.about.sceneOverlayText || ''}
@@ -3824,7 +3824,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       alt="Philosophy Visual Preview"
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[8px] font-mono text-white/70">
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs font-mono text-white/70">
                       <span className="text-[#EAB308]">● ACTIVE SET // STANDBY</span>
                       <span>{cms.about.sceneOverlayText || 'SCENE 02 — PHILOSOPHY'}</span>
                     </div>
@@ -3849,7 +3849,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 {/* Section Headings */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Casting Subheading Tagline</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Casting Subheading Tagline</label>
                     <input
                       type="text"
                       value={cms.about.castingTagline || ''}
@@ -3864,7 +3864,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     />
                   </div>
                   <div className="space-y-1 text-left">
-                    <label className="text-[9px] font-mono text-white/50 uppercase">Casting Section Title</label>
+                    <label className="text-xs font-mono text-white/50 uppercase">Casting Section Title</label>
                     <input
                       type="text"
                       value={cms.about.castingHeading || ''}
@@ -3891,7 +3891,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Card Badge</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Card Badge</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard1?.badge || ''}
@@ -3909,7 +3909,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="md:col-span-2 space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Audition Title</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Audition Title</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard1?.title || ''}
@@ -3927,7 +3927,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="md:col-span-3 space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Opportunity Description & Dates</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Opportunity Description & Dates</label>
                       <textarea
                         rows={2}
                         value={cms.about.auditionCard1?.description || ''}
@@ -3949,7 +3949,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* Benefits Array */}
                   <div className="space-y-2 pt-2 border-t border-white/5">
                     <div className="flex items-center justify-between">
-                      <label className="text-[9px] font-mono text-amber-400 uppercase font-semibold">Audition Benefits / Perks</label>
+                      <label className="text-xs font-mono text-amber-400 uppercase font-semibold">Audition Benefits / Perks</label>
                       <button
                         type="button"
                         onClick={() => {
@@ -3967,7 +3967,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             };
                           });
                         }}
-                        className="text-[9px] font-mono text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer"
+                        className="text-xs font-mono text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer"
                       >
                         <Plus size={10} />
                         <span>Add Benefit</span>
@@ -4036,7 +4036,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Badge Label</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Badge Label</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard2?.badge || ''}
@@ -4054,7 +4054,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="md:col-span-2 space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Hiring Title</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Hiring Title</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard2?.title || ''}
@@ -4072,7 +4072,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="md:col-span-3 space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Role Description</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Role Description</label>
                       <textarea
                         rows={2}
                         value={cms.about.auditionCard2?.description || ''}
@@ -4090,7 +4090,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Experience Required</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Experience Required</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard2?.experience || ''}
@@ -4108,7 +4108,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Role Type</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Role Type</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard2?.roleType || ''}
@@ -4126,7 +4126,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">CTA Button Text</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">CTA Button Text</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard2?.ctaText || ''}
@@ -4144,7 +4144,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="md:col-span-2 space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">WhatsApp Inquiry Message</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">WhatsApp Inquiry Message</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard2?.whatsappMessage || ''}
@@ -4162,7 +4162,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Instagram Handle / Note</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Instagram Handle / Note</label>
                       <input
                         type="text"
                         value={cms.about.auditionCard2?.instagramHandle || ''}
@@ -4193,7 +4193,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Banner Tagline</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Banner Tagline</label>
                       <input
                         type="text"
                         value={cms.about.grandDivaCard?.tagline || ''}
@@ -4211,7 +4211,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Pageant Title</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Pageant Title</label>
                       <input
                         type="text"
                         value={cms.about.grandDivaCard?.title || ''}
@@ -4229,7 +4229,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="md:col-span-2 space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Banner Description</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Banner Description</label>
                       <textarea
                         rows={2}
                         value={cms.about.grandDivaCard?.description || ''}
@@ -4247,7 +4247,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Google Form / Application URL</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Google Form / Application URL</label>
                       <input
                         type="text"
                         value={cms.about.grandDivaCard?.ctaUrl || ''}
@@ -4266,7 +4266,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[9px] font-mono text-white/50 uppercase">Button Label</label>
+                      <label className="text-xs font-mono text-white/50 uppercase">Button Label</label>
                       <input
                         type="text"
                         value={cms.about.grandDivaCard?.ctaText || ''}
@@ -4312,7 +4312,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold flex items-center gap-1.5">
+                  <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold flex items-center gap-1.5">
                     <Award size={12} className="text-[#EAB308]" />
                     <span>PRESS ACCREDITATIONS &amp; CLIENT DOSSIERS</span>
                   </span>
@@ -4389,12 +4389,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </div>
                     <div>
                       <h2 className="text-xl font-serif italic text-white">Section Masthead &amp; Bottom Telemetry Dock</h2>
-                      <p className="text-xs text-white/50 font-sans">
+                      <p className="text-xs text-white/70 font-sans">
                         Configure public headlines, critics choice accreditation eyebrow badge, and bottom dock metrics.
                       </p>
                     </div>
                   </div>
-                  <span className="font-mono text-[9px] px-2.5 py-1 rounded-full bg-[#EAB308]/10 text-[#EAB308] border border-[#EAB308]/30 uppercase tracking-widest">
+                  <span className="font-mono text-xs px-2.5 py-1 rounded-full bg-[#EAB308]/10 text-[#EAB308] border border-[#EAB308]/30 uppercase tracking-widest">
                     SECTION #07
                   </span>
                 </div>
@@ -4458,16 +4458,16 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 {/* BOTTOM DOCK TELEMETRY METRICS */}
                 <div className="pt-4 border-t border-white/10 space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] text-[#EAB308] tracking-widest uppercase font-semibold">
+                    <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase font-semibold">
                       FLOATING DOCK METRICS (BOTTOM CAPSULE)
                     </span>
-                    <span className="text-[10px] text-white/40 font-mono">3 Telemetry Callouts + Call-To-Action</span>
+                    <span className="text-xs text-white/60 font-mono">3 Telemetry Callouts + Call-To-Action</span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {/* Stat 1 */}
                     <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-                      <span className="text-[9px] font-mono text-white/50 uppercase">Stat 01 (e.g. Retention)</span>
+                      <span className="text-xs font-mono text-white/50 uppercase">Stat 01 (e.g. Retention)</span>
                       <div className="flex gap-2">
                         <input
                           type="text"
@@ -4500,7 +4500,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                     {/* Stat 2 */}
                     <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-                      <span className="text-[9px] font-mono text-white/50 uppercase">Stat 02 (e.g. Laurels)</span>
+                      <span className="text-xs font-mono text-white/50 uppercase">Stat 02 (e.g. Laurels)</span>
                       <div className="flex gap-2">
                         <input
                           type="text"
@@ -4533,7 +4533,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                     {/* Stat 3 */}
                     <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-                      <span className="text-[9px] font-mono text-white/50 uppercase">Stat 03 (e.g. 4K Mastered)</span>
+                      <span className="text-xs font-mono text-white/50 uppercase">Stat 03 (e.g. 4K Mastered)</span>
                       <div className="flex gap-2">
                         <input
                           type="text"
@@ -4568,7 +4568,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {/* Dock CTA Button Label & Target */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                     <div className="space-y-1">
-                      <label className="text-[10px] font-mono text-white/60 uppercase">Dock CTA Button Text</label>
+                      <label className="text-xs font-mono text-white/60 uppercase">Dock CTA Button Text</label>
                       <input
                         type="text"
                         value={cms.testimonials?.ctaText ?? ''}
@@ -4585,7 +4585,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] font-mono text-white/60 uppercase">Dock CTA Target Anchor / Link</label>
+                      <label className="text-xs font-mono text-white/60 uppercase">Dock CTA Target Anchor / Link</label>
                       <input
                         type="text"
                         value={cms.testimonials?.ctaTarget ?? ''}
@@ -4611,7 +4611,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <span className="font-mono text-xs text-white/70 tracking-wider uppercase font-semibold">
                       ACTIVE REVIEW DOSSIERS
                     </span>
-                    <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/30">
+                    <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/30">
                       {(cms.testimonials?.items || []).length} Live Cards
                     </span>
                   </div>
@@ -4654,7 +4654,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10">
                               <div className="flex items-center gap-1.5 text-xs text-white/90 font-medium truncate">
                                 <Award size={12} className="text-[#f5e302] shrink-0" />
-                                <span className="truncate text-[11px]">{item.topBadgeLeft}</span>
+                                <span className="truncate text-xs">{item.topBadgeLeft}</span>
                               </div>
 
                               <div className="flex items-center gap-1 shrink-0">
@@ -4681,7 +4681,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                             {/* Badge and Theme indicator */}
                             <div className="flex items-center justify-between mb-3">
-                              <span className={`px-2 py-0.5 rounded-full border font-mono text-[8px] font-semibold tracking-wider uppercase ${theme.badgeColor}`}>
+                              <span className={`px-2 py-0.5 rounded-full border font-mono text-xs font-semibold tracking-wider uppercase ${theme.badgeColor}`}>
                                 {item.accentTheme ? item.accentTheme.toUpperCase() : 'GOLD'} THEME
                               </span>
                               {item.topBadgeRight && (
@@ -4701,7 +4701,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                               <h4 className="font-sans text-sm text-white font-semibold">
                                 {item.author}
                               </h4>
-                              <p className="font-mono text-[9px] text-white/50 uppercase truncate">
+                              <p className="font-mono text-xs text-white/70 uppercase truncate">
                                 {item.role}
                               </p>
                             </div>
@@ -4722,12 +4722,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                             {/* BTS Summary snippet */}
                             {item.btsNotes && (
-                              <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1 mb-4 text-[10px]">
-                                <span className="font-mono text-[8px] text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1">
+                              <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1 mb-4 text-xs">
+                                <span className="font-mono text-xs text-[#f5e302] tracking-wider uppercase font-semibold flex items-center gap-1">
                                   <Camera size={9} />
                                   <span>{item.btsLabel || 'BTS TECHNICALS'}</span>
                                 </span>
-                                <p className="text-white/60 truncate font-mono text-[9px]">{item.btsNotes.camera}</p>
+                                <p className="text-white/60 truncate font-mono text-xs">{item.btsNotes.camera}</p>
                               </div>
                             )}
                           </div>
@@ -4795,7 +4795,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     {/* Modal Top Bar */}
                     <div className="flex items-center justify-between border-b border-white/10 pb-4">
                       <div>
-                        <span className="font-mono text-[8px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+                        <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                           {isNewReview ? 'CREATE NEW REVIEW DOSSIER' : 'EDIT CLIENT & PRESS REVIEW'}
                         </span>
                         <h3 className="font-serif text-2xl text-white italic mt-1">
@@ -4818,7 +4818,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <div className="lg:col-span-7 space-y-5">
                         {/* Reviewer Name */}
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Author / Client Name *
                           </label>
                           <input
@@ -4833,7 +4833,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                         {/* Role & Organization */}
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Role &amp; Organization Byline *
                           </label>
                           <input
@@ -4848,7 +4848,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                         {/* Editorial Quote */}
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Editorial Review Quote *
                           </label>
                           <textarea
@@ -4864,7 +4864,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         {/* Top Badges Row */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div className="space-y-1">
-                            <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                               Top Left Laurel Badge
                             </label>
                             <input
@@ -4877,7 +4877,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           </div>
 
                           <div className="space-y-1">
-                            <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                            <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                               Top Right Rating / Award
                             </label>
                             <input
@@ -4892,7 +4892,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                         {/* Right Badge Style Toggle */}
                         <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/10">
-                          <span className="font-mono text-[9px] text-white/60 uppercase">Right Badge Format:</span>
+                          <span className="font-mono text-xs text-white/60 uppercase">Right Badge Format:</span>
                           <button
                             type="button"
                             onClick={() => setEditingReview({ ...editingReview, isRightPill: false })}
@@ -4919,7 +4919,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                         {/* Accent Theme Selection */}
                         <div className="space-y-2">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Card Accent Color Theme Preset
                           </label>
                           <div className="grid grid-cols-5 gap-2">
@@ -4943,7 +4943,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                   }`}
                                 >
                                   <span className="w-3.5 h-3.5 rounded-full shadow-sm" style={{ backgroundColor: thm.color }} />
-                                  <span className="font-mono text-[9px] text-white/70">{thm.label}</span>
+                                  <span className="font-mono text-xs text-white/70">{thm.label}</span>
                                 </button>
                               );
                             })}
@@ -4952,7 +4952,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                         {/* Thumbnail Image URL & Presets */}
                         <div className="space-y-2">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             16:9 Thumbnail Image URL
                           </label>
                           <input
@@ -4963,7 +4963,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             className="w-full px-3.5 py-2 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                           />
                           <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                            <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                            <span className="text-xs font-mono text-white/40 uppercase">Presets:</span>
                             {[
                               { label: 'Workshop', url: '/posters/theatre-modelling-workshop.png' },
                               { label: 'Cameras', url: '/testimonial_cameras.png' },
@@ -4975,7 +4975,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                 key={preset.label}
                                 type="button"
                                 onClick={() => setEditingReview({ ...editingReview, image: preset.url })}
-                                className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-[8.5px] transition-all cursor-pointer"
+                                className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-xs transition-all cursor-pointer"
                               >
                                 {preset.label}
                               </button>
@@ -4987,7 +4987,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/10">
                           <div>
                             <span className="font-mono text-xs text-white block">Video Reel Icon Overlay</span>
-                            <span className="font-sans text-[10px] text-white/40">Shows a camera/play badge in top-right of thumbnail</span>
+                            <span className="font-sans text-xs text-white/60">Shows a camera/play badge in top-right of thumbnail</span>
                           </div>
                           <button
                             type="button"
@@ -5005,15 +5005,15 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         {/* Behind-The-Scenes (BTS) Drawer Controls */}
                         <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
                           <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                            <span className="font-mono text-[10px] text-[#EAB308] tracking-widest uppercase font-semibold flex items-center gap-1.5">
+                            <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase font-semibold flex items-center gap-1.5">
                               <Camera size={12} />
                               <span>BTS TECHNICALS ACCORDION</span>
                             </span>
-                            <span className="font-mono text-[9px] text-white/40">TECHNICAL DIRECTORIAL NOTES</span>
+                            <span className="font-mono text-xs text-white/60">TECHNICAL DIRECTORIAL NOTES</span>
                           </div>
 
                           <div className="space-y-1">
-                            <label className="font-mono text-[8.5px] text-white/60 uppercase">Toggle Button Label</label>
+                            <label className="font-mono text-xs text-white/60 uppercase">Toggle Button Label</label>
                             <input
                               type="text"
                               value={editingReview.btsLabel}
@@ -5024,7 +5024,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           </div>
 
                           <div className="space-y-1">
-                            <label className="font-mono text-[8.5px] text-white/60 uppercase">Camera &amp; Optics</label>
+                            <label className="font-mono text-xs text-white/60 uppercase">Camera &amp; Optics</label>
                             <input
                               type="text"
                               value={editingReview.btsNotes?.camera ?? ''}
@@ -5039,7 +5039,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <div className="space-y-1">
-                              <label className="font-mono text-[8.5px] text-white/60 uppercase">Stage Lighting</label>
+                              <label className="font-mono text-xs text-white/60 uppercase">Stage Lighting</label>
                               <input
                                 type="text"
                                 value={editingReview.btsNotes?.lighting ?? ''}
@@ -5053,7 +5053,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             </div>
 
                             <div className="space-y-1">
-                              <label className="font-mono text-[8.5px] text-white/60 uppercase">Color Grading LUT</label>
+                              <label className="font-mono text-xs text-white/60 uppercase">Color Grading LUT</label>
                               <input
                                 type="text"
                                 value={editingReview.btsNotes?.grading ?? ''}
@@ -5068,7 +5068,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           </div>
 
                           <div className="space-y-1">
-                            <label className="font-mono text-[8.5px] text-white/60 uppercase">Director's Craft Note</label>
+                            <label className="font-mono text-xs text-white/60 uppercase">Director's Craft Note</label>
                             <textarea
                               rows={2}
                               value={editingReview.btsNotes?.directorComment ?? ''}
@@ -5086,11 +5086,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       {/* Right Column: Live Interactive Preview (5 cols) */}
                       <div className="lg:col-span-5 space-y-3 sticky top-4">
                         <div className="flex items-center justify-between pb-1">
-                          <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase font-bold flex items-center gap-1.5">
+                          <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase font-bold flex items-center gap-1.5">
                             <Eye size={12} />
                             <span>LIVE DOSSIER PREVIEW</span>
                           </span>
-                          <span className="font-mono text-[8px] text-white/40 uppercase">INTERACTIVE CARD</span>
+                          <span className="font-mono text-xs text-white/60 uppercase">INTERACTIVE CARD</span>
                         </div>
 
                         {/* Render Card Preview */}
@@ -5104,12 +5104,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                 <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10">
                                   <div className="flex items-center gap-1.5 text-xs text-white/90 font-medium truncate">
                                     <Award size={12} className="text-[#f5e302] shrink-0" />
-                                    <span className="truncate text-[11px]">{editingReview.topBadgeLeft || 'Official Accreditation'}</span>
+                                    <span className="truncate text-xs">{editingReview.topBadgeLeft || 'Official Accreditation'}</span>
                                   </div>
 
                                   {editingReview.topBadgeRight && (
                                     editingReview.isRightPill ? (
-                                      <span className={`px-2.5 py-0.5 rounded-full border font-mono text-[8px] font-semibold tracking-wider uppercase shrink-0 ${previewTheme.badgeColor}`}>
+                                      <span className={`px-2.5 py-0.5 rounded-full border font-mono text-xs font-semibold tracking-wider uppercase shrink-0 ${previewTheme.badgeColor}`}>
                                         {editingReview.topBadgeRight}
                                       </span>
                                     ) : (
@@ -5130,7 +5130,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                   <h4 className="font-sans text-sm text-white font-semibold">
                                     {editingReview.author || 'Author Name'}
                                   </h4>
-                                  <p className="font-mono text-[9px] text-white/60 tracking-wider uppercase truncate">
+                                  <p className="font-mono text-xs text-white/60 tracking-wider uppercase truncate">
                                     {editingReview.role || 'Organization & Role'}
                                   </p>
                                 </div>
@@ -5157,7 +5157,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                 <button
                                   type="button"
                                   onClick={() => setModalBtsOpen(!modalBtsOpen)}
-                                  className="w-full py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white/80 font-mono text-[9px] tracking-[0.18em] uppercase flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                                  className="w-full py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white/80 font-mono text-xs tracking-[0.18em] uppercase flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
                                 >
                                   <span>{editingReview.btsLabel || 'BTS TECHNICALS'}</span>
                                   <ChevronDown
@@ -5178,21 +5178,21 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                     >
                                       {editingReview.btsNotes.camera && (
                                         <div className="space-y-0.5">
-                                          <p className="font-mono text-[8px] text-[#f5e302] uppercase font-semibold flex items-center gap-1">
+                                          <p className="font-mono text-xs text-[#f5e302] uppercase font-semibold flex items-center gap-1">
                                             <Camera size={9} />
                                             <span>Camera &amp; Optics</span>
                                           </p>
-                                          <p className="text-white/80 text-[10px] font-light">{editingReview.btsNotes.camera}</p>
+                                          <p className="text-white/80 text-xs font-light">{editingReview.btsNotes.camera}</p>
                                         </div>
                                       )}
 
                                       {(editingReview.btsNotes.lighting || editingReview.btsNotes.grading) && (
                                         <div className="space-y-0.5">
-                                          <p className="font-mono text-[8px] text-[#f5e302] uppercase font-semibold flex items-center gap-1">
+                                          <p className="font-mono text-xs text-[#f5e302] uppercase font-semibold flex items-center gap-1">
                                             <Layers size={9} />
                                             <span>Color &amp; Lighting</span>
                                           </p>
-                                          <p className="text-white/80 text-[10px] font-light">
+                                          <p className="text-white/80 text-xs font-light">
                                             {editingReview.btsNotes.lighting}{editingReview.btsNotes.lighting && editingReview.btsNotes.grading ? ' // ' : ''}{editingReview.btsNotes.grading}
                                           </p>
                                         </div>
@@ -5200,10 +5200,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                                       {editingReview.btsNotes.directorComment && (
                                         <div className="space-y-0.5 pt-0.5">
-                                          <p className="font-mono text-[7.5px] text-white/40 uppercase font-semibold">
+                                          <p className="font-mono text-xs text-white/60 uppercase font-semibold">
                                             Director Craft Note
                                           </p>
-                                          <p className="text-white/70 text-[10px] italic font-serif leading-relaxed">
+                                          <p className="text-white/70 text-xs italic font-serif leading-relaxed">
                                             &ldquo;{editingReview.btsNotes.directorComment}&rdquo;
                                           </p>
                                         </div>
@@ -5247,7 +5247,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                  <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold">
                     FOUNDER'S GAZETTE &amp; TALENT LAB
                   </span>
                   <h1 className="text-3xl font-light font-serif italic text-white mt-1">
@@ -5289,46 +5289,46 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-white/50">
-                    <span className="font-mono text-[9px] uppercase tracking-wider">LIVE POSTS</span>
+                    <span className="font-mono text-xs uppercase tracking-wider">LIVE POSTS</span>
                     <Newspaper size={14} className="text-[#EAB308]" />
                   </div>
                   <div className="text-2xl font-serif font-light text-white">
                     {(cms.gazettePosts || []).filter(p => p.published).length}
                   </div>
-                  <span className="font-mono text-[8px] text-white/40 block uppercase">
+                  <span className="font-mono text-xs text-white/60 block uppercase">
                     {(cms.gazettePosts || []).length} TOTAL CREATED
                   </span>
                 </div>
 
                 <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-white/50">
-                    <span className="font-mono text-[9px] uppercase tracking-wider">AUDITIONS / CONTESTS</span>
+                    <span className="font-mono text-xs uppercase tracking-wider">AUDITIONS / CONTESTS</span>
                     <Trophy size={14} className="text-[#b00045]" />
                   </div>
                   <div className="text-2xl font-serif font-light text-white">
                     {(cms.gazettePosts || []).filter(p => p.category === 'CONTEST').length}
                   </div>
-                  <span className="font-mono text-[8px] text-[#b00045] block uppercase font-bold">
+                  <span className="font-mono text-xs text-[#b00045] block uppercase font-bold">
                     ACTIVE CASTING PIPELINES
                   </span>
                 </div>
 
                 <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-white/50">
-                    <span className="font-mono text-[9px] uppercase tracking-wider">DIRECTOR TIPS</span>
+                    <span className="font-mono text-xs uppercase tracking-wider">DIRECTOR TIPS</span>
                     <Lightbulb size={14} className="text-[#f7e503]" />
                   </div>
                   <div className="text-2xl font-serif font-light text-white">
                     {(cms.gazettePosts || []).filter(p => p.category === 'DIRECTOR_TIP').length}
                   </div>
-                  <span className="font-mono text-[8px] text-[#f7e503] block uppercase font-bold">
+                  <span className="font-mono text-xs text-[#f7e503] block uppercase font-bold">
                     CRAFT &amp; CAMERA GUIDES
                   </span>
                 </div>
 
                 <div className="p-5 rounded-2xl bg-[#0D091B] border border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-white/50">
-                    <span className="font-mono text-[9px] uppercase tracking-wider">VIP SUBSCRIBERS</span>
+                    <span className="font-mono text-xs uppercase tracking-wider">VIP SUBSCRIBERS</span>
                     <Mail size={14} className="text-[#a2d865]" />
                   </div>
                   <div className="text-2xl font-serif font-light text-[#a2d865]">
@@ -5336,7 +5336,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
                   <button
                     onClick={handleExportSubscribersCSV}
-                    className="font-mono text-[8.5px] text-amber-400 hover:underline uppercase block cursor-pointer"
+                    className="font-mono text-xs text-amber-400 hover:underline uppercase block cursor-pointer"
                   >
                     EXPORT CSV FILE ↓
                   </button>
@@ -5356,7 +5356,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <button
                       key={cat.id}
                       onClick={() => setPostCategoryFilter(cat.id)}
-                      className={`px-3 py-1.5 rounded-full font-mono text-[8.5px] tracking-widest uppercase transition-all whitespace-nowrap cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-full font-mono text-xs tracking-widest uppercase transition-all whitespace-nowrap cursor-pointer ${
                         postCategoryFilter === cat.id
                           ? 'bg-[#EAB308] text-black font-bold shadow-[0_0_12px_rgba(234,179,8,0.3)]'
                           : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
@@ -5383,7 +5383,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               <div className="space-y-4">
                 {filteredGazettePosts.length === 0 ? (
                   <div className="p-12 text-center rounded-2xl bg-white/[0.02] border border-white/10">
-                    <p className="text-white/40 font-mono text-xs uppercase tracking-wider">
+                    <p className="text-white/60 font-mono text-xs uppercase tracking-wider">
                       No matching posts found. Click "+ NEW ANNOUNCEMENT / TIP" above to publish one!
                     </p>
                   </div>
@@ -5395,7 +5395,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     >
                       <div className="space-y-2 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className={`px-2.5 py-0.5 rounded-full font-mono text-[7.5px] tracking-widest uppercase font-bold ${
+                          <span className={`px-2.5 py-0.5 rounded-full font-mono text-xs tracking-widest uppercase font-bold ${
                             post.category === 'CONTEST'
                               ? 'bg-[#b00045]/20 text-[#f0ebd8] border border-[#b00045]/50'
                               : post.category === 'DIRECTOR_TIP'
@@ -5407,23 +5407,23 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             {post.category.replace('_', ' ')}
                           </span>
 
-                          <span className="font-mono text-[8px] text-white/40 tracking-wider uppercase">
+                          <span className="font-mono text-xs text-white/60 tracking-wider uppercase">
                             {post.date}
                           </span>
 
                           {post.badgeText && (
-                            <span className="font-mono text-[8px] text-[#f7e503] uppercase font-bold tracking-wider">
+                            <span className="font-mono text-xs text-[#f7e503] uppercase font-bold tracking-wider">
                               • {post.badgeText}
                             </span>
                           )}
 
                           {post.featured && (
-                            <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono text-[7px] uppercase font-bold tracking-widest">
+                            <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono text-xs uppercase font-bold tracking-widest">
                               ★ PINNED
                             </span>
                           )}
 
-                          <span className={`px-2 py-0.5 rounded-full font-mono text-[7px] uppercase tracking-widest font-bold ${
+                          <span className={`px-2 py-0.5 rounded-full font-mono text-xs uppercase tracking-widest font-bold ${
                             post.published
                               ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                               : 'bg-white/10 text-white/50 border border-white/20'
@@ -5440,7 +5440,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           {post.excerpt}
                         </p>
 
-                        <div className="flex items-center gap-4 text-white/40 font-mono text-[8px] tracking-wider pt-1">
+                        <div className="flex items-center gap-4 text-white/60 font-mono text-xs tracking-wider pt-1">
                           <span>{post.author || `By ${cms.about.directorName || 'Vishishta Saxena'}`}</span>
                           {post.actionText && (
                             <span className="text-[#f7e503]">
@@ -5455,7 +5455,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         <button
                           type="button"
                           onClick={() => handleTogglePublishPost(post)}
-                          className={`px-3 py-2 rounded-xl font-mono text-[8.5px] uppercase tracking-wider transition-all cursor-pointer ${
+                          className={`px-3 py-2 rounded-xl font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
                             post.published
                               ? 'bg-white/5 hover:bg-white/10 text-white/60 hover:text-white border border-white/10'
                               : 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 font-bold'
@@ -5467,7 +5467,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         <button
                           type="button"
                           onClick={() => handleToggleFeaturedPost(post)}
-                          className={`p-2 rounded-xl font-mono text-[8.5px] uppercase tracking-wider transition-all cursor-pointer border ${
+                          className={`p-2 rounded-xl font-mono text-xs uppercase tracking-wider transition-all cursor-pointer border ${
                             post.featured
                               ? 'bg-amber-400/20 border-amber-400/50 text-amber-300'
                               : 'bg-white/5 border-white/10 text-white/40 hover:text-white'
@@ -5531,7 +5531,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs font-sans">
                     <thead>
-                      <tr className="border-b border-white/10 text-white/40 font-mono text-[9px] uppercase tracking-wider">
+                      <tr className="border-b border-white/10 text-white/60 font-mono text-xs uppercase tracking-wider">
                         <th className="py-3 px-4">SUBSCRIBER EMAIL</th>
                         <th className="py-3 px-4">JOINED DATE</th>
                         <th className="py-3 px-4">ACQUISITION SOURCE</th>
@@ -5544,14 +5544,14 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           <td className="py-3 px-4 font-mono text-white/90 font-medium">
                             {sub.email}
                           </td>
-                          <td className="py-3 px-4 text-white/50 font-mono text-[10px]">
+                          <td className="py-3 px-4 text-white/50 font-mono text-xs">
                             {sub.date}
                           </td>
-                          <td className="py-3 px-4 text-white/40 font-mono text-[9px] uppercase">
+                          <td className="py-3 px-4 text-white/60 font-mono text-xs uppercase">
                             {sub.source || 'website_gazette'}
                           </td>
                           <td className="py-3 px-4">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[8px] uppercase tracking-widest font-semibold">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-xs uppercase tracking-widest font-semibold">
                               <span className="w-1 h-1 rounded-full bg-emerald-400" />
                               VERIFIED VIP
                             </span>
@@ -5574,7 +5574,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   <div className="relative w-full max-w-3xl bg-[#0e0a20] border border-white/15 rounded-3xl p-6 md:p-8 shadow-2xl z-10 max-h-[90vh] overflow-y-auto text-left space-y-6">
                     <div className="flex items-center justify-between border-b border-white/10 pb-4">
                       <div>
-                        <span className="font-mono text-[8px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+                        <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                           {isNewPost ? 'CREATE NEW DISPATCH' : 'EDIT DISPATCH'}
                         </span>
                         <h3 className="font-serif text-2xl text-white italic mt-1">
@@ -5594,7 +5594,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <form onSubmit={handleSavePost} className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-1.5 md:col-span-2">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Title / Announcement Headline *
                           </label>
                           <input
@@ -5608,7 +5608,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Category *
                           </label>
                           <select
@@ -5624,7 +5624,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Badge Sub-Header Tag
                           </label>
                           <input
@@ -5637,7 +5637,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Date Tag
                           </label>
                           <input
@@ -5650,7 +5650,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Author Attribution
                           </label>
                           <input
@@ -5663,7 +5663,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Call to Action Button Label
                           </label>
                           <input
@@ -5676,7 +5676,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Call to Action Destination URL / Link
                           </label>
                           <input
@@ -5689,7 +5689,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5 md:col-span-2">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Poster / Image URL (Optional)
                           </label>
                           <input
@@ -5702,7 +5702,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5 md:col-span-2">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Brief Excerpt / Summary (Card View) *
                           </label>
                           <textarea
@@ -5716,7 +5716,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         </div>
 
                         <div className="space-y-1.5 md:col-span-2">
-                          <label className="font-mono text-[9px] text-white/60 uppercase tracking-wider block">
+                          <label className="font-mono text-xs text-white/60 uppercase tracking-wider block">
                             Full Directional Advice / Announcement Details (Modal View)
                           </label>
                           <textarea
@@ -5782,7 +5782,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           {activeTab === 'integrations' && (
             <div className="space-y-10">
               <div>
-                <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold">
                   DELIVERABLES #6 & #7
                 </span>
                 <h1 className="text-3xl font-light font-serif italic text-white mt-1">
@@ -5802,7 +5802,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 <div className="space-y-4 text-left">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-mono text-white/60 uppercase">
+                    <label className="text-xs font-mono text-white/60 uppercase">
                       Google Apps Script Web App URL (Deliverable #6)
                     </label>
                     <input
@@ -5818,14 +5818,14 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       placeholder="https://script.google.com/macros/s/AKfycb.../exec"
                       className="w-full px-4 py-2.5 bg-neutral-900 border border-white/10 rounded-xl text-white text-xs font-mono outline-none focus:border-[#EAB308]"
                     />
-                    <p className="text-[10px] text-white/40">
+                    <p className="text-xs text-white/60">
                       When a visitor submits the Inquiry/Contact form on the landing page, data is automatically POSTed to this endpoint to append rows in Google Sheets.
                     </p>
                   </div>
 
                   <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div className="space-y-0.5">
-                      <span className="font-mono text-[9px] text-emerald-400 font-bold uppercase tracking-wider">
+                      <span className="font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider">
                         SERVERLESS INTEGRATION READY
                       </span>
                       <p className="text-xs text-white/60">
@@ -5836,7 +5836,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <button
                         type="button"
                         onClick={() => setShowAppsScript(!showAppsScript)}
-                        className="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-[10px] tracking-wider uppercase border border-white/20 cursor-pointer transition-all flex items-center gap-1.5"
+                        className="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs tracking-wider uppercase border border-white/20 cursor-pointer transition-all flex items-center gap-1.5"
                       >
                         <Code size={12} className="text-amber-400" />
                         <span>{showAppsScript ? 'Hide Apps Script' : 'View Apps Script Code'}</span>
@@ -5845,7 +5845,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         type="button"
                         onClick={handleTestWebhook}
                         disabled={isTestingWebhook}
-                        className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-mono text-[10px] tracking-wider uppercase border border-emerald-500/30 cursor-pointer transition-all disabled:opacity-50 flex items-center gap-1.5"
+                        className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-mono text-xs tracking-wider uppercase border border-emerald-500/30 cursor-pointer transition-all disabled:opacity-50 flex items-center gap-1.5"
                       >
                         {isTestingWebhook ? (
                           <>
@@ -5875,22 +5875,22 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                         <button
                           type="button"
                           onClick={handleCopyAppsScript}
-                          className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-[10px] font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer transition-all"
+                          className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer transition-all"
                         >
                           {appsScriptCopied ? <Check size={12} /> : <Copy size={12} />}
                           <span>{appsScriptCopied ? 'COPIED TO CLIPBOARD!' : 'COPY APPS SCRIPT'}</span>
                         </button>
                       </div>
 
-                      <pre className="p-4 rounded-xl bg-black border border-white/10 text-white/80 font-mono text-[11px] overflow-x-auto leading-relaxed select-all">
+                      <pre className="p-4 rounded-xl bg-black border border-white/10 text-white/80 font-mono text-xs overflow-x-auto leading-relaxed select-all">
                         {GOOGLE_APPS_SCRIPT_TEMPLATE}
                       </pre>
 
                       <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1.5 text-white/60 text-xs font-sans">
-                        <p className="font-bold text-white text-[11px] font-mono uppercase tracking-wider text-emerald-400">
+                        <p className="font-bold text-white text-xs font-mono uppercase tracking-wider text-emerald-400">
                           ⚡ 4-Step Google Sheets Setup Guide:
                         </p>
-                        <ol className="list-decimal list-inside space-y-1 text-[11px]">
+                        <ol className="list-decimal list-inside space-y-1 text-xs">
                           <li>Open your Google Sheet (e.g. named <strong>Mayavi Inquiries 2026</strong>).</li>
                           <li>Click <strong>Extensions &gt; Apps Script</strong>, delete any default code, and click <strong>Copy Apps Script</strong> above to paste.</li>
                           <li>Click <strong>Deploy &gt; New deployment</strong>, select type <strong>Web app</strong>, set <strong>Execute as = Me</strong>, and set <strong>Who has access = Anyone</strong>.</li>
@@ -5911,7 +5911,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-mono text-white/60 uppercase">
+                    <label className="text-xs font-mono text-white/60 uppercase">
                       WhatsApp Dispatch Number (with country code, no +)
                     </label>
                     <input
@@ -5930,7 +5930,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-mono text-white/60 uppercase">
+                    <label className="text-xs font-mono text-white/60 uppercase">
                       Studio Direct Phone
                     </label>
                     <input
@@ -5949,7 +5949,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="md:col-span-2 space-y-1">
-                    <label className="text-[10px] font-mono text-white/60 uppercase">
+                    <label className="text-xs font-mono text-white/60 uppercase">
                       Pre-filled WhatsApp Message Template
                     </label>
                     <input
@@ -5986,14 +5986,14 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* INQUIRIES LOG VIEWER */}
               <div className="p-6 md:p-8 rounded-3xl bg-[#0D091B] border border-white/10 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="font-mono text-[9px] tracking-[0.25em] text-[#EAB308] uppercase font-bold">
+                  <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase font-bold">
                     INQUIRIES STORED IN BROWSER DATABASE ({cms.inquiries.length})
                   </span>
                   <div className="flex items-center space-x-3">
                     <button
                       type="button"
                       onClick={handleAddTestInquiry}
-                      className="px-3 py-1.5 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 font-mono text-[10px] flex items-center space-x-1.5 transition-all cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 font-mono text-xs flex items-center space-x-1.5 transition-all cursor-pointer"
                       title="Add a sample inquiry to test the leads pipeline"
                     >
                       <Plus size={11} />
@@ -6003,7 +6003,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       type="button"
                       onClick={handleExportInquiriesCSV}
                       disabled={cms.inquiries.length === 0}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#EAB308] font-mono text-[10px] flex items-center space-x-1.5 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#EAB308] font-mono text-xs flex items-center space-x-1.5 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                       title="Download complete leads list as CSV"
                     >
                       <Download size={11} />
@@ -6017,7 +6017,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                           showToast('Inquiries cleared.');
                         }
                       }}
-                      className="text-[10px] font-mono text-white/30 hover:text-red-400 cursor-pointer"
+                      className="text-xs font-mono text-white/30 hover:text-red-400 cursor-pointer"
                     >
                       Clear Log
                     </button>
@@ -6027,7 +6027,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left font-mono text-xs">
                     <thead>
-                      <tr className="border-b border-white/10 text-white/40 text-[9px] uppercase tracking-wider">
+                      <tr className="border-b border-white/10 text-white/40 text-xs uppercase tracking-wider">
                         <th className="py-2.5">Date</th>
                         <th className="py-2.5">Client Name</th>
                         <th className="py-2.5">Contact</th>
@@ -6053,7 +6053,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                             <tr key={inq.id} className="hover:bg-white/[0.02]">
                               <td className="py-3 text-white/40 whitespace-nowrap">{inq.date}</td>
                               <td className="py-3 text-white font-sans font-medium whitespace-nowrap">{inq.name}</td>
-                              <td className="py-3 text-white/70 text-[11px]">
+                              <td className="py-3 text-white/70 text-xs">
                                 <div>{inq.email}</div>
                                 <div className="text-white/40">{inq.phone}</div>
                               </td>
@@ -6064,7 +6064,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                                 <button
                                   type="button"
                                   onClick={() => handleToggleInquiryStatus(inq.id)}
-                                  className={`px-2 py-0.5 rounded text-[8px] uppercase font-bold border transition-all cursor-pointer ${
+                                  className={`px-2 py-0.5 rounded text-xs uppercase font-bold border transition-all cursor-pointer ${
                                     inq.status === 'contacted'
                                       ? 'bg-blue-500/10 border-blue-500/30 text-blue-400 hover:bg-blue-500/20'
                                       : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'
@@ -6113,7 +6113,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
           {activeTab === 'security' && (
             <div className="space-y-10">
               <div>
-                <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-bold">
+                <span className="font-mono text-xs tracking-[0.3em] text-[#EAB308] uppercase font-bold">
                   SECURITY & BACKUP
                 </span>
                 <h1 className="text-3xl font-light font-serif italic text-white mt-1">
@@ -6132,11 +6132,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <div>
                       <h2 className="text-xl font-serif italic text-white flex items-center gap-2">
                         Supabase Cloud Database
-                        <span className="text-[10px] font-mono not-italic px-2 py-0.5 rounded bg-[#EAB308]/15 border border-[#EAB308]/30 text-[#EAB308] uppercase">
+                        <span className="text-xs font-mono not-italic px-2 py-0.5 rounded bg-[#EAB308]/15 border border-[#EAB308]/30 text-[#EAB308] uppercase">
                           Multi-Device Sync
                         </span>
                       </h2>
-                      <p className="text-xs text-white/50 font-sans mt-0.5">
+                      <p className="text-xs text-white/70 font-sans mt-0.5">
                         Syncs all videos, showreel acts, and CMS edits to a live PostgreSQL backend so changes reflect across all phones, tablets, and visitors worldwide.
                       </p>
                     </div>
@@ -6144,12 +6144,12 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                   <div className="flex items-center space-x-2">
                     {supabaseConfig.isConfigured ? (
-                      <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono text-[10px]">
+                      <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
                         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                         <span>CONNECTED ({supabaseConfig.source === 'env' ? 'VERCEL ENV' : 'BROWSER VAULT'})</span>
                       </span>
                     ) : (
-                      <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono text-[10px]">
+                      <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono text-xs">
                         <span className="w-2 h-2 rounded-full bg-amber-400" />
                         <span>LOCALSTORAGE ONLY (OFFLINE)</span>
                       </span>
@@ -6160,9 +6160,9 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 {/* Configuration Inputs */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1.5 text-left">
-                    <label className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center justify-between">
+                    <label className="text-xs font-mono text-white/70 uppercase tracking-wider flex items-center justify-between">
                       <span>Supabase Project URL</span>
-                      <span className="text-[9px] text-white/40 lowercase">e.g. https://xyz.supabase.co</span>
+                      <span className="text-xs text-white/60 lowercase">e.g. https://xyz.supabase.co</span>
                     </label>
                     <input
                       type="url"
@@ -6174,9 +6174,9 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="space-y-1.5 text-left">
-                    <label className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center justify-between">
+                    <label className="text-xs font-mono text-white/70 uppercase tracking-wider flex items-center justify-between">
                       <span>Supabase Public Anon Key</span>
-                      <span className="text-[9px] text-white/40 lowercase">anon / public key</span>
+                      <span className="text-xs text-white/60 lowercase">anon / public key</span>
                     </label>
                     <input
                       type="password"
@@ -6276,7 +6276,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <div className="space-y-1">
                       <p className="font-bold">{supabaseTestResult.message}</p>
                       {!supabaseTestResult.tableReady && supabaseTestResult.success && (
-                        <p className="text-[11px] opacity-80 font-sans">
+                        <p className="text-xs opacity-80 font-sans">
                           Click <strong>VIEW / COPY SQL SCHEMA</strong> below, copy the SQL, paste it into your Supabase Dashboard SQL Editor, and click Run.
                         </p>
                       )}
@@ -6297,22 +6297,22 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       <button
                         type="button"
                         onClick={handleCopySql}
-                        className="px-3 py-1.5 rounded-lg bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-[10px] font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer transition-all"
+                        className="px-3 py-1.5 rounded-lg bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 cursor-pointer transition-all"
                       >
                         {sqlCopied ? <Check size={12} /> : <Copy size={12} />}
                         <span>{sqlCopied ? 'COPIED TO CLIPBOARD!' : 'COPY SQL CODE'}</span>
                       </button>
                     </div>
 
-                    <pre className="p-4 rounded-xl bg-neutral-950 border border-white/10 text-white/80 font-mono text-[11px] overflow-x-auto leading-relaxed select-all">
+                    <pre className="p-4 rounded-xl bg-neutral-950 border border-white/10 text-white/80 font-mono text-xs overflow-x-auto leading-relaxed select-all">
                       {SUPABASE_SQL_SCHEMA}
                     </pre>
 
                     <div className="p-3 rounded-xl bg-white/5 border border-white/5 space-y-1 text-white/60 text-xs font-sans">
-                      <p className="font-bold text-white text-[11px] font-mono uppercase tracking-wider text-[#EAB308]">
+                      <p className="font-bold text-white text-xs font-mono uppercase tracking-wider text-[#EAB308]">
                         ⚡ 3-Step Supabase Setup Guide:
                       </p>
-                      <ol className="list-decimal list-inside space-y-1 text-[11px]">
+                      <ol className="list-decimal list-inside space-y-1 text-xs">
                         <li>Create a free account at <strong>supabase.com</strong> and create a new project.</li>
                         <li>In your project sidebar, click <strong>SQL Editor</strong> &gt; <strong>New query</strong>, paste the SQL code above, and click <strong>Run</strong>.</li>
                         <li>Go to <strong>Project Settings &gt; API</strong>, copy the <strong>Project URL</strong> and <strong>anon public API key</strong>, and paste them above.</li>
@@ -6331,7 +6331,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
                 <form onSubmit={handleChangePassword} className="space-y-4 text-left">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-mono text-white/60 uppercase">New Master Passcode</label>
+                    <label className="text-xs font-mono text-white/60 uppercase">New Master Passcode</label>
                     <input
                       type="password"
                       value={newPassword}
@@ -6342,7 +6342,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-mono text-white/60 uppercase">Confirm Passcode</label>
+                    <label className="text-xs font-mono text-white/60 uppercase">Confirm Passcode</label>
                     <input
                       type="password"
                       value={confirmPassword}
@@ -6444,7 +6444,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Project Title</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Project Title</label>
                 <input
                   type="text"
                   value={editingProject.title}
@@ -6455,7 +6455,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Category</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Category</label>
                 <select
                   value={editingProject.category}
                   onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value as any })}
@@ -6471,7 +6471,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Runtime / Duration</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Runtime / Duration</label>
                 <input
                   type="text"
                   value={editingProject.duration}
@@ -6482,7 +6482,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Location Tag</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Location Tag</label>
                 <input
                   type="text"
                   value={editingProject.location}
@@ -6493,7 +6493,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase flex items-center justify-between">
+                <label className="text-xs font-mono text-white/60 uppercase flex items-center justify-between">
                   <span>Hybrid Video URL (YouTube, Instagram Reel, LinkedIn, Vimeo, Google Drive, or direct MP4)</span>
                   {editingProject.videoUrl && (
                     <span className="text-amber-400 lowercase">
@@ -6528,7 +6528,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       videoUrl: '/videos/mayavi-hero.mp4',
                       imageUrl: editingProject.imageUrl || '/posters/media-1.png'
                     })}
-                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-xs hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <Sparkles size={10} />
                     <span>⚡ Use Mayavi 4K Motion Reel (/videos/mayavi-hero.mp4)</span>
@@ -6537,7 +6537,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <button
                       type="button"
                       onClick={() => setEditingProject({ ...editingProject, videoUrl: '' })}
-                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-300 font-mono text-[8.5px] transition-all cursor-pointer"
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-300 font-mono text-xs transition-all cursor-pointer"
                     >
                       Clear
                     </button>
@@ -6548,10 +6548,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* Cover Image Frame with Live Thumbnail & Upload */}
               <div className="md:col-span-2 space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">
+                  <label className="text-xs font-mono text-white/60 uppercase font-semibold">
                     Cover Image Frame URL
                   </label>
-                  <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                  <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs flex items-center gap-1 transition-all">
                     <Upload size={10} />
                     <span>Upload Poster (&lt; 2.5MB)</span>
                     <input
@@ -6584,7 +6584,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   )}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                  <span className="text-xs font-mono text-white/40 uppercase">Presets:</span>
                   {[
                     { label: 'Media 1', url: '/posters/media-1.png' },
                     { label: 'Media 2', url: '/posters/media-2.png' },
@@ -6600,7 +6600,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       key={preset.label}
                       type="button"
                       onClick={() => setEditingProject({ ...editingProject, imageUrl: preset.url })}
-                      className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-[8.5px] transition-all cursor-pointer"
+                      className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-xs transition-all cursor-pointer"
                     >
                       {preset.label}
                     </button>
@@ -6609,7 +6609,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Camera Model</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Camera Model</label>
                 <input
                   type="text"
                   value={editingProject.camera}
@@ -6620,7 +6620,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Lens Calibration</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Lens Calibration</label>
                 <input
                   type="text"
                   value={editingProject.lens}
@@ -6631,7 +6631,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Story Brief</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Story Brief</label>
                 <textarea
                   rows={2}
                   value={editingProject.storyBrief}
@@ -6642,7 +6642,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Editorial Sentence (Display Quote)</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Editorial Sentence (Display Quote)</label>
                 <input
                   type="text"
                   value={editingProject.editorialSentence}
@@ -6653,7 +6653,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Detailed Story & Method</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Detailed Story & Method</label>
                 <textarea
                   rows={3}
                   value={editingProject.detailedStory}
@@ -6696,7 +6696,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   <h2 className="text-2xl font-serif italic text-white">
                     {isNewChapter ? 'Add Showreel Chapter' : 'Edit Showreel Chapter'}
                   </h2>
-                  <p className="text-[11px] font-mono text-white/50">
+                  <p className="text-xs font-mono text-white/50">
                     Configure vertical cinematic scene & streaming URL.
                   </p>
                 </div>
@@ -6712,7 +6712,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Chapter Title</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Chapter Title</label>
                 <input
                   type="text"
                   value={editingChapter.title}
@@ -6723,7 +6723,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Subtitle</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Subtitle</label>
                 <input
                   type="text"
                   value={editingChapter.subtitle}
@@ -6734,7 +6734,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase flex items-center justify-between">
+                <label className="text-xs font-mono text-white/60 uppercase flex items-center justify-between">
                   <span>Video Link (YouTube, Vimeo, Google Drive, Instagram Reel, or MP4)</span>
                   {editingChapter.videoUrl && (
                     <span className="text-[#EAB308] lowercase">
@@ -6769,7 +6769,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       videoUrl: '/videos/mayavi-hero.mp4',
                       posterUrl: editingChapter.posterUrl || '/official-mayavi-logo.png'
                     })}
-                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-xs hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <Sparkles size={10} />
                     <span>⚡ Use Mayavi 4K Motion Reel (/videos/mayavi-hero.mp4)</span>
@@ -6778,7 +6778,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                     <button
                       type="button"
                       onClick={() => setEditingChapter({ ...editingChapter, videoUrl: '' })}
-                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-300 font-mono text-[8.5px] transition-all cursor-pointer"
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-300 font-mono text-xs transition-all cursor-pointer"
                     >
                       Clear
                     </button>
@@ -6787,7 +6787,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Camera & Optics</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Camera & Optics</label>
                 <input
                   type="text"
                   value={editingChapter.camera}
@@ -6800,8 +6800,8 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* Poster Image Frame with File Upload & Live Thumbnail */}
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Poster Frame</label>
-                  <label className="cursor-pointer px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[8.5px] flex items-center gap-1 transition-all">
+                  <label className="text-xs font-mono text-white/60 uppercase font-semibold">Poster Frame</label>
+                  <label className="cursor-pointer px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs flex items-center gap-1 transition-all">
                     <Upload size={9} />
                     <span>Upload (&lt; 2.5MB)</span>
                     <input
@@ -6834,7 +6834,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   )}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  <span className="text-[8.5px] font-mono text-white/40 uppercase">Presets:</span>
+                  <span className="text-xs font-mono text-white/40 uppercase">Presets:</span>
                   {[
                     { label: 'Logo', url: '/official-mayavi-logo.png' },
                     { label: 'Media 2', url: '/posters/media-2.png' },
@@ -6845,7 +6845,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       key={preset.label}
                       type="button"
                       onClick={() => setEditingChapter({ ...editingChapter, posterUrl: preset.url })}
-                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-[8px] transition-all cursor-pointer"
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/70 hover:text-amber-300 border border-white/10 font-mono text-xs transition-all cursor-pointer"
                     >
                       {preset.label}
                     </button>
@@ -6854,7 +6854,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               </div>
 
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase">Directorial Notes</label>
+                <label className="text-xs font-mono text-white/60 uppercase">Directorial Notes</label>
                 <textarea
                   rows={2}
                   value={editingChapter.directorNotes}
@@ -6898,11 +6898,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 <div>
                   <h2 className="text-2xl font-serif italic text-white flex items-center gap-2">
                     <span>{isNewGlimpse ? 'Add High-Fidelity Video Glimpse' : 'Edit Video Glimpse'}</span>
-                    <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
+                    <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold uppercase tracking-wider">
                       DELIVERABLE #2
                     </span>
                   </h2>
-                  <p className="text-[11px] font-mono text-white/50">
+                  <p className="text-xs font-mono text-white/50">
                     Configure 30s 1080p high-definition loop, poster frame, ratio, and directorial caption.
                   </p>
                 </div>
@@ -6919,7 +6919,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Title */}
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Title</label>
+                <label className="text-xs font-mono text-white/60 uppercase font-semibold">Title</label>
                 <input
                   type="text"
                   value={editingGlimpse.title}
@@ -6932,8 +6932,8 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* Category */}
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Category</label>
-                  <span className="text-[9px] font-mono text-white/40">Editorial Tag</span>
+                  <label className="text-xs font-mono text-white/60 uppercase font-semibold">Category</label>
+                  <span className="text-xs font-mono text-white/40">Editorial Tag</span>
                 </div>
                 <input
                   type="text"
@@ -6948,7 +6948,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       key={cat}
                       type="button"
                       onClick={() => setEditingGlimpse({ ...editingGlimpse, category: cat })}
-                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-[8px] transition-all cursor-pointer"
+                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-400/20 text-white/60 hover:text-amber-300 font-mono text-xs transition-all cursor-pointer"
                     >
                       {cat}
                     </button>
@@ -6958,7 +6958,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
               {/* Duration Tag */}
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Duration Tag</label>
+                <label className="text-xs font-mono text-white/60 uppercase font-semibold">Duration Tag</label>
                 <input
                   type="text"
                   value={editingGlimpse.duration}
@@ -6970,7 +6970,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
               {/* Aspect Ratio */}
               <div className="space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Aspect Ratio Frame</label>
+                <label className="text-xs font-mono text-white/60 uppercase font-semibold">Aspect Ratio Frame</label>
                 <div className="grid grid-cols-3 gap-2">
                   {(['16:9', '9:16', '1:1'] as const).map((ratio) => (
                     <button
@@ -6991,7 +6991,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
               {/* Video URL */}
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase flex items-center justify-between font-semibold">
+                <label className="text-xs font-mono text-white/60 uppercase flex items-center justify-between font-semibold">
                   <span>Video Link (YouTube, Vimeo, Google Drive, Instagram Reel, or Direct MP4)</span>
                   {editingGlimpse.videoUrl && (
                     <span className="text-[#EAB308] lowercase font-mono">
@@ -7026,7 +7026,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       videoUrl: '/videos/mayavi-hero.mp4',
                       thumbnailUrl: editingGlimpse.thumbnailUrl || '/official-mayavi-logo.png'
                     })}
-                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[9px] hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-xs hover:bg-amber-400/20 transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <Sparkles size={10} />
                     <span>⚡ Use Mayavi 3D Motion Reel (/videos/mayavi-hero.mp4)</span>
@@ -7037,10 +7037,10 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
               {/* Poster Image Frame URL & File Upload */}
               <div className="md:col-span-2 space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">
+                  <label className="text-xs font-mono text-white/60 uppercase font-semibold">
                     Poster Thumbnail Frame (Image URL or File Upload)
                   </label>
-                  <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-[9px] flex items-center gap-1 transition-all">
+                  <label className="cursor-pointer px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs flex items-center gap-1 transition-all">
                     <Upload size={10} />
                     <span>Browse Local Image (&lt; 2.5MB)</span>
                     <input
@@ -7073,7 +7073,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   )}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  <span className="text-[9px] font-mono text-white/40 uppercase">Presets:</span>
+                  <span className="text-xs font-mono text-white/40 uppercase">Presets:</span>
                   {[
                     { label: 'Official Logo', url: '/official-mayavi-logo.png' },
                     { label: 'Workshop Poster', url: '/posters/theatre-modelling-workshop.png' },
@@ -7085,7 +7085,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                       key={preset.label}
                       type="button"
                       onClick={() => setEditingGlimpse({ ...editingGlimpse, thumbnailUrl: preset.url })}
-                      className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white font-mono text-[9px] transition-all cursor-pointer"
+                      className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white font-mono text-xs transition-all cursor-pointer"
                     >
                       {preset.label}
                     </button>
@@ -7095,7 +7095,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
               {/* Director Caption */}
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[10px] font-mono text-white/60 uppercase font-semibold">Director Caption</label>
+                <label className="text-xs font-mono text-white/60 uppercase font-semibold">Director Caption</label>
                 <textarea
                   rows={2}
                   value={editingGlimpse.caption}
@@ -7108,7 +7108,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
 
             {/* Live Card Preview Box */}
             <div className="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-2">
-              <div className="flex items-center justify-between text-[9px] font-mono text-white/40 uppercase">
+              <div className="flex items-center justify-between text-xs font-mono text-white/40 uppercase">
                 <span>Directorial Preview Frame</span>
                 <span>{editingGlimpse.aspectRatio || '16:9'} Format</span>
               </div>
@@ -7117,7 +7117,7 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                   {editingGlimpse.thumbnailUrl ? (
                     <img src={editingGlimpse.thumbnailUrl} alt="Thumbnail preview" className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-[8px] font-mono text-white/30">NO POSTER</span>
+                    <span className="text-xs font-mono text-white/30">NO POSTER</span>
                   )}
                   {editingGlimpse.videoUrl && (
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
@@ -7127,11 +7127,11 @@ export default function AdminDashboard({ onExit }: AdminDashboardProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[9px] text-[#EAB308] font-bold uppercase">{editingGlimpse.category || 'CATEGORY'}</span>
-                    <span className="font-mono text-[8px] text-white/40">{editingGlimpse.duration || '0:15'}</span>
+                    <span className="font-mono text-xs text-[#EAB308] font-bold uppercase">{editingGlimpse.category || 'CATEGORY'}</span>
+                    <span className="font-mono text-xs text-white/60">{editingGlimpse.duration || '0:15'}</span>
                   </div>
                   <h4 className="text-sm font-serif text-white truncate">{editingGlimpse.title || 'Untitled Glimpse'}</h4>
-                  <p className="text-[11px] text-white/60 line-clamp-1 font-sans">{editingGlimpse.caption || 'No caption entered yet...'}</p>
+                  <p className="text-xs text-white/60 line-clamp-1 font-sans">{editingGlimpse.caption || 'No caption entered yet...'}</p>
                 </div>
               </div>
             </div>

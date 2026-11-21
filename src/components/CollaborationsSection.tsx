@@ -135,7 +135,7 @@ export default function CollaborationsSection({ onSelectAction }: Collaborations
           {/* Founder Leadership Badge */}
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#400582]/50 border border-[#f59e0b]/40 backdrop-blur-md shadow-[0_0_20px_rgba(245,158,11,0.15)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#f5e302] animate-pulse" />
-            <span className="font-mono text-[8.5px] tracking-[0.25em] text-[#f5e302] uppercase font-bold">
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#f5e302] uppercase font-bold">
               CURATED BY FOUNDER &amp; CEO // VISHISHTA SAXENA
             </span>
           </div>
@@ -159,13 +159,13 @@ export default function CollaborationsSection({ onSelectAction }: Collaborations
               </div>
               <div className="text-left">
                 <p className="font-serif italic text-sm text-white font-medium">Vishishta Saxena</p>
-                <p className="font-mono text-[8px] tracking-[0.2em] text-[#f5e302] uppercase font-semibold">
+                <p className="font-mono text-xs tracking-wider text-[#f5e302] uppercase font-semibold">
                   Founder &amp; CEO • Executive Curator
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2 text-white/50 font-mono text-[9px] tracking-wider uppercase">
+            <div className="flex items-center space-x-2 text-white/70 font-mono text-xs tracking-wider uppercase">
               <Sparkles size={11} className="text-[#f5e302]" />
               <span>Executive Directorial Network</span>
             </div>
@@ -175,11 +175,11 @@ export default function CollaborationsSection({ onSelectAction }: Collaborations
         {/* SECTION DIVIDER WITH ARCHITECTURAL NODES */}
         <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4 mb-8 text-left">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[8.5px] text-[#f5e302] tracking-[0.25em] uppercase font-bold">
+            <span className="font-mono text-xs text-[#f5e302] tracking-[0.2em] uppercase font-bold">
               SELECTED COLLABORATORS &amp; ALLIANCES
             </span>
           </div>
-          <span className="font-mono text-[8px] text-white/40 tracking-wider uppercase hidden sm:inline">
+          <span className="font-mono text-xs text-white/60 tracking-wider uppercase hidden sm:inline">
             CURATED UNDER VISHISHTA SAXENA
           </span>
         </div>
@@ -201,7 +201,7 @@ export default function CollaborationsSection({ onSelectAction }: Collaborations
               {/* Top: Category Tag Chip & Glowing Status Node */}
               <div className="flex items-center justify-between w-full relative z-10">
                 <span
-                  className={`font-mono text-[7px] tracking-[0.2em] px-2 py-0.5 rounded-full border font-bold uppercase ${brand.tagColor}`}
+                  className={`font-mono text-[11px] tracking-wider px-2 py-0.5 rounded-full border font-bold uppercase ${brand.tagColor}`}
                 >
                   {brand.category}
                 </span>
@@ -213,7 +213,7 @@ export default function CollaborationsSection({ onSelectAction }: Collaborations
                 <h4 className="font-serif text-sm md:text-base text-white/90 group-hover:text-white transition-colors duration-200 font-normal leading-snug">
                   {brand.name}
                 </h4>
-                <p className="font-mono text-[7.5px] tracking-[0.2em] text-white/40 group-hover:text-white/60 transition-colors duration-200 uppercase">
+                <p className="font-mono text-[11px] tracking-wider text-white/60 group-hover:text-white/60 transition-colors duration-200 uppercase">
                   {brand.sub}
                 </p>
               </div>
@@ -227,7 +227,7 @@ export default function CollaborationsSection({ onSelectAction }: Collaborations
         {/* BOTTOM FLOATING TELEMETRY DOCK */}
         <div className="flex justify-center">
           <div className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-white/10 bg-[#0e071e]/80 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
-            <span className="font-mono text-[8.5px] sm:text-[9.5px] text-white/80 tracking-wider">
+            <span className="font-mono text-xs sm:text-sm text-white/80 tracking-wider">
               10+ Strategic Alliances <span className="text-[#f5e302] mx-2">•</span> 4 Broadcast Networks{' '}
               <span className="text-[#f5e302] mx-2">•</span> Hyderabad // Pan-India Direct
             </span>

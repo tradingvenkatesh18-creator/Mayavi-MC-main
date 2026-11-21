@@ -344,9 +344,9 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 relative z-10">
         <div className="space-y-4 max-w-2xl text-left">
           {/* Editorial Kicker */}
-          <div className="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-amber-400/25 backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-amber-400/25 backdrop-blur-md">
             <span className="w-1.5 h-1.5 rounded-full bg-[#F5E302] shadow-[0_0_8px_#F5E302]" />
-            <span className="font-mono text-[9px] tracking-[0.28em] text-[#F5E302] uppercase font-bold">
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#F5E302] uppercase font-bold">
               ANTHOLOGY ARCHIVE // 2026
             </span>
           </div>
@@ -368,12 +368,12 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
         {/* Header CTA Button - Liquid Glass with Gold Neon Rim */}
         <button
           onClick={onDiscussProduction}
-          className="group relative inline-flex items-center space-x-2.5 px-7 py-3.5 rounded-full backdrop-blur-xl bg-white/[0.05] hover:bg-[#F5E302]/10 border border-[#F5E302]/60 hover:border-[#F5E302] text-white font-mono text-[10px] tracking-[0.25em] uppercase transition-all duration-500 shadow-[0_4px_25px_rgba(0,0,0,0.6),0_0_20px_rgba(245,227,2,0.18)] hover:shadow-[0_0_35px_rgba(245,227,2,0.45)] hover:scale-105 active:scale-98 cursor-pointer overflow-hidden self-start md:self-auto"
+          className="group relative inline-flex items-center space-x-2.5 px-7 py-3.5 rounded-full backdrop-blur-xl bg-white/[0.05] hover:bg-[#F5E302]/10 border border-[#F5E302]/60 hover:border-[#F5E302] text-white font-mono text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-500 shadow-[0_4px_25px_rgba(0,0,0,0.6),0_0_20px_rgba(245,227,2,0.18)] hover:shadow-[0_0_35px_rgba(245,227,2,0.45)] hover:scale-105 active:scale-98 cursor-pointer overflow-hidden self-start md:self-auto"
         >
           {/* Subtle Specular Glint Sweep */}
           <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/[0.18] to-transparent pointer-events-none" />
           <span className="text-[#F5E302] font-bold">DISCUSS A PRODUCTION</span>
-          <ArrowRight size={13} className="text-[#F5E302] transform transition-transform duration-300 group-hover:translate-x-1" />
+          <ArrowRight size={14} className="text-[#F5E302] transform transition-transform duration-300 group-hover:translate-x-1" />
         </button>
       </div>
 
@@ -387,10 +387,10 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
             <button
               key={cat.label}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`relative px-5 py-2.5 rounded-full font-mono text-[9px] tracking-widest uppercase transition-all duration-500 border cursor-pointer whitespace-nowrap overflow-hidden group ${
+              className={`relative px-5 py-2.5 rounded-full font-mono text-xs sm:text-sm tracking-wider uppercase transition-all duration-500 border cursor-pointer whitespace-nowrap overflow-hidden group ${
                 isSelected
                   ? 'bg-gradient-to-r from-[#F5E302] via-[#F5B800] to-[#E5A800] text-black font-extrabold border-[#F5E302] shadow-[0_0_25px_rgba(245,227,2,0.5)] scale-105'
-                  : 'backdrop-blur-md bg-white/[0.04] text-white/60 hover:text-white hover:bg-white/[0.08] border-white/10 hover:border-amber-400/40'
+                  : 'backdrop-blur-md bg-white/[0.04] text-white/70 hover:text-white hover:bg-white/[0.08] border-white/10 hover:border-amber-400/40'
               }`}
             >
               {!isSelected && (
@@ -458,7 +458,7 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                   </div>
 
                   {/* Top-Left Archive Duration Tag */}
-                  <div className="absolute top-4 left-4 z-20 flex items-center space-x-2 px-3 py-1 bg-black/75 backdrop-blur-md rounded-md border border-white/10 font-mono text-[8px] tracking-wider text-white">
+                  <div className="absolute top-4 left-4 z-20 flex items-center space-x-2 px-3 py-1 bg-black/75 backdrop-blur-md rounded-md border border-white/10 font-mono text-xs tracking-wider text-white">
                     <span className={`w-1.5 h-1.5 rounded-full ${project.videoUrl ? 'bg-emerald-400 animate-pulse shadow-[0_0_6px_#10B981]' : 'bg-[#F5E302] shadow-[0_0_6px_#F5E302]'}`} />
                     <span className="text-[#F5E302] font-bold">{project.videoUrl ? 'STREAM READY' : 'ARCHIVE STILL'}</span>
                     <span className="text-white/30">|</span>
@@ -466,16 +466,16 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                   </div>
 
                   {/* Top-Right Museum Exhibition Catalog Code */}
-                  <div className="absolute top-4 right-4 z-20 px-2.5 py-1 bg-black/75 backdrop-blur-md rounded-md border border-white/10 font-mono text-[8px] text-[#F5E302] tracking-widest uppercase font-bold">
+                  <div className="absolute top-4 right-4 z-20 px-2.5 py-1 bg-black/75 backdrop-blur-md rounded-md border border-white/10 font-mono text-xs text-[#F5E302] tracking-wider uppercase font-bold">
                     EXHIBITION // 0{project.id}
                   </div>
 
                   {/* Bottom Optical Rig Telemetry Strip */}
-                  <div className="absolute bottom-3 inset-x-3 z-20 flex items-center justify-between px-3 py-1.5 bg-black/70 backdrop-blur-md rounded-lg border border-white/5 font-mono text-[7.5px] text-white/50 tracking-wider">
+                  <div className="absolute bottom-3 inset-x-3 z-20 flex items-center justify-between px-3 py-1.5 bg-black/70 backdrop-blur-md rounded-lg border border-white/5 font-mono text-[11px] text-white/70 tracking-wider">
                     <span className="text-amber-200/90 truncate max-w-[60%]">
                       {project.camera || 'ARRI ALEXA MINI LF'}
                     </span>
-                    <span className="text-white/40 truncate max-w-[38%] text-right uppercase">
+                    <span className="text-white/60 truncate max-w-[38%] text-right uppercase">
                       {project.lens || 'ZEISS SUPREME PRIME'}
                     </span>
                   </div>
@@ -488,11 +488,11 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
                     <div className="flex items-center justify-between text-left">
                       <div className="flex items-center space-x-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#F5E302] shadow-[0_0_6px_#F5E302]" />
-                        <span className="font-mono text-[9px] tracking-widest text-[#F5E302] uppercase font-bold">
+                        <span className="font-mono text-xs tracking-wider text-[#F5E302] uppercase font-bold">
                           {project.category}
                         </span>
                       </div>
-                      <span className="font-mono text-[8px] text-white/40 tracking-widest uppercase">
+                      <span className="font-mono text-xs text-white/60 tracking-wider uppercase">
                         [ {project.location || 'HYDERABAD STUDIO'} ]
                       </span>
                     </div>
@@ -511,11 +511,11 @@ export const CuratedExhibitionsSection: React.FC<CuratedExhibitionsSectionProps>
 
                   {/* Bottom Action Rail */}
                   <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-3">
-                    <span className="inline-flex items-center space-x-2 text-[9px] font-mono tracking-[0.25em] text-[#F5E302] group-hover:text-amber-200 transition-colors font-bold uppercase">
+                    <span className="inline-flex items-center space-x-2 text-xs font-mono tracking-wider text-[#F5E302] group-hover:text-amber-200 transition-colors font-bold uppercase">
                       <span>{project.videoUrl ? 'WATCH EXHIBITION FILM' : 'VIEW EXHIBITION ARCHIVE'}</span>
                       <span className="transform transition-transform duration-500 group-hover:translate-x-1.5">→</span>
                     </span>
-                    <span className="font-mono text-[8px] text-white/30 tracking-widest uppercase hidden sm:inline-block">
+                    <span className="font-mono text-xs text-white/50 tracking-wider uppercase hidden sm:inline-block">
                       DIRECTOR ARCHIVE // MMXXVI
                     </span>
                   </div>

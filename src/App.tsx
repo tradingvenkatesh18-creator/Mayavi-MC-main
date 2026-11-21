@@ -1372,9 +1372,9 @@ export default function App() {
                             setActiveSection(itemLower);
                           }
                         }}
-                        className={`relative text-[8.5px] xl:text-[9.5px] font-mono tracking-[0.14em] xl:tracking-[0.18em] transition-all duration-300 py-1.5 px-2.5 xl:px-3 rounded-full uppercase select-none whitespace-nowrap shrink-0 ${isActive
+                        className={`relative text-xs xl:text-sm font-mono tracking-[0.14em] xl:tracking-[0.18em] transition-all duration-300 py-2 px-3 xl:px-4 rounded-full uppercase select-none whitespace-nowrap shrink-0 ${isActive
                           ? 'text-amber-300 font-bold'
-                          : 'text-white/60 hover:text-white hover:text-amber-200'
+                          : 'text-white/70 hover:text-white hover:text-amber-200'
                           }`}
                       >
                         <span className="relative z-10">{item}</span>
@@ -1395,7 +1395,7 @@ export default function App() {
                   <button
                     id="top-cta-talent-assessment"
                     onClick={() => setAssessmentOpen(true)}
-                    className="hidden xl:flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-[8.5px] font-mono tracking-[0.16em] border border-amber-400/60 bg-amber-400/10 hover:bg-amber-400/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap backdrop-blur-md"
+                    className="hidden xl:flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-mono tracking-[0.14em] border border-amber-400/60 bg-amber-400/10 hover:bg-amber-400/20 text-[#EAB308] font-bold transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap backdrop-blur-md"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#EAB308] animate-pulse shadow-[0_0_6px_#EAB308]"></span>
                     <span>AUDITION TEST</span>
@@ -1403,10 +1403,10 @@ export default function App() {
                   <button
                     id="top-cta-start-project"
                     onClick={() => setContactOpen(true)}
-                    className="flex items-center space-x-1.5 px-4 py-1.5 rounded-full text-[8.5px] xl:text-[9.5px] font-mono tracking-[0.16em] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.35)] hover:shadow-[0_0_30px_rgba(234,179,8,0.6)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
+                    className="flex items-center space-x-2 px-5 py-2 rounded-full text-xs xl:text-sm font-mono tracking-[0.14em] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-extrabold transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.35)] hover:shadow-[0_0_30px_rgba(234,179,8,0.6)] hover:scale-105 active:scale-98 cursor-pointer uppercase shrink-0 whitespace-nowrap"
                   >
                     <span>START A PROJECT</span>
-                    <ArrowUpRight size={12} className="text-black" />
+                    <ArrowUpRight size={14} className="text-black" />
                   </button>
                 </div>
 
@@ -1482,7 +1482,7 @@ export default function App() {
                             setMobileMenuOpen(false);
                             setAssessmentOpen(true);
                           }}
-                          className="w-full py-2.5 rounded-full text-center text-[10px] font-mono tracking-widest border border-[#EAB308]/60 bg-[#EAB308]/10 text-[#EAB308] font-bold transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer"
+                          className="w-full py-3 rounded-full text-center text-xs sm:text-sm font-mono tracking-wider border border-[#EAB308]/60 bg-[#EAB308]/10 text-[#EAB308] font-bold transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-[#EAB308] animate-pulse"></span>
                           <span>AUDITION TEST (SCREEN TEST)</span>
@@ -1492,10 +1492,10 @@ export default function App() {
                             setMobileMenuOpen(false);
                             setContactOpen(true);
                           }}
-                          className="w-full py-3 rounded-full text-center text-[10px] font-mono tracking-widest bg-[#EAB308] text-black font-extrabold transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer"
+                          className="w-full py-3.5 rounded-full text-center text-xs sm:text-sm font-mono tracking-wider bg-[#EAB308] text-black font-extrabold transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer"
                         >
                           <span>START A PROJECT</span>
-                          <ArrowUpRight size={11} className="text-black" />
+                          <ArrowUpRight size={14} className="text-black" />
                         </button>
                       </div>
                     </div>
@@ -1548,7 +1548,7 @@ export default function App() {
                 {/* Left Column - Editorial Story & Directorial Craft Cards (5 columns) */}
                 <div className="lg:col-span-5 space-y-6 text-left">
                   <div className="space-y-4">
-                    <span className="font-mono text-[9px] tracking-[0.3em] text-[#EAB308] uppercase font-semibold block">
+                    <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase font-semibold block">
                       {cms.about.tagline || 'OUR PHILOSOPHY'}
                     </span>
                     <h2 className="text-3xl md:text-5xl font-light font-serif italic text-white/95 leading-[1.12] tracking-tight">
@@ -1566,23 +1566,23 @@ export default function App() {
                   <div className="grid grid-cols-3 gap-4 py-6 border-y border-white/5">
                     <div>
                       <p className="font-serif italic text-2xl text-white font-light">{cms.about.stat1Value}</p>
-                      <p className="font-mono text-[8px] tracking-[0.15em] text-white/40 uppercase mt-1">{cms.about.stat1Label}</p>
+                      <p className="font-mono text-xs tracking-wider text-white/60 uppercase mt-1">{cms.about.stat1Label}</p>
                     </div>
                     <div>
                       <p className="font-serif italic text-2xl text-white font-light">{cms.about.stat2Value}</p>
-                      <p className="font-mono text-[8px] tracking-[0.15em] text-white/40 uppercase mt-1">{cms.about.stat2Label}</p>
+                      <p className="font-mono text-xs tracking-wider text-white/60 uppercase mt-1">{cms.about.stat2Label}</p>
                     </div>
                     <div>
                       <p className="font-serif italic text-2xl text-white font-light">{cms.about.stat3Value}</p>
-                      <p className="font-mono text-[8px] tracking-[0.15em] text-white/40 uppercase mt-1">{cms.about.stat3Label}</p>
+                      <p className="font-mono text-xs tracking-wider text-white/60 uppercase mt-1">{cms.about.stat3Label}</p>
                     </div>
                   </div>
 
                   {/* Directorial Craft & Telemetry Card (Fills layout gap) */}
                   <div className="bg-gradient-to-br from-amber-500/5 via-neutral-900/60 to-transparent border border-white/10 p-5 rounded-2xl space-y-3.5 relative overflow-hidden">
                     <div className="flex items-center space-x-2">
-                      <Sliders size={13} className="text-[#EAB308]" />
-                      <span className="font-mono text-[8.5px] text-[#EAB308] font-bold tracking-[0.2em] uppercase">
+                      <Sliders size={14} className="text-[#EAB308]" />
+                      <span className="font-mono text-xs text-[#EAB308] font-bold tracking-[0.18em] uppercase">
                         DIRECTORIAL ARCHITECTURE
                       </span>
                     </div>
@@ -1590,49 +1590,49 @@ export default function App() {
 
                     <div className="grid grid-cols-2 gap-3 pt-1 text-left">
                       <div className="bg-black/40 p-2.5 rounded-xl border border-white/5 space-y-0.5">
-                        <span className="font-mono text-[7.5px] text-white/30 tracking-widest uppercase block">OPTICAL RIGS</span>
-                        <span className="font-mono text-[9.5px] text-white/80 font-medium block">ARRI LF & Anamorphic</span>
+                        <span className="font-mono text-[11px] text-white/50 tracking-wider uppercase block">OPTICAL RIGS</span>
+                        <span className="font-mono text-xs text-white/90 font-medium block">ARRI LF & Anamorphic</span>
                       </div>
                       <div className="bg-black/40 p-2.5 rounded-xl border border-white/5 space-y-0.5">
-                        <span className="font-mono text-[7.5px] text-white/30 tracking-widest uppercase block">ASPECT SPECS</span>
-                        <span className="font-mono text-[9.5px] text-white/80 font-medium block">9:16 Vertical & 2.39:1</span>
+                        <span className="font-mono text-[11px] text-white/50 tracking-wider uppercase block">ASPECT SPECS</span>
+                        <span className="font-mono text-xs text-white/90 font-medium block">9:16 Vertical & 2.39:1</span>
                       </div>
                       <div className="bg-black/40 p-2.5 rounded-xl border border-white/5 space-y-0.5">
-                        <span className="font-mono text-[7.5px] text-white/30 tracking-widest uppercase block">COLOR LAB</span>
-                        <span className="font-mono text-[9.5px] text-white/80 font-medium block">Kodak 250D Emulation</span>
+                        <span className="font-mono text-[11px] text-white/50 tracking-wider uppercase block">COLOR LAB</span>
+                        <span className="font-mono text-xs text-white/90 font-medium block">Kodak 250D Emulation</span>
                       </div>
                       <div className="bg-black/40 p-2.5 rounded-xl border border-white/5 space-y-0.5">
-                        <span className="font-mono text-[7.5px] text-white/30 tracking-widest uppercase block">SOUND ENGINE</span>
-                        <span className="font-mono text-[9.5px] text-white/80 font-medium block">Spatial Sub-Harmonics</span>
+                        <span className="font-mono text-[11px] text-white/50 tracking-wider uppercase block">SOUND ENGINE</span>
+                        <span className="font-mono text-xs text-white/90 font-medium block">Spatial Sub-Harmonics</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Core Creative Pillars Card (Fills layout gap) */}
                   <div className="bg-white/[0.02] border border-white/5 p-5 rounded-2xl space-y-3">
-                    <span className="font-mono text-[8.5px] text-white/40 tracking-[0.2em] uppercase block font-semibold">
+                    <span className="font-mono text-xs text-white/60 tracking-[0.18em] uppercase block font-semibold">
                       CORE CREATIVE PILLARS
                     </span>
-                    <div className="space-y-2.5 text-left font-sans text-xs">
+                    <div className="space-y-2.5 text-left font-sans text-xs sm:text-sm">
                       <div className="flex items-start space-x-3 pb-2 border-b border-white/5">
-                        <span className="font-mono text-[9px] text-[#EAB308] font-bold">01</span>
+                        <span className="font-mono text-xs text-[#EAB308] font-bold">01</span>
                         <div>
-                          <h5 className="font-medium text-white text-xs">Spatial Light & Shadows</h5>
-                          <p className="text-[10.5px] text-white/50 font-light mt-0.5">Sculpting natural and volumetric shadow lines across architectural film sets.</p>
+                          <h5 className="font-medium text-white text-xs sm:text-sm">Spatial Light & Shadows</h5>
+                          <p className="text-xs text-white/70 font-light mt-0.5">Sculpting natural and volumetric shadow lines across architectural film sets.</p>
                         </div>
                       </div>
                       <div className="flex items-start space-x-3 pb-2 border-b border-white/5">
-                        <span className="font-mono text-[9px] text-[#EAB308] font-bold">02</span>
+                        <span className="font-mono text-xs text-[#EAB308] font-bold">02</span>
                         <div>
-                          <h5 className="font-medium text-white text-xs">Human Narrative Core</h5>
-                          <p className="text-[10.5px] text-white/50 font-light mt-0.5">Directing talent to capture raw, authentic emotional beats that transcend trend cycles.</p>
+                          <h5 className="font-medium text-white text-xs sm:text-sm">Human Narrative Core</h5>
+                          <p className="text-xs text-white/70 font-light mt-0.5">Directing talent to capture raw, authentic emotional beats that transcend trend cycles.</p>
                         </div>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <span className="font-mono text-[9px] text-[#EAB308] font-bold">03</span>
+                        <span className="font-mono text-xs text-[#EAB308] font-bold">03</span>
                         <div>
-                          <h5 className="font-medium text-white text-xs">Long-Term Brand Preservation</h5>
-                          <p className="text-[10.5px] text-white/50 font-light mt-0.5">Creating videos that elevate your brand and build trust with your audience.</p>
+                          <h5 className="font-medium text-white text-xs sm:text-sm">Long-Term Brand Preservation</h5>
+                          <p className="text-xs text-white/70 font-light mt-0.5">Creating videos that elevate your brand and build trust with your audience.</p>
                         </div>
                       </div>
                     </div>
@@ -1641,13 +1641,13 @@ export default function App() {
                   {/* Quiet signature block & CTA */}
                   <div className="pt-4 border-t border-white/5 flex items-center justify-between">
                     <div className="space-y-1">
-                      <p className="font-serif italic text-sm text-white/90">{cms.about.directorName || 'Vishishta Saxena'}</p>
-                      <p className="font-mono text-[8px] tracking-[0.2em] text-[#f7e503]/80 uppercase">{cms.about.directorTitle || 'Founder & CEO // Mayavi Media Creations'}</p>
+                      <p className="font-serif italic text-base text-white/90">{cms.about.directorName || 'Vishishta Saxena'}</p>
+                      <p className="font-mono text-xs tracking-wider text-[#f7e503]/90 uppercase">{cms.about.directorTitle || 'Founder & CEO // Mayavi Media Creations'}</p>
                     </div>
 
                     <button
                       onClick={() => setContactOpen(true)}
-                      className="px-4 py-2 rounded-full border border-white/15 bg-white/5 hover:bg-[#EAB308] hover:text-black text-white text-[9px] font-mono tracking-widest uppercase transition-all duration-300 cursor-pointer"
+                      className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-[#EAB308] hover:text-black text-white text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer"
                     >
                       Start A Project →
                     </button>
@@ -1678,10 +1678,10 @@ export default function App() {
                     {/* Extremely subtle director camera overlay */}
                     <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between bg-black/60 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/5">
                       <div className="flex items-center space-x-2">
-                        <div className="w-1 h-1 bg-[#EAB308] rounded-full animate-pulse" />
-                        <span className="font-mono text-[7px] tracking-[0.2em] text-white/60">ACTIVE SET // STANDBY</span>
+                        <div className="w-1.5 h-1.5 bg-[#EAB308] rounded-full animate-pulse" />
+                        <span className="font-mono text-xs tracking-wider text-white/70">ACTIVE SET // STANDBY</span>
                       </div>
-                      <span className="font-mono text-[7px] tracking-[0.2em] text-white/40">
+                      <span className="font-mono text-xs tracking-wider text-white/60">
                         {cms.about.sceneOverlayText || 'SCENE 02 — PHILOSOPHY'}
                       </span>
                     </div>
@@ -1690,7 +1690,7 @@ export default function App() {
                   {/* Casting Call & Opportunities Dashboard */}
                   <div className="space-y-6">
                     <div className="space-y-2 text-left">
-                      <span className="font-mono text-[9px] text-[#EAB308] tracking-[0.25em] font-bold block uppercase">
+                      <span className="font-mono text-xs sm:text-sm text-[#EAB308] tracking-[0.2em] font-bold block uppercase">
                         {cms.about.castingTagline || '// ACTIVE INVITATIONS & CASTINGS'}
                       </span>
                       <h3 className="text-2xl font-serif font-light text-white italic">
@@ -1703,20 +1703,20 @@ export default function App() {
                       <div className="bg-gradient-to-br from-amber-500/10 via-violet-600/5 to-transparent border border-amber-500/20 p-5 rounded-2xl space-y-3 relative overflow-hidden text-left">
                         <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/10 rounded-full blur-xl pointer-events-none" />
                         <div className="flex items-center space-x-2">
-                          <Sparkles size={13} className="text-amber-400" />
-                          <span className="font-mono text-[8px] text-amber-400 font-bold tracking-widest uppercase">
+                          <Sparkles size={14} className="text-amber-400" />
+                          <span className="font-mono text-xs text-amber-400 font-bold tracking-wider uppercase">
                             {cms.about.auditionCard1?.badge || 'SPECIAL OPPORTUNITY'}
                           </span>
                         </div>
-                        <h4 className="font-serif italic text-sm text-white leading-snug">
+                        <h4 className="font-serif italic text-base text-white leading-snug">
                           {cms.about.auditionCard1?.title || 'Prince & Princess of South India (Season 2)'}
                         </h4>
-                        <p className="text-[10px] text-white/70 leading-relaxed font-light font-sans">
+                        <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-light font-sans">
                           {cms.about.auditionCard1?.description || 'AP & Telangana editions happening in July 2026. Become a member today to get instant casting alerts and priority selections.'}
                         </p>
                         <div className="border-t border-white/5 pt-3 mt-2">
-                          <span className="font-mono text-[7px] text-white/30 tracking-widest uppercase block mb-2">YOUR BENEFITS:</span>
-                          <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[9px] text-white/60 font-sans font-light">
+                          <span className="font-mono text-xs text-white/50 tracking-wider uppercase block mb-2">YOUR BENEFITS:</span>
+                          <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-xs text-white/80 font-sans font-light">
                             {(cms.about.auditionCard1?.benefits || [
                               'Unlimited Castings',
                               'Priority Selection',
@@ -1724,7 +1724,7 @@ export default function App() {
                               'Portfolio Projects'
                             ]).map((benefit, bIdx) => (
                               <div key={bIdx} className="flex items-center space-x-1.5">
-                                <span className="text-amber-400 text-[8px]">●</span>
+                                <span className="text-amber-400 text-xs">●</span>
                                 <span>{benefit}</span>
                               </div>
                             ))}
@@ -1736,30 +1736,30 @@ export default function App() {
                       <div className="bg-gradient-to-br from-[#EAB308]/5 via-[#0b081c] to-transparent border border-white/10 p-5 rounded-2xl space-y-3 text-left relative overflow-hidden flex flex-col justify-between">
                         <div>
                           <div className="flex items-center space-x-2">
-                            <Film size={13} className="text-emerald-400" />
-                            <span className="font-mono text-[8px] text-emerald-400 font-bold tracking-widest uppercase">
+                            <Film size={14} className="text-emerald-400" />
+                            <span className="font-mono text-xs text-emerald-400 font-bold tracking-wider uppercase">
                               {cms.about.auditionCard2?.badge || 'WE ARE HIRING'}
                             </span>
                           </div>
-                          <h4 className="font-serif italic text-sm text-white leading-snug mt-2">
+                          <h4 className="font-serif italic text-base text-white leading-snug mt-2">
                             {cms.about.auditionCard2?.title || 'Looking for Content Creators'}
                           </h4>
-                          <p className="text-[10px] text-white/70 leading-relaxed font-light font-sans mt-2">
+                          <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-light font-sans mt-2">
                             {cms.about.auditionCard2?.description || 'If you are young, energetic, charismatic, and camera-friendly with 0-2 years of experience, we want to groom you for our commercial projects.'}
                           </p>
                         </div>
 
                         <div className="border-t border-white/5 pt-3 mt-2 space-y-2">
-                          <div className="grid grid-cols-2 gap-2 text-[9px] text-white/50 font-mono">
+                          <div className="grid grid-cols-2 gap-2 text-xs text-white/70 font-mono">
                             <div>
-                              <span className="text-white/30 uppercase block">EXPERIENCE:</span>
-                              <span className="text-white/80 font-sans">
+                              <span className="text-white/40 uppercase block">EXPERIENCE:</span>
+                              <span className="text-white/90 font-sans">
                                 {cms.about.auditionCard2?.experience || '0-2 Years'}
                               </span>
                             </div>
                             <div>
-                              <span className="text-white/30 uppercase block">ROLE TYPE:</span>
-                              <span className="text-white/80 font-sans">
+                              <span className="text-white/40 uppercase block">ROLE TYPE:</span>
+                              <span className="text-white/90 font-sans">
                                 {cms.about.auditionCard2?.roleType || 'Presenting & Hosting'}
                               </span>
                             </div>
@@ -1771,12 +1771,12 @@ export default function App() {
                                 const msg = encodeURIComponent(cms.about.auditionCard2?.whatsappMessage || "Hello Mayavi! I'm interested in the Content Creator hiring opportunity. I would love to apply and share my resume/profile.");
                                 window.open(`https://wa.me/${cms.integrations.whatsappNumber || '919971410306'}?text=${msg}`, '_blank');
                               }}
-                              className="inline-flex items-center space-x-1.5 text-[9px] font-mono text-amber-400 hover:text-white transition-colors cursor-pointer"
+                              className="inline-flex items-center space-x-1.5 text-xs font-mono font-bold text-amber-400 hover:text-white transition-colors cursor-pointer"
                             >
                               <span>{cms.about.auditionCard2?.ctaText || 'SUBMIT PROFILE'}</span>
-                              <ArrowRight size={10} />
+                              <ArrowRight size={12} />
                             </button>
-                            <span className="text-[8.5px] text-white/35 font-mono">
+                            <span className="text-xs text-white/50 font-mono">
                               {cms.about.auditionCard2?.instagramHandle || 'OR DM @mayavi_mediacreations'}
                             </span>
                           </div>
@@ -1788,13 +1788,13 @@ export default function App() {
                     <div className="bg-neutral-900/60 border border-white/5 p-6 rounded-2xl text-left space-y-4 relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-32 h-32 bg-violet-600/5 rounded-full blur-2xl pointer-events-none" />
                       <div className="space-y-1">
-                        <span className="font-mono text-[8px] text-[#EAB308] tracking-widest uppercase font-bold block">
+                        <span className="font-mono text-xs text-[#EAB308] tracking-wider uppercase font-bold block">
                           {cms.about.grandDivaCard?.tagline || '// OFFICIAL PARTNERSHIP APPLICATION'}
                         </span>
-                        <h4 className="font-serif italic text-lg text-white">
+                        <h4 className="font-serif italic text-xl text-white">
                           {cms.about.grandDivaCard?.title || 'Grand Diva International Pageant (Season 2)'}
                         </h4>
-                        <p className="text-xs text-white/60 font-sans font-light leading-relaxed">
+                        <p className="text-sm text-white/70 font-sans font-light leading-relaxed">
                           {cms.about.grandDivaCard?.description || 'We have partnered with the official Grand Diva organization. Open the Season 2 participation form to secure your workshop registration details.'}
                         </p>
                       </div>
@@ -1802,10 +1802,10 @@ export default function App() {
                         href={cms.about.grandDivaCard?.ctaUrl || "https://docs.google.com/forms/d/1amHV4nUd7M8cDqZzFVOIVoVR1PgM86Ucg3ByxHuZ6AU/viewform?edit_requested=true"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl text-[10px] font-mono tracking-widest bg-[#EAB308] hover:bg-amber-600 text-black font-extrabold transition-all duration-300 shadow-xl cursor-pointer"
+                        className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-mono tracking-wider bg-[#EAB308] hover:bg-amber-600 text-black font-extrabold transition-all duration-300 shadow-xl cursor-pointer"
                       >
                         <span>{cms.about.grandDivaCard?.ctaText || 'OPEN OFFICIAL APPLICATION'}</span>
-                        <ArrowRight size={11} className="text-black" />
+                        <ArrowRight size={14} className="text-black" />
                       </a>
                     </div>
                   </div>
@@ -1890,7 +1890,7 @@ export default function App() {
                     className="fixed top-6 right-6 md:top-8 md:right-8 z-[60] flex items-center space-x-2 px-4 py-2.5 rounded-full bg-neutral-900/90 backdrop-blur-md border border-white/10 text-white/70 hover:text-[#EAB308] hover:border-[#EAB308]/30 transition-all cursor-pointer group shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
                   >
                     <X size={14} className="transform transition-transform group-hover:rotate-90 duration-300" />
-                    <span className="font-mono text-[9px] tracking-[0.2em] uppercase font-bold">CLOSE PREVIEW</span>
+                    <span className="font-mono text-xs tracking-[0.2em] uppercase font-bold">CLOSE PREVIEW</span>
                   </button>
 
                   {/* Main Stage Modal Container */}
@@ -1907,7 +1907,7 @@ export default function App() {
                         {/* Premium Back Navigation Option */}
                         <button
                           onClick={() => setActiveWorld(null)}
-                          className="inline-flex items-center space-x-2.5 text-[9px] font-mono tracking-[0.25em] text-white/45 hover:text-[#EAB308] transition-colors uppercase cursor-pointer mb-2 group"
+                          className="inline-flex items-center space-x-2.5 text-xs font-mono tracking-[0.25em] text-white/45 hover:text-[#EAB308] transition-colors uppercase cursor-pointer mb-2 group"
                         >
                           <span className="transform transition-transform group-hover:-translate-x-1 duration-300">←</span>
                           <span>BACK TO CINEMATIC PHILOSOPHY</span>
@@ -1918,7 +1918,7 @@ export default function App() {
                             WORLD {activeWorld.number}
                           </span>
                           <span className="w-8 h-[1px] bg-white/20" />
-                          <span className="font-mono text-[8.5px] text-white/40 tracking-[0.25em] uppercase">
+                          <span className="font-mono text-xs text-white/40 tracking-[0.25em] uppercase">
                             {activeWorld.category}
                           </span>
                         </div>
@@ -1927,7 +1927,7 @@ export default function App() {
                           <h2 className="text-3xl md:text-5xl font-light font-serif italic text-white leading-tight">
                             {activeWorld.title}
                           </h2>
-                          <p className="font-mono text-[10px] text-[#EAB308] tracking-widest uppercase font-medium">
+                          <p className="font-mono text-xs text-[#EAB308] tracking-widest uppercase font-medium">
                       // {activeWorld.subtitle}
                           </p>
                         </div>
@@ -1942,7 +1942,7 @@ export default function App() {
 
                         {/* Specific Disciplines Breakdown */}
                         <div className="space-y-4 pt-4">
-                          <h4 className="font-mono text-[9px] text-white/30 tracking-widest uppercase">
+                          <h4 className="font-mono text-xs text-white/30 tracking-widest uppercase">
                             CORE DISCIPLINARY STREAMS
                           </h4>
                           <div className="space-y-3">
@@ -1963,7 +1963,7 @@ export default function App() {
                       <div className="grid grid-cols-2 gap-4 pt-8 border-t border-white/5 mt-8 text-left relative z-10">
                         {activeWorld.specs.map((spec, index) => (
                           <div key={index} className="space-y-1">
-                            <span className="font-mono text-[7.5px] text-white/40 tracking-widest block uppercase">
+                            <span className="font-mono text-[11px] text-white/40 tracking-widest block uppercase">
                               {spec.label}
                             </span>
                             <p className="font-display font-medium text-xs text-white/90">
@@ -1995,7 +1995,7 @@ export default function App() {
                             </div>
 
                             <div className="space-y-2">
-                              <span className="font-mono text-[9px] text-[#EAB308] tracking-[0.3em] font-bold block uppercase">
+                              <span className="font-mono text-xs text-[#EAB308] tracking-[0.3em] font-bold block uppercase">
                                 TRANSMISSION SECURED // RESERVATION RESERVED
                               </span>
                               <h3 className="text-2xl md:text-3xl font-display font-black text-white tracking-tight">
@@ -2008,14 +2008,14 @@ export default function App() {
 
                             {/* Luxurious Monospace Metadata Receipt Slate Card */}
                             <div className="bg-black/40 border border-white/10 rounded-2xl p-5 max-w-sm mx-auto text-left font-mono relative overflow-hidden shadow-2xl">
-                              <div className="absolute top-0 right-0 bg-[#EAB308]/10 text-[#EAB308] text-[7px] px-2 py-0.5 rounded-bl border-l border-b border-white/10 font-bold">
+                              <div className="absolute top-0 right-0 bg-[#EAB308]/10 text-[#EAB308] text-[11px] px-2 py-0.5 rounded-bl border-l border-b border-white/10 font-bold">
                                 ACTIVE STATUS
                               </div>
-                              <span className="text-[8px] text-white/30 tracking-widest uppercase block mb-3 border-b border-white/5 pb-2">
+                              <span className="text-xs text-white/30 tracking-widest uppercase block mb-3 border-b border-white/5 pb-2">
                                 MAYAVI LEDGER BLUEPRINT SYSTEM
                               </span>
 
-                              <div className="space-y-2 text-[10px]">
+                              <div className="space-y-2 text-xs">
                                 <div className="flex justify-between">
                                   <span className="text-white/40">REGISTRATION CODE:</span>
                                   <span className="text-amber-400 font-bold">{enrollCode}</span>
@@ -2038,7 +2038,7 @@ export default function App() {
                                 </div>
                                 <div className="flex justify-between border-t border-white/5 pt-2 mt-2">
                                   <span className="text-white/40">FORMAT LOG:</span>
-                                  <span className="text-white/60 text-[9px]">RAW 8K // LOG-C REC2020</span>
+                                  <span className="text-white/60 text-xs">RAW 8K // LOG-C REC2020</span>
                                 </div>
                               </div>
                             </div>
@@ -2046,7 +2046,7 @@ export default function App() {
                             <div className="pt-4">
                               <button
                                 onClick={() => setActiveWorld(null)}
-                                className="px-6 py-3 rounded-full text-[10px] font-mono tracking-widest bg-white text-black font-bold hover:bg-amber-400 hover:text-black transition-all duration-300 uppercase cursor-pointer"
+                                className="px-6 py-3 rounded-full text-xs font-mono tracking-widest bg-white text-black font-bold hover:bg-amber-400 hover:text-black transition-all duration-300 uppercase cursor-pointer"
                               >
                                 DISMISS PREVIEW
                               </button>
@@ -2060,7 +2060,7 @@ export default function App() {
                             className="space-y-6 text-left"
                           >
                             <div className="space-y-2">
-                              <span className="font-mono text-[9px] text-[#EAB308] tracking-[0.25em] font-bold block uppercase">
+                              <span className="font-mono text-xs text-[#EAB308] tracking-[0.25em] font-bold block uppercase">
                                 SECURE TRANSMISSION FORM
                               </span>
                               <h3 className="text-xl md:text-2xl font-display font-black text-white">
@@ -2074,7 +2074,7 @@ export default function App() {
                             <form onSubmit={handleEnrollmentSubmit} className="space-y-4">
                               {/* Dynamic Focus Selection Dropdown based on active world category */}
                               <div className="space-y-1.5">
-                                <label className="font-mono text-[8px] text-white/40 tracking-widest block uppercase">
+                                <label className="font-mono text-xs text-white/40 tracking-widest block uppercase">
                                   1. SELECT FOCUS SPECIFICATION
                                 </label>
                                 <select
@@ -2117,7 +2117,7 @@ export default function App() {
 
                               {/* Custom Dynamic Tier Radio select buttons */}
                               <div className="space-y-2">
-                                <label className="font-mono text-[8px] text-white/40 tracking-widest block uppercase">
+                                <label className="font-mono text-xs text-white/40 tracking-widest block uppercase">
                                   2. SECURE SERVICE SUITE
                                 </label>
                                 <div className="grid grid-cols-2 gap-2">
@@ -2132,7 +2132,7 @@ export default function App() {
                                       className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${enrollTier === tier.label ? 'border-amber-500 bg-amber-500/5' : 'border-white/5 hover:border-white/10'}`}
                                     >
                                       <span className="font-display font-bold text-xs text-white block">{tier.label}</span>
-                                      <span className="text-[9px] text-white/40 leading-tight block mt-0.5">{tier.desc}</span>
+                                      <span className="text-xs text-white/40 leading-tight block mt-0.5">{tier.desc}</span>
                                     </button>
                                   ))}
                                 </div>
@@ -2141,7 +2141,7 @@ export default function App() {
                               {/* Client Identifiers Grid */}
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                                 <div className="space-y-1">
-                                  <label className="font-mono text-[8px] text-white/40 tracking-widest block uppercase">FULL NAME</label>
+                                  <label className="font-mono text-xs text-white/40 tracking-widest block uppercase">FULL NAME</label>
                                   <input
                                     type="text"
                                     required
@@ -2152,7 +2152,7 @@ export default function App() {
                                   />
                                 </div>
                                 <div className="space-y-1">
-                                  <label className="font-mono text-[8px] text-white/40 tracking-widest block uppercase">EMAIL ADDRESS</label>
+                                  <label className="font-mono text-xs text-white/40 tracking-widest block uppercase">EMAIL ADDRESS</label>
                                   <input
                                     type="email"
                                     required
@@ -2165,7 +2165,7 @@ export default function App() {
                               </div>
 
                               <div className="space-y-1">
-                                <label className="font-mono text-[8px] text-white/40 tracking-widest block uppercase">PROJECT TIMELINE & CONCEPT SCOPE</label>
+                                <label className="font-mono text-xs text-white/40 tracking-widest block uppercase">PROJECT TIMELINE & CONCEPT SCOPE</label>
                                 <textarea
                                   rows={3}
                                   required
@@ -2227,7 +2227,7 @@ export default function App() {
             {/* Modal Header */}
             <div className="flex justify-between items-center w-full max-w-7xl mx-auto shrink-0 relative z-20 pb-2">
               <div>
-                <span className="font-mono text-[8px] sm:text-[9px] tracking-[0.25em] text-[#EAB308] uppercase block mb-0.5 sm:mb-1">
+                <span className="font-mono text-xs sm:text-xs tracking-[0.25em] text-[#EAB308] uppercase block mb-0.5 sm:mb-1">
                   MAYAVI MEDIA CREATIONS // SHOWCASE
                 </span>
                 <h2 className="font-sans font-bold text-base sm:text-lg md:text-xl text-white tracking-wide">
@@ -2256,7 +2256,7 @@ export default function App() {
               <div className="lg:w-1/3 space-y-6 text-left hidden lg:block shrink-0">
                 <div className="inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
                   <Sparkles size={11} className="text-amber-400" />
-                  <span className="font-mono text-[8px] tracking-widest text-amber-400">9:16 ARRI RAW COMPOSE</span>
+                  <span className="font-mono text-xs tracking-widest text-amber-400">9:16 ARRI RAW COMPOSE</span>
                 </div>
                 <h3 className="font-sans font-extrabold text-3xl tracking-tight leading-tight">
                   Composed for Mobile Cinema
@@ -2266,11 +2266,11 @@ export default function App() {
                 </p>
 
                 <div className="space-y-2 pt-4 border-t border-white/10">
-                  <div className="flex items-center justify-between text-[10px] font-mono">
+                  <div className="flex items-center justify-between text-xs font-mono">
                     <span className="text-white/40">COLOR PIPELINE</span>
                     <span className="text-white/80">LUT PACK REC709</span>
                   </div>
-                  <div className="flex items-center justify-between text-[10px] font-mono">
+                  <div className="flex items-center justify-between text-xs font-mono">
                     <span className="text-white/40">MASTER LENS</span>
                     <span className="text-amber-400">ZEISS S35 ULTRA</span>
                   </div>
@@ -2342,7 +2342,7 @@ export default function App() {
                           )}
                           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 pointer-events-none" />
                           <div className="absolute inset-x-3 sm:inset-x-4 bottom-8 sm:bottom-12 text-center text-white space-y-1 sm:space-y-2 pointer-events-none">
-                            <span className="font-mono text-[8px] sm:text-[9px] tracking-widest text-[#EAB308] uppercase block">
+                            <span className="font-mono text-xs sm:text-xs tracking-widest text-[#EAB308] uppercase block">
                               {activeChapter.title}
                             </span>
                             <p className="font-display font-bold text-xs sm:text-sm tracking-tight">{activeChapter.subtitle}</p>
@@ -2354,10 +2354,10 @@ export default function App() {
 
                   {/* Shutter lines overlay */}
                   <div className="absolute inset-0 pointer-events-none z-20 border border-white/5 rounded-[32px] sm:rounded-[36px]" />
-                  <div className="absolute top-8 sm:top-12 left-3 sm:left-4 z-20 font-mono text-[6.5px] sm:text-[7px] text-white/50 tracking-widest">
+                  <div className="absolute top-8 sm:top-12 left-3 sm:left-4 z-20 font-mono text-xs sm:text-sm text-white/70 tracking-wider">
                     REC 04:12 // LOG-C
                   </div>
-                  <div className="absolute top-8 sm:top-12 right-3 sm:right-4 z-20 font-mono text-[6.5px] sm:text-[7px] text-red-500 tracking-widest animate-pulse">
+                  <div className="absolute top-8 sm:top-12 right-3 sm:right-4 z-20 font-mono text-xs sm:text-sm text-red-500 tracking-wider font-semibold animate-pulse">
                     ● ACTIVE STREAM
                   </div>
 
@@ -2383,7 +2383,7 @@ export default function App() {
                           videoUrl: cur.videoUrl,
                           scenes: ['/hero_stage_a.png']
                         })}
-                        className="absolute bottom-14 right-3 z-30 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white text-[8px] font-mono flex items-center space-x-1 hover:border-[#EAB308] hover:text-[#EAB308] transition-all cursor-pointer shadow-lg"
+                        className="absolute bottom-14 right-3 z-30 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white text-xs font-mono flex items-center space-x-1 hover:border-[#EAB308] hover:text-[#EAB308] transition-all cursor-pointer shadow-lg"
                         title="Watch in Expanded Lightbox"
                       >
                         <Play size={9} className="text-[#EAB308]" />
@@ -2410,7 +2410,7 @@ export default function App() {
 
               {/* Right Side interactive list select */}
               <div className="w-full lg:w-1/3 flex flex-col justify-center space-y-3 sm:space-y-4 shrink-0">
-                <span className="font-mono text-[8px] tracking-[0.2em] text-white/40 uppercase">
+                <span className="font-mono text-xs tracking-[0.2em] text-white/40 uppercase">
                   Select Cinematic Scene
                 </span>
 
@@ -2425,21 +2425,21 @@ export default function App() {
                       className={`w-full text-left p-3 sm:p-4 rounded-xl border transition-all duration-300 cursor-pointer ${showreelScene === idx ? 'border-amber-500 bg-white/5 shadow-[0_0_15px_rgba(234,179,8,0.1)]' : 'border-white/5 hover:border-white/10 bg-transparent'}`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={`font-mono text-[9px] sm:text-[10px] tracking-widest ${showreelScene === idx ? 'text-amber-400 font-bold' : 'text-white/40'}`}>
+                        <span className={`font-mono text-xs sm:text-xs tracking-widest ${showreelScene === idx ? 'text-amber-400 font-bold' : 'text-white/40'}`}>
                           {scene.title}
                         </span>
                         {showreelScene === idx && <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />}
                       </div>
-                      <p className="text-[10px] sm:text-xs text-white/70 mt-1 line-clamp-1 sm:line-clamp-none">{scene.directorNotes || scene.subtitle}</p>
+                      <p className="text-xs sm:text-xs text-white/70 mt-1 line-clamp-1 sm:line-clamp-none">{scene.directorNotes || scene.subtitle}</p>
                     </button>
                   ))}
                 </div>
 
-                <div className="pt-2 sm:pt-4 flex justify-between items-center text-[9px] sm:text-[10px] text-white/40 font-mono">
+                <div className="pt-2 sm:pt-4 flex justify-between items-center text-xs sm:text-xs text-white/40 font-mono">
                   <button
                     type="button"
                     onClick={() => setShowreelAutoPlay(!showreelAutoPlay)}
-                    className={`px-2.5 py-1 rounded-lg border text-[9px] font-mono flex items-center space-x-1.5 transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-lg border text-xs font-mono flex items-center space-x-1.5 transition-all cursor-pointer ${
                       showreelAutoPlay ? 'bg-amber-400/20 border-amber-400 text-amber-300' : 'bg-white/5 border-white/10 text-white/60 hover:text-white'
                     }`}
                   >
@@ -2454,11 +2454,11 @@ export default function App() {
 
             {/* Modal Footer */}
             <div className="w-full max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center border-t border-white/5 pt-4 sm:pt-6 gap-3 sm:gap-4 shrink-0 text-center sm:text-left">
-              <span className="font-mono text-[8px] sm:text-[9px] tracking-widest text-white/30">
+              <span className="font-mono text-xs sm:text-xs tracking-widest text-white/30">
                 © 2026 MAYAVI CREATIVE STUDIO. ALL INTELLECTUAL RECORDINGS RESERVED.
               </span>
 
-              <div className="flex items-center space-x-4 sm:space-x-6 text-[9px] sm:text-[10px] font-mono text-white/50">
+              <div className="flex items-center space-x-4 sm:space-x-6 text-xs sm:text-xs font-mono text-white/50">
                 <span>DIRECTOR ENGINE 1.2</span>
                 <span>ARRI LOG-C SPACE</span>
               </div>
@@ -2518,11 +2518,11 @@ export default function App() {
                     <div className="absolute bottom-5 left-6 right-6 flex items-center justify-between z-20 pointer-events-none">
                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/85 border border-amber-400/40 backdrop-blur-md">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
-                        <span className="font-mono text-[9px] text-amber-300 tracking-widest uppercase font-bold">
+                        <span className="font-mono text-xs text-amber-300 tracking-widest uppercase font-bold">
                           PRODUCTION ARCHIVE // SCREENING CUT PENDING
                         </span>
                       </div>
-                      <span className="font-mono text-[8px] text-white/50 tracking-widest uppercase hidden sm:inline-block">
+                      <span className="font-mono text-xs text-white/50 tracking-widest uppercase hidden sm:inline-block">
                         CAN BE ADDED VIA ADMIN CONTROL DECK
                       </span>
                     </div>
@@ -2536,7 +2536,7 @@ export default function App() {
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_6px_#EAB308]" />
-                      <span className="font-mono text-[9px] text-[#EAB308] tracking-widest uppercase font-bold">
+                      <span className="font-mono text-xs text-[#EAB308] tracking-widest uppercase font-bold">
                         {activeProject.category} // {activeProject.duration}
                       </span>
                     </div>
@@ -2551,7 +2551,7 @@ export default function App() {
                         href={activeProject.videoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2.5 rounded-full border border-amber-400/30 hover:border-amber-400/70 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 active:scale-98 flex items-center space-x-1.5"
+                        className="px-4 py-2.5 rounded-full border border-amber-400/30 hover:border-amber-400/70 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 font-mono text-xs tracking-widest uppercase transition-all duration-300 active:scale-98 flex items-center space-x-1.5"
                       >
                         <ExternalLink size={12} />
                         <span>Open on {detectVideoPlatform(activeProject.videoUrl).toUpperCase()}</span>
@@ -2559,7 +2559,7 @@ export default function App() {
                     )}
                     <button
                       onClick={() => setActiveProject(null)}
-                      className="px-6 py-2.5 rounded-full border border-white/20 hover:border-amber-400/60 bg-white/[0.06] hover:bg-amber-400/10 text-white hover:text-amber-300 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 active:scale-98 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.4)]"
+                      className="px-6 py-2.5 rounded-full border border-white/20 hover:border-amber-400/60 bg-white/[0.06] hover:bg-amber-400/10 text-white hover:text-amber-300 font-mono text-xs tracking-widest uppercase transition-all duration-300 active:scale-98 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.4)]"
                     >
                       CLOSE CINEMA
                     </button>
@@ -2571,21 +2571,21 @@ export default function App() {
                 </p>
 
                 {/* Technical stats footer inside Lightbox */}
-                <div className="pt-4 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-left font-mono text-[9px] text-white/50 tracking-wider">
+                <div className="pt-4 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-left font-mono text-xs text-white/50 tracking-wider">
                   <div>
-                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">CAMERA RIG</span>
+                    <span className="block text-white/30 text-[11px] uppercase mb-0.5">CAMERA RIG</span>
                     <span className="text-amber-200/90 font-medium">{activeProject.camera || 'ARRI ALEXA LF'}</span>
                   </div>
                   <div>
-                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">OPTICS / LENS</span>
+                    <span className="block text-white/30 text-[11px] uppercase mb-0.5">OPTICS / LENS</span>
                     <span className="text-white/80 font-medium">{activeProject.lens || 'ZEISS SUPREME'}</span>
                   </div>
                   <div>
-                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">LOCATION SITE</span>
+                    <span className="block text-white/30 text-[11px] uppercase mb-0.5">LOCATION SITE</span>
                     <span className="text-white/80 font-medium">{activeProject.location || 'HYDERABAD'}</span>
                   </div>
                   <div>
-                    <span className="block text-white/30 text-[7px] uppercase mb-0.5">DIRECTOR STATUS</span>
+                    <span className="block text-white/30 text-[11px] uppercase mb-0.5">DIRECTOR STATUS</span>
                     <span className="text-emerald-400 font-bold">MASTER ARCHIVE</span>
                   </div>
                 </div>
@@ -2621,7 +2621,7 @@ export default function App() {
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 text-left">
                 <div className="flex items-center space-x-2.5">
                   <Sparkles size={14} className="text-[#EAB308]" />
-                  <span className="font-mono text-[9px] text-[#EAB308] font-bold tracking-[0.25em] uppercase">
+                  <span className="font-mono text-xs text-[#EAB308] font-bold tracking-[0.25em] uppercase">
                     STUDIO INQUIRY // MAYAVI MEDIA CREATIONS
                   </span>
                 </div>
@@ -2656,7 +2656,7 @@ export default function App() {
                       <h4 className="font-serif text-lg text-white font-light italic">
                         Dispatching Brief to WhatsApp...
                       </h4>
-                      <p className="font-mono text-[8px] text-white/40 tracking-widest uppercase">
+                      <p className="font-mono text-xs text-white/40 tracking-widest uppercase">
                         CONNECTING DIRECTLY WITH MAYAVI DIRECTORS
                       </p>
                     </div>
@@ -2676,7 +2676,7 @@ export default function App() {
                       <CheckCircle2 size={24} />
                     </div>
                     <div className="space-y-2">
-                      <span className="font-mono text-[8px] text-[#EAB308] tracking-[0.25em] uppercase font-bold block">
+                      <span className="font-mono text-xs text-[#EAB308] tracking-[0.25em] uppercase font-bold block">
                         BRIEF TRANSMISSION DISPATCHED
                       </span>
                       <h3 className="font-serif text-2xl text-white font-light">Thank You</h3>
@@ -2686,7 +2686,7 @@ export default function App() {
                     </div>
 
                     <div className="bg-white/[0.02] border border-white/5 p-3 rounded-xl max-w-xs mx-auto space-y-1">
-                      <span className="font-mono text-[7px] text-white/30 tracking-widest block uppercase">
+                      <span className="font-mono text-[11px] text-white/30 tracking-widest block uppercase">
                         BRIEF IDENTIFIER
                       </span>
                       <p className="font-mono text-xs text-[#EAB308] font-bold tracking-widest">{leadId}</p>
@@ -2699,7 +2699,7 @@ export default function App() {
                           setFormSubmitted(false);
                           setContactOpen(false);
                         }}
-                        className="px-6 py-2.5 rounded-full font-mono text-[9px] tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all uppercase cursor-pointer"
+                        className="px-6 py-2.5 rounded-full font-mono text-xs tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all uppercase cursor-pointer"
                       >
                         Close Window
                       </button>
@@ -2719,10 +2719,10 @@ export default function App() {
                     {/* Stepper Progress Bar */}
                     <div className="space-y-2.5 border-b border-white/10 pb-4">
                       <div className="flex items-center justify-between text-left">
-                        <span className="font-mono text-[8px] tracking-[0.25em] text-[#EAB308] uppercase block font-bold">
+                        <span className="font-mono text-xs tracking-[0.25em] text-[#EAB308] uppercase block font-bold">
                           CONFIGURATOR // STEP 0{formStep} OF 04
                         </span>
-                        <span className="font-mono text-[8px] text-white/40 tracking-widest uppercase">
+                        <span className="font-mono text-xs text-white/40 tracking-widest uppercase">
                           {formStep === 1 ? '01 WORLDS' : formStep === 2 ? '02 SPECS' : formStep === 3 ? '03 TELEMETRY' : '04 DISPATCH'}
                         </span>
                       </div>
@@ -2779,7 +2779,7 @@ export default function App() {
                                   </div>
                                   <div>
                                     <h5 className="font-sans font-medium text-xs text-white">{item.title}</h5>
-                                    <p className="font-mono text-[8px] text-white/40 tracking-wider mt-0.5">{item.desc}</p>
+                                    <p className="font-mono text-xs text-white/40 tracking-wider mt-0.5">{item.desc}</p>
                                   </div>
                                 </div>
                               );
@@ -2790,7 +2790,7 @@ export default function App() {
                             <button
                               type="button"
                               onClick={() => setFormStep(2)}
-                              className="px-6 py-2.5 rounded-full font-mono text-[9px] tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all cursor-pointer uppercase flex items-center space-x-2"
+                              className="px-6 py-2.5 rounded-full font-mono text-xs tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all cursor-pointer uppercase flex items-center space-x-2"
                             >
                               <span>Next: Production Specs</span>
                               <span>→</span>
@@ -2813,14 +2813,14 @@ export default function App() {
                           </div>
 
                           <div className="space-y-2">
-                            <label className="font-mono text-[8.5px] text-white/50 tracking-widest uppercase block">PRODUCTION FORMAT</label>
+                            <label className="font-mono text-xs text-white/50 tracking-widest uppercase block">PRODUCTION FORMAT</label>
                             <div className="grid grid-cols-2 gap-2">
                               {['Brand Film', 'Vertical Series (9:16)', 'Commercial Campaign', 'Executive Documentary'].map((fmt) => (
                                 <button
                                   key={fmt}
                                   type="button"
                                   onClick={() => setClientFormat(fmt)}
-                                  className={`px-3 py-2 rounded-xl border font-mono text-[8.5px] tracking-wider text-center transition-all cursor-pointer ${clientFormat === fmt
+                                  className={`px-3 py-2 rounded-xl border font-mono text-xs tracking-wider text-center transition-all cursor-pointer ${clientFormat === fmt
                                     ? 'bg-amber-400/10 border-amber-400/50 text-amber-400 font-bold'
                                     : 'bg-white/[0.02] border-white/8 text-white/50 hover:text-white'
                                     }`}
@@ -2832,7 +2832,7 @@ export default function App() {
                           </div>
 
                           <div className="space-y-2">
-                            <label className="font-mono text-[8.5px] text-white/50 tracking-widest uppercase block">CAMERA OPTICS PACKAGE</label>
+                            <label className="font-mono text-xs text-white/50 tracking-widest uppercase block">CAMERA OPTICS PACKAGE</label>
                             <div className="space-y-2">
                               {[
                                 { name: 'ARRI Alexa Mini LF', sub: 'Anamorphic Large Format • Cinema Gold Standard' },
@@ -2849,7 +2849,7 @@ export default function App() {
                                 >
                                   <div>
                                     <span className="font-mono text-xs font-bold text-white block">{cam.name}</span>
-                                    <span className="font-mono text-[7.5px] text-white/40 tracking-wider block">{cam.sub}</span>
+                                    <span className="font-mono text-[11px] text-white/40 tracking-wider block">{cam.sub}</span>
                                   </div>
                                   <span className={`w-2 h-2 rounded-full ${clientCamera === cam.name ? 'bg-amber-400 shadow-[0_0_8px_#EAB308]' : 'bg-white/10'}`} />
                                 </div>
@@ -2861,14 +2861,14 @@ export default function App() {
                             <button
                               type="button"
                               onClick={() => setFormStep(1)}
-                              className="px-4 py-2 rounded-full font-mono text-[9px] tracking-widest text-white/50 hover:text-white border border-white/10 cursor-pointer uppercase"
+                              className="px-4 py-2 rounded-full font-mono text-xs tracking-widest text-white/50 hover:text-white border border-white/10 cursor-pointer uppercase"
                             >
                               ← Back
                             </button>
                             <button
                               type="button"
                               onClick={() => setFormStep(3)}
-                              className="px-6 py-2.5 rounded-full font-mono text-[9px] tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all cursor-pointer uppercase flex items-center space-x-2"
+                              className="px-6 py-2.5 rounded-full font-mono text-xs tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all cursor-pointer uppercase flex items-center space-x-2"
                             >
                               <span>Next: Telemetry & Budget</span>
                               <span>→</span>
@@ -2892,7 +2892,7 @@ export default function App() {
 
                           <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                              <label className="font-mono text-[8.5px] text-white/60 tracking-wider block uppercase">ESTIMATED BUDGET SCALE</label>
+                              <label className="font-mono text-xs text-white/60 tracking-wider block uppercase">ESTIMATED BUDGET SCALE</label>
                               <span className="font-mono text-xs text-[#EAB308] font-bold">
                                 ${clientBudget.toLocaleString()} USD
                               </span>
@@ -2912,9 +2912,9 @@ export default function App() {
                           <div className="bg-black/60 border border-amber-400/20 p-3.5 rounded-xl space-y-2 text-left shadow-xl">
                             <div className="flex items-center space-x-2 border-b border-white/10 pb-1.5">
                               <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                              <span className="font-mono text-[8px] text-amber-400 font-bold tracking-widest uppercase">REAL-TIME PRODUCTION TELEMETRY</span>
+                              <span className="font-mono text-xs text-amber-400 font-bold tracking-widest uppercase">REAL-TIME PRODUCTION TELEMETRY</span>
                             </div>
-                            <div className="grid grid-cols-2 gap-2 text-left font-mono text-[8.5px]">
+                            <div className="grid grid-cols-2 gap-2 text-left font-mono text-xs">
                               <div>
                                 <span className="text-white/30 uppercase block">CAMERA SYSTEM:</span>
                                 <span className="text-white/90 font-bold">{clientCamera}</span>
@@ -2937,14 +2937,14 @@ export default function App() {
                           </div>
 
                           <div className="space-y-2">
-                            <label className="font-mono text-[8.5px] text-white/50 tracking-widest uppercase block">PROJECT TIMELINE</label>
+                            <label className="font-mono text-xs text-white/50 tracking-widest uppercase block">PROJECT TIMELINE</label>
                             <div className="grid grid-cols-3 gap-2">
                               {['Immediate (1-2 Wks)', 'Standard (4-6 Wks)', 'Flexible / Q3'].map((tl) => (
                                 <button
                                   key={tl}
                                   type="button"
                                   onClick={() => setClientTimeline(tl)}
-                                  className={`px-2 py-1.5 rounded-xl border font-mono text-[8px] tracking-wider text-center transition-all cursor-pointer ${clientTimeline === tl
+                                  className={`px-2 py-1.5 rounded-xl border font-mono text-xs tracking-wider text-center transition-all cursor-pointer ${clientTimeline === tl
                                     ? 'bg-amber-400/10 border-amber-400/50 text-amber-400 font-bold'
                                     : 'bg-white/[0.02] border-white/8 text-white/50 hover:text-white'
                                     }`}
@@ -2959,14 +2959,14 @@ export default function App() {
                             <button
                               type="button"
                               onClick={() => setFormStep(2)}
-                              className="px-4 py-2 rounded-full font-mono text-[9px] tracking-widest text-white/50 hover:text-white border border-white/10 cursor-pointer uppercase"
+                              className="px-4 py-2 rounded-full font-mono text-xs tracking-widest text-white/50 hover:text-white border border-white/10 cursor-pointer uppercase"
                             >
                               ← Back
                             </button>
                             <button
                               type="button"
                               onClick={() => setFormStep(4)}
-                              className="px-6 py-2.5 rounded-full font-mono text-[9px] tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all cursor-pointer uppercase flex items-center space-x-2"
+                              className="px-6 py-2.5 rounded-full font-mono text-xs tracking-widest bg-[#EAB308] text-black font-bold hover:bg-amber-400 transition-all cursor-pointer uppercase flex items-center space-x-2"
                             >
                               <span>Next: Client Details</span>
                               <span>→</span>
@@ -2990,7 +2990,7 @@ export default function App() {
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                              <label className="font-mono text-[8.5px] text-white/60 tracking-wider block uppercase">Full Name *</label>
+                              <label className="font-mono text-xs text-white/60 tracking-wider block uppercase">Full Name *</label>
                               <input
                                 type="text"
                                 required
@@ -3001,7 +3001,7 @@ export default function App() {
                               />
                             </div>
                             <div className="space-y-1">
-                              <label className="font-mono text-[8.5px] text-white/60 tracking-wider block uppercase">Email Address *</label>
+                              <label className="font-mono text-xs text-white/60 tracking-wider block uppercase">Email Address *</label>
                               <input
                                 type="email"
                                 required
@@ -3015,7 +3015,7 @@ export default function App() {
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                              <label className="font-mono text-[8.5px] text-white/60 tracking-wider block uppercase">WhatsApp Number *</label>
+                              <label className="font-mono text-xs text-white/60 tracking-wider block uppercase">WhatsApp Number *</label>
                               <input
                                 type="tel"
                                 required
@@ -3026,7 +3026,7 @@ export default function App() {
                               />
                             </div>
                             <div className="space-y-1">
-                              <label className="font-mono text-[8.5px] text-white/60 tracking-wider block uppercase">Company / Brand</label>
+                              <label className="font-mono text-xs text-white/60 tracking-wider block uppercase">Company / Brand</label>
                               <input
                                 type="text"
                                 value={clientCompany}
@@ -3038,7 +3038,7 @@ export default function App() {
                           </div>
 
                           <div className="space-y-1">
-                            <label className="font-mono text-[8.5px] text-white/60 tracking-wider block uppercase">Tell Us Your Vision *</label>
+                            <label className="font-mono text-xs text-white/60 tracking-wider block uppercase">Tell Us Your Vision *</label>
                             <textarea
                               rows={3}
                               required
@@ -3053,13 +3053,13 @@ export default function App() {
                             <button
                               type="button"
                               onClick={() => setFormStep(3)}
-                              className="px-4 py-2 rounded-full font-mono text-[9px] tracking-widest text-white/50 hover:text-white border border-white/10 cursor-pointer uppercase"
+                              className="px-4 py-2 rounded-full font-mono text-xs tracking-widest text-white/50 hover:text-white border border-white/10 cursor-pointer uppercase"
                             >
                               ← Back
                             </button>
                             <button
                               type="submit"
-                              className="px-6 py-2.5 rounded-full text-[9px] font-mono tracking-[0.2em] uppercase bg-[#EAB308] hover:bg-amber-400 text-black font-extrabold shadow-[0_4px_20px_rgba(234,179,8,0.3)] transition-all cursor-pointer flex items-center space-x-2"
+                              className="px-6 py-2.5 rounded-full text-xs font-mono tracking-[0.2em] uppercase bg-[#EAB308] hover:bg-amber-400 text-black font-extrabold shadow-[0_4px_20px_rgba(234,179,8,0.3)] transition-all cursor-pointer flex items-center space-x-2"
                             >
                               <span>LAUNCH PRODUCTION BRIEF</span>
                               <span>→</span>

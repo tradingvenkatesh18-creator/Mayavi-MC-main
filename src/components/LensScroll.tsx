@@ -304,7 +304,7 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
               className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#0B0914] gap-5"
             >
               <div className="w-10 h-10 border border-white/10 border-t-[#EAB308] rounded-full animate-spin"></div>
-              <span className="font-mono text-[10px] text-[#EAB308] tracking-[0.3em] uppercase">Preloading Optics</span>
+              <span className="font-mono text-xs text-[#EAB308] tracking-[0.3em] uppercase">Preloading Optics</span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -322,7 +322,7 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
           <div className="max-w-xl text-center md:text-left pointer-events-auto space-y-4 sm:space-y-6 bg-[#0B0914]/75 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-5 sm:p-6 md:p-0 rounded-2xl md:rounded-none border border-white/10 md:border-none shadow-2xl md:shadow-none mx-2 sm:mx-0 relative z-40">
             <div className="flex items-center gap-2.5 justify-center md:justify-start">
               <div className="w-6 md:w-8 h-[1px] bg-[#EAB308]/60"></div>
-              <span className="text-[#EAB308] font-mono text-[8.5px] sm:text-[9px] md:text-[10px] tracking-[0.25em] md:tracking-[0.3em] uppercase font-semibold">
+              <span className="text-[#EAB308] font-mono text-xs sm:text-sm font-semibold tracking-[0.25em] md:tracking-[0.3em] uppercase font-semibold">
                 Stories That Inspire • Visuals That Stay
               </span>
             </div>
@@ -346,7 +346,7 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
                   e.stopPropagation();
                   onExploreWork?.();
                 }}
-                className="bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold py-3.5 px-7 md:px-8 rounded-full shadow-[0_4px_25px_rgba(234,179,8,0.3)] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer hover:scale-105 active:scale-98 w-full sm:w-auto pointer-events-auto"
+                className="bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase font-bold py-3.5 px-7 md:px-8 rounded-full shadow-[0_4px_25px_rgba(234,179,8,0.3)] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer hover:scale-105 active:scale-98 w-full sm:w-auto pointer-events-auto"
               >
                 <span>EXPLORE OUR WORK</span>
                 <ArrowRight size={13} />
@@ -358,7 +358,7 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
                   e.stopPropagation();
                   onWatchShowreel?.();
                 }}
-                className="bg-white/10 md:bg-white/5 border border-white/20 md:border-white/15 hover:border-[#EAB308]/40 hover:bg-white/15 text-white font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase py-3.5 px-7 md:px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer active:scale-98 w-full sm:w-auto pointer-events-auto"
+                className="bg-white/10 md:bg-white/5 border border-white/20 md:border-white/15 hover:border-[#EAB308]/40 hover:bg-white/15 text-white font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase py-3.5 px-7 md:px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer active:scale-98 w-full sm:w-auto pointer-events-auto"
               >
                 <div className="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center">
                   <Play size={8} className="fill-white text-white ml-0.5" />
@@ -379,7 +379,7 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
         >
           <div className="max-w-xl text-center md:text-right pointer-events-auto flex flex-col items-center md:items-end space-y-4 sm:space-y-6 bg-[#0c081e]/85 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-5 sm:p-6 md:p-0 rounded-2xl md:rounded-none border border-[#EAB308]/20 md:border-none shadow-2xl md:shadow-none mx-2 sm:mx-0">
             <div className="flex items-center gap-2.5 justify-center md:justify-end">
-              <span className="text-[#EAB308] font-mono text-[8.5px] sm:text-[9px] md:text-[10px] tracking-[0.25em] md:tracking-[0.3em] uppercase font-semibold">02 / OPTICAL DISASSEMBLY</span>
+              <span className="text-[#EAB308] font-mono text-xs sm:text-sm font-semibold tracking-[0.25em] md:tracking-[0.3em] uppercase font-semibold">02 / OPTICAL DISASSEMBLY</span>
               <div className="w-6 md:w-8 h-[1px] bg-[#EAB308]/60"></div>
             </div>
 
@@ -394,13 +394,13 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
               Every element is engineered to capture light, depth, and raw emotion with uncompromised clarity.
             </p>
 
-            <div className="bg-[#0c081e]/90 md:bg-[#0c081e]/85 backdrop-blur-md p-4 sm:p-5 rounded-xl border border-[#EAB308]/25 max-w-xs text-left font-mono text-[10px] sm:text-[11px] text-white/70 space-y-2 shadow-xl mx-auto md:mr-0 w-full sm:w-auto">
+            <div className="bg-[#0c081e]/90 md:bg-[#0c081e]/85 backdrop-blur-md p-4 sm:p-5 rounded-xl border border-[#EAB308]/25 max-w-xs text-left font-mono text-xs sm:text-[11px] text-white/70 space-y-2 shadow-xl mx-auto md:mr-0 w-full sm:w-auto">
               <div className="flex justify-between border-b border-white/10 pb-2">
-                <span className="text-white/40">FORMAT</span>
+                <span className="text-white/60">FORMAT</span>
                 <span className="text-white/90">ANAMORPHIC RAW</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-white/40">ELEMENTS</span>
+                <span className="text-white/60">ELEMENTS</span>
                 <span className="text-[#EAB308] font-bold">14 OPTICAL GROUPS</span>
               </div>
             </div>
@@ -416,7 +416,7 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
           className="absolute inset-0 z-20 flex flex-col justify-center items-center px-4 sm:px-6 text-center max-w-3xl mx-auto w-full pointer-events-none"
         >
           <div className="bg-[#070414]/90 backdrop-blur-xl p-6 sm:p-12 md:p-14 rounded-2xl border border-[#EAB308]/25 pointer-events-auto flex flex-col items-center shadow-[0_0_60px_rgba(0,0,0,0.85)] w-full">
-            <span className="text-[#EAB308] font-mono text-[8.5px] sm:text-[9px] md:text-[10px] tracking-[0.25em] md:tracking-[0.3em] uppercase font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+            <span className="text-[#EAB308] font-mono text-xs sm:text-sm font-semibold tracking-[0.25em] md:tracking-[0.3em] uppercase font-semibold mb-3 sm:mb-4 flex items-center gap-2">
               <Sparkles size={12} className="text-[#EAB308]" />
               MAYAVI MEDIA CREATIONS
             </span>
@@ -435,14 +435,14 @@ export default function LensScroll({ onExploreWork, onWatchShowreel, onStartProj
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={onStartProject}
-                className="bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold py-3.5 px-8 sm:px-9 rounded-full transition-all duration-300 cursor-pointer shadow-[0_4px_25px_rgba(234,179,8,0.3)] hover:scale-105 active:scale-98 flex items-center justify-center gap-2 w-full sm:w-auto"
+                className="bg-[#EAB308] hover:bg-amber-400 text-black font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase font-bold py-3.5 px-8 sm:px-9 rounded-full transition-all duration-300 cursor-pointer shadow-[0_4px_25px_rgba(234,179,8,0.3)] hover:scale-105 active:scale-98 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <span>START A PROJECT</span>
                 <ArrowRight size={13} />
               </button>
               <button
                 onClick={onExploreWork}
-                className="bg-white/10 md:bg-white/5 border border-white/20 md:border-white/15 hover:border-[#EAB308]/40 hover:bg-white/15 text-white font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase py-3.5 px-8 sm:px-9 rounded-full transition-all duration-300 cursor-pointer active:scale-98 w-full sm:w-auto"
+                className="bg-white/10 md:bg-white/5 border border-white/20 md:border-white/15 hover:border-[#EAB308]/40 hover:bg-white/15 text-white font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase py-3.5 px-8 sm:px-9 rounded-full transition-all duration-300 cursor-pointer active:scale-98 w-full sm:w-auto"
               >
                 VIEW PORTFOLIO
               </button>

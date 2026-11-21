@@ -92,11 +92,11 @@ export const InfiniteMovingCards = ({
               <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-white/5">
                 <div className="flex items-center space-x-2">
                   <Award size={13} className="text-[#EAB308]" />
-                  <span className="font-mono text-[8px] text-amber-300 font-bold tracking-[0.2em] uppercase">
+                  <span className="font-mono text-xs text-amber-300 font-bold tracking-[0.2em] uppercase">
                     {item.laurel}
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 font-mono text-[7.5px] text-amber-400 font-bold">
+                <span className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 font-mono text-xs text-amber-400 font-bold">
                   {item.rating}
                 </span>
               </div>
@@ -104,7 +104,7 @@ export const InfiniteMovingCards = ({
               {/* Quote & Image Split */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
                 <div className="md:col-span-7 space-y-4">
-                  <span className="font-mono text-[7.5px] text-white/40 tracking-widest uppercase block">
+                  <span className="font-mono text-xs text-white/60 tracking-widest uppercase block">
                     {item.publication}
                   </span>
 
@@ -114,10 +114,10 @@ export const InfiniteMovingCards = ({
 
                   <div className="pt-3 border-t border-white/5 space-y-0.5">
                     <h4 className="font-sans text-sm text-white font-bold">{item.author}</h4>
-                    <p className="font-mono text-[8.5px] text-[#EAB308] tracking-widest uppercase">
+                    <p className="font-mono text-xs text-[#EAB308] tracking-widest uppercase">
                       {item.company} // {item.role}
                     </p>
-                    <p className="font-mono text-[7.5px] text-white/40 tracking-wider uppercase">
+                    <p className="font-mono text-xs text-white/60 tracking-wider uppercase">
                       {item.metrics}
                     </p>
                   </div>
@@ -132,9 +132,9 @@ export const InfiniteMovingCards = ({
                       className="w-full h-full object-cover filter grayscale brightness-[0.5] contrast-[1.05] group-hover/img:grayscale-0 group-hover/img:brightness-90 group-hover/img:scale-105 transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
-                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between px-2 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 font-mono text-[7px] text-amber-400 font-bold">
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between px-2 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 font-mono text-xs text-amber-400 font-bold">
                       <span>{item.company}</span>
-                      <span className="text-white/40">EXHIBIT</span>
+                      <span className="text-white/60">EXHIBIT</span>
                     </div>
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export const InfiniteMovingCards = ({
 
               {/* Bottom Interactive Director BTS Button */}
               <div className="mt-5 pt-4 border-t border-white/5 flex items-center justify-between">
-                <span className="font-mono text-[8px] text-white/40 uppercase tracking-widest">
+                <span className="font-mono text-xs text-white/60 uppercase tracking-widest">
                   PROJECT: {item.project}
                 </span>
 
@@ -152,7 +152,7 @@ export const InfiniteMovingCards = ({
                     e.stopPropagation();
                     setActiveBtsId(isBtsOpen ? null : uniqueKey);
                   }}
-                  className={`px-3.5 py-1.5 rounded-full font-mono text-[8px] tracking-widest uppercase border transition-all duration-300 cursor-pointer flex items-center space-x-1.5 ${isBtsOpen
+                  className={`px-3.5 py-1.5 rounded-full font-mono text-xs tracking-widest uppercase border transition-all duration-300 cursor-pointer flex items-center space-x-1.5 ${isBtsOpen
                     ? 'bg-amber-500 text-black font-extrabold border-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.3)]'
                     : 'bg-white/5 text-white/80 hover:text-white hover:bg-white/10 border-white/15'
                     }`}
@@ -170,20 +170,20 @@ export const InfiniteMovingCards = ({
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="mt-4 pt-4 border-t border-amber-500/30 bg-black/60 rounded-2xl p-4 space-y-3 font-mono text-[8.5px] text-left"
+                    className="mt-4 pt-4 border-t border-amber-500/30 bg-black/60 rounded-2xl p-4 space-y-3 font-mono text-xs text-left"
                   >
                     <div className="flex items-center space-x-1.5 text-amber-400">
                       <Sparkles size={12} />
                       <span className="font-bold tracking-widest uppercase">DIRECTOR'S OPTICS BLUEPRINT</span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-[8px]">
+                    <div className="grid grid-cols-2 gap-2 text-xs">
                       <div className="bg-white/5 p-2 rounded-xl border border-white/10">
-                        <span className="text-white/40 uppercase block">RIG:</span>
+                        <span className="text-white/60 uppercase block">RIG:</span>
                         <span className="text-white font-bold">{item.btsNotes.camera}</span>
                       </div>
                       <div className="bg-white/5 p-2 rounded-xl border border-white/10">
-                        <span className="text-white/40 uppercase block">LUT:</span>
+                        <span className="text-white/60 uppercase block">LUT:</span>
                         <span className="text-white font-bold">{item.btsNotes.grading}</span>
                       </div>
                     </div>

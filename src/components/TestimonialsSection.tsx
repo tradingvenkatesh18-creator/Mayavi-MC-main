@@ -389,7 +389,7 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
           {/* Brand Seal */}
           <div className="flex flex-col items-center gap-0.5 opacity-90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
             <span className="font-serif text-lg sm:text-xl tracking-[0.38em] text-[#f0ebd8] font-normal">MAYAVI</span>
-            <span className="text-[8.5px] font-mono tracking-[0.32em] text-[#f0ebd8]/60 uppercase">MEDIA CREATIONS</span>
+            <span className="text-xs font-mono tracking-[0.25em] text-[#f0ebd8]/80 uppercase">MEDIA CREATIONS</span>
           </div>
 
           {/* Category Pill with Ambient Pulse */}
@@ -397,8 +397,8 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
             whileHover={{ scale: 1.04 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#140b25]/85 border border-amber-400/35 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-default transition-all"
           >
-            <Sparkles size={11} className="text-amber-400 animate-pulse" />
-            <span className="font-mono text-[9px] text-amber-300 tracking-[0.26em] uppercase font-bold">
+            <Sparkles size={13} className="text-amber-400 animate-pulse" />
+            <span className="font-mono text-xs sm:text-sm text-amber-300 tracking-[0.2em] uppercase font-bold">
               ✦ CLIENT STORIES // ACOUSTIC RESONANCE
             </span>
           </motion.div>
@@ -491,10 +491,10 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                         {item.author.split(' ').map(n => n[0]).join('').slice(0, 2)}
                       </div>
                       <div className="space-y-0.5 overflow-hidden">
-                        <h4 className="font-sans text-xs text-white font-medium tracking-wide truncate">
+                        <h4 className="font-sans text-sm text-white font-semibold tracking-wide truncate">
                           {item.author}
                         </h4>
-                        <p className="font-mono text-[8.5px] text-white/50 tracking-wider uppercase truncate">
+                        <p className="font-mono text-xs text-white/70 tracking-wider uppercase truncate">
                           {item.role.split('//')[0]}
                         </p>
                       </div>
@@ -502,7 +502,7 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
 
                     {/* Metric Pill Badge */}
                     <span 
-                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[9px] font-semibold tracking-wider uppercase border shadow-sm ${
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-xs font-semibold tracking-wider uppercase border shadow-sm ${
                         isCenterCard 
                           ? 'border-amber-400/40 bg-amber-400/10 text-amber-300' 
                           : idx === 0 
@@ -510,8 +510,8 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                           : 'border-amber-300/35 bg-amber-300/10 text-amber-200'
                       }`}
                     >
-                      {idx === 0 && <TrendingUp size={10} className="text-[#a2d865]" />}
-                      {idx === 2 && <Sparkles size={10} className="text-amber-300" />}
+                      {idx === 0 && <TrendingUp size={11} className="text-[#a2d865]" />}
+                      {idx === 2 && <Sparkles size={11} className="text-amber-300" />}
                       {metricBadge}
                     </span>
                   </div>
@@ -522,12 +522,12 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                   <button
                     type="button"
                     onClick={() => toggleBts(item.id)}
-                    className="w-full py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-white/70 font-mono text-[9px] tracking-[0.16em] uppercase flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-98"
+                    className="w-full py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-white/80 font-mono text-xs tracking-wider uppercase flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-98 font-semibold"
                   >
                     <span>{item.btsLabel || 'BTS TECHNICALS'}</span>
                     <ChevronDown
-                      size={11}
-                      className={`transition-transform duration-300 ${isBtsOpen ? `rotate-180 ${theme.btsHighlight}` : 'text-white/50'}`}
+                      size={12}
+                      className={`transition-transform duration-300 ${isBtsOpen ? `rotate-180 ${theme.btsHighlight}` : 'text-white/60'}`}
                     />
                   </button>
 
@@ -538,25 +538,25 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.25 }}
-                        className="overflow-hidden mt-3 pt-3 border-t border-white/10 space-y-2 font-sans text-xs text-white/70"
+                        className="overflow-hidden mt-3 pt-3 border-t border-white/10 space-y-2 font-sans text-xs text-white/80"
                       >
                         {item.btsNotes.camera && (
                           <div className="space-y-0.5">
-                            <p className="font-mono text-[8.5px] text-amber-400 tracking-wider uppercase font-semibold flex items-center gap-1.5">
-                              <Camera size={11} />
+                            <p className="font-mono text-xs text-amber-400 tracking-wider uppercase font-semibold flex items-center gap-1.5">
+                              <Camera size={12} />
                               <span>Camera &amp; Optics</span>
                             </p>
-                            <p className="text-white/80 text-[11px] font-light">{item.btsNotes.camera}</p>
+                            <p className="text-white/90 text-xs font-light">{item.btsNotes.camera}</p>
                           </div>
                         )}
 
                         {(item.btsNotes.lighting || item.btsNotes.grading) && (
                           <div className="space-y-0.5">
-                            <p className="font-mono text-[8.5px] text-amber-400 tracking-wider uppercase font-semibold flex items-center gap-1.5">
-                              <Layers size={11} />
+                            <p className="font-mono text-xs text-amber-400 tracking-wider uppercase font-semibold flex items-center gap-1.5">
+                              <Layers size={12} />
                               <span>Color &amp; Lighting</span>
                             </p>
-                            <p className="text-white/80 text-[11px] font-light">
+                            <p className="text-white/90 text-xs font-light">
                               {item.btsNotes.lighting}{item.btsNotes.lighting && item.btsNotes.grading ? ' // ' : ''}{item.btsNotes.grading}
                             </p>
                           </div>
@@ -564,10 +564,10 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
 
                         {item.btsNotes.directorComment && (
                           <div className="space-y-0.5 pt-1">
-                            <p className="font-mono text-[8px] text-white/40 tracking-wider uppercase font-semibold">
+                            <p className="font-mono text-xs text-white/60 tracking-wider uppercase font-semibold">
                               Director&apos;s Craft Note
                             </p>
-                            <p className="text-white/70 text-[11px] italic font-serif leading-relaxed">
+                            <p className="text-white/85 text-xs italic font-serif leading-relaxed">
                               &ldquo;{item.btsNotes.directorComment}&rdquo;
                             </p>
                           </div>
@@ -630,10 +630,10 @@ export default function TestimonialsSection({ onSelectAction, config }: Testimon
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f5e302] to-[#c59b27] hover:brightness-110 active:scale-95 text-[#050505] font-mono text-[10px] tracking-widest uppercase font-extrabold shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f5e302] to-[#c59b27] hover:brightness-110 active:scale-95 text-[#050505] font-mono text-xs sm:text-sm tracking-wider uppercase font-extrabold shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all cursor-pointer"
           >
             <span>{activeConfig.ctaText || "START YOUR STORY"}</span>
-            <ArrowUpRight size={13} className="text-black" />
+            <ArrowUpRight size={15} className="text-black" />
           </button>
         </div>
 

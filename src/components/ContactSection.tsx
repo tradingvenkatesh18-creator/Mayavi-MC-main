@@ -267,7 +267,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
           {/* Brand Seal */}
           <div className="flex flex-col items-center gap-1 opacity-90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             <span className="font-serif text-lg tracking-[0.35em] text-[#f0ebd8] font-normal">MAYAVI</span>
-            <span className="text-[8.5px] font-mono tracking-[0.3em] text-[#f0ebd8]/60 uppercase">MEDIA CREATIONS</span>
+            <span className="text-xs font-mono tracking-[0.25em] text-[#f0ebd8]/80 uppercase">MEDIA CREATIONS</span>
           </div>
 
           {/* Category Pill with Interactive Pulse */}
@@ -276,7 +276,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
             className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#090717]/85 border border-amber-400/35 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-default transition-all"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            <span className="font-mono text-[9px] text-amber-300 tracking-[0.28em] uppercase font-bold">
+            <span className="font-mono text-xs sm:text-sm text-amber-300 tracking-[0.2em] uppercase font-bold">
               START YOUR STORY
             </span>
           </motion.div>
@@ -306,7 +306,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
             <div className="absolute top-0 left-0 w-64 h-64 bg-[#410682]/15 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#410682]/25 transition-colors duration-500" />
 
             <div className="relative z-10 space-y-4">
-              <span className="font-mono text-[8.5px] text-[#EAB308] tracking-widest uppercase block font-semibold">
+              <span className="font-mono text-xs text-[#EAB308] tracking-wider uppercase block font-bold">
                 OUR APPROACH:
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl text-white font-light leading-snug">
@@ -324,11 +324,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                   <div className="w-7 h-7 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-[#EAB308]">
                     <MapPin size={14} />
                   </div>
-                  <span className="font-mono text-[9px] font-bold text-amber-300/90 tracking-[0.25em] uppercase">
+                  <span className="font-mono text-xs font-bold text-amber-300 tracking-[0.18em] uppercase">
                     STUDIO LOCATION
                   </span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[8px] tracking-wider">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   LIVE
                 </span>
@@ -339,7 +339,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                   <h4 className="font-serif text-lg text-white font-light group-hover/loc:text-amber-100 transition-colors">
                     HYDERABAD HQ
                   </h4>
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[7.5px] tracking-wider uppercase inline-flex items-center gap-1">
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] tracking-wider uppercase inline-flex items-center gap-1">
                     <span className="w-1 h-1 rounded-full bg-emerald-400" />
                     OPEN FOR COMMISSIONS
                   </span>
@@ -347,7 +347,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                 <p className="font-sans text-xs text-white/50 font-light">
                   {cms.integrations.studioAddress || 'Yapral, 500094 Hyd Telangana'} • Hyderabad, Telangana, India
                 </p>
-                <div className="pt-1 flex items-center space-x-2 text-[9px] font-mono text-[#f7e503] tracking-widest uppercase">
+                <div className="pt-1 flex items-center space-x-2 text-xs font-mono text-[#f7e503] tracking-wider uppercase">
                   <Globe size={11} className="text-[#f7e503]" />
                   <span>www.mayavistudios.com</span>
                 </div>
@@ -357,7 +357,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
             {/* DIRECT CONNECT HOTLINE */}
             <div className="relative z-10 space-y-3 pt-2">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[8.5px] font-bold text-white/50 tracking-[0.25em] uppercase">
+                <span className="font-mono text-xs font-bold text-white/70 tracking-[0.18em] uppercase">
                   DIRECT CONNECT HOTLINE
                 </span>
                 <a
@@ -376,7 +376,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                   title="Send Email"
                 >
                   <Mail size={13} className="text-amber-400 shrink-0" />
-                  <span className="font-mono text-[10px] hidden sm:inline">Email</span>
+                  <span className="font-mono text-xs hidden sm:inline font-medium">Email</span>
                 </a>
 
                 {/* WhatsApp Link */}
@@ -388,7 +388,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                   title="WhatsApp Direct"
                 >
                   <Phone size={13} className="text-[#a2d865] shrink-0" />
-                  <span className="font-mono text-[10px] hidden sm:inline">WhatsApp</span>
+                  <span className="font-mono text-xs hidden sm:inline font-medium">WhatsApp</span>
                 </a>
 
                 {/* Instagram Link */}
@@ -400,7 +400,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                   title="Instagram"
                 >
                   <Instagram size={13} className="text-amber-400 shrink-0" />
-                  <span className="font-mono text-[10px] hidden sm:inline">Instagram</span>
+                  <span className="font-mono text-xs hidden sm:inline font-medium">Instagram</span>
                 </a>
               </div>
             </div>
@@ -417,7 +417,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
             <div className="relative z-10 space-y-4">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[#EAB308]">
                 <Sparkles size={12} />
-                <span className="font-mono text-[8.5px] font-bold tracking-[0.25em] uppercase">
+                <span className="font-mono text-xs font-bold tracking-[0.18em] uppercase">
                   PRODUCTION BRIEF
                 </span>
               </div>
@@ -433,7 +433,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
 
             {/* SERVICE TAGS (INTERACTIVE QUICK SELECTOR CHIPS) */}
             <div className="relative z-10 space-y-2.5">
-              <span className="font-mono text-[8px] text-white/40 tracking-widest uppercase block font-semibold">
+              <span className="font-mono text-xs text-white/60 tracking-wider uppercase block font-semibold">
                 SERVICE TAGS (CLICK TO SELECT)
               </span>
               <div className="flex flex-wrap gap-2">
@@ -446,7 +446,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                         setActiveTag(tag);
                         setContactOpen(true);
                       }}
-                      className={`px-3.5 py-1.5 rounded-full text-[10px] font-mono tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                         isSelected
                           ? 'bg-amber-400/20 border-amber-400 text-amber-200 shadow-[0_0_15px_rgba(234,179,8,0.3)] scale-[1.03]'
                           : 'bg-white/[0.04] hover:bg-amber-400/15 border-white/10 hover:border-amber-400/40 text-white/80 hover:text-amber-200'
@@ -468,7 +468,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
                 <span className="w-2 h-2 rounded-full bg-white/20" />
                 <span className="w-2 h-2 rounded-full bg-white/20" />
               </div>
-              <span className="font-mono text-[8.5px] text-white/40 tracking-wider">
+              <span className="font-mono text-xs text-white/60 tracking-wider font-medium">
                 01 Scope • 02 Vision • 03 Timeline • 04 Launch
               </span>
             </div>
@@ -506,7 +506,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
               <Clock size={15} />
             </div>
             <div>
-              <span className="block text-white/30 font-mono text-[7.5px] uppercase tracking-widest">RESPONSE TIME</span>
+              <span className="block text-white/50 font-mono text-[11px] uppercase tracking-wider">RESPONSE TIME</span>
               <span className="font-mono text-xs sm:text-sm text-white/90 font-bold tracking-wider group-hover:text-amber-200 transition-colors">&lt; 2 HOURS // RAPID DISPATCH</span>
             </div>
           </div>
@@ -517,7 +517,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
               <Globe size={15} />
             </div>
             <div>
-              <span className="block text-white/30 font-mono text-[7.5px] uppercase tracking-widest">GLOBAL DISPATCH</span>
+              <span className="block text-white/50 font-mono text-[11px] uppercase tracking-wider">GLOBAL DISPATCH</span>
               <span className="font-mono text-xs sm:text-sm text-white/90 font-bold tracking-wider group-hover:text-emerald-200 transition-colors">HYD HQ // GLOBAL DIRECT</span>
             </div>
           </div>
@@ -528,7 +528,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ cms, setContactO
               <ShieldCheck size={15} />
             </div>
             <div>
-              <span className="block text-white/30 font-mono text-[7.5px] uppercase tracking-widest">CONFIDENTIALITY</span>
+              <span className="block text-white/50 font-mono text-[11px] uppercase tracking-wider">CONFIDENTIALITY</span>
               <span className="font-mono text-xs sm:text-sm text-white/90 font-bold tracking-wider group-hover:text-rose-200 transition-colors">100% STRICT NDA GUARANTEED</span>
             </div>
           </div>

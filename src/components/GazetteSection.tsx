@@ -268,14 +268,14 @@ export default function GazetteSection({
           {/* Dual Pill Indicators */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c120c]/80 border border-[#d4af37]/35 shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-md">
-              <span className="font-mono text-[9px] tracking-[0.22em] text-[#e5c365] uppercase font-bold">
+              <span className="font-mono text-xs tracking-wider text-[#e5c365] uppercase font-bold">
                 MAYAVI NEWS &amp; TIPS // 2026
               </span>
             </div>
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a1e14]/80 border border-[#10b981]/35 shadow-[0_0_15px_rgba(16,185,129,0.15)] backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
-              <span className="font-mono text-[9px] tracking-[0.2em] text-[#34d399] uppercase font-bold">
+              <span className="font-mono text-xs tracking-wider text-[#34d399] uppercase font-bold">
                 UPDATED WEEKLY
               </span>
             </div>
@@ -351,7 +351,7 @@ export default function GazetteSection({
                         <span className={`w-1.5 h-1.5 rounded-full ${config.dotColor}`} />
                         <span>{config.badgeLabel}</span>
                       </div>
-                      <span className="font-mono text-[8px] tracking-widest uppercase text-white/70">
+                      <span className="font-mono text-xs tracking-wider uppercase text-white/80">
                         {post.date || 'OCTOBER 2026'}
                       </span>
                     </div>
@@ -387,7 +387,7 @@ export default function GazetteSection({
                     {/* Author Byline */}
                     <div className="flex items-center gap-2.5">
                       <div className="w-6 h-6 rounded-full border border-[#d4af37]/40 bg-gradient-to-tr from-[#1a0f2b] to-[#38165c] flex items-center justify-center shrink-0">
-                        <span className="font-serif italic font-bold text-[9px] text-[#f0ebd8]">VS</span>
+                        <span className="font-serif italic font-bold text-xs text-[#f0ebd8]">VS</span>
                       </div>
                       <span className="font-sans text-xs text-white/80 font-medium truncate max-w-[120px]">
                         {post.author ? post.author.split('//')[0].trim() : founderName}
@@ -548,13 +548,13 @@ export default function GazetteSection({
                     <span className="px-3 py-1 rounded-full bg-[#410682]/60 text-[#f5e302] font-mono text-[8px] tracking-widest uppercase font-bold border border-[#d4af37]/40">
                       {activeModalPost.category.replace('_', ' ')}
                     </span>
-                    <span className="text-white/40 font-mono text-[8.5px] tracking-wider uppercase">
+                    <span className="text-white/60 font-mono text-xs tracking-wider uppercase">
                       {activeModalPost.date}
                     </span>
                   </div>
 
                   {activeModalPost.badgeText && (
-                    <p className="font-mono text-[9px] tracking-[0.25em] text-[#f5e302] uppercase font-bold">
+                    <p className="font-mono text-xs tracking-wider text-[#f5e302] uppercase font-bold">
                       {activeModalPost.badgeText}
                     </p>
                   )}
@@ -573,7 +573,7 @@ export default function GazetteSection({
                     <p className="font-sans text-xs text-white font-medium">
                       {activeModalPost.author || founderName}
                     </p>
-                    <p className="font-mono text-[8px] tracking-[0.2em] text-[#e5c365] uppercase font-semibold">
+                    <p className="font-mono text-xs tracking-wider text-[#e5c365] uppercase font-semibold">
                       Founder &amp; Executive Editor // Mayavi Media
                     </p>
                   </div>
@@ -598,7 +598,7 @@ export default function GazetteSection({
                 {/* Modal Action CTA */}
                 {activeModalPost.actionUrl && (
                   <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <span className="text-white/40 font-mono text-[8px] tracking-wider uppercase">
+                    <span className="text-white/60 font-mono text-xs tracking-wider uppercase">
                       Official Mayavi Studio Article
                     </span>
 

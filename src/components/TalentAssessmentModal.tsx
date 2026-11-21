@@ -961,13 +961,13 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
             />
             <div className="leading-none border-l border-white/10 pl-3">
               <div className="font-display font-bold text-sm tracking-[0.14em] text-white uppercase">MAYAVI</div>
-              <div className="font-mono text-[8.5px] tracking-[0.2em] text-amber-400/80 uppercase mt-0.5">MEDIA CREATIONS</div>
+              <div className="font-mono text-xs tracking-[0.2em] text-amber-400/80 uppercase mt-0.5">MEDIA CREATIONS</div>
             </div>
           </div>
 
           <div className="hidden sm:block h-6 w-[1px] bg-white/10 mx-1" />
 
-          <div className="hidden sm:block font-mono text-[10px] tracking-[0.25em] text-white/60 uppercase">
+          <div className="hidden sm:block font-mono text-xs tracking-[0.25em] text-white/60 uppercase">
             AUDITION ENGINE <span className="text-amber-400/90 mx-1">//</span> 2026 COHORT
           </div>
         </div>
@@ -977,7 +977,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
           <span>{isCompleted ? "DIRECTOR'S EVALUATION ENGINE" : "DIRECTOR'S ROOM // SCREEN TEST"}</span>
         </div>
 
-        <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] text-white/50">
+        <div className="flex items-center gap-4 font-mono text-xs tracking-[0.2em] text-white/50">
           <div className="hidden sm:flex items-center gap-2 text-white/40">
             <span>ON-CAMERA AUDITION</span>
             <span className="text-white/20">|</span>
@@ -988,7 +988,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
           <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
-            <span className="text-amber-400 font-semibold tracking-wider text-[9px]">REC</span>
+            <span className="text-amber-400 font-semibold tracking-wider text-xs">REC</span>
           </div>
 
           <button 
@@ -1046,10 +1046,10 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
           <>
             {/* Left Filmstrip Sidebar - Liquid Glass Framing */}
             <aside className="hidden md:flex flex-col items-center shrink-0 w-24 pt-2">
-              <div className="font-mono text-[9px] tracking-[0.3em] text-amber-400 uppercase text-center mb-0.5">
+              <div className="font-mono text-xs tracking-[0.3em] text-amber-400 uppercase text-center mb-0.5">
                 ACTVS 0{currentScene.actNum}
               </div>
-              <div className="font-mono text-[10px] tracking-[0.22em] text-white/85 font-bold uppercase text-center mb-4">
+              <div className="font-mono text-xs tracking-[0.22em] text-white/85 font-bold uppercase text-center mb-4">
                 {currentScene.actName}
               </div>
 
@@ -1081,14 +1081,14 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                   >
                     <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30" />
-                    <span className="absolute bottom-1 left-2 font-mono text-[9px] font-bold text-amber-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                    <span className="absolute bottom-1 left-2 font-mono text-xs font-bold text-amber-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                       {item.roman}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="font-mono text-[8.5px] tracking-[0.28em] text-white/40 text-center uppercase leading-tight">
+              <div className="font-mono text-xs tracking-[0.28em] text-white/40 text-center uppercase leading-tight">
                 <div>06 SECTIONS</div>
                 <div className="text-amber-400/70">{SCENES.length} TAKES</div>
               </div>
@@ -1114,7 +1114,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                     {/* Toggle Director's Insight Note */}
                     <button
                       onClick={() => setShowSceneInsight(!showSceneInsight)}
-                      className="px-3 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 text-[9.5px] font-mono tracking-widest uppercase transition-all flex items-center gap-1.5 cursor-pointer backdrop-blur-md shadow-[0_0_12px_rgba(234,179,8,0.15)]"
+                      className="px-3 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 text-xs font-mono tracking-widest uppercase transition-all flex items-center gap-1.5 cursor-pointer backdrop-blur-md shadow-[0_0_12px_rgba(234,179,8,0.15)]"
                     >
                       <Info size={11} />
                       <span>{showSceneInsight ? "HIDE DIRECTOR'S NOTE" : "DIRECTOR'S INSIGHT"}</span>
@@ -1131,7 +1131,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                         className="overflow-hidden"
                       >
                         <div className="p-4 rounded-2xl bg-[#0B0914]/90 backdrop-blur-xl border border-amber-400/35 text-xs text-white/85 font-mono leading-relaxed space-y-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
-                          <div className="text-amber-400 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2">
+                          <div className="text-amber-400 font-bold uppercase tracking-widest text-xs flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                             DIRECTOR'S EVALUATION CRITERIA:
                           </div>
@@ -1148,7 +1148,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
                   {/* Editorial Screenplay Excerpt Box */}
                   <div className="relative pl-6 sm:pl-8 py-3 border-l-2 border-amber-400/50 bg-gradient-to-r from-white/[0.03] to-transparent rounded-r-2xl">
-                    <div className="font-mono text-[9px] tracking-[0.3em] text-amber-400/70 uppercase mb-2 flex items-center gap-2">
+                    <div className="font-mono text-xs tracking-[0.3em] text-amber-400/70 uppercase mb-2 flex items-center gap-2">
                       <span>// SCREENPLAY EXCERPT</span>
                       <span className="text-white/20">|</span>
                       <span>INT. SOUNDSTAGE</span>
@@ -1163,7 +1163,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                   {/* Metadata Tags */}
                   <div className="flex flex-wrap items-center gap-2.5 pt-1">
                     {currentScene.tags.map(t => (
-                      <span key={t} className="px-3 py-1 rounded-full bg-white/[0.04] backdrop-blur-md border border-white/10 font-mono text-[9px] tracking-[0.22em] text-white/70 uppercase">
+                      <span key={t} className="px-3 py-1 rounded-full bg-white/[0.04] backdrop-blur-md border border-white/10 font-mono text-xs tracking-[0.22em] text-white/70 uppercase">
                         {t}
                       </span>
                     ))}
@@ -1222,7 +1222,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                               animate={{ opacity: 1, y: 0 }}
                               className="mt-2 pt-2 border-t border-amber-400/25 flex items-start gap-2 bg-amber-400/[0.04] p-2.5 rounded-xl backdrop-blur-sm relative z-10 text-left"
                             >
-                              <span className="font-mono text-[8.5px] uppercase tracking-widest text-amber-400 font-bold shrink-0 mt-0.5 px-1.5 py-0.5 rounded bg-amber-400/15 border border-amber-400/30">
+                              <span className="font-mono text-xs uppercase tracking-widest text-amber-400 font-bold shrink-0 mt-0.5 px-1.5 py-0.5 rounded bg-amber-400/15 border border-amber-400/30">
                                 TAKE
                               </span>
                               <span className="font-body text-xs text-amber-200/90 leading-relaxed">
@@ -1253,7 +1253,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                 {/* Dossier Top Banner - #13 Editorial + #22 Liquid Glass */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-amber-400/20 gap-4">
                   <div>
-                    <div className="font-mono text-[10px] tracking-[0.35em] text-[#EAB308] uppercase mb-1 flex items-center gap-2">
+                    <div className="font-mono text-xs tracking-[0.35em] text-[#EAB308] uppercase mb-1 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#EAB308]" />
                       // AUDITION DOSSIER NO: {dossierId}
                     </div>
@@ -1262,7 +1262,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                     </h1>
                   </div>
 
-                  <div className="px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/40 text-amber-300 font-mono text-[10px] tracking-widest uppercase shrink-0 backdrop-blur-md shadow-[0_0_15px_rgba(234,179,8,0.2)]">
+                  <div className="px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/40 text-amber-300 font-mono text-xs tracking-widest uppercase shrink-0 backdrop-blur-md shadow-[0_0_15px_rgba(234,179,8,0.2)]">
                     {archetype.badge}
                   </div>
                 </div>
@@ -1282,7 +1282,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                     { label: "NARRATIVE IMAGINATION", val: scorePercentages.imag },
                   ].map(gauge => (
                     <div key={gauge.label} className="p-4 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/[0.05] to-white/[0.015] border border-white/15 hover:border-amber-400/50 shadow-[0_4px_20px_rgba(0,0,0,0.4)] transition-all">
-                      <div className="font-mono text-[8.5px] tracking-[0.2em] text-[#EAB308] uppercase mb-1.5">{gauge.label}</div>
+                      <div className="font-mono text-xs tracking-[0.2em] text-[#EAB308] uppercase mb-1.5">{gauge.label}</div>
                       <div className="font-serif font-bold text-2xl sm:text-3xl text-white flex items-baseline gap-1">
                         {gauge.val}<span className="text-xs text-amber-400/70 font-mono">%</span>
                       </div>
@@ -1314,7 +1314,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                             playClick();
                             setActiveEngineTab(tab.id as any);
                           }}
-                          className={`flex items-center gap-2 px-5 py-3.5 font-mono text-[10px] tracking-widest uppercase transition-all shrink-0 cursor-pointer border-b-2 ${
+                          className={`flex items-center gap-2 px-5 py-3.5 font-mono text-xs tracking-widest uppercase transition-all shrink-0 cursor-pointer border-b-2 ${
                             isActive 
                               ? 'border-amber-400 text-amber-400 bg-amber-400/[0.08] font-bold' 
                               : 'border-transparent text-white/50 hover:text-white hover:bg-white/[0.02]'
@@ -1340,7 +1340,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           className="space-y-6"
                         >
                           <div className="space-y-2">
-                            <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">
+                            <div className="font-mono text-xs tracking-widest text-amber-400 uppercase">
                               // THE SCIENCE BEHIND YOUR EVALUATION
                             </div>
                             <h3 className="font-display font-bold text-xl text-white">
@@ -1354,7 +1354,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             {/* Key Strengths */}
                             <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-2">
-                              <div className="font-mono text-[9px] tracking-widest text-green-400 uppercase flex items-center gap-1.5 font-bold">
+                              <div className="font-mono text-xs tracking-widest text-green-400 uppercase flex items-center gap-1.5 font-bold">
                                 <CheckCircle2 size={12} />
                                 <span>ON-CAMERA CORE STRENGTHS</span>
                               </div>
@@ -1370,7 +1370,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
                             {/* Blindspot & Growth Vector */}
                             <div className="p-4 rounded-xl bg-amber-500/[0.04] border border-amber-400/20 space-y-2">
-                              <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase flex items-center gap-1.5 font-bold">
+                              <div className="font-mono text-xs tracking-widest text-amber-400 uppercase flex items-center gap-1.5 font-bold">
                                 <Info size={12} />
                                 <span>DIRECTOR'S BLINDSPOT ADVICE</span>
                               </div>
@@ -1391,7 +1391,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           exit={{ opacity: 0, y: -8 }}
                           className="space-y-4"
                         >
-                          <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">
+                          <div className="font-mono text-xs tracking-widest text-amber-400 uppercase">
                             {`// COMPLETE ${SCENES.length}-SCENE DIRECTOR'S AUDIT LOG`}
                           </div>
 
@@ -1401,7 +1401,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                               const chosenOpt = scene.options[chosenIdx] || scene.options[0];
                               return (
                                 <div key={scene.actHeader} className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 space-y-1.5">
-                                  <div className="flex items-center justify-between font-mono text-[9px]">
+                                  <div className="flex items-center justify-between font-mono text-xs">
                                     <span className="text-amber-400 font-bold uppercase">{scene.actHeader}</span>
                                     <span className="text-white/40 uppercase">METHOD: {chosenOpt.actingMethod}</span>
                                   </div>
@@ -1411,7 +1411,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                                   </div>
 
                                   <div className="pt-1.5 border-t border-white/[0.06] text-xs font-mono text-amber-200/80 leading-relaxed">
-                                    <span className="text-amber-400 uppercase font-semibold text-[9.5px] mr-1.5">[ DIRECTOR'S CRITIQUE ]:</span>
+                                    <span className="text-amber-400 uppercase font-semibold text-xs mr-1.5">[ DIRECTOR'S CRITIQUE ]:</span>
                                     {chosenOpt.directorCritique}
                                   </div>
                                 </div>
@@ -1430,7 +1430,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           exit={{ opacity: 0, y: -8 }}
                           className="space-y-5"
                         >
-                          <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">
+                          <div className="font-mono text-xs tracking-widest text-amber-400 uppercase">
                             // ACTING TECHNIQUE & SCREEN PRESENCE PROFILE
                           </div>
 
@@ -1445,14 +1445,14 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-1.5">
-                              <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">EXPRESSION & VOCAL CADENCE</div>
+                              <div className="font-mono text-xs tracking-widest text-amber-400 uppercase">EXPRESSION & VOCAL CADENCE</div>
                               <p className="font-body text-xs text-white/80 leading-relaxed">
                                 Controlled vocal modulation, deliberate pauses, and expressive micro-reactions that translate with natural intensity on screen.
                               </p>
                             </div>
 
                             <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-1.5">
-                              <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">ON-SCREEN DYNAMICS & MOOD</div>
+                              <div className="font-mono text-xs tracking-widest text-amber-400 uppercase">ON-SCREEN DYNAMICS & MOOD</div>
                               <p className="font-body text-xs text-white/80 leading-relaxed">
                                 High adaptability across intimate dramatic close-ups, dynamic scene partner exchanges, and commercial screen presence.
                               </p>
@@ -1470,7 +1470,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           exit={{ opacity: 0, y: -8 }}
                           className="space-y-5"
                         >
-                          <div className="font-mono text-[9px] tracking-widest text-amber-400 uppercase">
+                          <div className="font-mono text-xs tracking-widest text-amber-400 uppercase">
                             // ROLES & SCRIPT COMPATIBILITY
                           </div>
 
@@ -1489,7 +1489,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
                           </div>
 
                           <div className="p-4 rounded-xl bg-amber-500/[0.06] border border-amber-400/25">
-                            <div className="font-mono text-[9px] tracking-widest text-[#EAB308] uppercase mb-1">
+                            <div className="font-mono text-xs tracking-widest text-[#EAB308] uppercase mb-1">
                               RECOMMENDED ACADEMY COHORT:
                             </div>
                             <div className="font-display font-semibold text-base text-white">
@@ -1560,7 +1560,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
       {/* Bottom Bar Controls - #22 Liquid Glass & HUD */}
       {!isCompleted && (
         <footer className="relative z-30 px-6 sm:px-12 py-5 flex items-center justify-between border-t border-amber-400/20 bg-[#0B0914]/80 backdrop-blur-2xl shadow-[0_-4px_30px_rgba(0,0,0,0.6)] print:hidden">
-          <div className="flex items-center gap-2 font-mono text-[9.5px] tracking-[0.25em] text-white/50 uppercase">
+          <div className="flex items-center gap-2 font-mono text-xs tracking-[0.25em] text-white/50 uppercase">
             <span className="text-amber-400/80">[</span>
             <span>EVALUATION: SCREEN ACTING & PERFORMANCE ARCHETYPE</span>
             <span className="text-amber-400/80">]</span>
@@ -1587,7 +1587,7 @@ export function TalentAssessmentModal({ isOpen, onClose }: TalentAssessmentModal
             </button>
           </div>
 
-          <div className="hidden sm:flex items-center gap-3 font-mono text-[9.5px] tracking-[0.28em] text-white/50 uppercase">
+          <div className="hidden sm:flex items-center gap-3 font-mono text-xs tracking-[0.28em] text-white/50 uppercase">
             <span className="w-8 h-[1px] bg-amber-400/30" />
             <span className="text-amber-400/80">BUILDING PEOPLE BEFORE BRANDS</span>
           </div>
